@@ -5,17 +5,21 @@ import java.util.ArrayList;
 
 import org.xml.sax.SAXException;
 
-import nl.matshofman.saxrssreader.RssFeed;
-import nl.matshofman.saxrssreader.RssItem;
-import nl.matshofman.saxrssreader.RssReader;
+import com.shirwa.simplistic_rss.RssItem;
+import com.shirwa.simplistic_rss.RssReader;
+
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+import at.theengine.android.simple_rss2_android.SimpleRss2Parser;
 
 public class MainActivity extends Activity {
+
 	private TextView textview;
 
 	@Override
@@ -25,26 +29,27 @@ public class MainActivity extends Activity {
 	}
 
 	@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        textview  = (TextView)findViewById(R.id.textView1);
-        textview.setText("asdasdasdsa");
-        RssFeed feed;
-		try {
-			feed = RssReader.read("http://www.cnet.com/rss/reviews/");
-			
+	public boolean onCreateOptionsMenu(Menu menu) {
 		
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-Log.i("loi",e.getMessage());		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		textview = (TextView) findViewById(R.id.textView1);
+		textview.setText("asdasdasdsa");
+		StrictMode.ThreadPolicy policy = 
+		        new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
+		RssReader rssReader = new RssReader("http://www.nasa.gov/rss/dyn/breaking_news.rss");
+
+		try {
+			ArrayList<RssItem> RssItems = (ArrayList<RssItem>) rssReader.getItems();
+			Log.d("a",RssItems.get(0).toString());
+			Toast.makeText(getApplicationContext(), RssItems.get(0).toString(), Toast.LENGTH_LONG);
+		} catch (Exception e) {
+			Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);			e.printStackTrace();
 		}
 
-      
-        return true;
-    }
+		return true;
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
