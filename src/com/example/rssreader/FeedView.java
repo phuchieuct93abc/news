@@ -18,7 +18,7 @@ public class FeedView extends Activity {
 	@AfterViews
 	void bindLinkToView(){
 		webView.setWebViewClient(new WebViewClient());
-	//	webView.loadUrl(link);
+		webView.loadUrl(link);
 		
 	}
 
