@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.aphidmobile.flip.FlipViewController;
+import com.feed.FeedContent;
 import com.feed.NoteViewAdapter;
 import com.services.FeedService;
 
@@ -39,6 +40,7 @@ public class FeedView extends Activity {
 
 	@Bean
 	FeedService feedService;
+	FeedContent feedContent;
 
 	String contentHTML;
 	NoteViewAdapter noteViewAdapter;
@@ -47,35 +49,23 @@ public class FeedView extends Activity {
 
 	@Background
 	void runBackground() {
-		Document doc;
-
-		try {
-
-			// need http protocol
-			doc = Jsoup.connect(link).get();
-
-			Elements links = doc.getElementsByTag("h1");
-			for (Element link : links) {
-
-				Log.i("hieu", link.text());
-
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		setHTML(feedService.getResponseFromUrl(link));
+		feedContent= feedService.getFeedContent(link);
+		Log.i("hieu",feedContent.toString());
+	//	setHTML(feedService.getResponseFromUrl(link));
 
 	}
 
 	@UiThread
 	void setHTML(String html) {
-		ArrayList<String> notes = new ArrayList<String>();
+		
+		
+		
+		/*ArrayList<String> notes = new ArrayList<String>();
 
 		notes.add(html);
 		notes.add(html);
 		notes.add(html);
-		flipView.setAdapter(new NoteViewAdapter(this, notes));
+		flipView.setAdapter(new NoteViewAdapter(this, notes));*/
 
 	}
 
