@@ -1,39 +1,38 @@
 package com.feed;
 
+import org.jsoup.nodes.Element;
+
 public class FeedContent {
-	String title, summary, content;
+	Element title, summary, content;
 
 	public String getSummary() {
-		return summary;
+		return summary.text();
 	}
-
-	public void setSummary(String summary) {
-		this.summary = summary;
-	}
-
-	public FeedContent(String title, String summary, String content) {
-		this.title = title;
-		this.summary = summary;
-		this.content = content;
+	public String getSummaryHTML() {
+		return summary.html();
 	}
 
 	public String getTitle() {
-		return title;
+		return title.text();
 	}
-
-	public void setTitle(String title) {
-		this.title = title;
+	public String getTitleHTML() {
+		return title.html();
 	}
 
 	public String getContent() {
-		return content;
+		return content.text();
+	}
+	public String getContentHTML() {
+		return content.html();
 	}
 
-	public void setContent(String content) {
+
+
+	public FeedContent(Element title, Element summary, Element content) {
+		this.title = title;
+		this.summary = summary;
 		this.content = content;
 	}
-	@Override
-	public String toString() {
-		return this.title;
-	}
+
+	
 }

@@ -37,10 +37,14 @@ public class FeedService implements FeedServiceInterface {
 
 		try {
 			doc = Jsoup.connect(url).get();
-			String title = doc.getElementsByTag("h1").get(0).text();
-			String summary = doc.getElementsByClass("summary").get(0).text();
-//			String content = doc.getElementById("baomoiContent").html();
-			String content = "ABCDEF";
+
+			Element title = doc.getElementsByAttributeValue("itemprop",
+					"headline").get(0);
+
+			Element summary = doc.getElementsByAttributeValue("itemprop",
+					"description").get(0);
+			Element content = doc.getElementsByAttributeValue("itemprop",
+					"articleBody").get(0);
 			return new FeedContent(title, summary, content);
 
 		} catch (IOException e) {
@@ -48,5 +52,4 @@ public class FeedService implements FeedServiceInterface {
 			return null;
 		}
 	}
-
 }

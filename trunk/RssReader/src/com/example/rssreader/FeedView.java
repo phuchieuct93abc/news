@@ -1,29 +1,24 @@
 package com.example.rssreader;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.UiThread;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import org.androidannotations.annotations.ViewById;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
+import android.webkit.WebView;
+import android.widget.TextView;
 
 import com.aphidmobile.flip.FlipViewController;
 import com.feed.FeedContent;
 import com.feed.NoteViewAdapter;
 import com.services.FeedService;
 
-@EActivity
+@EActivity(R.layout.view)
 public class FeedView extends Activity {
 	/*
 	 * @ViewById WebView webView;
@@ -37,7 +32,11 @@ public class FeedView extends Activity {
 	 */
 	@Extra
 	String link;
-
+	
+	@ViewById
+	TextView title;
+	@ViewById
+	WebView content;
 	@Bean
 	FeedService feedService;
 	FeedContent feedContent;
@@ -50,13 +49,16 @@ public class FeedView extends Activity {
 	@Background
 	void runBackground() {
 		feedContent= feedService.getFeedContent(link);
-		Log.i("hieu",feedContent.toString());
-	//	setHTML(feedService.getResponseFromUrl(link));
-
+		setHTML();		
+	
 	}
 
 	@UiThread
-	void setHTML(String html) {
+	void setHTML() {
+		title.setText(feedContent.getTitle());
+		content.loadData(feedContent.getContentHTML(), "text/html; charset=UTF-8", null);
+
+
 		
 		
 		
@@ -74,7 +76,7 @@ public class FeedView extends Activity {
 		runBackground();
 	};
 
-	@Override
+/*	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -82,6 +84,6 @@ public class FeedView extends Activity {
 
 		setContentView(flipView);
 
-	}
+	}*/
 
 }
