@@ -73,13 +73,14 @@ public class FeedService implements FeedServiceInterface {
 	}
 
 	@Override
-	public void parseContent(Document doc) {
+	public List<Content> parseContent(Document doc) {
 		List<Content> contentList = new ArrayList<Content>();
 
 		for (Element element : doc.getElementsByTag("body").get(0).children()) {
 			addContent(element, contentList);
 
 		}
+		return contentList;
 	}
 
 }

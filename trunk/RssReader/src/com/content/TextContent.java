@@ -17,4 +17,9 @@ public class TextContent extends Content {
 	public void setText(String text) {
 		this.text = text;
 	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.text;
+	}
 }
