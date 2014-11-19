@@ -1,6 +1,7 @@
 package com.services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.androidannotations.annotations.EBean;
@@ -11,6 +12,8 @@ import org.jsoup.select.Elements;
 
 import android.util.Log;
 
+import com.content.Content;
+import com.content.TextContent;
 import com.feed.FeedContent;
 import com.shirwa.simplistic_rss.RssItem;
 import com.shirwa.simplistic_rss.RssReader;
@@ -52,4 +55,31 @@ public class FeedService implements FeedServiceInterface {
 			return null;
 		}
 	}
+
+	private void addContent(Element element,	List<Content>  contentList){
+		
+		if(element.ownText().length() >0){
+			contentList.add(new TextContent(element.ownText()));
+		}
+		if(element.children().size() !=0){
+			for(Element childElement : element.children()){
+				addContent(childElement,contentList);
+				
+				
+			}
+			
+		}
+		
+	}
+
+	@Override
+	public void parseContent(Document doc) {
+		List<Content> contentList = new ArrayList<Content>();
+
+		for (Element element : doc.getElementsByTag("body").get(0).children()) {
+			addContent(element, contentList);
+
+		}
+	}
+
 }
