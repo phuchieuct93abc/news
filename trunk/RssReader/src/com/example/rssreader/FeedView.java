@@ -1,5 +1,8 @@
 package com.example.rssreader;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
@@ -7,13 +10,19 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import android.app.Activity;
-import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.aphidmobile.flip.FlipViewController;
+import com.content.Content;
+import com.content.ImageContent;
+import com.content.TextContent;
 import com.feed.FeedContent;
 import com.feed.NoteViewAdapter;
 import com.services.FeedService;
@@ -32,7 +41,7 @@ public class FeedView extends Activity {
 	 */
 	@Extra
 	String link;
-	
+
 	@ViewById
 	TextView title;
 	@ViewById
@@ -44,30 +53,34 @@ public class FeedView extends Activity {
 	String contentHTML;
 	NoteViewAdapter noteViewAdapter;
 	FlipViewController flipView;
-	
 
 	@Background
 	void runBackground() {
-		feedContent= feedService.getFeedContent(link);
-		setHTML();		
-	
+		feedContent = feedService.getFeedContent(link);
+		setHTML();
+		Document doc = Jsoup.parseBodyFragment(feedContent.getContentHTML());
+		feedService.parseContent(doc);
+
+		/*
+		 * contentList.add(new TextContent("ABCDEF")); contentList.add(new
+		 * ImageContent("http://")); TextContent text =
+		 * (TextContent)contentList.get(0);
+		 */
+
 	}
 
 	@UiThread
 	void setHTML() {
 		title.setText(feedContent.getTitle());
-		content.loadData(feedContent.getContentHTML(), "text/html; charset=UTF-8", null);
+		content.loadData(feedContent.getContentHTML(),
+				"text/html; charset=UTF-8", null);
 
-
-		
-		
-		
-		/*ArrayList<String> notes = new ArrayList<String>();
-
-		notes.add(html);
-		notes.add(html);
-		notes.add(html);
-		flipView.setAdapter(new NoteViewAdapter(this, notes));*/
+		/*
+		 * ArrayList<String> notes = new ArrayList<String>();
+		 * 
+		 * notes.add(html); notes.add(html); notes.add(html);
+		 * flipView.setAdapter(new NoteViewAdapter(this, notes));
+		 */
 
 	}
 
@@ -76,14 +89,13 @@ public class FeedView extends Activity {
 		runBackground();
 	};
 
-/*	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		flipView = new FlipViewController(this, FlipViewController.VERTICAL);
-
-		setContentView(flipView);
-
-	}*/
+	/*
+	 * @Override protected void onCreate(Bundle savedInstanceState) {
+	 * super.onCreate(savedInstanceState); flipView = new
+	 * FlipViewController(this, FlipViewController.VERTICAL);
+	 * setContentView(flipView);
+	 * 
+	 * }
+	 */
 
 }
