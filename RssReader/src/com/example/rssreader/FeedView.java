@@ -59,7 +59,10 @@ public class FeedView extends Activity {
 		feedContent = feedService.getFeedContent(link);
 		setHTML();
 		Document doc = Jsoup.parseBodyFragment(feedContent.getContentHTML());
-		feedService.parseContent(doc);
+		List<Content> contents = feedService.parseContent(doc);
+		for(Content content : contents){
+			Log.i("hieu",((TextContent)content).toString());
+		}
 
 		/*
 		 * contentList.add(new TextContent("ABCDEF")); contentList.add(new

@@ -3,6 +3,7 @@ import java.util.List;
 
 import org.jsoup.nodes.Document;
 
+import com.content.Content;
 import com.feed.FeedContent;
 import com.shirwa.simplistic_rss.RssItem;
 
@@ -11,5 +12,5 @@ List<RssItem> getFeed(String source);
 
 FeedContent getFeedContent(String url);
 
-void parseContent(Document doc);
+List<Content> parseContent(Document doc);
 }
