@@ -1,6 +1,5 @@
 package com.example.rssreader;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.androidannotations.annotations.AfterViews;
@@ -12,16 +11,15 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
 import android.app.Activity;
 import android.util.Log;
 import android.webkit.WebView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aphidmobile.flip.FlipViewController;
 import com.content.Content;
-import com.content.ImageContent;
 import com.content.TextContent;
 import com.feed.FeedContent;
 import com.feed.NoteViewAdapter;
@@ -45,6 +43,8 @@ public class FeedView extends Activity {
 	@ViewById
 	TextView title;
 	@ViewById
+	LinearLayout layout;
+	@ViewById
 	WebView content;
 	@Bean
 	FeedService feedService;
@@ -57,12 +57,10 @@ public class FeedView extends Activity {
 	@Background
 	void runBackground() {
 		feedContent = feedService.getFeedContent(link);
-		setHTML();
 		Document doc = Jsoup.parseBodyFragment(feedContent.getContentHTML());
 		List<Content> contents = feedService.parseContent(doc);
-		for(Content content : contents){
-			Log.i("hieu",((TextContent)content).toString());
-		}
+		setHTML(contents);
+
 
 		/*
 		 * contentList.add(new TextContent("ABCDEF")); contentList.add(new
@@ -73,10 +71,17 @@ public class FeedView extends Activity {
 	}
 
 	@UiThread
-	void setHTML() {
-		title.setText(feedContent.getTitle());
-		content.loadData(feedContent.getContentHTML(),
-				"text/html; charset=UTF-8", null);
+	void setHTML(List<Content> contents) {
+		
+		for(Content content : contents){
+			TextView text = new TextView(getApplicationContext());
+			text.setText(((TextContent)content).toString());
+			layout.addView(text);
+			Log.i("hieu",((TextContent)content).toString());
+		}
+		//title.setText(feedContent.getTitle());
+/*		content.loadData(feedContent.getContentHTML(),
+				"text/html; charset=UTF-8", null);*/
 
 		/*
 		 * ArrayList<String> notes = new ArrayList<String>();
