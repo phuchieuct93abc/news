@@ -6,5 +6,10 @@ public class ImageContent extends Content {
 	public ImageContent(String url) {
 		this.url = url;
 	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.url;
+	}
 
 }

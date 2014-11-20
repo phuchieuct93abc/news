@@ -61,11 +61,6 @@ public class MainActivity extends Activity {
 
 	@Background
 	void background() {
-	
-		
-		
-		
-		
 		try {
 		List<RssItem> rssItems = feedService.getFeed("http://www.baomoi.com/Home/KHCN.rss");
 			for (RssItem rssItem : rssItems) {

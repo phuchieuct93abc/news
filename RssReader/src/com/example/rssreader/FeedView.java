@@ -13,14 +13,12 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import android.app.Activity;
-import android.util.Log;
-import android.webkit.WebView;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aphidmobile.flip.FlipViewController;
 import com.content.Content;
-import com.content.TextContent;
 import com.feed.FeedContent;
 import com.feed.NoteViewAdapter;
 import com.services.FeedService;
@@ -44,8 +42,7 @@ public class FeedView extends Activity {
 	TextView title;
 	@ViewById
 	LinearLayout layout;
-	@ViewById
-	WebView content;
+
 	@Bean
 	FeedService feedService;
 	FeedContent feedContent;
@@ -58,7 +55,7 @@ public class FeedView extends Activity {
 	void runBackground() {
 		feedContent = feedService.getFeedContent(link);
 		Document doc = Jsoup.parseBodyFragment(feedContent.getContentHTML());
-		List<Content> contents = feedService.parseContent(doc);
+		List<View> contents = feedService.parseContent(doc,getApplicationContext());
 		setHTML(contents);
 
 
@@ -71,15 +68,13 @@ public class FeedView extends Activity {
 	}
 
 	@UiThread
-	void setHTML(List<Content> contents) {
+	void setHTML(List<View> contents) {
 		
-		for(Content content : contents){
-			TextView text = new TextView(getApplicationContext());
-			text.setText(((TextContent)content).toString());
-			layout.addView(text);
-			Log.i("hieu",((TextContent)content).toString());
+		for(View content : contents){
+			
+			layout.addView(content);
 		}
-		//title.setText(feedContent.getTitle());
+		title.setText(feedContent.getTitle());
 /*		content.loadData(feedContent.getContentHTML(),
 				"text/html; charset=UTF-8", null);*/
 

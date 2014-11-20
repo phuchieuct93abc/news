@@ -1,6 +1,8 @@
 package com.services;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,11 +10,18 @@ import org.androidannotations.annotations.EBean;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
-import android.util.Log;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.media.Image;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.content.Content;
+import com.content.ImageContent;
 import com.content.TextContent;
 import com.feed.FeedContent;
 import com.shirwa.simplistic_rss.RssItem;
@@ -56,31 +65,54 @@ public class FeedService implements FeedServiceInterface {
 		}
 	}
 
-	private void addContent(Element element,	List<Content>  contentList){
-		
-		if(element.ownText().length() >0){
+	private void addContent(Element element, List<Content> contentList) {
+		if (element.ownText().length() > 0) {
 			contentList.add(new TextContent(element.ownText()));
 		}
-		if(element.children().size() !=0){
-			for(Element childElement : element.children()){
-				addContent(childElement,contentList);
-				
-				
-			}
-			
+		if (element.select(">img").size() > 0) {
+			contentList
+					.add(new ImageContent(element.select(">img").attr("src")));
 		}
-		
+		if (element.children().size() != 0) {
+			for (Element childElement : element.children()) {
+				addContent(childElement, contentList);
+
+			}
+		}
 	}
 
 	@Override
-	public List<Content> parseContent(Document doc) {
+	public List<View> parseContent(Document doc, Context context) {
 		List<Content> contentList = new ArrayList<Content>();
 
 		for (Element element : doc.getElementsByTag("body").get(0).children()) {
 			addContent(element, contentList);
+		}
+		List<View> listView = new ArrayList<View>();
+		for (Content content : contentList) {
+			try {
+				TextView text = new TextView(context);
+				text.setTextColor(Color.BLACK);
+				text.setText(((TextContent) content).toString());
+				listView.add(text);
+			} catch (Exception e) {
+
+				try {
+
+					ImageView imageView = new ImageView(context);
+					new DownloadImageTask(imageView)
+							.execute(((ImageContent) content).toString());
+					listView.add(imageView);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
 
 		}
-		return contentList;
+		return listView;
+
 	}
 
 }
