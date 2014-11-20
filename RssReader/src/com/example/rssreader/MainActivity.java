@@ -1,7 +1,5 @@
 package com.example.rssreader;
 
-import java.io.IOException;
-import java.net.URLDecoder;
 import java.util.List;
 
 import org.androidannotations.annotations.AfterViews;
@@ -11,14 +9,8 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-import org.apache.http.protocol.HTTP;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import android.app.Activity;
-import android.util.Log;
 import android.widget.ListView;
 
 import com.feed.Feed;
