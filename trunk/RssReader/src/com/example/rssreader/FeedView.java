@@ -16,7 +16,6 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
-import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -77,13 +76,13 @@ public class FeedView extends Activity {
 			try{
 					TextView textView = ((TextView)content);
 					if(textView.getText().toString().indexOf("iframe") > -1){
-						/*Log.i("hieu",textView.getText().toString());
 						WebView webView = new WebView(getBaseContext());
-					
-						webView.loadData("<html><body>"+textView.getText().toString()+"</html></body>", "text/html", "utf-8");
-						
+						webView.getSettings().setJavaScriptEnabled(true);
+						webView.setWebChromeClient(new WebChromeClient());
+						webView.loadData("<html><body>"+textView.getText().toString()+"</body></html>", "text/html", "utf-8");
+						Log.i("hieu","<html><body>"+textView.getText().toString()+"</body></html>");
 
-						layout.addView(webView);*/
+						layout.addView(webView);
 					}
 				
 			
