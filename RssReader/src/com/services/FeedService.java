@@ -47,17 +47,16 @@ public class FeedService implements FeedServiceInterface {
 			doc = Jsoup.connect(url).get();
 			// doc = Jsoup.connect(url).get();
 			Log.i("hieu", url);
-			/*
-			 * Element title = doc.getElementsByAttributeValue("itemprop",
-			 * "headline").get(0);
-			 * 
-			 * Element summary = doc.getElementsByAttributeValue("itemprop",
-			 * "description").get(0); Element content =
-			 * doc.getElementsByAttributeValue("itemprop",
-			 * "articleBody").get(0); Log.i("text",content.html()); return new
-			 * FeedContent(title, summary, content);
-			 */
-			return null;
+
+			Element title = doc.getElementsByAttributeValue("itemprop",
+					"headline").get(0);
+
+			Element summary = doc.getElementsByAttributeValue("itemprop",
+					"description").get(0);
+			Element content = doc.getElementsByAttributeValue("itemprop",
+					"articleBody").get(0);
+			Log.i("text", content.html());
+			return new FeedContent(title, summary, content);
 
 		} catch (IOException e) {
 			e.printStackTrace();
