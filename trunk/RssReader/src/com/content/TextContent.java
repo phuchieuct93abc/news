@@ -32,6 +32,7 @@ public class TextContent extends Content {
 		TextView textView = new TextView(context);
 		textView.setTextColor(Color.BLACK);
 		textView.setText(this.text);
+		textView.setTextSize(20);
 		return textView;
 	}
 }

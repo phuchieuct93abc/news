@@ -28,7 +28,7 @@ import com.services.FeedService;
 @EActivity(R.layout.view)
 public class FeedView extends Activity {
 	/*
-	 * @ViewById WebView webView;
+	 * 
 	 * 
 	 * 
 	 * 
@@ -37,6 +37,7 @@ public class FeedView extends Activity {
 	 * 
 	 * }
 	 */
+	@ViewById WebView webView1; 
 	@Extra
 	String link;
 
@@ -94,6 +95,11 @@ public class FeedView extends Activity {
 			
 		}
 		title.setText(feedContent.getTitle());
+		
+		webView1.loadData(feedContent.getContentHTML(),
+				"text/html; charset=UTF-8", null);
+		
+		
 /*		content.loadData(feedContent.getContentHTML(),
 				"text/html; charset=UTF-8", null);*/
 
@@ -111,13 +117,5 @@ public class FeedView extends Activity {
 		runBackground();
 	};
 
-	/*
-	 * @Override protected void onCreate(Bundle savedInstanceState) {
-	 * super.onCreate(savedInstanceState); flipView = new
-	 * FlipViewController(this, FlipViewController.VERTICAL);
-	 * setContentView(flipView);
-	 * 
-	 * }
-	 */
-
+	
 }
