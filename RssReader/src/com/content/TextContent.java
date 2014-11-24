@@ -11,7 +11,6 @@ public class TextContent extends Content {
 
 	public TextContent(String text,Context context) {
 		super(context);
-		Log.i("text",text);
 		this.text = text;
 	}
 
@@ -24,11 +23,10 @@ public class TextContent extends Content {
 	}
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return this.text;
 	}
-	@Override
-	public View  toView() {
+	
+	private View  toView() {
 		TextView textView = new TextView(context);
 		textView.setTextColor(Color.BLACK);
 		textView.setText(this.text);

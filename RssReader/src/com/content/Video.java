@@ -19,8 +19,7 @@ public class Video extends Content {
 	}
 	
 	
-	@Override
-	public View toView() {
+	private View toView() {
 		
 		TextView t = new TextView(context);
 

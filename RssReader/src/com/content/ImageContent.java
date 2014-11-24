@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.services.DownloadImageTask;
+import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
 public class ImageContent extends Content {
 	String url;
@@ -17,11 +17,9 @@ public class ImageContent extends Content {
 	public String toString() {
 		return this.url;
 	}
-	@Override
-	public View toView() {
+	private View toView() {
 		ImageView imageView = new ImageView(context);
-		new DownloadImageTask(imageView)
-				.execute(url);
+		UrlImageViewHelper.setUrlDrawable(imageView, url);
 		return imageView;
 
 	}

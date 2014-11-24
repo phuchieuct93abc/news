@@ -1,5 +1,6 @@
 package com.example.rssreader;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.androidannotations.annotations.AfterViews;
@@ -13,16 +14,22 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
-import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aphidmobile.flip.FlipViewController;
+import com.content.Content;
+import com.content.ImageContent;
+import com.content.TextContent;
 import com.feed.FeedContent;
 import com.feed.NoteViewAdapter;
+import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 import com.services.FeedService;
 
 @EActivity(R.layout.view)
@@ -37,7 +44,8 @@ public class FeedView extends Activity {
 	 * 
 	 * }
 	 */
-	@ViewById WebView webView1; 
+	@ViewById
+	WebView webView1;
 	@Extra
 	String link;
 
@@ -53,55 +61,70 @@ public class FeedView extends Activity {
 	String contentHTML;
 	NoteViewAdapter noteViewAdapter;
 	FlipViewController flipView;
+	Context context = this;
 
 	@Background
 	void runBackground() {
+		Log.i("hieu", link);
 		feedContent = feedService.getFeedContent(link);
 		Document doc = Jsoup.parseBodyFragment(feedContent.getContentHTML());
-		List<View> contents = feedService.parseContent(doc,getApplicationContext());
+		List<Content> contents = feedService.parseContent(doc,
+				getApplicationContext());
+		try {
+			html = Jsoup
+					.connect(
+							"http://m.baomoi.com/Home/CNTT/gamek.vn/Tang-300-Gift-Code-Tan-Ngoa-Long-mung-ngay-mo-cua/15346569.epi")
+					.followRedirects(true).get().html();
+			Log.i("hieu",html);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		setHTML(contents);
-
-
-		/*
-		 * contentList.add(new TextContent("ABCDEF")); contentList.add(new
-		 * ImageContent("http://")); TextContent text =
-		 * (TextContent)contentList.get(0);
-		 */
-
 	}
 
+	String html;
+
 	@UiThread
-	void setHTML(List<View> contents) {
-		
-		for(View content : contents){
-			try{
-					TextView textView = ((TextView)content);
-					if(textView.getText().toString().indexOf("iframe") > -1){
-						WebView webView = new WebView(getBaseContext());
-						webView.getSettings().setJavaScriptEnabled(true);
-						webView.setWebChromeClient(new WebChromeClient());
-						webView.loadData("<html><body>"+textView.getText().toString()+"</body></html>", "text/html", "utf-8");
-						Log.i("hieu","<html><body>"+textView.getText().toString()+"</body></html>");
+	void setHTML(List<Content> contents) {
+		for (Content content : contents) {
 
-						layout.addView(webView);
-					}
-				
-			
+			if (content instanceof TextContent) {
+				if (content.toString().indexOf("iframe") > -1) {
+					WebView webView = new WebView(getBaseContext());
+					webView.getSettings().setJavaScriptEnabled(true);
+					webView.setWebChromeClient(new WebChromeClient());
+					webView.loadData("<html><body>" + content.toString()
+							+ "</body></html>", "text/html", "utf-8");
+					layout.addView(webView);
+				} else {
+					TextView textView = new TextView(context);
+					textView.setTextColor(Color.BLACK);
+					textView.setText(content.toString());
+					textView.setTextSize(20);
+					layout.addView(textView);
+				}
 
-			}catch(Exception e){
-				
 			}
-			layout.addView(content);
-			
+			if (content instanceof ImageContent) {
+				ImageView imageView = new ImageView(context);
+
+				UrlImageViewHelper.setUrlDrawable(imageView,
+						content.toString(), R.drawable.loading);
+				layout.addView(imageView);
+			}
+
 		}
 		title.setText(feedContent.getTitle());
-		
-		webView1.loadData(feedContent.getContentHTML(),
-				"text/html; charset=UTF-8", null);
-		
-		
-/*		content.loadData(feedContent.getContentHTML(),
-				"text/html; charset=UTF-8", null);*/
+
+		//webView1.loadData(html, "text/html; charset=UTF-8", null);
+	/*	webView1.set
+		webView1.loadUrl("http://www.baomoi.com/Home/KhoaHoc-TuNhien/kienthuc.net.vn/Sinh-vat-co-bo-mat-quy-du-xuat-hien-o-vung-bien-My/15346791.epi");*/
+
+		/*
+		 * content.loadData(feedContent.getContentHTML(),
+		 * "text/html; charset=UTF-8", null);
+		 */
 
 		/*
 		 * ArrayList<String> notes = new ArrayList<String>();
@@ -117,5 +140,4 @@ public class FeedView extends Activity {
 		runBackground();
 	};
 
-	
 }

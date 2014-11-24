@@ -10,10 +10,11 @@ public class Content {
 		this.context = context2;
 	}
 
-	public View toView() {
+	private View toView() {
 		return null;
 	}
-	public boolean isVideo(){
+
+	public boolean isVideo() {
 		return false;
 	}
 
