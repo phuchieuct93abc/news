@@ -44,15 +44,12 @@ public class FeedService implements FeedServiceInterface {
 
 		try {
 
-			doc = Jsoup.connect(url).get();
+			doc = Jsoup.connect(url).timeout(10000).get();
 			// doc = Jsoup.connect(url).get();
-			Log.i("hieu", url);
+						
+			Element title = 	doc.select("h1").get(0);
 
-			Element title = doc.getElementsByAttributeValue("itemprop",
-					"headline").get(0);
-
-			Element summary = doc.getElementsByAttributeValue("itemprop",
-					"description").get(0);
+			Element summary = doc.select("h1").get(0);
 			Element content = doc.getElementsByAttributeValue("itemprop",
 					"articleBody").get(0);
 			Log.i("text", content.html());
@@ -86,18 +83,15 @@ public class FeedService implements FeedServiceInterface {
 	}
 
 	@Override
-	public List<View> parseContent(Document doc, Context context) {
+	public List<Content> parseContent(Document doc, Context context) {
 		List<Content> contentList = new ArrayList<Content>();
 
 		for (Element element : doc.getElementsByTag("body").get(0).children()) {
 			addContent(element, contentList, context);
 		}
 		List<View> listView = new ArrayList<View>();
-		for (Content content : contentList) {
-			listView.add(content.toView());
 
-		}
-		return listView;
+		return contentList;
 
 	}
 
