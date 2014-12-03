@@ -9,14 +9,13 @@ import org.androidannotations.annotations.ViewById;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.TableLayout;
+import android.widget.Toast;
 
 import com.example.rssreader.R;
 import com.services.main_screen.Tile;
 import com.services.main_screen.TileService;
-import com.services.main_screen.TileView;
 
 @EActivity(R.layout.first_screen)
 public class MainScreen extends Activity {
@@ -31,9 +30,19 @@ public class MainScreen extends Activity {
 			if (tiles.indexOf(tile) > 2) {
 				break;
 			}
-			TileView tileView = new TileView(context);
-			tileView.setName(tile.getName());
-			row1.addView(tileView);
+			tile.setOnClick(initialOnClickListener(tile.getUrl()));
+
+			row1.addView(tile.getView(this));
 		}
+	}
+
+	private OnClickListener initialOnClickListener(final String url) {
+		return new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				MainActivity_.intent(context).link(url).start() ;
+			}
+		};
 	}
 }

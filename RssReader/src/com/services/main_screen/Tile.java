@@ -3,14 +3,21 @@ package com.services.main_screen;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 
 public class Tile {
 	String name, title, imgUrl,url;
+	OnClickListener onClick;
 	
+	public OnClickListener getOnClick() {
+		return onClick;
+	}
 
-
+	public void setOnClick(OnClickListener onClick) {		
+		this.onClick = onClick;
+	}
 
 	public Tile(String name, String title, String imgUrl, String url) {
 		super();
@@ -55,9 +62,8 @@ public class Tile {
 	}
 	
 	public View getView(Context context) {
-		TextView t=new TextView(context);
-		t.setTextColor(Color.BLACK);
-		t.setText(name);
-		return t;		
+		TileView tileView = new TileView(context);
+		tileView.setTile(this);
+		return tileView;
 	}
 }
