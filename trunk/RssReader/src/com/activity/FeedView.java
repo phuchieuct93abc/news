@@ -73,8 +73,7 @@ public class FeedView extends Activity {
 				getApplicationContext());
 		try {
 			html = Jsoup
-					.connect(
-							"http://m.baomoi.com/Home/CNTT/gamek.vn/Tang-300-Gift-Code-Tan-Ngoa-Long-mung-ngay-mo-cua/15346569.epi")
+					.connect(link)
 					.followRedirects(true).get().html();
 			Log.i("hieu",html);
 		} catch (IOException e) {
