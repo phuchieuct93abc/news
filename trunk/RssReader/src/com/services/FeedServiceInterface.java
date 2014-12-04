@@ -4,7 +4,6 @@ import java.util.List;
 import org.jsoup.nodes.Document;
 
 import android.content.Context;
-import android.view.View;
 
 import com.content.Content;
 import com.feed.FeedContent;
