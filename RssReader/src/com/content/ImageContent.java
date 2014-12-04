@@ -17,7 +17,7 @@ public class ImageContent extends Content {
 	public String toString() {
 		return this.url;
 	}
-	private View toView() {
+	public View toView() {
 		ImageView imageView = new ImageView(context);
 		UrlImageViewHelper.setUrlDrawable(imageView, url);
 		return imageView;

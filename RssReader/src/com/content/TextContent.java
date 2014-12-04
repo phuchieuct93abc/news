@@ -2,7 +2,6 @@ package com.content;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -26,7 +25,7 @@ public class TextContent extends Content {
 		return this.text;
 	}
 	
-	private View  toView() {
+	public View  toView() {
 		TextView textView = new TextView(context);
 		textView.setTextColor(Color.BLACK);
 		textView.setText(this.text);

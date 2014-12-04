@@ -13,7 +13,6 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import android.app.Activity;
-import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 

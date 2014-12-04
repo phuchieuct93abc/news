@@ -10,7 +10,7 @@ public class Content {
 		this.context = context2;
 	}
 
-	private View toView() {
+	public View toView() {
 		return null;
 	}
 

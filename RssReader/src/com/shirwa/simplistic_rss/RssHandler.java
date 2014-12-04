@@ -8,8 +8,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import android.util.Log;
-
 
 /*
  * Copyright (C) 2014 Shirwa Mohamed <shirwa99@gmail.com>

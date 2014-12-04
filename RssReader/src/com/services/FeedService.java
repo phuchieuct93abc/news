@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.androidannotations.annotations.EBean;
-import org.jsoup.Connection;
-import org.jsoup.Connection.Method;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
