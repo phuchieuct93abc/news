@@ -11,7 +11,6 @@ import org.jsoup.nodes.Element;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
 
 import com.content.Content;
 import com.content.ImageContent;
@@ -44,8 +43,8 @@ public class FeedService implements FeedServiceInterface {
 
 			doc = Jsoup.connect(url).timeout(10000).get();
 			// doc = Jsoup.connect(url).get();
-						
-			Element title = 	doc.select("h1").get(0);
+
+			Element title = doc.select("h1").get(0);
 
 			Element summary = doc.select("h1").get(0);
 			Element content = doc.getElementsByAttributeValue("itemprop",
@@ -87,7 +86,6 @@ public class FeedService implements FeedServiceInterface {
 		for (Element element : doc.getElementsByTag("body").get(0).children()) {
 			addContent(element, contentList, context);
 		}
-		List<View> listView = new ArrayList<View>();
 
 		return contentList;
 
