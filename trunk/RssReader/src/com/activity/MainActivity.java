@@ -11,8 +11,10 @@ import org.androidannotations.annotations.Fullscreen;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.jsoup.nodes.Element;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -62,8 +64,12 @@ public class MainActivity extends Activity {
 	void background() {
 		try {
 
-			List<RssItem> rssItems = feedService.getFeed(link);
+		/*	List<RssItem> rssItems = feedService.getFeed(link);
 			for (RssItem rssItem : rssItems) {
+				adapter.setData(rssItem);
+			}*/
+			List<Element> rssItems = feedService.getFeed(link);
+			for (Element rssItem : rssItems) {
 				adapter.setData(rssItem);
 			}
 			run();

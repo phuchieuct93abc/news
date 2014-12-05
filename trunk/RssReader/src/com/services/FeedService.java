@@ -23,12 +23,21 @@ import com.shirwa.simplistic_rss.RssReader;
 public class FeedService implements FeedServiceInterface {
 
 	@Override
-	public List<RssItem> getFeed(String source) {
+	public List<Element> getFeed(String source) {
 		try {
-			RssReader rssReader = new RssReader(source);
+
+			Document doc = Jsoup
+					.connect(source)
+					.timeout(10000).get();
+		
+			return doc.select(".story");
+
+		/*	RssReader rssReader = new RssReader(source);
 
 			List<RssItem> rssItems = rssReader.getItems();
-			return rssItems;
+			return rssItems;*/
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -43,13 +52,15 @@ public class FeedService implements FeedServiceInterface {
 
 			doc = Jsoup.connect(url).timeout(10000).get();
 			// doc = Jsoup.connect(url).get();
+			Log.i("hieu",url);
 
-			Element title = doc.select("h1").get(0);
+			Log.i("hieu",doc.select("#contents").html());
+			
 
-			Element summary = doc.select("h1").get(0);
-			Element content = doc.getElementsByAttributeValue("itemprop",
-					"articleBody").get(0);
-			Log.i("text", content.html());
+			Element title = doc.select("title").get(0);
+
+			Element summary = doc.select(".summary").get(0);
+			Element content = doc.select(".article").get(0);
 			return new FeedContent(title, summary, content);
 
 		} catch (IOException e) {
