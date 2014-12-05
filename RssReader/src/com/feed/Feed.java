@@ -1,6 +1,9 @@
 package com.feed;
 
+import org.jsoup.nodes.Element;
+
 import android.content.Context;
+import android.util.Log;
 import android.webkit.WebView;
 
 import com.shirwa.simplistic_rss.RssItem;
@@ -30,6 +33,14 @@ public Feed(RssItem feed) {
 	this.content = feed.getDescription();
 	this.link=feed.getLink();
 	this.image = feed.getEnclosure();
+}
+public Feed(Element element) {
+	
+	this.title = element.select(".title").text();
+	this.content = element.select(".summary").text();
+	this.link= element.select("a").attr("href");
+	this.image = element.select("img").attr("src");
+
 }
 public String getTitle() {
 	return title;

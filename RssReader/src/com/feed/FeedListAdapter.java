@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
+import org.jsoup.nodes.Element;
 
 import android.content.Context;
 import android.view.View;
@@ -22,7 +23,11 @@ public class FeedListAdapter extends BaseAdapter {
     @RootContext
     Context context;
 
-public void setData(RssItem data){
+/*public void setData(RssItem data){
+	feeds.add(new Feed(data));
+	
+}*/
+public void setData(Element data){
 	feeds.add(new Feed(data));
 	
 }
