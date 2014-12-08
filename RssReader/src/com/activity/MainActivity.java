@@ -14,7 +14,6 @@ import org.androidannotations.annotations.ViewById;
 import org.jsoup.nodes.Element;
 
 import android.app.Activity;
-import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,7 +21,6 @@ import com.example.rssreader.R;
 import com.feed.Feed;
 import com.feed.FeedListAdapter;
 import com.services.FeedService;
-import com.shirwa.simplistic_rss.RssItem;
 
 @Fullscreen
 @EActivity(R.layout.activity_main)

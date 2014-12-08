@@ -8,7 +8,6 @@ import android.content.Context;
 
 import com.content.Content;
 import com.feed.FeedContent;
-import com.shirwa.simplistic_rss.RssItem;
 
 public interface FeedServiceInterface {
 List<Element> getFeed(String source);

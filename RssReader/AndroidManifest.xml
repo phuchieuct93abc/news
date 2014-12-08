@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.activity.MainScreen_"
+            android:name="com.activity.SearchScreen_"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -27,6 +27,8 @@
             </intent-filter>
         </activity>
         <activity android:name="com.activity.FeedView_" >        </activity>
+          <activity
+            android:name="com.activity.MainScreen_"></activity>
             
         <activity android:name="com.activity.MainActivity_" >        </activity>
             
