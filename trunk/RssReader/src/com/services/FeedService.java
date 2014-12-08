@@ -10,14 +10,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.content.Content;
 import com.content.ImageContent;
 import com.content.TextContent;
 import com.feed.FeedContent;
-import com.shirwa.simplistic_rss.RssItem;
-import com.shirwa.simplistic_rss.RssReader;
 
 @EBean
 public class FeedService implements FeedServiceInterface {
@@ -52,10 +49,7 @@ public class FeedService implements FeedServiceInterface {
 
 			doc = Jsoup.connect(url).timeout(10000).get();
 			// doc = Jsoup.connect(url).get();
-			Log.i("hieu",url);
-
-			Log.i("hieu",doc.select("#contents").html());
-			
+	
 
 			Element title = doc.select("title").get(0);
 

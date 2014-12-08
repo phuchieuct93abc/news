@@ -3,14 +3,12 @@ package com.activity;
 import java.util.List;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TableLayout;
@@ -18,7 +16,6 @@ import android.widget.TableRow;
 
 import com.example.rssreader.R;
 import com.gc.materialdesign.views.ButtonRectangle;
-import com.services.SearchService;
 import com.services.main_screen.Tile;
 import com.services.main_screen.TileService;
 
@@ -34,14 +31,9 @@ public class MainScreen extends Activity {
 	void afterView() {
 		tiles = TileService.getList();
 		setClickListenerForButton();
-		Log.i("Hieu", "123123123");
-		background();
+	
 	}
-	@Background
-	void background(){
-		SearchService.search();
-
-	}
+	
 
 	private void setClickListenerForButton() {
 		for (int x = 0; x < table.getChildCount(); x++) {

@@ -22,6 +22,12 @@ public void setImage(String image) {
 public void setLink(String link) {
 	this.link = link;
 }
+public Feed(String title, String content, String link, String image) {
+	this.title = title;
+	this.content = content;
+	this.link = link;
+	this.image = image;
+}
 public String getContent() {
 	return content;
 }
@@ -34,14 +40,14 @@ public Feed(RssItem feed) {
 	this.link=feed.getLink();
 	this.image = feed.getEnclosure();
 }
-public Feed(Element element) {
-	
+public Feed(Element element) {	
 	this.title = element.select(".title").text();
 	this.content = element.select(".summary").text();
 	this.link= element.select("a").attr("href");
 	this.image = element.select("img").attr("src");
 
 }
+
 public String getTitle() {
 	return title;
 }

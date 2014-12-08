@@ -12,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.shirwa.simplistic_rss.RssItem;
-
 @EBean
 public class FeedListAdapter extends BaseAdapter {
 
@@ -29,6 +27,10 @@ public class FeedListAdapter extends BaseAdapter {
 }*/
 public void setData(Element data){
 	feeds.add(new Feed(data));
+	
+}
+public void setDataFromSearch(Feed feed){
+	feeds.add(feed);
 	
 }
 
