@@ -10,5 +10,6 @@
     <string name="lam">#00FFFF</string>
     <string name="green">#0000FF</string>
     <string name="yello">#FFFF00</string>
+    <string name="action_search">Action bar</string>
 
 </resources>

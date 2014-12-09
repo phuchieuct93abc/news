@@ -15,52 +15,57 @@ import android.widget.BaseAdapter;
 @EBean
 public class FeedListAdapter extends BaseAdapter {
 
-    List<Feed> feeds =new ArrayList<Feed>();
+	List<Feed> feeds = new ArrayList<Feed>();
 
-    
-    @RootContext
-    Context context;
+	@RootContext
+	Context context;
 
-/*public void setData(RssItem data){
-	feeds.add(new Feed(data));
-	
-}*/
-public void setData(Element data){
-	feeds.add(new Feed(data));
-	
-}
-public void setDataFromSearch(Feed feed){
-	feeds.add(feed);
-	
-}
+	/*
+	 * public void setData(RssItem data){ feeds.add(new Feed(data));
+	 * 
+	 * }
+	 */
+	public void setData(Element data) {
+		feeds.add(new Feed(data));
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+	}
 
-        FeedItemView FeedItemView;
-        if (convertView == null) {
-            FeedItemView = FeedItemView_.build(context);
-        } else {
-            FeedItemView = (FeedItemView) convertView;
-        }
+	public void setDataFromSearch(Feed feed) {
+		feeds.add(feed);
 
-        FeedItemView.bind(getItem(position));
+	}
 
-        return FeedItemView;
-    }
+	public void clear() {
+		feeds = new ArrayList<Feed>();
+	}
 
-    @Override
-    public int getCount() {
-        return feeds.size();
-    }
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
 
-    @Override
-    public Feed getItem(int position) {
-        return feeds.get(position);
-    }
+		FeedItemView FeedItemView;
+		if (convertView == null) {
+			FeedItemView = FeedItemView_.build(context);
+		} else {
+			FeedItemView = (FeedItemView) convertView;
+		}
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
+		FeedItemView.bind(getItem(position));
+
+		return FeedItemView;
+	}
+
+	@Override
+	public int getCount() {
+		return feeds.size();
+	}
+
+	@Override
+	public Feed getItem(int position) {
+		return feeds.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
 }

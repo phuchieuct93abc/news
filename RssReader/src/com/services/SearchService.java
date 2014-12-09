@@ -1,16 +1,9 @@
 package com.services;
 
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import android.util.Log;
-
-import com.feed.Feed;
 
 public class SearchService {
 	public static Elements search(String key) {

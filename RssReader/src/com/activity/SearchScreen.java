@@ -6,15 +6,16 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ItemClick;
+import org.androidannotations.annotations.TextChange;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import android.app.Activity;
-import android.renderscript.Element;
+import android.util.Log;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.example.rssreader.R;
 import com.feed.Feed;
@@ -24,24 +25,30 @@ import com.services.SearchService;
 @EActivity(R.layout.search_screen)
 public class SearchScreen extends Activity {
 	@ViewById
-	EditText editText1;
-	@ViewById
 	Button button1;
 	@ViewById
-	ListView listView1;
+	ListView listView;
 
 	@Bean
 	FeedListAdapter adapter;
+	
+	@TextChange
+	 void SearchTextTextChanged(TextView hello, CharSequence text) {
+		Log.i("hieu",text.toString());
+		performSearch(text.toString());
+	 }
+
 
 	List<org.jsoup.nodes.Element> feeds;
 	@AfterViews
 	void init() {
-		runBackGround();
+		performSearch("Smart phone");
 	}
 
 	@Background
-	void runBackGround() {
-		feeds = SearchService.search("smartphone");
+	void performSearch(String key) {
+		feeds = SearchService.search(key);
+		adapter.clear();
 		
 		for (org.jsoup.nodes.Element feed : feeds) {
 			adapter.setData(feed);
@@ -51,7 +58,14 @@ public class SearchScreen extends Activity {
 
 	@UiThread
 	void uIThread() {
-		//Toast.makeText(getApplicationContext(), feeds.size()	, Toast.LENGTH_SHORT).show();
-		listView1.setAdapter(adapter);
+		listView.setAdapter(adapter);
 	}
+	@ItemClick
+	public void listViewItemClicked(Feed clickedItem) {
+		String link= clickedItem.getLink();
+		link = link.replace("http://www", "http://m");
+		FeedView_.intent(this).link(link).start();
+
+	}
+	
 }
