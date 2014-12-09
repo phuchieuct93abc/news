@@ -3,7 +3,6 @@ package com.feed;
 import org.jsoup.nodes.Element;
 
 import android.content.Context;
-import android.util.Log;
 import android.webkit.WebView;
 
 import com.shirwa.simplistic_rss.RssItem;

@@ -7,23 +7,23 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
-import org.androidannotations.annotations.Fullscreen;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.WindowFeature;
 import org.jsoup.nodes.Element;
 
 import android.app.Activity;
+import android.view.Window;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.rssreader.R;
 import com.feed.Feed;
 import com.feed.FeedListAdapter;
 import com.services.FeedService;
 
-@Fullscreen
 @EActivity(R.layout.activity_main)
+@WindowFeature({ Window.FEATURE_NO_TITLE })
 public class MainActivity extends Activity {
 
 	@ViewById
@@ -52,27 +52,18 @@ public class MainActivity extends Activity {
 
 	@UiThread
 	void run() {
-		Toast.makeText(getApplicationContext(), link, Toast.LENGTH_SHORT)
-		.show();
 		listView.setAdapter(adapter);
-
 	}
 
 	@Background
 	void background() {
 		try {
-
-		/*	List<RssItem> rssItems = feedService.getFeed(link);
-			for (RssItem rssItem : rssItems) {
-				adapter.setData(rssItem);
-			}*/
 			List<Element> rssItems = feedService.getFeed(link);
 			for (Element rssItem : rssItems) {
 				adapter.setData(rssItem);
 			}
 			run();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
