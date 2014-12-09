@@ -19,12 +19,6 @@ public class FeedListAdapter extends BaseAdapter {
 
 	@RootContext
 	Context context;
-
-	/*
-	 * public void setData(RssItem data){ feeds.add(new Feed(data));
-	 * 
-	 * }
-	 */
 	public void setData(Element data) {
 		feeds.add(new Feed(data));
 
@@ -49,7 +43,7 @@ public class FeedListAdapter extends BaseAdapter {
 			FeedItemView = (FeedItemView) convertView;
 		}
 
-		FeedItemView.bind(getItem(position));
+		FeedItemView.bindDataToView(getItem(position));
 
 		return FeedItemView;
 	}
