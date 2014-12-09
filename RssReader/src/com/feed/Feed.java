@@ -3,6 +3,7 @@ package com.feed;
 import org.jsoup.nodes.Element;
 
 import android.content.Context;
+import android.util.Log;
 import android.webkit.WebView;
 
 import com.shirwa.simplistic_rss.RssItem;
@@ -44,6 +45,7 @@ public Feed(Element element) {
 	this.content = element.select(".summary").text();
 	this.link= element.select("a").attr("href");
 	this.image = element.select("img").attr("src");
+	Log.i("hieu",image);
 
 }
 
