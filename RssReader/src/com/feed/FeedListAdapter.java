@@ -6,7 +6,6 @@ import java.util.List;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import android.content.Context;
 import android.view.View;
@@ -20,6 +19,14 @@ public class FeedListAdapter extends BaseAdapter {
 
 	@RootContext
 	Context context;
+	public void setListDataMore(List<Element> listData){
+		for(Element element : listData){
+			if(checkAds(element)){
+				continue;
+			}
+			setData(element);
+		}
+	}
 
 	public void setData(Element data) {
 		feeds.add(new Feed(data));
@@ -35,6 +42,7 @@ public class FeedListAdapter extends BaseAdapter {
 	}
 
 	public void setListData(List<Element> listData){
+		clear();
 		for(Element element : listData){
 			if(checkAds(element)){
 				continue;
