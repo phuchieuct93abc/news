@@ -6,7 +6,6 @@ import org.androidannotations.annotations.WindowFeature;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.view.Window;
 
@@ -25,8 +24,7 @@ public class Splash extends Activity {
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				Intent mainIntent = new Intent(Splash.this, MainScreen_.class);
-				Splash.this.startActivity(mainIntent);
+				MainScreen_.intent(context).start();
 				Splash.this.finish();
 			}
 		}, SPLASH_DISPLAY_LENGTH);

@@ -12,7 +12,6 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import android.app.Activity;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,7 +33,6 @@ public class SearchScreen extends Activity {
 	
 	@TextChange
 	 void SearchTextTextChanged(TextView hello, CharSequence text) {
-		Log.i("hieu",text.toString());
 		performSearch(text.toString());
 	 }
 
@@ -49,10 +47,7 @@ public class SearchScreen extends Activity {
 	void performSearch(String key) {
 		feeds = SearchService.search(key);
 		adapter.clear();
-		
-		for (org.jsoup.nodes.Element feed : feeds) {
-			adapter.setData(feed);
-		}
+		adapter.setListData(feeds);
 		uIThread();
 	}
 

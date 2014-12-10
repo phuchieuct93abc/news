@@ -8,6 +8,7 @@ import org.androidannotations.annotations.EBean;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import android.content.Context;
 
@@ -23,18 +24,10 @@ public class FeedService implements FeedServiceInterface {
 	public List<Element> getFeed(String source) {
 		try {
 
-			Document doc = Jsoup
-					.connect(source)
-					.timeout(10000).get();
-		
-			return doc.select(".story");
+			Document doc = Jsoup.connect(source).timeout(10000).get();
+			Elements elements = doc.select(".story");
+			return elements;
 
-		/*	RssReader rssReader = new RssReader(source);
-
-			List<RssItem> rssItems = rssReader.getItems();
-			return rssItems;*/
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -48,11 +41,7 @@ public class FeedService implements FeedServiceInterface {
 		try {
 
 			doc = Jsoup.connect(url).timeout(10000).get();
-			// doc = Jsoup.connect(url).get();
-	
-
 			Element title = doc.select("title").get(0);
-
 			Element summary = doc.select(".summary").get(0);
 			Element content = doc.select(".article").get(0);
 			return new FeedContent(title, summary, content);

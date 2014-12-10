@@ -44,7 +44,6 @@ public class MainActivity extends Activity {
 	@ItemClick
 	public void listViewItemClicked(Feed clickedItem) {
 		FeedView_.intent(this).link(clickedItem.getLink()).start();
-
 	}
 
 	@Extra
@@ -59,9 +58,7 @@ public class MainActivity extends Activity {
 	void background() {
 		try {
 			List<Element> rssItems = feedService.getFeed(link);
-			for (Element rssItem : rssItems) {
-				adapter.setData(rssItem);
-			}
+			adapter.setListData(rssItems);
 			run();
 		} catch (Exception e) {
 			e.printStackTrace();
