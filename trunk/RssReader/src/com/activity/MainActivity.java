@@ -15,8 +15,9 @@ import org.jsoup.nodes.Element;
 
 import android.app.Activity;
 import android.view.Window;
-import android.widget.ListView;
 
+import com.costum.android.widget.LoadMoreListView;
+import com.costum.android.widget.LoadMoreListView.OnLoadMoreListener;
 import com.example.rssreader.R;
 import com.feed.Feed;
 import com.feed.FeedListAdapter;
@@ -27,18 +28,44 @@ import com.services.FeedService;
 public class MainActivity extends Activity {
 
 	@ViewById
-	ListView listView;
+	LoadMoreListView listView;
 
 	@Bean
 	FeedListAdapter adapter;
 
 	@Bean
 	FeedService feedService;
+	private int numberOfPage = 1;
 
 	@AfterViews
 	void afterView() {
 		background();
+		setOnScrollListener();
+	}
 
+	private void setOnScrollListener() {
+
+		listView.setOnLoadMoreListener(new OnLoadMoreListener() {
+			public void onLoadMore() {
+				numberOfPage++;
+				loadNextPage();
+			}
+
+		});
+	}
+
+	@Background
+	void loadNextPage() {
+		String nextLink = link.replace(".epi", "/p/" + numberOfPage + ".epi");
+		List<Element> rssItems = feedService.getFeed(nextLink);
+		adapter.setListDataMore(rssItems);
+		updateList();
+	}
+
+	@UiThread
+	void updateList() {
+		adapter.notifyDataSetChanged();
+		listView.onLoadMoreComplete();
 	}
 
 	@ItemClick
