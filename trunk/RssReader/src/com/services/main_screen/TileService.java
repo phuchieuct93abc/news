@@ -3,8 +3,6 @@ package com.services.main_screen;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.res.Resources;
-
 public class TileService {
 
 	public static List<Tile> getList() {
