@@ -105,7 +105,7 @@ public class SearchScreen extends Activity {
 	public void listViewItemClicked(Feed clickedItem) {
 		String link = clickedItem.getLink();
 		link = link.replace("http://www", "http://m");
-		FeedView_.intent(this).link(link).start();
+		//FeedView_.intent(this).link(link).start();
 
 	}
 

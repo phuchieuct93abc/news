@@ -6,38 +6,29 @@ import java.util.List;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
+import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.aphidmobile.flip.FlipViewController;
 import com.content.Content;
-import com.content.ImageContent;
-import com.content.TextContent;
 import com.feed.FeedContent;
 import com.feed.NoteViewAdapter;
-import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 import com.phuchieu.news.R;
 import com.services.FeedService;
 
 @SuppressLint("SetJavaScriptEnabled")
-@EActivity(R.layout.view)
-public class FeedView extends Activity {
-	@Extra
+@EFragment(R.layout.view)
+public class FeedViewFragment extends Fragment {
 	String link;
 	@ViewById
 	TextView title;
@@ -48,29 +39,34 @@ public class FeedView extends Activity {
 	FeedContent feedContent;
 	String contentHTML, html;
 	NoteViewAdapter noteViewAdapter;
-	FlipViewController flipView;
-	Context context = this;
+	Context context;
 
+	public void setContext(Context context){
+		this.context = context;
+		
+	}
+	
 	@Background
 	void runBackground() {
+		link = "http://m.baomoi.com/Home/CNTT/vtv.vn/Nguyen-Ha-Dong-vao-danh-sach-trieu-phu-lam-giau-tu-so-0-nho-Internet/15483968.epi";
 		feedContent = feedService.getFeedContent(link);
 		Document doc = Jsoup.parseBodyFragment(feedContent.getContentHTML());
+		
 		List<Content> contents = feedService.parseContent(doc,
-				getApplicationContext());
+				context);
 		try {
 			html = Jsoup.connect(link).followRedirects(true).get().html();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		setHTML(contents);
+		Log.i("hieu","hieu");
 	}
 
 	@UiThread
 	void setHTML(List<Content> contents) {
 		for (Content content : contents) {
-
 			addContent(content);
-
 		}
 		title.setText(feedContent.getTitle());
 	}

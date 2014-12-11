@@ -14,6 +14,7 @@ import org.jsoup.nodes.Element;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -72,7 +73,9 @@ public class MainActivity extends Activity {
 
 	@ItemClick
 	public void listViewItemClicked(Feed clickedItem) {
-		FeedView_.intent(this).link(clickedItem.getLink()).start();
+//		dView_.intent(this).link(clickedItem.getLink()).start();
+//		FeedView_.instantiate(context, "ABC").startActivity(intent)
+		startActivity(new Intent(this, FeedViewActivity_.class));
 	}
 
 	@Extra

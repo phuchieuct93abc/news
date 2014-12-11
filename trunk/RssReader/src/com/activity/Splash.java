@@ -17,7 +17,7 @@ import com.phuchieu.news.R;
 public class Splash extends Activity {
 
 	/** Duration of wait **/
-	private final int SPLASH_DISPLAY_LENGTH = 2000;
+	private final int SPLASH_DISPLAY_LENGTH = 1000;
 	private Context context = this;
 
 	@AfterViews

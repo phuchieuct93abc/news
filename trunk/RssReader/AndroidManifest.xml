@@ -26,8 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+       <activity android:name="com.activity.FeedViewActivity_" >
+        </activity> 
         <activity android:name="com.activity.FeedView_" >
-        </activity>
+        </activity> 
         <activity android:name="com.activity.SearchScreen_" >
         </activity>
         <activity android:name="com.activity.CategoryScreen_" >
