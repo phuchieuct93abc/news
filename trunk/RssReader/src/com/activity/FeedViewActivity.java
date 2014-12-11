@@ -2,6 +2,7 @@ package com.activity;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 import android.content.Context;
@@ -10,22 +11,29 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.phuchieu.news.R;
 
 @EActivity(R.layout.view_swipe)
 public class FeedViewActivity extends FragmentActivity {
 
-	DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
+	@Extra("selectedLink")
+	String link;
+	@Extra("linkCategory")
+	String linkCategory;
+	
+	PagerAdapter mDemoCollectionPagerAdapter;
 	@ViewById
 	ViewPager pager;
 
 	@AfterViews
 	void run() {
-		mDemoCollectionPagerAdapter = new DemoCollectionPagerAdapter(
-				getSupportFragmentManager());
 
-		mDemoCollectionPagerAdapter.setContext(getApplicationContext());
+		mDemoCollectionPagerAdapter = new PagerAdapter(getSupportFragmentManager());
+
+		mDemoCollectionPagerAdapter.setContext(this);
+		mDemoCollectionPagerAdapter.setLink(link);
 		pager.setAdapter(mDemoCollectionPagerAdapter);
 	}
 
@@ -33,11 +41,19 @@ public class FeedViewActivity extends FragmentActivity {
 
 // Since this is an object collection, use a FragmentStatePagerAdapter,
 // and NOT a FragmentPagerAdapter.
-class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter {
-	public DemoCollectionPagerAdapter(FragmentManager fm) {
+class PagerAdapter extends FragmentStatePagerAdapter {
+	public PagerAdapter(FragmentManager fm) {
 		super(fm);
 	}
+	String link;
+	
+	public String getLink() {
+		return link;
+	}
 
+	public void setLink(String link) {
+		this.link = link;
+	}
 	Context context;
 
 	public void setContext(Context context) {
@@ -48,10 +64,7 @@ class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter {
 	public Fragment getItem(int i) {
 		Fragment fragment = new FeedViewFragment_();
 		((FeedViewFragment) fragment).setContext(this.context);
-		// Bundle args = new Bundle();
-		// Our object is just an integer :-P
-		// args.putInt(DemoObjectFragment.ARG_OBJECT, i + 1);
-		// fragment.setArguments(args);
+		((FeedViewFragment) fragment).setLink(this.link);
 		return fragment;
 	}
 
@@ -66,22 +79,5 @@ class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter {
 	}
 }
 
-/*class DemoObjectFragment extends Fragment {
-	public static final String ARG_OBJECT = "object";
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		// The last two arguments ensure LayoutParams are inflated
-		// properly.
-		View rootView = inflater.inflate(R.layout.view, container, false);
-		Bundle args = getArguments();
-		((TextView) rootView.findViewById(android.R.id.text1)).setText(Integer
-				.toString(args.getInt(ARG_OBJECT)));
-		return rootView;
-	}
-}*/
-
-// Instances of this class are fragments representing a single
-// object in our collection.
 

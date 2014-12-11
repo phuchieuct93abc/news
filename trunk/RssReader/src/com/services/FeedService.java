@@ -16,6 +16,7 @@ import com.content.Content;
 import com.content.ImageContent;
 import com.content.TextContent;
 import com.content.Video;
+import com.feed.Feed;
 import com.feed.FeedContent;
 
 @EBean
@@ -33,6 +34,28 @@ public class FeedService implements FeedServiceInterface {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public List<Feed> getFeedFromUrl(String source){
+		List<Feed> feeds =new ArrayList<Feed>();
+		List<Element> elements = getFeed(source);
+		for(Element element : elements){
+			if(checkAds(element)){
+				continue;
+			}
+			String title = element.select(".title").text();
+			String content = element.select(".summary").text();
+			String link= element.select("a").attr("href");
+			String image = element.select("img").attr("src");
+			feeds.add(new Feed(title, content, link, image));
+			
+		}
+		
+		return feeds;
+		
+	}
+	private boolean checkAds(Element element){
+		return element.hasClass("advertorial");
 	}
 
 	@Override

@@ -3,14 +3,16 @@ package com.feed;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
-import org.jsoup.nodes.Element;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
+import com.services.FeedService;
 
 @EBean
 public class FeedListAdapter extends BaseAdapter {
@@ -19,38 +21,28 @@ public class FeedListAdapter extends BaseAdapter {
 
 	@RootContext
 	Context context;
-	public void setListDataMore(List<Element> listData){
-		for(Element element : listData){
-			if(checkAds(element)){
-				continue;
-			}
-			setData(element);
+	@Bean
+	FeedService feedService;
+	public void setListDataMore(List<Feed> feeds){
+		for(Feed feed : feeds){
+			
+		this.feeds.add(feed);
 		}
-	}
-
-	public void setData(Element data) {
-		feeds.add(new Feed(data));
-
 	}
 
 	public void setDataFromSearch(Feed feed) {
 		feeds.add(feed);
 
 	}
-	private boolean checkAds(Element element){
-		return element.hasClass("advertorial");
-	}
 
-	public void setListData(List<Element> listData){
+	public void setListData(List<Feed> feeds){
 		clear();
-		for(Element element : listData){
-			if(checkAds(element)){
-				continue;
-			}
-			setData(element);
+		
+		for(Feed feed : feeds){
+
+			this.feeds.add(feed);
 		}
 	}
-
 	public void clear() {
 		feeds = new ArrayList<Feed>();
 	}

@@ -60,7 +60,7 @@ public class MainActivity extends Activity {
 	@Background
 	void loadNextPage() {
 		String nextLink = link.replace(".epi", "/p/" + numberOfPage + ".epi");
-		List<Element> rssItems = feedService.getFeed(nextLink);
+		List<Feed> rssItems = feedService.getFeedFromUrl(nextLink);
 		adapter.setListDataMore(rssItems);
 		updateList();
 	}
@@ -73,9 +73,9 @@ public class MainActivity extends Activity {
 
 	@ItemClick
 	public void listViewItemClicked(Feed clickedItem) {
-//		dView_.intent(this).link(clickedItem.getLink()).start();
-//		FeedView_.instantiate(context, "ABC").startActivity(intent)
-		startActivity(new Intent(this, FeedViewActivity_.class));
+		FeedViewActivity_.intent(context).extra("selectedLink", clickedItem.getLink()).extra("linkCategory", link).start();
+		//FeedViewActivity_.intent(context).start();
+
 	}
 
 	@Extra
@@ -89,7 +89,7 @@ public class MainActivity extends Activity {
 	@Background
 	void background() {
 		try {
-			List<Element> rssItems = feedService.getFeed(link);
+			List<Feed> rssItems = feedService.getFeedFromUrl(link);
 			adapter.setListData(rssItems);
 			run();
 		} catch (Exception e) {
