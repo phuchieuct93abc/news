@@ -17,6 +17,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -33,7 +34,7 @@ import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 import com.phuchieu.news.R;
 import com.services.FeedService;
 
-@SuppressLint("SetJavaScriptEnabled") 
+@SuppressLint("SetJavaScriptEnabled")
 @EActivity(R.layout.view)
 public class FeedView extends Activity {
 	@Extra
@@ -68,46 +69,16 @@ public class FeedView extends Activity {
 	void setHTML(List<Content> contents) {
 		for (Content content : contents) {
 
-			if (content instanceof TextContent) {
-				if (content.toString().indexOf("iframe") > -1) {
-					addVideo(content);
-				} else {
-					addText(content);
-				}
-			}
-			if (content instanceof ImageContent) {
-				addImage(content);
-			}
+			addContent(content);
 
 		}
 		title.setText(feedContent.getTitle());
 	}
 
-	private void addImage(Content content) {
-		ImageView imageView = new ImageView(context);
-		// imageView.setLayoutParams(new
-		// ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
+	private void addContent(Content content) {
 
-		UrlImageViewHelper.setUrlDrawable(imageView,
-				content.toString(), R.drawable.loading);
-		layout.addView(imageView);
-	}
-
-	private void addText(Content content) {
-		TextView textView = new TextView(context);
-		textView.setTextColor(Color.BLACK);
-		textView.setText(content.toString());
-		textView.setTextSize(20);
-		layout.addView(textView);
-	}
-
-	private void addVideo(Content content) {
-		WebView webView = new WebView(getBaseContext());
-		webView.getSettings().setJavaScriptEnabled(true);
-		webView.setWebChromeClient(new WebChromeClient());
-		webView.loadData("<html><body>" + content.toString()
-				+ "</body></html>", "text/html", "utf-8");
-		layout.addView(webView);
+		View view = content.toView();
+		layout.addView(view);
 	}
 
 	@AfterViews
