@@ -15,6 +15,7 @@ import android.content.Context;
 import com.content.Content;
 import com.content.ImageContent;
 import com.content.TextContent;
+import com.content.Video;
 import com.feed.FeedContent;
 
 @EBean
@@ -62,8 +63,10 @@ public class FeedService implements FeedServiceInterface {
 					element.select(">img").attr("src"), context));
 		}
 		if (element.select(">iframe").size() > 0) {
-			contentList.add(new TextContent(element.select(">iframe")
+			contentList.add(new Video(element.select(">iframe")
 					.outerHtml(), context));
+			
+			
 		}
 		if (element.children().size() != 0) {
 			for (Element childElement : element.children()) {
