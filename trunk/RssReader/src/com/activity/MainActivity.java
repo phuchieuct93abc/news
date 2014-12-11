@@ -14,6 +14,10 @@ import org.androidannotations.annotations.WindowFeature;
 import org.jsoup.nodes.Element;
 
 import android.app.Activity;
+import android.content.Context;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.Window;
 
 import com.costum.android.widget.LoadMoreListView;
@@ -24,7 +28,6 @@ import com.feed.FeedListAdapter;
 import com.services.FeedService;
 
 @EActivity(R.layout.activity_main)
-@WindowFeature({ Window.FEATURE_NO_TITLE })
 public class MainActivity extends Activity {
 
 	@ViewById
@@ -36,6 +39,7 @@ public class MainActivity extends Activity {
 	@Bean
 	FeedService feedService;
 	private int numberOfPage = 1;
+	Context context = this;
 
 	@AfterViews
 	void afterView() {
@@ -91,5 +95,25 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
 
+	}
+	//Action bar
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.main_activity_actions, menu);
+	    return super.onCreateOptionsMenu(menu);
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle presses on the action bar items
+	    switch (item.getItemId()) {
+	        case R.id.action_search:
+	        	SearchScreen_.intent(context).start();
+	            return true;
+	        case R.id.action_settings:
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
 	}
 }

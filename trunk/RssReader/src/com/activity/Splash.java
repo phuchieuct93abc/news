@@ -24,7 +24,7 @@ public class Splash extends Activity {
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				MainScreen_.intent(context).start();
+				CategoryScreen_.intent(context).start();
 				Splash.this.finish();
 			}
 		}, SPLASH_DISPLAY_LENGTH);

@@ -24,7 +24,7 @@ import com.services.main_screen.TileService;
 
 @SuppressLint("Registered")
 @EActivity(R.layout.first_screen)
-public class MainScreen extends Activity {
+public class CategoryScreen extends Activity {
 	Context context = this;
 	@ViewById
 	TableLayout table;
@@ -59,14 +59,12 @@ public class MainScreen extends Activity {
 			@Override
 			public void onClick(View v) {
 
-				MainActivity_.intent(context).link(url)
-						.start();
+				MainActivity_.intent(context).link(url).start();
 			}
 		};
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    // Inflate the menu items for use in the action bar
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.main_activity_actions, menu);
 	    return super.onCreateOptionsMenu(menu);
