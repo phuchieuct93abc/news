@@ -30,7 +30,7 @@
         </activity>
         <activity android:name="com.activity.SearchScreen_" >
         </activity>
-        <activity android:name="com.activity.MainScreen_" >
+        <activity android:name="com.activity.CategoryScreen_" >
         </activity>
         <activity android:name="com.activity.MainActivity_" >
         </activity>
