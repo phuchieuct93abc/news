@@ -23,6 +23,7 @@ import android.widget.ListView;
 import com.feed.Feed;
 import com.feed.FeedListAdapter;
 import com.phuchieu.news.R;
+import com.services.FeedService;
 import com.services.SearchService;
 
 @EActivity(R.layout.search_screen)
@@ -36,6 +37,8 @@ public class SearchScreen extends Activity {
 	FeedListAdapter adapter;
 	@ViewById
 	EditText SearchText;
+	@Bean
+	FeedService feedService;
 
 	private final long DELAY = 500;
 
@@ -87,9 +90,10 @@ public class SearchScreen extends Activity {
 	@Background
 	void performSearch(String key) {
 		try {
-			feeds = SearchService.search(key);
 			adapter.clear();
-			adapter.setListData(feeds);
+			String link = SearchService.search(key);
+			List<Feed> feedFromUrl = feedService.getFeedFromUrl(link);
+			adapter.setListData(feedFromUrl);
 			uIThread();
 		} catch (Exception e) {
 			e.printStackTrace();

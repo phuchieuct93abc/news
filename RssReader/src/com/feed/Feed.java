@@ -1,12 +1,5 @@
 package com.feed;
 
-import org.jsoup.nodes.Element;
-
-import android.content.Context;
-import android.util.Log;
-import android.webkit.WebView;
-
-import com.shirwa.simplistic_rss.RssItem;
 
 public class Feed {
 String title,content,link,image;
@@ -34,7 +27,7 @@ public String getContent() {
 public void setContent(String content) {
 	this.content = content;
 }
-public Feed(RssItem feed) {
+/*public Feed(RssItem feed) {
 	this.title = feed.getTitle();
 	this.content = feed.getDescription();
 	this.link=feed.getLink();
@@ -45,9 +38,8 @@ public Feed(Element element) {
 	this.content = element.select(".summary").text();
 	this.link= element.select("a").attr("href");
 	this.image = element.select("img").attr("src");
-	Log.i("hieu",image);
 
-}
+}*/
 
 public String getTitle() {
 	return title;
@@ -58,13 +50,5 @@ public void setTitle(String title) {
 }
 }
 
-class NoClickWebView extends WebView {
-    public NoClickWebView(Context context) {
-        super(context);
-        setClickable(false);
-        setLongClickable(false);
-        setFocusable(false);
-        setFocusableInTouchMode(false);
-    }
-}
+
 
