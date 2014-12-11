@@ -10,7 +10,6 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.WindowFeature;
 import org.jsoup.nodes.Element;
 
 import android.app.Activity;
@@ -18,13 +17,12 @@ import android.content.Context;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.Window;
 
 import com.costum.android.widget.LoadMoreListView;
 import com.costum.android.widget.LoadMoreListView.OnLoadMoreListener;
-import com.example.rssreader.R;
 import com.feed.Feed;
 import com.feed.FeedListAdapter;
+import com.phuchieu.news.R;
 import com.services.FeedService;
 
 @EActivity(R.layout.activity_main)
