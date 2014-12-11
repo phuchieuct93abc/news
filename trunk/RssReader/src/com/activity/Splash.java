@@ -9,7 +9,8 @@ import android.content.Context;
 import android.os.Handler;
 import android.view.Window;
 
-import com.example.rssreader.R;
+import com.phuchieu.news.R;
+
 
 @WindowFeature(Window.FEATURE_NO_TITLE)
 @EActivity(R.layout.splash)

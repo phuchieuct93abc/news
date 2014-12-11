@@ -2,6 +2,7 @@ package com.activity;
 
 import java.io.IOException;
 import java.util.List;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
@@ -11,6 +12,7 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -20,17 +22,19 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.aphidmobile.flip.FlipViewController;
 import com.content.Content;
 import com.content.ImageContent;
 import com.content.TextContent;
-import com.example.rssreader.R;
 import com.feed.FeedContent;
 import com.feed.NoteViewAdapter;
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
+import com.phuchieu.news.R;
 import com.services.FeedService;
 
-@SuppressLint("SetJavaScriptEnabled") @EActivity(R.layout.view)
+@SuppressLint("SetJavaScriptEnabled") 
+@EActivity(R.layout.view)
 public class FeedView extends Activity {
 	@Extra
 	String link;

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.rssreader.R;
+import com.phuchieu.news.R;
 
 public class NoteViewAdapter extends BaseAdapter {
     private LayoutInflater inflater;        

@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.example.rssreader.R;
+import com.phuchieu.news.R;
 
 public class TileView extends LinearLayout {
 	Tile tile;

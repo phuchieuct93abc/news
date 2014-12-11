@@ -17,8 +17,8 @@ import android.view.View.OnClickListener;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-import com.example.rssreader.R;
 import com.gc.materialdesign.views.ButtonRectangle;
+import com.phuchieu.news.R;
 import com.services.main_screen.Tile;
 import com.services.main_screen.TileService;
 

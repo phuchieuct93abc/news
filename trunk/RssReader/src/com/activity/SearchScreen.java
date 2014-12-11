@@ -20,9 +20,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.example.rssreader.R;
 import com.feed.Feed;
 import com.feed.FeedListAdapter;
+import com.phuchieu.news.R;
 import com.services.SearchService;
 
 @EActivity(R.layout.search_screen)
