@@ -1,5 +1,6 @@
 package com.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.androidannotations.annotations.AfterViews;
@@ -14,11 +15,13 @@ import org.jsoup.nodes.Document;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.content.Content;
+import com.content.TextContent;
 import com.feed.FeedContent;
 import com.feed.NoteViewAdapter;
 import com.phuchieu.news.R;
@@ -49,17 +52,23 @@ public class FeedViewFragment extends Fragment {
 	
 	@Background
 	void runBackground() {
-		if(this.link == null)
-		{
-			link = "http://m.baomoi.com/Home/CNTT/vtv.vn/Nguyen-Ha-Dong-vao-danh-sach-trieu-phu-lam-giau-tu-so-0-nho-Internet/15483968.epi";
-			//link = "http://m.baomoi.com/Home/ThietBi-PhanCung/vnreview.vn/Smartphone-chay-Tizen-tiep-tuc-lo-hen-voi-nguoi-dung/15484565.epi";
-		}
-		feedContent = feedService.getFeedContent(link);
-		Document doc = Jsoup.parseBodyFragment(feedContent.getContentHTML());
-		
-		List<Content> contents = feedService.parseContent(doc,				context);
+		try {
 
-		setHTML(contents);
+			Log.i("hieu",link);
+			feedContent = feedService.getFeedContent(link);
+			Document doc = Jsoup.parseBodyFragment(feedContent.getContentHTML());
+
+			List<Content> contents = feedService.parseContent(doc,				context);
+
+			setHTML(contents);
+		} catch (Exception e) {
+			
+			List<Content> contents = new ArrayList<Content>();
+			TextContent t=new TextContent("Cannot get content", context);
+			contents.add(t);
+			setHTML(contents);
+			
+		}
 	}
 
 	@UiThread
@@ -67,7 +76,7 @@ public class FeedViewFragment extends Fragment {
 		for (Content content : contents) {
 			addContent(content);
 		}
-		title.setText(feedContent.getTitle());
+		//title.setText(feedContent.getTitle());
 	}
 
 	private void addContent(Content content) {

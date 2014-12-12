@@ -22,6 +22,16 @@ import com.feed.FeedContent;
 @EBean
 public class FeedService implements FeedServiceInterface {
 
+	public List<String> getListFeedFromCaterogy(String category) {
+		List<Feed> feeds = getFeedFromUrl(category);
+		List<String> result = new ArrayList<String>();
+		for (Feed feed : feeds) {
+			result.add(feed.getLink());
+
+		}
+		return result;
+	}
+
 	@Override
 	public List<Element> getFeed(String source) {
 		try {
@@ -35,30 +45,30 @@ public class FeedService implements FeedServiceInterface {
 			return null;
 		}
 	}
-	
-	public List<Feed> getFeedFromUrl(String source){
-		List<Feed> feeds =new ArrayList<Feed>();
+
+	public List<Feed> getFeedFromUrl(String source) {
+		List<Feed> feeds = new ArrayList<Feed>();
 		List<Element> elements = getFeed(source);
-		for(Element element : elements){
-			if(checkAds(element)){
+		for (Element element : elements) {
+			if (checkAds(element)) {
 				continue;
 			}
 			String title = element.select(".title").text();
 			String content = element.select(".summary").text();
-			String link= element.select("a").attr("href");
+			String link = element.select("a").attr("href");
 			String image = element.select("img").attr("src");
 			feeds.add(new Feed(title, content, link, image));
-			
+
 		}
-		
+
 		return feeds;
-		
+
 	}
-	private boolean checkAds(Element element){
+
+	private boolean checkAds(Element element) {
 		return element.hasClass("advertorial");
 	}
 
-	@Override
 	public FeedContent getFeedContent(String url) {
 		Document doc;
 
@@ -71,7 +81,6 @@ public class FeedService implements FeedServiceInterface {
 			return new FeedContent(title, summary, content);
 
 		} catch (IOException e) {
-			e.printStackTrace();
 			return null;
 		}
 	}
@@ -86,10 +95,9 @@ public class FeedService implements FeedServiceInterface {
 					element.select(">img").attr("src"), context));
 		}
 		if (element.select(">iframe").size() > 0) {
-			contentList.add(new Video(element.select(">iframe")
-					.outerHtml(), context));
-			
-			
+			contentList.add(new Video(element.select(">iframe").outerHtml(),
+					context));
+
 		}
 		if (element.children().size() != 0) {
 			for (Element childElement : element.children()) {

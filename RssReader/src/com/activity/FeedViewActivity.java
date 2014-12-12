@@ -1,8 +1,13 @@
 package com.activity;
 
-import org.androidannotations.annotations.AfterViews;
+import java.util.List;
+
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import android.content.Context;
@@ -14,27 +19,40 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 
 import com.phuchieu.news.R;
+import com.services.FeedService;
 
 @EActivity(R.layout.view_swipe)
 public class FeedViewActivity extends FragmentActivity {
 
+	@Bean
+	FeedService feedService;
 	@Extra("selectedLink")
 	String link;
 	@Extra("linkCategory")
 	String linkCategory;
-	
+
 	PagerAdapter mDemoCollectionPagerAdapter;
 	@ViewById
 	ViewPager pager;
+	List<String> listFeedLink;
 
-	@AfterViews
-	void run() {
+	@Background
+	void runBackground() {
+		this.listFeedLink = feedService.getListFeedFromCaterogy(linkCategory);
+runUI();	}
 
-		mDemoCollectionPagerAdapter = new PagerAdapter(getSupportFragmentManager());
-
+	@UiThread
+	void runUI() {
+		mDemoCollectionPagerAdapter = new PagerAdapter(	getSupportFragmentManager());
 		mDemoCollectionPagerAdapter.setContext(this);
 		mDemoCollectionPagerAdapter.setLink(link);
+		mDemoCollectionPagerAdapter.setCategoryLink(this.listFeedLink);
 		pager.setAdapter(mDemoCollectionPagerAdapter);
+	}
+
+	@AfterInject
+	void run() {
+		runBackground();
 	}
 
 }
@@ -42,11 +60,27 @@ public class FeedViewActivity extends FragmentActivity {
 // Since this is an object collection, use a FragmentStatePagerAdapter,
 // and NOT a FragmentPagerAdapter.
 class PagerAdapter extends FragmentStatePagerAdapter {
+
+	FeedService feedService = new FeedService();
+	String link;
+	List<String> categoryLink;
+
+	public List<String> getCategoryLink() {
+		return categoryLink;
+	}
+
+
+
 	public PagerAdapter(FragmentManager fm) {
 		super(fm);
 	}
-	String link;
-	
+
+
+
+	public void setCategoryLink(List<String> categoryLink) {
+		this.categoryLink = categoryLink;
+	}
+
 	public String getLink() {
 		return link;
 	}
@@ -54,6 +88,7 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 	public void setLink(String link) {
 		this.link = link;
 	}
+
 	Context context;
 
 	public void setContext(Context context) {
@@ -64,7 +99,11 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 	public Fragment getItem(int i) {
 		Fragment fragment = new FeedViewFragment_();
 		((FeedViewFragment) fragment).setContext(this.context);
-		((FeedViewFragment) fragment).setLink(this.link);
+		Log.i("hieu",getCategoryLink().get(i));
+		((FeedViewFragment) fragment).setLink(getCategoryLink().get(i));
+		
+		//((FeedViewFragment) fragment).setLink(this.link);
+
 		return fragment;
 	}
 
@@ -75,9 +114,6 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 
 	@Override
 	public CharSequence getPageTitle(int position) {
-		return "OBJECT " + (position + 1);
+		return "NEWS " + (position + 1);
 	}
 }
-
-
-
