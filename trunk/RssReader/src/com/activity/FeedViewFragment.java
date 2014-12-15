@@ -54,7 +54,6 @@ public class FeedViewFragment extends Fragment {
 	void runBackground() {
 		try {
 
-			Log.i("hieu",link);
 			feedContent = feedService.getFeedContent(link);
 			Document doc = Jsoup.parseBodyFragment(feedContent.getContentHTML());
 
