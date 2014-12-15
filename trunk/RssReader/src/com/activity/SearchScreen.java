@@ -37,8 +37,6 @@ public class SearchScreen extends Activity {
 	FeedListAdapter adapter;
 	@ViewById
 	EditText SearchText;
-	@Bean
-	FeedService feedService;
 
 	private final long DELAY = 500;
 
@@ -92,7 +90,7 @@ public class SearchScreen extends Activity {
 		try {
 			adapter.clear();
 			String link = SearchService.search(key);
-			List<Feed> feedFromUrl = feedService.getFeedFromUrl(link);
+			List<Feed> feedFromUrl = FeedService.getFeedFromUrl(link);
 			adapter.setListData(feedFromUrl);
 			uIThread();
 		} catch (Exception e) {

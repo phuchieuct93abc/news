@@ -2,10 +2,8 @@ package com.activity;
 
 import java.util.List;
 
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.UiThread;
@@ -27,8 +25,6 @@ import com.services.FeedService;
 @EActivity(R.layout.view_swipe)
 public class FeedViewActivity extends FragmentActivity {
 
-	@Bean
-	FeedService feedService;
 	@Extra("selectedLink")
 	String link;
 	@Extra("linkCategory")
@@ -42,7 +38,9 @@ public class FeedViewActivity extends FragmentActivity {
 
 	@Background
 	void runBackground() {
-		this.listFeedLink = feedService.getListFeedFromCaterogy(linkCategory);
+		linkCategory = FeedService.getIndexOfFeedInCategory(linkCategory, link);
+		Log.i("hieu",linkCategory);
+		this.listFeedLink = FeedService.getListFeedLinkFromCaterogy(linkCategory);
 		runUI();
 	}
 
@@ -50,8 +48,8 @@ public class FeedViewActivity extends FragmentActivity {
 	public void loadMoreData(int arg0) {
 		if (arg0 == listFeedLink.size() - 2) {
 			page++;
-			String nextLink = feedService.nextLink(linkCategory, page);
-			List<Feed> feeds = feedService.getFeedFromUrl(nextLink);
+			String nextLink = FeedService.nextLink(linkCategory, page);
+			List<Feed> feeds = FeedService.getFeedFromUrl(nextLink);
 			for (Feed feed : feeds) {
 				String feedLink = feed.getLink();
 				listFeedLink.add(feedLink);
@@ -98,7 +96,7 @@ public class FeedViewActivity extends FragmentActivity {
 		}
 		
 		pager.setCurrentItem(listFeedLink.indexOf(link));
-		Log.i("hieu","curernt "+listFeedLink.indexOf(link) +"  "+listFeedLink.size());
+		
 	}
 
 	@AfterViews

@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -15,7 +14,6 @@ import org.jsoup.nodes.Document;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,8 +33,7 @@ public class FeedViewFragment extends Fragment {
 	TextView title;
 	@ViewById
 	LinearLayout layout;
-	@Bean
-	FeedService feedService;
+
 	FeedContent feedContent;
 	String contentHTML, html;
 	NoteViewAdapter noteViewAdapter;
@@ -54,10 +51,10 @@ public class FeedViewFragment extends Fragment {
 	void runBackground() {
 		try {
 
-			feedContent = feedService.getFeedContent(link);
+			feedContent = FeedService.getFeedContent(link);
 			Document doc = Jsoup.parseBodyFragment(feedContent.getContentHTML());
 
-			List<Content> contents = feedService.parseContent(doc,				context);
+			List<Content> contents = FeedService.parseContent(doc,				context);
 
 			setHTML(contents);
 		} catch (Exception e) {
