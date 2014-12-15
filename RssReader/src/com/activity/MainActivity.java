@@ -10,11 +10,9 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-import org.jsoup.nodes.Element;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -35,8 +33,6 @@ public class MainActivity extends Activity {
 	@Bean
 	FeedListAdapter adapter;
 
-	@Bean
-	FeedService feedService;
 	private int numberOfPage = 1;
 	Context context = this;
 
@@ -60,7 +56,7 @@ public class MainActivity extends Activity {
 	@Background
 	void loadNextPage() {
 		String nextLink = link.replace(".epi", "/p/" + numberOfPage + ".epi");
-		List<Feed> rssItems = feedService.getFeedFromUrl(nextLink);
+		List<Feed> rssItems = FeedService.getFeedFromUrl(nextLink);
 		adapter.setListDataMore(rssItems);
 		updateList();
 	}
@@ -89,7 +85,7 @@ public class MainActivity extends Activity {
 	@Background
 	void background() {
 		try {
-			List<Feed> rssItems = feedService.getFeedFromUrl(link);
+			List<Feed> rssItems = FeedService.getFeedFromUrl(link);
 			adapter.setListData(rssItems);
 			run();
 		} catch (Exception e) {

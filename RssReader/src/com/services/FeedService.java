@@ -11,6 +11,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.content.Content;
 import com.content.ImageContent;
@@ -20,23 +24,68 @@ import com.feed.Feed;
 import com.feed.FeedContent;
 
 @EBean
-public class FeedService implements FeedServiceInterface {
+public class FeedService {
+	public static final String PREFS_NAME = "JSOUP_HTML";
+	static Context context;
 
-	public List<String> getListFeedFromCaterogy(String category) {
+	public static Context getContext() {
+		return context;
+	}
+
+	public static void setContext(Context context) {
+		FeedService.context = context;
+	}
+
+	private static Document getHTMLFromURL(String url) {
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(getContext());
+		String result = prefs.getString(url, "");
+		if (result.equals("")) {
+			Document doc;
+			try {
+				doc = Jsoup.connect(url).timeout(1000).get();
+				Editor editor = prefs.edit();
+				editor.putString(url, doc.html());
+				editor.commit();
+			} catch (IOException e) {
+				e.printStackTrace();
+				return null;
+			}
+			return doc;
+		} else {
+			return Jsoup.parse(result);
+		}
+
+	}
+
+	public static List<String> getListFeedLinkFromCaterogy(String category) {
 		List<Feed> feeds = getFeedFromUrl(category);
 		List<String> result = new ArrayList<String>();
 		for (Feed feed : feeds) {
 			result.add(feed.getLink());
-
 		}
 		return result;
 	}
 
-	@Override
-	public List<Element> getFeed(String source) {
+	public static String getIndexOfFeedInCategory(String category,String link){
+		int page =0;
+		while(true){
+			page++;
+			String categoryPage = nextLink(category, page);
+			Log.i("hieu",categoryPage);
+			if(getListFeedLinkFromCaterogy(categoryPage).indexOf(link) >-1){
+				return categoryPage;
+				
+			};
+		}
+		
+	}
+
+	private static List<Element> getFeed(String source) {
 		try {
 
-			Document doc = Jsoup.connect(source).timeout(10000).get();
+			// Document doc = Jsoup.connect(source).timeout(1000).get();
+			Document doc = getHTMLFromURL(source);
 			Elements elements = doc.select(".story");
 			return elements;
 
@@ -46,7 +95,7 @@ public class FeedService implements FeedServiceInterface {
 		}
 	}
 
-	public List<Feed> getFeedFromUrl(String source) {
+	public static List<Feed> getFeedFromUrl(String source) {
 		List<Feed> feeds = new ArrayList<Feed>();
 		List<Element> elements = getFeed(source);
 		for (Element element : elements) {
@@ -65,27 +114,24 @@ public class FeedService implements FeedServiceInterface {
 
 	}
 
-	private boolean checkAds(Element element) {
+	private static boolean checkAds(Element element) {
 		return element.hasClass("advertorial");
 	}
 
-	public FeedContent getFeedContent(String url) {
+	public static FeedContent getFeedContent(String url) {
 		Document doc;
 
-		try {
+		// doc = Jsoup.connect(url).timeout(1000).get();
+		doc = getHTMLFromURL(url);
 
-			doc = Jsoup.connect(url).timeout(10000).get();
-			Element title = doc.select("title").get(0);
-			Element summary = doc.select(".summary").get(0);
-			Element content = doc.select(".article").get(0);
-			return new FeedContent(title, summary, content);
+		Element title = doc.select("title").get(0);
+		Element summary = doc.select(".summary").get(0);
+		Element content = doc.select(".article").get(0);
+		return new FeedContent(title, summary, content);
 
-		} catch (IOException e) {
-			return null;
-		}
 	}
 
-	private void addContent(Element element, List<Content> contentList,
+	private static void addContent(Element element, List<Content> contentList,
 			Context context) {
 		if (element.ownText().length() > 0) {
 			contentList.add(new TextContent(element.ownText(), context));
@@ -107,8 +153,7 @@ public class FeedService implements FeedServiceInterface {
 		}
 	}
 
-	@Override
-	public List<Content> parseContent(Document doc, Context context) {
+	public static List<Content> parseContent(Document doc, Context context) {
 		List<Content> contentList = new ArrayList<Content>();
 
 		for (Element element : doc.getElementsByTag("body").get(0).children()) {
@@ -118,8 +163,8 @@ public class FeedService implements FeedServiceInterface {
 		return contentList;
 
 	}
-	
-	public String nextLink(String link,int index){
+
+	public static String nextLink(String link, int index) {
 		return link.replace(".epi", "/p/" + index + ".epi");
 	}
 
