@@ -118,5 +118,9 @@ public class FeedService implements FeedServiceInterface {
 		return contentList;
 
 	}
+	
+	public String nextLink(String link,int index){
+		return link.replace(".epi", "/p/" + index + ".epi");
+	}
 
 }
