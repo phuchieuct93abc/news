@@ -67,18 +67,19 @@ public class FeedService {
 		return result;
 	}
 
-	public static String getIndexOfFeedInCategory(String category,String link){
-		int page =0;
-		while(true){
+	public static String getIndexOfFeedInCategory(String category, String link) {
+		int page = 0;
+		while (true) {
 			page++;
 			String categoryPage = nextLink(category, page);
-			Log.i("hieu",categoryPage);
-			if(getListFeedLinkFromCaterogy(categoryPage).indexOf(link) >-1){
+			Log.i("hieu", categoryPage);
+			if (getListFeedLinkFromCaterogy(categoryPage).indexOf(link) > -1) {
 				return categoryPage;
-				
-			};
+
+			}
+			;
 		}
-		
+
 	}
 
 	private static List<Element> getFeed(String source) {
@@ -166,6 +167,10 @@ public class FeedService {
 
 	public static String nextLink(String link, int index) {
 		return link.replace(".epi", "/p/" + index + ".epi");
+	}
+
+	public static String getCaterogyFromFeedLink(String feedLink) {
+		return null;
 	}
 
 }

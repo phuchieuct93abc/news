@@ -3,12 +3,15 @@ package com.content;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class TextContent extends Content {
 	String text;
+	private final static int textSize = 20;
 
-	public TextContent(String text,Context context) {
+	public TextContent(String text, Context context) {
 		super(context);
 		this.text = text;
 	}
@@ -20,16 +23,19 @@ public class TextContent extends Content {
 	public void setText(String text) {
 		this.text = text;
 	}
+
 	@Override
 	public String toString() {
 		return this.text;
 	}
-	
-	public View  toView() {
+
+	public View toView() {
 		TextView textView = new TextView(context);
 		textView.setTextColor(Color.BLACK);
-		textView.setText(toString());
-		textView.setTextSize(20);
+		textView.setText("    "+toString());
+		textView.setTextSize(TextContent.textSize);
 		return textView;
 	}
+
+	
 }

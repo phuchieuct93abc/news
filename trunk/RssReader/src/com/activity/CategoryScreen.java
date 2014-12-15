@@ -6,7 +6,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.Menu;
@@ -22,7 +21,6 @@ import com.phuchieu.news.R;
 import com.services.main_screen.Tile;
 import com.services.main_screen.TileService;
 
-@SuppressLint("Registered")
 @EActivity(R.layout.first_screen)
 public class CategoryScreen extends Activity {
 	Context context = this;
