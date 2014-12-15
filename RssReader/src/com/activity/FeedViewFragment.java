@@ -13,7 +13,11 @@ import org.jsoup.nodes.Document;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -54,7 +58,7 @@ public class FeedViewFragment extends Fragment {
 			feedContent = FeedService.getFeedContent(link);
 			Document doc = Jsoup.parseBodyFragment(feedContent.getContentHTML());
 
-			List<Content> contents = FeedService.parseContent(doc,				context);
+			List<Content> contents = FeedService.parseContent(doc,context);
 
 			setHTML(contents);
 		} catch (Exception e) {
@@ -72,7 +76,17 @@ public class FeedViewFragment extends Fragment {
 		for (Content content : contents) {
 			addContent(content);
 		}
-		//title.setText(feedContent.getTitle());
+		String feedTitle = feedContent.getTitle();
+		setTitle(feedTitle);
+		
+	}
+	private void setTitle(String feedTitle) {
+		String tempString=feedTitle;
+		SpannableString spanString = new SpannableString(tempString);
+		spanString.setSpan(new UnderlineSpan(), 0, spanString.length(), 0);
+		spanString.setSpan(new StyleSpan(Typeface.BOLD), 0, spanString.length(), 0);
+		spanString.setSpan(new StyleSpan(Typeface.ITALIC), 0, spanString.length(), 0);
+		title.setText(spanString);
 	}
 
 	private void addContent(Content content) {

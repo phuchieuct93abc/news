@@ -2,7 +2,7 @@ package com.activity;
 
 import java.util.List;
 
-import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
@@ -99,7 +99,7 @@ public class FeedViewActivity extends FragmentActivity {
 		
 	}
 
-	@AfterViews
+	@AfterInject
 	void run() {
 		runBackground();
 	}
@@ -149,9 +149,6 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 		Fragment fragment = new FeedViewFragment_();
 		((FeedViewFragment) fragment).setContext(this.context);
 		((FeedViewFragment) fragment).setLink(getListLink().get(i));
-
-		// ((FeedViewFragment) fragment).setLink(this.link);
-
 		return fragment;
 	}
 
@@ -161,7 +158,9 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 	}
 
 	@Override
-	public CharSequence getPageTitle(int position) {
-		return "NEWS " + (position + 1);
+	public CharSequence getPageTitle(int position) {		
+		String feedLink = getListLink().get(position);
+		String title = FeedService.getFeedContent(feedLink).getTitle();
+		return title;
 	}
 }
