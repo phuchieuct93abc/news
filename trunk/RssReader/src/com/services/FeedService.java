@@ -40,22 +40,32 @@ public class FeedService {
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(getContext());
 		String result = prefs.getString(url, "");
-		if (result.equals("")) {
+		//if (result.equals(""))
+		if(true)
+		{
 			Document doc;
 			try {
-				doc = Jsoup.connect(url).timeout(1000).get();
-				Editor editor = prefs.edit();
-				editor.putString(url, doc.html());
-				editor.commit();
+				doc = getDataFromURLAndSetToCache(url, prefs);
 			} catch (IOException e) {
 				e.printStackTrace();
 				return null;
 			}
 			return doc;
-		} else {
+		} 
+		else {
 			return Jsoup.parse(result);
 		}
 
+	}
+
+	private static Document getDataFromURLAndSetToCache(String url,
+			SharedPreferences prefs) throws IOException {
+		Document doc;
+		doc = Jsoup.connect(url).timeout(5000).get();
+		Editor editor = prefs.edit();
+		editor.putString(url, doc.html());
+		editor.commit();
+		return doc;
 	}
 
 	public static List<String> getListFeedLinkFromCaterogy(String category) {
@@ -71,7 +81,7 @@ public class FeedService {
 		int page = 0;
 		while (true) {
 			page++;
-			String categoryPage = nextLink(category, page);
+			String categoryPage = getLinkByPageNumber(category, page);
 			Log.i("hieu", categoryPage);
 			if (getListFeedLinkFromCaterogy(categoryPage).indexOf(link) > -1) {
 				return categoryPage;
@@ -97,21 +107,27 @@ public class FeedService {
 	}
 
 	public static List<Feed> getFeedFromUrl(String source) {
-		List<Feed> feeds = new ArrayList<Feed>();
-		List<Element> elements = getFeed(source);
-		for (Element element : elements) {
-			if (checkAds(element)) {
-				continue;
+		try {
+			List<Feed> feeds = new ArrayList<Feed>();
+			List<Element> elements = getFeed(source);
+			for (Element element : elements) {
+				if (checkAds(element)) {
+					continue;
+				}
+				String title = element.select(".title").text();
+				String content = element.select(".summary").text();
+				String link = element.select("a").attr("href");
+				String image = element.select("img").attr("src");
+				feeds.add(new Feed(title, content, link, image));
+
 			}
-			String title = element.select(".title").text();
-			String content = element.select(".summary").text();
-			String link = element.select("a").attr("href");
-			String image = element.select("img").attr("src");
-			feeds.add(new Feed(title, content, link, image));
 
+			return feeds;
+		} catch (Exception e) {
+			Log.i("hieu", source);
+			e.printStackTrace();
+			return new ArrayList<Feed>();
 		}
-
-		return feeds;
 
 	}
 
@@ -165,8 +181,13 @@ public class FeedService {
 
 	}
 
-	public static String nextLink(String link, int index) {
-		return link.replace(".epi", "/p/" + index + ".epi");
+	public static String getLinkByPageNumber(String link, int index) {
+		int lastIndexOfP = link.lastIndexOf("/p/");
+		if(lastIndexOfP ==-1){
+			lastIndexOfP=link.lastIndexOf(".epi");
+		}
+		String linkCategory = link.substring(0, lastIndexOfP);
+		return linkCategory+"/p/"+index+".epi";
 	}
 
 	public static String getCaterogyFromFeedLink(String feedLink) {

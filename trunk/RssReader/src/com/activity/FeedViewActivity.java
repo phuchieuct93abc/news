@@ -39,30 +39,58 @@ public class FeedViewActivity extends FragmentActivity {
 	@Background
 	void runBackground() {
 		linkCategory = FeedService.getIndexOfFeedInCategory(linkCategory, link);
-		Log.i("hieu",linkCategory);
-		this.listFeedLink = FeedService.getListFeedLinkFromCaterogy(linkCategory);
+		Log.i("hieu", linkCategory);
+		this.listFeedLink = FeedService
+				.getListFeedLinkFromCaterogy(linkCategory);
 		runUI();
 	}
 
 	@Background
 	public void loadMoreData(int arg0) {
+		if (arg0 == 0) {
+			/*page = 3;
+			getMoreDateFromPageFromStart();
+			setSelectedPage(13);*/
+
+		}
 		if (arg0 == listFeedLink.size() - 2) {
 			page++;
-			String nextLink = FeedService.nextLink(linkCategory, page);
-			List<Feed> feeds = FeedService.getFeedFromUrl(nextLink);
+			getMoreDateFromPageFromEnd();
+		}
+	}
+
+	private void getMoreDateFromPageFromStart() {
+		getMoreDateFromPage(true);
+	}
+
+	private void getMoreDateFromPageFromEnd() {
+		getMoreDateFromPage(false);
+	}
+
+	private void getMoreDateFromPage(Boolean fromStart) {
+		String nextLink = FeedService.getLinkByPageNumber(linkCategory, page);
+		List<Feed> feeds = FeedService.getFeedFromUrl(nextLink);
+		if (fromStart) {
 			for (Feed feed : feeds) {
 				String feedLink = feed.getLink();
-				listFeedLink.add(feedLink);
+				listFeedLink.add(0, feedLink);
 			}
-			mDemoCollectionPagerAdapter.setListLink(listFeedLink);
-			updateAdapter();
+		} else {
+
 		}
+		for (Feed feed : feeds) {
+			String feedLink = feed.getLink();
+			listFeedLink.add(feedLink);
+		}
+
+		mDemoCollectionPagerAdapter.setListLink(listFeedLink);
+		updateAdapter();
 	}
 
 	@UiThread
 	public void updateAdapter() {
 		mDemoCollectionPagerAdapter.notifyDataSetChanged();
-		
+
 	}
 
 	@UiThread
@@ -74,8 +102,7 @@ public class FeedViewActivity extends FragmentActivity {
 		mDemoCollectionPagerAdapter.setListLink(listFeedLink);
 		pager.setAdapter(mDemoCollectionPagerAdapter);
 
-		pager.setOnPageChangeListener(new OnPageChangeListener() {
-
+		OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
 
 			@Override
 			public void onPageSelected(int arg0) {
@@ -90,13 +117,19 @@ public class FeedViewActivity extends FragmentActivity {
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
 			}
-		});
-		if(listFeedLink.indexOf(link) == -1){
-			
+		};
+		pager.setOnPageChangeListener(onPageChangeListener);
+		if (listFeedLink.indexOf(link) == -1) {
+
 		}
-		
-		pager.setCurrentItem(listFeedLink.indexOf(link));
-		
+
+		setSelectedPage(listFeedLink.indexOf(link));
+
+	}
+
+	@UiThread
+	void setSelectedPage(int index) {
+		pager.setCurrentItem(index);
 	}
 
 	@AfterInject
@@ -158,10 +191,10 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 	}
 
 	@Override
-	public CharSequence getPageTitle(int position) {		
+	public CharSequence getPageTitle(int position) {
 		String feedLink = getListLink().get(position);
-		//String title = FeedService.getFeedContent(feedLink).getTitle();
-		String title = "NEWS "+position;
+		// String title = FeedService.getFeedContent(feedLink).getTitle();
+		String title = "NEWS " + listLink.size();
 		return title;
 	}
 }
