@@ -160,7 +160,8 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 	@Override
 	public CharSequence getPageTitle(int position) {		
 		String feedLink = getListLink().get(position);
-		String title = FeedService.getFeedContent(feedLink).getTitle();
+		//String title = FeedService.getFeedContent(feedLink).getTitle();
+		String title = "NEWS "+position;
 		return title;
 	}
 }
