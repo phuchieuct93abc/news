@@ -39,9 +39,12 @@ public class FeedViewActivity extends FragmentActivity {
 	@Background
 	void runBackground() {
 		linkCategory = FeedService.getIndexOfFeedInCategory(linkCategory, link);
-		Log.i("hieu", linkCategory);
-		this.listFeedLink = FeedService
-				.getListFeedLinkFromCaterogy(linkCategory);
+		List<String> categoryFromPageOne = FeedService.getLinkCategoryFromPageOne(linkCategory);
+		for(String item : categoryFromPageOne){
+			for(String item2:FeedService.getListFeedLinkFromCaterogy(item))
+			this.listFeedLink.add(item2);
+		}
+//		this.listFeedLink = FeedService.getListFeedLinkFromCaterogy(linkCategory);
 		runUI();
 	}
 

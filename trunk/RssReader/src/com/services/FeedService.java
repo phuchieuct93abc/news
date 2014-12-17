@@ -40,9 +40,8 @@ public class FeedService {
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(getContext());
 		String result = prefs.getString(url, "");
-		//if (result.equals(""))
-		if(true)
-		{
+		// if (result.equals(""))
+		if (true) {
 			Document doc;
 			try {
 				doc = getDataFromURLAndSetToCache(url, prefs);
@@ -51,8 +50,7 @@ public class FeedService {
 				return null;
 			}
 			return doc;
-		} 
-		else {
+		} else {
 			return Jsoup.parse(result);
 		}
 
@@ -183,15 +181,30 @@ public class FeedService {
 
 	public static String getLinkByPageNumber(String link, int index) {
 		int lastIndexOfP = link.lastIndexOf("/p/");
-		if(lastIndexOfP ==-1){
-			lastIndexOfP=link.lastIndexOf(".epi");
+		if (lastIndexOfP == -1) {
+			lastIndexOfP = link.lastIndexOf(".epi");
 		}
 		String linkCategory = link.substring(0, lastIndexOfP);
-		return linkCategory+"/p/"+index+".epi";
+		return linkCategory + "/p/" + index + ".epi";
 	}
 
 	public static String getCaterogyFromFeedLink(String feedLink) {
 		return null;
+	}
+
+	public static List<String> getLinkCategoryFromPageOne(String link) {
+		int currentLink = 1;
+		int lastIndexOfP = link.lastIndexOf("/p/");
+List<String> result = new ArrayList<String>();
+		if (lastIndexOfP != -1) {
+			int lastIndexOfEPI = link.lastIndexOf(".epi");
+			currentLink = Integer.parseInt(link.substring(lastIndexOfP + 3, lastIndexOfEPI));
+			for(int index =1;index<=currentLink;index++){
+				result.add(getLinkByPageNumber(link, index));
+			}
+		}
+
+		return result;
 	}
 
 }
