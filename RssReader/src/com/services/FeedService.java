@@ -37,21 +37,28 @@ public class FeedService {
 	}
 
 	private static Document getHTMLFromURL(String url) {
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(getContext());
-		String result = prefs.getString(url, "");
-		// if (result.equals(""))
-		if (true) {
-			Document doc;
-			try {
-				doc = getDataFromURLAndSetToCache(url, prefs);
-			} catch (IOException e) {
-				e.printStackTrace();
-				return null;
+		try {
+		/*	SharedPreferences prefs = PreferenceManager	.getDefaultSharedPreferences(getContext());
+			String result = prefs.getString(url, "");*/
+			// if (result.equals(""))
+			if (true) {
+				Document doc;
+				try {
+					doc = getDataFromURLAndSetToCache(url, null);
+				} catch (IOException e) {
+					e.printStackTrace();
+					return null;
+				}
+				return doc;
 			}
-			return doc;
-		} else {
-			return Jsoup.parse(result);
+			else {
+				return null;
+			//	return Jsoup.parse(result);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
 		}
 
 	}
@@ -60,9 +67,9 @@ public class FeedService {
 			SharedPreferences prefs) throws IOException {
 		Document doc;
 		doc = Jsoup.connect(url).timeout(5000).get();
-		Editor editor = prefs.edit();
+		/*Editor editor = prefs.edit();
 		editor.putString(url, doc.html());
-		editor.commit();
+		editor.commit();*/
 		return doc;
 	}
 

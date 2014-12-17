@@ -18,6 +18,7 @@ import android.support.v4.app.Fragment;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -73,11 +74,17 @@ public class FeedViewFragment extends Fragment {
 
 	@UiThread
 	void setHTML(List<Content> contents) {
-		for (Content content : contents) {
-			addContent(content);
+		try {
+			for (Content content : contents) {
+				addContent(content);
+			}
+			String feedTitle = feedContent.getTitle();
+			setTitle(feedTitle);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Log.i("fail get feed",link);
 		}
-		String feedTitle = feedContent.getTitle();
-		setTitle(feedTitle);
 		
 	}
 	private void setTitle(String feedTitle) {
