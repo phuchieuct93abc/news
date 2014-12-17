@@ -1,5 +1,6 @@
 package com.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.androidannotations.annotations.AfterInject;
@@ -33,7 +34,7 @@ public class FeedViewActivity extends FragmentActivity {
 	PagerAdapter mDemoCollectionPagerAdapter;
 	@ViewById
 	ViewPager pager;
-	List<String> listFeedLink;
+	List<String> listFeedLink = new ArrayList<String>();
 	int page = 1;
 
 	@Background
@@ -41,10 +42,10 @@ public class FeedViewActivity extends FragmentActivity {
 		linkCategory = FeedService.getIndexOfFeedInCategory(linkCategory, link);
 		List<String> categoryFromPageOne = FeedService.getLinkCategoryFromPageOne(linkCategory);
 		for(String item : categoryFromPageOne){
-			for(String item2:FeedService.getListFeedLinkFromCaterogy(item))
-			this.listFeedLink.add(item2);
+			for(String item2:FeedService.getListFeedLinkFromCaterogy(item)){
+				this.listFeedLink.add(item2);
+			}
 		}
-//		this.listFeedLink = FeedService.getListFeedLinkFromCaterogy(linkCategory);
 		runUI();
 	}
 
