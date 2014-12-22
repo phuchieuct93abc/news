@@ -43,7 +43,6 @@ public class CategoryScreen extends Activity {
 	@AfterInject
 	void afterInject() {
 		tiles = TileService.getList();
-		font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
 	}
 
 	private void setClickListenerForButton() {
@@ -51,24 +50,26 @@ public class CategoryScreen extends Activity {
 			TableRow row = (TableRow) table.getChildAt(x);
 			for (int y = 0; y < row.getChildCount(); y++) {
 				ButtonRectangle button = (ButtonRectangle) row.getChildAt(y);	
-				addIcon(button);				
 				int index = 2 * x + y;
-				String title = tiles.get(index).getTitle();
-				button.setText(title);
-				OnClickListener initialOnClickListener = initialOnClickListener(tiles
-						.get(index).getUrl());
+				Tile tile = tiles.get(index);
+				addIcon(button,tile.getIcon());	
+				button.setText(tile.getTitle());
+				button.setPaddingRelative(20, 0, 0, 0);
+				button.setGravity(Gravity.START);
+				OnClickListener initialOnClickListener = initialOnClickListener(tile.getUrl());
 				button.setOnClickListener(initialOnClickListener);
-
 			}
 		}
 	}
 
-	private void addIcon(ButtonRectangle button) {
+	private void addIcon(ButtonRectangle button,String icon) {
 		IconTextView iconView = new IconTextView(this);
-		iconView.setText("{fa-pencil}");
+		iconView.setText("{"+icon+"}");
 		iconView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
 		iconView.setGravity(Gravity.CENTER);
 		iconView.setTextColor(Color.WHITE);
+		iconView.setPaddingRelative(10, 0, 0, 0);
+		iconView.setTextSize(20);
 		button.addView(iconView);
 	}
 
