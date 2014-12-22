@@ -7,8 +7,8 @@
 
     <TableRow
         android:id="@+id/tableRow1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
         <com.gc.materialdesign.views.ButtonRectangle
             android:id="@+id/button1"
@@ -29,8 +29,8 @@
 
     <TableRow
         android:id="@+id/tableRow2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
         <com.gc.materialdesign.views.ButtonRectangle
             android:id="@+id/button3"
@@ -51,8 +51,8 @@
 
     <TableRow
         android:id="@+id/tableRow3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
         <com.gc.materialdesign.views.ButtonRectangle
             android:id="@+id/button5"

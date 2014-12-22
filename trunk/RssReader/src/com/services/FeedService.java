@@ -12,6 +12,7 @@ import org.jsoup.select.Elements;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.content.Content;
@@ -36,10 +37,11 @@ public class FeedService {
 
 	private static Document getHTMLFromURL(String url) {
 		try {
-		/*	SharedPreferences prefs = PreferenceManager	.getDefaultSharedPreferences(getContext());
-			String result = prefs.getString(url, "");*/
-			// if (result.equals(""))
-			if (true) {
+			SharedPreferences prefs = PreferenceManager
+					.getDefaultSharedPreferences(getContext());
+			String result = prefs.getString(url, "");
+			if (result.equals("")) {
+
 				Document doc;
 				try {
 					doc = getDataFromURLAndSetToCache(url, null);
@@ -48,10 +50,9 @@ public class FeedService {
 					return null;
 				}
 				return doc;
-			}
-			else {
-				return null;
-			//	return Jsoup.parse(result);
+			} else {
+				// return null;
+				return Jsoup.parse(result);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -65,9 +66,10 @@ public class FeedService {
 			SharedPreferences prefs) throws IOException {
 		Document doc;
 		doc = Jsoup.connect(url).timeout(5000).get();
-		/*Editor editor = prefs.edit();
-		editor.putString(url, doc.html());
-		editor.commit();*/
+		/*
+		 * Editor editor = prefs.edit(); editor.putString(url, doc.html());
+		 * editor.commit();
+		 */
 		return doc;
 	}
 
@@ -200,11 +202,12 @@ public class FeedService {
 	public static List<String> getLinkCategoryFromPageOne(String link) {
 		int currentLink = 1;
 		int lastIndexOfP = link.lastIndexOf("/p/");
-List<String> result = new ArrayList<String>();
+		List<String> result = new ArrayList<String>();
 		if (lastIndexOfP != -1) {
 			int lastIndexOfEPI = link.lastIndexOf(".epi");
-			currentLink = Integer.parseInt(link.substring(lastIndexOfP + 3, lastIndexOfEPI));
-			for(int index =1;index<=currentLink;index++){
+			currentLink = Integer.parseInt(link.substring(lastIndexOfP + 3,
+					lastIndexOfEPI));
+			for (int index = 1; index <= currentLink; index++) {
 				result.add(getLinkByPageNumber(link, index));
 			}
 		}
