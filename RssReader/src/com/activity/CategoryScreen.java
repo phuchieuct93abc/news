@@ -9,16 +9,20 @@ import org.androidannotations.annotations.ViewById;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.IconTextView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.gc.materialdesign.views.ButtonRectangle;
-import com.joanzapata.android.iconify.Iconify;
 import com.phuchieu.news.R;
 import com.services.main_screen.Tile;
 import com.services.main_screen.TileService;
@@ -29,6 +33,7 @@ public class CategoryScreen extends Activity {
 	@ViewById
 	TableLayout table;
 	List<Tile> tiles;
+	Typeface font;
 
 	@AfterViews
 	void afterView() {
@@ -38,13 +43,15 @@ public class CategoryScreen extends Activity {
 	@AfterInject
 	void afterInject() {
 		tiles = TileService.getList();
+		font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
 	}
 
 	private void setClickListenerForButton() {
 		for (int x = 0; x < table.getChildCount(); x++) {
 			TableRow row = (TableRow) table.getChildAt(x);
 			for (int y = 0; y < row.getChildCount(); y++) {
-				ButtonRectangle button = (ButtonRectangle) row.getChildAt(y);
+				ButtonRectangle button = (ButtonRectangle) row.getChildAt(y);	
+				addIcon(button);				
 				int index = 2 * x + y;
 				String title = tiles.get(index).getTitle();
 				button.setText(title);
@@ -54,6 +61,15 @@ public class CategoryScreen extends Activity {
 
 			}
 		}
+	}
+
+	private void addIcon(ButtonRectangle button) {
+		IconTextView iconView = new IconTextView(this);
+		iconView.setText("{fa-pencil}");
+		iconView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
+		iconView.setGravity(Gravity.CENTER);
+		iconView.setTextColor(Color.WHITE);
+		button.addView(iconView);
 	}
 
 	private OnClickListener initialOnClickListener(final String url) {
