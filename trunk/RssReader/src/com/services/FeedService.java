@@ -12,8 +12,6 @@ import org.jsoup.select.Elements;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.content.Content;

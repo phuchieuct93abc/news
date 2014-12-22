@@ -17,7 +17,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 
 import com.feed.Feed;
 import com.phuchieu.news.R;
@@ -63,9 +62,7 @@ public class FeedViewActivity extends FragmentActivity {
 		}
 	}
 
-	private void getMoreDateFromPageFromStart() {
-		getMoreDateFromPage(true);
-	}
+
 
 	private void getMoreDateFromPageFromEnd() {
 		getMoreDateFromPage(false);
@@ -196,9 +193,9 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 
 	@Override
 	public CharSequence getPageTitle(int position) {
-		String feedLink = getListLink().get(position);
+	/*	String feedLink = getListLink().get(position);
 		// String title = FeedService.getFeedContent(feedLink).getTitle();
-		String title = "NEWS " + listLink.size();
+*/		String title = "NEWS " + listLink.size();
 		return title;
 	}
 }
