@@ -2,6 +2,7 @@ package com.activity;
 
 import java.util.List;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -17,6 +18,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.gc.materialdesign.views.ButtonRectangle;
+import com.joanzapata.android.iconify.Iconify;
 import com.phuchieu.news.R;
 import com.services.main_screen.Tile;
 import com.services.main_screen.TileService;
@@ -30,11 +32,13 @@ public class CategoryScreen extends Activity {
 
 	@AfterViews
 	void afterView() {
-		tiles = TileService.getList();
 		setClickListenerForButton();
-	
 	}
-	
+
+	@AfterInject
+	void afterInject() {
+		tiles = TileService.getList();
+	}
 
 	private void setClickListenerForButton() {
 		for (int x = 0; x < table.getChildCount(); x++) {
@@ -44,10 +48,10 @@ public class CategoryScreen extends Activity {
 				int index = 2 * x + y;
 				String title = tiles.get(index).getTitle();
 				button.setText(title);
-				OnClickListener initialOnClickListener = initialOnClickListener(tiles.get(index).getUrl());
+				OnClickListener initialOnClickListener = initialOnClickListener(tiles
+						.get(index).getUrl());
 				button.setOnClickListener(initialOnClickListener);
 
-				
 			}
 		}
 	}
@@ -56,28 +60,29 @@ public class CategoryScreen extends Activity {
 		return new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
 				MainActivity_.intent(context).link(url).start();
 			}
 		};
 	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.main_activity_actions, menu);
-	    return super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main_activity_actions, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle presses on the action bar items
-	    switch (item.getItemId()) {
-	        case R.id.action_search:
-	        	SearchScreen_.intent(context).start();
-	            return true;
-	        case R.id.action_settings:
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+		// Handle presses on the action bar items
+		switch (item.getItemId()) {
+		case R.id.action_search:
+			SearchScreen_.intent(context).start();
+			return true;
+		case R.id.action_settings:
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }
