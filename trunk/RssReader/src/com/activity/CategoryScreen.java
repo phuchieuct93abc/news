@@ -54,7 +54,7 @@ public class CategoryScreen extends Activity {
 				Tile tile = tiles.get(index);
 				addIcon(button,tile.getIcon());	
 				button.setText(tile.getTitle());
-				button.setPaddingRelative(20, 0, 0, 0);
+				button.setPaddingRelative(10, 0, 0, 0);
 				button.setGravity(Gravity.START);
 				OnClickListener initialOnClickListener = initialOnClickListener(tile.getUrl());
 				button.setOnClickListener(initialOnClickListener);

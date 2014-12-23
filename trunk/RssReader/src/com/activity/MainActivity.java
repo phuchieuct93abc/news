@@ -13,12 +13,15 @@ import org.androidannotations.annotations.ViewById;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-import com.costum.android.widget.LoadMoreListView;
-import com.costum.android.widget.LoadMoreListView.OnLoadMoreListener;
+import com.costum.android.widget.PullAndLoadListView;
+import com.costum.android.widget.PullAndLoadListView.OnLoadMoreListener;
+import com.costum.android.widget.PullToRefreshListView.OnRefreshListener;
 import com.feed.Feed;
 import com.feed.FeedListAdapter;
 import com.phuchieu.news.R;
@@ -28,7 +31,7 @@ import com.services.FeedService;
 public class MainActivity extends Activity {
 
 	@ViewById
-	LoadMoreListView listView;
+	PullAndLoadListView listView;
 
 	@Bean
 	FeedListAdapter adapter;
@@ -51,6 +54,17 @@ public class MainActivity extends Activity {
 			}
 
 		});
+		listView.setOnRefreshListener(new OnRefreshListener() {
+			
+			@Override
+			public void onRefresh() {
+					Toast.makeText(getApplicationContext(), "Load ", Toast.LENGTH_SHORT).show();
+					//listView.onRefreshComplete();
+			}
+		});
+
+		
+	//	listView.setOverscrollHeader(R.drawable.news_icon);
 	}
 
 	@Background
@@ -64,7 +78,7 @@ public class MainActivity extends Activity {
 	@UiThread
 	void updateList() {
 		adapter.notifyDataSetChanged();
-		listView.onLoadMoreComplete();
+		//listView.onLoadMoreComplete();
 	}
 
 	@ItemClick
