@@ -13,11 +13,9 @@ import org.androidannotations.annotations.ViewById;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.costum.android.widget.PullAndLoadListView;
 import com.costum.android.widget.PullAndLoadListView.OnLoadMoreListener;
@@ -55,21 +53,19 @@ public class MainActivity extends Activity {
 
 		});
 		listView.setOnRefreshListener(new OnRefreshListener() {
-			
+
 			@Override
 			public void onRefresh() {
-					Toast.makeText(getApplicationContext(), "Load ", Toast.LENGTH_SHORT).show();
-					//listView.onRefreshComplete();
+				FeedService.clearCache();
+				background();
 			}
 		});
-
-		
-	//	listView.setOverscrollHeader(R.drawable.news_icon);
 	}
 
 	@Background
 	void loadNextPage() {
-		String nextLink = link.replace(".epi", "/p/" + numberOfPage + ".epi");
+		
+		String nextLink = FeedService.getLinkByPageNumber(link,numberOfPage);
 		List<Feed> rssItems = FeedService.getFeedFromUrl(nextLink);
 		adapter.setListDataMore(rssItems);
 		updateList();
@@ -78,13 +74,15 @@ public class MainActivity extends Activity {
 	@UiThread
 	void updateList() {
 		adapter.notifyDataSetChanged();
-		//listView.onLoadMoreComplete();
+		listView.onLoadMoreComplete();
 	}
 
 	@ItemClick
 	public void listViewItemClicked(Feed clickedItem) {
-		FeedViewActivity_.intent(context).extra("selectedLink", clickedItem.getLink()).extra("linkCategory", link).start();
-		//FeedViewActivity_.intent(context).start();
+		FeedViewActivity_.intent(context)
+				.extra("selectedLink", clickedItem.getLink())
+				.extra("linkCategory", link).start();
+		// FeedViewActivity_.intent(context).start();
 
 	}
 
@@ -94,6 +92,8 @@ public class MainActivity extends Activity {
 	@UiThread
 	void run() {
 		listView.setAdapter(adapter);
+		listView.onRefreshComplete();
+		listView.onLoadMoreComplete();
 	}
 
 	@Background
@@ -107,24 +107,26 @@ public class MainActivity extends Activity {
 		}
 
 	}
-	//Action bar
+
+	// Action bar
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.main_activity_actions, menu);
-	    return super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main_activity_actions, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle presses on the action bar items
-	    switch (item.getItemId()) {
-	        case R.id.action_search:
-	        	SearchScreen_.intent(context).start();
-	            return true;
-	        case R.id.action_settings:
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+		// Handle presses on the action bar items
+		switch (item.getItemId()) {
+		case R.id.action_search:
+			SearchScreen_.intent(context).start();
+			return true;
+		case R.id.action_settings:
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }
