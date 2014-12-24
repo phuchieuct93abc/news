@@ -1,6 +1,6 @@
 package com.activity;
 
-import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.WindowFeature;
 
@@ -20,7 +20,7 @@ public class Splash extends Activity {
 	private final int SPLASH_DISPLAY_LENGTH = 1000;
 	private Context context = this;
 
-	@AfterInject
+	@AfterViews
 	void afterView() {
 		FeedService.setContext(getApplicationContext());
 		new Handler().postDelayed(new Runnable() {

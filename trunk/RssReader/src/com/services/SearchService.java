@@ -2,9 +2,6 @@ package com.services;
 
 import java.net.URLEncoder;
 
-import org.jsoup.Jsoup;
-import org.jsoup.select.Elements;
-
 public class SearchService {
 	public static String search(String key) {
 		try {

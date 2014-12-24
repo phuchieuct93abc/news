@@ -49,17 +49,11 @@ public class FeedViewActivity extends FragmentActivity {
 	}
 
 	@Background
-	public void loadMoreData(int arg0) {
-		if (arg0 == 0) {
-			/*page = 3;
-			getMoreDateFromPageFromStart();
-			setSelectedPage(13);*/
-
-		}
-		if (arg0 == listFeedLink.size() - 2) {
+	public void loadMoreData() {
+		
 			page++;
 			getMoreDateFromPageFromEnd();
-		}
+		
 	}
 
 
@@ -107,24 +101,28 @@ public class FeedViewActivity extends FragmentActivity {
 
 			@Override
 			public void onPageSelected(int arg0) {
-				loadMoreData(arg0);
+				FeedService.setRead(listFeedLink.get(arg0));
+				if (arg0 == listFeedLink.size() - 2) {
+					loadMoreData();
+				}
 			}
 
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				
+
 
 			}
 
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
+				
 			}
 		};
 		pager.setOnPageChangeListener(onPageChangeListener);
-		if (listFeedLink.indexOf(link) == -1) {
-
-		}
-
 		setSelectedPage(listFeedLink.indexOf(link));
+		FeedService.setRead(link);
+
 
 	}
 
@@ -195,7 +193,7 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 	public CharSequence getPageTitle(int position) {
 	/*	String feedLink = getListLink().get(position);
 		// String title = FeedService.getFeedContent(feedLink).getTitle();
-*/		String title = "NEWS " + listLink.size();
+*/		String title = "NEWS " + position;
 		return title;
 	}
 }
