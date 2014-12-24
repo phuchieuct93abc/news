@@ -27,14 +27,30 @@ public class FeedService {
 	static Context context;
 	static String sharedPreferencesCaterogy = "CATEROGY_CACHE";
 	static String sharedPreferencesFeed = "FEED_CACHE";
+	static String sharedPreferencesReadFeed = "READ_FEED_CACHE";
 
 	private static Boolean isCategoryLink(String url) {
 		return url.indexOf("/p/") > -1;
 	}
-	public static void clearCache(){
+
+	public static Boolean isRead(String feedLink) {
 		SharedPreferences prefs = getContext().getSharedPreferences(
-				FeedService.sharedPreferencesCaterogy,
-				Context.MODE_PRIVATE);
+				FeedService.sharedPreferencesReadFeed, Context.MODE_PRIVATE);
+		Boolean result = prefs.getBoolean(feedLink, false);
+		return result;
+	}
+
+	public static void setRead(String feedLink) {
+		SharedPreferences prefs = getContext().getSharedPreferences(
+				FeedService.sharedPreferencesReadFeed, Context.MODE_PRIVATE);
+		prefs.edit().putBoolean(feedLink, true).commit();	
+		Log.i("hieu","set "+feedLink);
+
+	}
+
+	public static void clearCache() {
+		SharedPreferences prefs = getContext().getSharedPreferences(
+				FeedService.sharedPreferencesCaterogy, Context.MODE_PRIVATE);
 		prefs.edit().clear().commit();
 	}
 
@@ -70,7 +86,6 @@ public class FeedService {
 				}
 				return doc;
 			} else {
-				Log.i("hieu","get from cache "+url);
 
 				return Jsoup.parse(result);
 			}
@@ -83,7 +98,6 @@ public class FeedService {
 
 	private static Document getDataFromURLAndSetToCache(String url,
 			SharedPreferences prefs) throws IOException {
-		Log.i("hieu","get from net "+url);
 		Document doc = Jsoup.connect(url).timeout(5000).get();
 		Editor editor = prefs.edit();
 		editor.putString(url, doc.html());
@@ -145,7 +159,6 @@ public class FeedService {
 
 			return feeds;
 		} catch (Exception e) {
-			Log.i("hieu", source);
 			e.printStackTrace();
 			return new ArrayList<Feed>();
 		}

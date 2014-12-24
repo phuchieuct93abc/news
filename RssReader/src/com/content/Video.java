@@ -1,11 +1,9 @@
 package com.content;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.widget.TextView;
 
 public class Video extends Content {
 	String iframHTML;

@@ -1,8 +1,12 @@
 package com.feed;
 
+import com.services.FeedService;
+
 public class Feed {
 	String title, content, link, image;
-
+	public Boolean isRead(){
+		return FeedService.isRead(this.link);
+	}
 	public String getLink() {
 		return link;
 	}
