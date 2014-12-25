@@ -9,6 +9,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.WindowFeature;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -17,12 +18,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.Window;
 
 import com.feed.Feed;
 import com.phuchieu.news.R;
 import com.services.FeedService;
 
 @EActivity(R.layout.view_swipe)
+@WindowFeature(Window.FEATURE_NO_TITLE)
 public class FeedViewActivity extends FragmentActivity {
 
 	@Extra("selectedLink")

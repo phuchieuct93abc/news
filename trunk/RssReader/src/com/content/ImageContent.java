@@ -2,6 +2,7 @@ package com.content;
 
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
@@ -25,9 +26,9 @@ public class ImageContent extends Content {
 	public View toView() {
 		try {
 			ImageView imageView = new ImageView(context);
-			// imageView.setLayoutParams(new
-			// ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
-			UrlImageViewHelper.setUrlDrawable(imageView, toString(),R.drawable.loading);
+			 imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
+			imageView.setAdjustViewBounds(true);
+			 UrlImageViewHelper.setUrlDrawable(imageView, toString(),R.drawable.loading);
 
 			return imageView;
 		} catch (Exception e) {
