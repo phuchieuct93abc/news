@@ -33,8 +33,6 @@ public class FeedItemView extends RelativeLayout {
 	}
 
 	public void bindDataToView(Feed feed) {
-		Log.i("hieu",feed.isRead().toString());
-
 		if(feed.isRead()){
 			isRead.setVisibility(View.VISIBLE);
 
