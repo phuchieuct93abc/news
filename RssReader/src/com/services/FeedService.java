@@ -13,7 +13,6 @@ import org.jsoup.select.Elements;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.util.Log;
 
 import com.content.Content;
 import com.content.ImageContent;
@@ -44,8 +43,8 @@ public class FeedService {
 		SharedPreferences prefs = getContext().getSharedPreferences(
 				FeedService.sharedPreferencesReadFeed, Context.MODE_PRIVATE);
 		prefs.edit().putBoolean(feedLink, true).commit();	
-		Log.i("hieu","set "+feedLink);
 
+		
 	}
 
 	public static void clearCache() {

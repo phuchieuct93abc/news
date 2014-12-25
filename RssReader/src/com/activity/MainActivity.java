@@ -13,6 +13,7 @@ import org.androidannotations.annotations.ViewById;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,7 +27,7 @@ import com.phuchieu.news.R;
 import com.services.FeedService;
 
 @EActivity(R.layout.activity_main)
-public class MainActivity extends Activity {
+public class MainActivity extends Activity   {
 
 	@ViewById
 	PullAndLoadListView listView;
@@ -37,6 +38,12 @@ public class MainActivity extends Activity {
 	private int numberOfPage = 1;
 	Context context = this;
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		adapter.notifyDataSetChanged();
+	}
+	
 	@AfterViews
 	void afterView() {
 		background();
