@@ -51,7 +51,6 @@ public class MainActivity extends Activity   {
 	}
 
 	private void setOnScrollListener() {
-
 		listView.setOnLoadMoreListener(new OnLoadMoreListener() {
 			public void onLoadMore() {
 				numberOfPage++;
@@ -60,7 +59,6 @@ public class MainActivity extends Activity   {
 
 		});
 		listView.setOnRefreshListener(new OnRefreshListener() {
-
 			@Override
 			public void onRefresh() {
 				FeedService.clearCache();
@@ -89,7 +87,6 @@ public class MainActivity extends Activity   {
 		FeedViewActivity_.intent(context)
 				.extra("selectedLink", clickedItem.getLink())
 				.extra("linkCategory", link).start();
-		// FeedViewActivity_.intent(context).start();
 
 	}
 
