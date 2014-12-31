@@ -1,0 +1,7 @@
+E:\android project\css-reader\News\app\build\intermediates\classes\debug
+E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-f17d02cfe9007703256f482d424e849907d46920.jar
+E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\android-apt-1.4-14709cb0c883e8927f91b3eff949b2bc3b490d88.jar
+E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\androidannotations-api-3.2-1d46c07ff9a270965e509a7c2797dd3c87cdaae7.jar
+E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-7b18ebc520beb899abf478f70ca60b8c568e06dd.jar
+E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\classes-ab957832400796e75372a27918fb336eedaa3e89.jar
+E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\classes-1f78ffe1d0057228932a2e6df9d0c365c3985a45.jar
