@@ -9,20 +9,6 @@
         <dex dex="E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\classes-ab957832400796e75372a27918fb336eedaa3e89.jar" />
     </item>
     <item
-        jar="C:\Users\lphieu\.gradle\caches\modules-2\files-2.1\org.androidannotations\androidannotations\3.2\4e6a8690ebb31ec8ef04ca870c0f164b81aaf331\androidannotations-3.2.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="4e6a8690ebb31ec8ef04ca870c0f164b81aaf331">
-        <dex dex="E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\androidannotations-3.2-3375d7a98e2e837eb7ab2d4def0edd9210bb7b0e.jar" />
-    </item>
-    <item
-        jar="C:\Users\lphieu\.gradle\caches\modules-2\files-2.1\com.sun.codemodel\codemodel\2.4.1\9784eb8a0a6d68e9c5ee8f86c45020123534bfe\codemodel-2.4.1.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="09784eb8a0a6d68e9c5ee8f86c45020123534bfe">
-        <dex dex="E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\codemodel-2.4.1-8be1f559a83cc8a91cc777c2599d56045883cf19.jar" />
-    </item>
-    <item
         jar="E:\android project\css-reader\News\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -37,11 +23,25 @@
         <dex dex="E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\android-apt-1.4-14709cb0c883e8927f91b3eff949b2bc3b490d88.jar" />
     </item>
     <item
+        jar="E:\android project\css-reader\News\app\libs\jsoup-1.8.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3d57e95c0f150b885ccdbda7a12bef353fd31d02">
+        <dex dex="E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\jsoup-1.8.1-dcfe629279169f5ca91049c3c10971ff7c0d7201.jar" />
+    </item>
+    <item
         jar="C:\Users\lphieu\.gradle\caches\modules-2\files-2.1\org.androidannotations\androidannotations-api\3.2\89b33bb1e996eb2c4089f79d1b8651c71fe8e2d1\androidannotations-api-3.2.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="89b33bb1e996eb2c4089f79d1b8651c71fe8e2d1">
         <dex dex="E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\androidannotations-api-3.2-1d46c07ff9a270965e509a7c2797dd3c87cdaae7.jar" />
+    </item>
+    <item
+        jar="E:\android project\css-reader\News\app\build\intermediates\exploded-aar\News\loadMoreListView\unspecified\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ea5befbcaf03763fdf29614d52668198d8c05890">
+        <dex dex="E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\classes-f48c50872ec10e653b002bbf99a789c948101cce.jar" />
     </item>
     <item
         jar="E:\android studio\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"

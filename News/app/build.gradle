@@ -61,4 +61,6 @@ dependencies {
     compile 'com.neenbedankt.gradle.plugins:android-apt:1.4'
     compile 'org.androidannotations:androidannotations-api:3.2'
     apt 'org.androidannotations:androidannotations:3.2'
+    compile files('libs/jsoup-1.8.1.jar')
+    compile project(':loadMoreListView')
 }
