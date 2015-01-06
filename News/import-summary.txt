@@ -11,15 +11,65 @@ move your project to a location where this is not a problem.
 E:\android project\css-reader\News
           -                       
 
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* proguard-project.txt
+* src\
+* src\com\
+* src\com\gc\
+* src\com\gc\materialdesign\
+* src\com\gc\materialdesign\utils\
+* src\com\gc\materialdesign\utils\Utils.java
+* src\com\gc\materialdesign\views\
+* src\com\gc\materialdesign\views\Button.java
+* src\com\gc\materialdesign\views\ButtonFlat.java
+* src\com\gc\materialdesign\views\ButtonFloat.java
+* src\com\gc\materialdesign\views\ButtonFloatSmall.java
+* src\com\gc\materialdesign\views\ButtonIcon.java
+* src\com\gc\materialdesign\views\ButtonRectangle.java
+* src\com\gc\materialdesign\views\Card.java
+* src\com\gc\materialdesign\views\CheckBox.java
+* src\com\gc\materialdesign\views\CustomView.java
+* src\com\gc\materialdesign\views\LayoutRipple.java
+* src\com\gc\materialdesign\views\ProgressBarCircularIndeterminate.java
+* src\com\gc\materialdesign\views\ProgressBarDeterminate.java
+* src\com\gc\materialdesign\views\ProgressBarIndeterminate.java
+* src\com\gc\materialdesign\views\ProgressBarIndeterminateDeterminate.java
+* src\com\gc\materialdesign\views\RippleView.java
+* src\com\gc\materialdesign\views\ScrollView.java
+* src\com\gc\materialdesign\views\Slider.java
+* src\com\gc\materialdesign\views\Switch.java
+* src\com\gc\materialdesign\widgets\
+* src\com\gc\materialdesign\widgets\ColorSelector.java
+* src\com\gc\materialdesign\widgets\Dialog.java
+* src\com\gc\materialdesign\widgets\SnackBar.java
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:19.1.0
+
 Moved Files:
 ------------
 Android Gradle projects use a different directory structure than ADT
 Eclipse projects. Here's how the projects were restructured:
 
-* AndroidManifest.xml => loadMoreListView\src\main\AndroidManifest.xml
-* assets\ => loadMoreListView\src\main\assets\
-* res\ => loadMoreListView\src\main\res\
-* src\ => loadMoreListView\src\main\java\
+* AndroidManifest.xml => materialDesignLib\src\main\AndroidManifest.xml
+* assets\ => materialDesignLib\src\main\assets\
+* libs\nineoldandroids-2.4.0.jar => materialDesignLib\libs\nineoldandroids-2.4.0.jar
+* lint.xml => materialDesignLib\lint.xml
+* res\ => materialDesignLib\src\main\res\
 
 Next Steps:
 -----------
