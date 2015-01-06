@@ -18,6 +18,8 @@ ADDED from AndroidManifest.xml:5:5
 MERGED from com.android.support:appcompat-v7:21.0.3:16:5
 MERGED from com.android.support:support-v4:21.0.3:16:5
 MERGED from News:loadMoreListView:unspecified:11:5
+MERGED from News:materialDesignLib:unspecified:11:5
+MERGED from com.android.support:support-v4:21.0.3:16:5
 	android:label
 		ADDED from AndroidManifest.xml:8:9
 	android:allowBackup
@@ -45,12 +47,30 @@ ADDED from AndroidManifest.xml:16:17
 activity#com.activity.CategoryScreen_
 ADDED from AndroidManifest.xml:19:9
 	android:name
-		ADDED from AndroidManifest.xml:20:12
+		ADDED from AndroidManifest.xml:19:19
+activity#com.activity.FeedViewActivity_
+ADDED from AndroidManifest.xml:20:9
+	android:name
+		ADDED from AndroidManifest.xml:20:19
+activity#com.activity.FeedView_
+ADDED from AndroidManifest.xml:21:9
+	android:name
+		ADDED from AndroidManifest.xml:21:19
+activity#com.activity.SearchScreen_
+ADDED from AndroidManifest.xml:22:9
+	android:name
+		ADDED from AndroidManifest.xml:22:19
+activity#com.activity.MainActivity_
+ADDED from AndroidManifest.xml:24:9
+	android:name
+		ADDED from AndroidManifest.xml:24:19
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:appcompat-v7:21.0.3:15:5
 MERGED from com.android.support:support-v4:21.0.3:15:5
 MERGED from News:loadMoreListView:unspecified:7:5
+MERGED from News:materialDesignLib:unspecified:7:5
+MERGED from com.android.support:support-v4:21.0.3:15:5
 	android:targetSdkVersion
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0

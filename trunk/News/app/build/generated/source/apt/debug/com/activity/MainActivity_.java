@@ -140,14 +140,14 @@ public final class MainActivity_
     }
 
     @Override
-    public void loadNextPage() {
+    public void background() {
         BackgroundExecutor.execute(new BackgroundExecutor.Task("", 0, "") {
 
 
             @Override
             public void execute() {
                 try {
-                    MainActivity_.super.loadNextPage();
+                    MainActivity_.super.background();
                 } catch (Throwable e) {
                     Thread.getDefaultUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
                 }
@@ -158,14 +158,14 @@ public final class MainActivity_
     }
 
     @Override
-    public void background() {
+    public void loadNextPage() {
         BackgroundExecutor.execute(new BackgroundExecutor.Task("", 0, "") {
 
 
             @Override
             public void execute() {
                 try {
-                    MainActivity_.super.background();
+                    MainActivity_.super.loadNextPage();
                 } catch (Throwable e) {
                     Thread.getDefaultUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
                 }

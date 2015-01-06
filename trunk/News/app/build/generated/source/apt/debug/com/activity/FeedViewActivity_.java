@@ -111,20 +111,6 @@ public final class FeedViewActivity_
     }
 
     @Override
-    public void runUI() {
-        handler_.post(new Runnable() {
-
-
-            @Override
-            public void run() {
-                FeedViewActivity_.super.runUI();
-            }
-
-        }
-        );
-    }
-
-    @Override
     public void updateAdapter() {
         handler_.post(new Runnable() {
 
@@ -132,6 +118,20 @@ public final class FeedViewActivity_
             @Override
             public void run() {
                 FeedViewActivity_.super.updateAdapter();
+            }
+
+        }
+        );
+    }
+
+    @Override
+    public void runUI() {
+        handler_.post(new Runnable() {
+
+
+            @Override
+            public void run() {
+                FeedViewActivity_.super.runUI();
             }
 
         }
