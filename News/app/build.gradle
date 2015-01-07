@@ -65,5 +65,6 @@ dependencies {
     compile project(':loadMoreListView')
     compile project(':materialDesignLib')
     compile files('libs/android-iconify-1.0.8.jar')
-    compile 'com.koushikdutta.urlimageviewhelper:UrlImageViewHelper:1.0.2'
+    compile 'com.koushikdutta.urlimageviewhelper:urlimageviewhelper:1.0.4'
+    compile 'com.quentindommerc.superlistview:library:1.5.2'
 }

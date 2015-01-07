@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 import com.phuchieu.news.R;
 
 @EViewGroup(R.layout.feed_view)
@@ -41,9 +42,9 @@ public class FeedItemView extends RelativeLayout {
 		}
 		title.setText(feed.getTitle());
 		description.setText(feed.getContent());
-/*
+
 		UrlImageViewHelper.setUrlDrawable(imageView, feed.getImage());
-*/
+
 	}
 
 }

@@ -13,10 +13,12 @@ import org.androidannotations.annotations.ViewById;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.costum.android.widget.PullAndLoadListView;
 import com.costum.android.widget.PullAndLoadListView.OnLoadMoreListener;
@@ -24,35 +26,77 @@ import com.costum.android.widget.PullToRefreshListView.OnRefreshListener;
 import com.feed.Feed;
 import com.feed.FeedListAdapter;
 import com.phuchieu.news.R;
+import com.quentindommerc.superlistview.OnMoreListener;
+import com.quentindommerc.superlistview.SuperGridview;
+import com.quentindommerc.superlistview.SuperListview;
+import com.quentindommerc.superlistview.SwipeDismissListViewTouchListener;
 import com.services.FeedService;
 
 @EActivity(R.layout.activity_main)
-public class MainActivity extends Activity   {
+public class MainActivity extends Activity {
 
-	@ViewById
-	PullAndLoadListView listView;
+    @ViewById
+    SuperListview listView;
 
-	@Bean
-	FeedListAdapter adapter;
+    @Bean
+    FeedListAdapter adapter;
 
-	private int numberOfPage = 1;
-	Context context = this;
+    private int numberOfPage = 1;
+    Context context = this;
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		adapter.notifyDataSetChanged();
-	}
-	
-	@AfterViews
-	void afterView() {
-		background();
-		setOnScrollListener();
-	}
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
 
-	private void setOnScrollListener() {
-		listView.setOnLoadMoreListener(new OnLoadMoreListener() {
-			public void onLoadMore() {
+    @AfterViews
+    void afterView() {
+        background();
+        setOnScrollListener();
+    }
+
+    private void setOnScrollListener() {
+/*        listView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener {
+            @Override
+            public void onRefresh() {
+
+            });
+        }*/
+      /*  listView.setRefreshingColor(getResources().getColor(android.R.color.holo_orange_light),
+                getResources().getColor(android.R.color.holo_blue_light),
+                getResources().getColor(android.R.color.holo_green_light),
+                getResources().getColor(android.R.color.holo_red_light));*/
+        listView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                FeedService.clearCache();
+                background();
+            }
+        });
+
+        listView.setupMoreListener(new OnMoreListener() {
+            @Override
+            public void onMoreAsked(int numberOfItems, int numberBeforeMore, int currentItemPos) {
+                Log.i("hieu", "load");
+                numberOfPage++;
+                loadNextPage();
+            }
+
+        }, 1);
+        listView.setupSwipeToDismiss(new SwipeDismissListViewTouchListener.DismissCallbacks() {
+            @Override
+            public boolean canDismiss(int position) {
+                return true;
+            }
+
+            @Override
+            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+            }
+        }, true);
+
+		/*listView.setOnLoadMoreListener(new OnLoadMoreListener() {
+            public void onLoadMore() {
 				numberOfPage++;
 				loadNextPage();
 			}
@@ -61,58 +105,60 @@ public class MainActivity extends Activity   {
 		listView.setOnRefreshListener(new OnRefreshListener() {
 			@Override
 			public void onRefresh() {
-				FeedService.clearCache();
-				background();
+
 			}
-		});
-	}
+		});*/
+    }
 
-	@Background
-	void loadNextPage() {
-		
-		String nextLink = FeedService.getLinkByPageNumber(link,numberOfPage);
-		List<Feed> rssItems = FeedService.getFeedFromUrl(nextLink);
-		adapter.setListDataMore(rssItems);
-		updateList();
-	}
+    @Background
+    void loadNextPage() {
 
-	@UiThread
-	void updateList() {
-		adapter.notifyDataSetChanged();
-		listView.onLoadMoreComplete();
-	}
+        String nextLink = FeedService.getLinkByPageNumber(link, numberOfPage);
+        List<Feed> rssItems = FeedService.getFeedFromUrl(nextLink);
 
-	@ItemClick
-	public void listViewItemClicked(Feed clickedItem) {
-		FeedViewActivity_.intent(context)
-				.extra("selectedLink", clickedItem.getLink())
-				.extra("linkCategory", link).start();
+        adapter.setListDataMore(rssItems);
+       // updateList();
+    }
 
-	}
+    @UiThread
+    void updateList() {
+       // adapter.notifyDataSetChanged();
+/*
+        listView.onLoadMoreComplete();
+*/
+    }
 
-	@Extra
-	String link;
+    @ItemClick
+    public void listViewItemClicked(Feed clickedItem) {
+        FeedViewActivity_.intent(context)
+                .extra("selectedLink", clickedItem.getLink())
+                .extra("linkCategory", link).start();
 
-	@UiThread
-	void run() {
-		listView.setAdapter(adapter);
-		listView.onRefreshComplete();
-		listView.onLoadMoreComplete();
-	}
+    }
 
-	@Background
-	void background() {
-		try {
-			List<Feed> rssItems = FeedService.getFeedFromUrl(link);
-			adapter.setListData(rssItems);
-			run();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+    @Extra
+    String link;
 
-	}
+    @UiThread
+    void run() {
+        listView.setAdapter(adapter);
+/*		listView.onRefreshComplete();
+        listView.onLoadMoreComplete();*/
+    }
 
-	// Action bar
+    @Background
+    void background() {
+        try {
+            List<Feed> rssItems = FeedService.getFeedFromUrl(link);
+            adapter.setListData(rssItems);
+            run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    // Action bar
 	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
