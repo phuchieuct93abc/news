@@ -5,6 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
+import com.phuchieu.news.R;
+
 public class ImageContent extends Content {
 	String url;
 	Context context;
@@ -25,9 +28,9 @@ public class ImageContent extends Content {
 			ImageView imageView = new ImageView(context);
 			 imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
 			imageView.setAdjustViewBounds(true);
-/*
-			 UrlImageViewHelper.setUrlDrawable(imageView, toString(),R.drawable.loading);
-*/
+
+			 UrlImageViewHelper.setUrlDrawable(imageView, toString(), R.drawable.loading);
+
 
 			return imageView;
 		} catch (Exception e) {

@@ -67,10 +67,10 @@ public final class FeedItemView_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        title = ((TextView) hasViews.findViewById(id.title));
-        description = ((TextView) hasViews.findViewById(id.description));
         isRead = ((TextView) hasViews.findViewById(id.isRead));
         imageView = ((ImageView) hasViews.findViewById(id.imageView));
+        title = ((TextView) hasViews.findViewById(id.title));
+        description = ((TextView) hasViews.findViewById(id.description));
     }
 
 }

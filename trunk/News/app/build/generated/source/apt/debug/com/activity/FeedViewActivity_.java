@@ -29,8 +29,8 @@ public final class FeedViewActivity_
 {
 
     private final OnViewChangedNotifier onViewChangedNotifier_ = new OnViewChangedNotifier();
-    public final static String LINK_CATEGORY_EXTRA = "linkCategory";
     public final static String LINK_EXTRA = "selectedLink";
+    public final static String LINK_CATEGORY_EXTRA = "linkCategory";
     private Handler handler_ = new Handler(Looper.getMainLooper());
 
     @Override
@@ -95,11 +95,11 @@ public final class FeedViewActivity_
     private void injectExtras_() {
         Bundle extras_ = getIntent().getExtras();
         if (extras_!= null) {
-            if (extras_.containsKey(LINK_CATEGORY_EXTRA)) {
-                linkCategory = extras_.getString(LINK_CATEGORY_EXTRA);
-            }
             if (extras_.containsKey(LINK_EXTRA)) {
                 link = extras_.getString(LINK_EXTRA);
+            }
+            if (extras_.containsKey(LINK_CATEGORY_EXTRA)) {
+                linkCategory = extras_.getString(LINK_CATEGORY_EXTRA);
             }
         }
     }
@@ -108,20 +108,6 @@ public final class FeedViewActivity_
     public void setIntent(Intent newIntent) {
         super.setIntent(newIntent);
         injectExtras_();
-    }
-
-    @Override
-    public void updateAdapter() {
-        handler_.post(new Runnable() {
-
-
-            @Override
-            public void run() {
-                FeedViewActivity_.super.updateAdapter();
-            }
-
-        }
-        );
     }
 
     @Override
@@ -153,17 +139,13 @@ public final class FeedViewActivity_
     }
 
     @Override
-    public void runBackground() {
-        BackgroundExecutor.execute(new BackgroundExecutor.Task("", 0, "") {
+    public void updateAdapter() {
+        handler_.post(new Runnable() {
 
 
             @Override
-            public void execute() {
-                try {
-                    FeedViewActivity_.super.runBackground();
-                } catch (Throwable e) {
-                    Thread.getDefaultUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
-                }
+            public void run() {
+                FeedViewActivity_.super.updateAdapter();
             }
 
         }
@@ -179,6 +161,24 @@ public final class FeedViewActivity_
             public void execute() {
                 try {
                     FeedViewActivity_.super.loadMoreData();
+                } catch (Throwable e) {
+                    Thread.getDefaultUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
+                }
+            }
+
+        }
+        );
+    }
+
+    @Override
+    public void runBackground() {
+        BackgroundExecutor.execute(new BackgroundExecutor.Task("", 0, "") {
+
+
+            @Override
+            public void execute() {
+                try {
+                    FeedViewActivity_.super.runBackground();
                 } catch (Throwable e) {
                     Thread.getDefaultUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
                 }
@@ -222,12 +222,12 @@ public final class FeedViewActivity_
             }
         }
 
-        public FeedViewActivity_.IntentBuilder_ linkCategory(String linkCategory) {
-            return super.extra(LINK_CATEGORY_EXTRA, linkCategory);
-        }
-
         public FeedViewActivity_.IntentBuilder_ link(String link) {
             return super.extra(LINK_EXTRA, link);
+        }
+
+        public FeedViewActivity_.IntentBuilder_ linkCategory(String linkCategory) {
+            return super.extra(LINK_CATEGORY_EXTRA, linkCategory);
         }
 
     }
