@@ -83,7 +83,7 @@ public class MainActivity extends Activity {
                 loadNextPage();
             }
 
-        }, 1);
+        }, 100);
         listView.setupSwipeToDismiss(new SwipeDismissListViewTouchListener.DismissCallbacks() {
             @Override
             public boolean canDismiss(int position) {
@@ -93,7 +93,7 @@ public class MainActivity extends Activity {
             @Override
             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
             }
-        }, true);
+        }, false);
 
 		/*listView.setOnLoadMoreListener(new OnLoadMoreListener() {
             public void onLoadMore() {

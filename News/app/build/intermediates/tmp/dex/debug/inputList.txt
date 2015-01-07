@@ -1,0 +1,14 @@
+E:\android project\css-reader\News\app\build\intermediates\classes\debug
+E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-f17d02cfe9007703256f482d424e849907d46920.jar
+E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\classes-f48c50872ec10e653b002bbf99a789c948101cce.jar
+E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\android-apt-1.4-14709cb0c883e8927f91b3eff949b2bc3b490d88.jar
+E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\classes-fb116ba6273a24b33adce5d41bf58cb157801e17.jar
+E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\urlimageviewhelper-1.0.4-23a701812868b9729537ec9532b18fe61a58ad6d.jar
+E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\classes-0504d3f5bf314be398a48afccc3d4720cd1b66c5.jar
+E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\androidannotations-api-3.2-1d46c07ff9a270965e509a7c2797dd3c87cdaae7.jar
+E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\nineoldandroids-2.4.0-9b1b9b34e97dd6544699afe04e4f6ba00f775633.jar
+E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-7b18ebc520beb899abf478f70ca60b8c568e06dd.jar
+E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\android-iconify-1.0.8-ab592b742d7c7191000bef5381facce4a74bebf7.jar
+E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\jsoup-1.8.1-dcfe629279169f5ca91049c3c10971ff7c0d7201.jar
+E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\classes-ab957832400796e75372a27918fb336eedaa3e89.jar
+E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\classes-1f78ffe1d0057228932a2e6df9d0c365c3985a45.jar

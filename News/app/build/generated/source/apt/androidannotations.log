@@ -1,0 +1,129 @@
+17:40:40.372 [Daemon worker Thread 2] INFO  o.a.AndroidAnnotationProcessor:84 - Initialize AndroidAnnotations 3.2 with options {androidManifestFile=E:\android project\css-reader\News\app\build\intermediates\manifests\full\debug\AndroidManifest.xml, resourcePackageName=com.phuchieu.news}
+17:40:40.450 [Daemon worker Thread 2] INFO  o.a.AndroidAnnotationProcessor:108 - Start processing for 14 annotations on 30 elements
+17:40:40.462 [Daemon worker Thread 2] DEBUG o.a.h.AndroidManifestFinder:98 - AndroidManifest.xml file found with specified path: E:\android project\css-reader\News\app\build\intermediates\manifests\full\debug\AndroidManifest.xml
+17:40:40.471 [Daemon worker Thread 2] WARN  o.a.h.AndroidManifestFinder:252 - A class activity declared in the AndroidManifest.xml cannot be found in the compile path: [com.activity.FeedView_]
+17:40:40.473 [Daemon worker Thread 2] INFO  o.a.AndroidAnnotationProcessor:171 - AndroidManifest.xml found: AndroidManifest [applicationPackage=com.phuchieu.news, componentQualifiedNames=[com.activity.Splash_, com.activity.CategoryScreen_, com.activity.FeedViewActivity_, com.activity.SearchScreen_, com.activity.MainActivity_, com.costum.android.widget.LoadMoreListView], permissionQualifiedNames=[], applicationClassName=null, libraryProject=false, debugabble=false, minSdkVersion=17, maxSdkVersion=-1, targetSdkVersion=21]
+17:40:40.473 [Daemon worker Thread 2] INFO  o.a.r.ProjectRClassFinder:50 - Found project R class: com.phuchieu.news.R
+17:40:40.478 [Daemon worker Thread 2] INFO  o.a.r.AndroidRClassFinder:44 - Found Android class: android.R
+17:40:40.490 [Daemon worker Thread 2] INFO  o.a.p.ModelValidator:42 - Validating elements
+17:40:40.491 [Daemon worker Thread 2] DEBUG o.a.p.ModelValidator:62 - Validating with EActivityHandler: [com.activity.CategoryScreen, com.activity.FeedViewActivity, com.activity.MainActivity, com.activity.SearchScreen, com.activity.Splash, com.phuchieu.news.MainActivity]
+17:40:40.497 [Daemon worker Thread 2] WARN  o.a.h.AnnotationHelper:126 - The component MainActivity_ is not registered in the AndroidManifest.xml file.
+17:40:40.497 [Daemon worker Thread 2] DEBUG o.a.p.ModelValidator:62 - Validating with EFragmentHandler: [com.activity.FeedViewFragment]
+17:40:40.499 [Daemon worker Thread 2] DEBUG o.a.p.ModelValidator:62 - Validating with EBeanHandler: [com.feed.FeedListAdapter, com.services.FeedService]
+17:40:40.499 [Daemon worker Thread 2] DEBUG o.a.p.ModelValidator:62 - Validating with EViewGroupHandler: [com.feed.FeedItemView]
+17:40:40.502 [Daemon worker Thread 2] DEBUG o.a.p.ModelValidator:62 - Validating with ViewByIdHandler: [table, pager, title, layout, listView, button1, listView, SearchText, title, description, isRead, imageView]
+17:40:40.507 [Daemon worker Thread 2] DEBUG o.a.p.ModelValidator:62 - Validating with ItemClickHandler: [listViewItemClicked(com.feed.Feed), listViewItemClicked(com.feed.Feed)]
+17:40:40.509 [Daemon worker Thread 2] DEBUG o.a.p.ModelValidator:62 - Validating with RootContextHanlder: [context]
+17:40:40.510 [Daemon worker Thread 2] DEBUG o.a.p.ModelValidator:62 - Validating with BeanHandler: [adapter, adapter, feedService]
+17:40:40.512 [Daemon worker Thread 2] DEBUG o.a.p.ModelValidator:62 - Validating with ExtraHandler: [link, linkCategory, link]
+17:40:40.512 [Daemon worker Thread 2] DEBUG o.a.p.ModelValidator:62 - Validating with WindowFeatureHandler: [com.activity.FeedViewActivity]
+17:40:40.513 [Daemon worker Thread 2] DEBUG o.a.p.ModelValidator:62 - Validating with AfterInjectHandler: [afterInject(), run()]
+17:40:40.514 [Daemon worker Thread 2] DEBUG o.a.p.ModelValidator:62 - Validating with AfterViewsHandler: [afterView(), bindLinkToView(), afterView(), init(), afterView(), afterExtra()]
+17:40:40.515 [Daemon worker Thread 2] DEBUG o.a.p.ModelValidator:62 - Validating with UiThreadHandler: [updateAdapter(), runUI(), setSelectedPage(int), setHTML(java.util.List<com.content.Content>), updateList(), run(), uIThread()]
+17:40:40.516 [Daemon worker Thread 2] DEBUG o.a.p.ModelValidator:62 - Validating with BackgroundHandler: [runBackground(), loadMoreData(), runBackground(), loadNextPage(), background(), performSearch(java.lang.String)]
+17:40:40.524 [Daemon worker Thread 2] INFO  o.a.p.ModelProcessor:69 - Processing root elements
+17:40:40.525 [Daemon worker Thread 2] DEBUG o.a.p.ModelProcessor:160 - Processing root elements EActivityHandler: [com.phuchieu.news.MainActivity, com.activity.FeedViewActivity, com.activity.CategoryScreen, com.activity.MainActivity, com.activity.SearchScreen, com.activity.Splash]
+17:40:40.553 [Daemon worker Thread 2] DEBUG o.a.p.ModelProcessor:160 - Processing root elements EFragmentHandler: [com.activity.FeedViewFragment]
+17:40:40.557 [Daemon worker Thread 2] DEBUG o.a.p.ModelProcessor:160 - Processing root elements EBeanHandler: [com.services.FeedService, com.feed.FeedListAdapter]
+17:40:40.558 [Daemon worker Thread 2] DEBUG o.a.p.ModelProcessor:160 - Processing root elements EViewGroupHandler: [com.feed.FeedItemView]
+17:40:40.561 [Daemon worker Thread 2] INFO  o.a.p.ModelProcessor:77 - Processing enclosed elements
+17:40:40.574 [Daemon worker Thread 2] INFO  o.a.AndroidAnnotationProcessor:250 - Number of files generated by AndroidAnnotations: 10
+17:40:40.576 [Daemon worker Thread 2] INFO  o.a.g.ApiCodeGenerator:52 - Writting following API classes in project: []
+17:40:40.577 [Daemon worker Thread 2] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.activity.CategoryScreen_
+17:40:40.592 [Daemon worker Thread 2] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.activity.FeedViewActivity_
+17:40:40.616 [Daemon worker Thread 2] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.activity.FeedViewFragment_
+17:40:40.630 [Daemon worker Thread 2] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.activity.MainActivity_
+17:40:40.645 [Daemon worker Thread 2] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.activity.SearchScreen_
+17:40:40.660 [Daemon worker Thread 2] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.activity.Splash_
+17:40:40.670 [Daemon worker Thread 2] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.services.FeedService_
+17:40:40.676 [Daemon worker Thread 2] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.feed.FeedItemView_
+17:40:40.686 [Daemon worker Thread 2] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.feed.FeedListAdapter_
+17:40:40.690 [Daemon worker Thread 2] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.phuchieu.news.MainActivity_
+17:40:40.706 [Daemon worker Thread 2] INFO  o.a.p.TimeStats:81 - Time measurements: [Whole Processing = 256 ms], [Generate Sources = 132 ms], [Process Annotations = 58 ms], [Validate Annotations = 26 ms], [Extract Manifest = 12 ms], [Find R Classes = 11 ms], [Extract Annotations = 10 ms], 
+17:40:40.707 [Daemon worker Thread 2] INFO  o.a.AndroidAnnotationProcessor:122 - Finish processing
+17:43:48.783 [Daemon worker Thread 3] INFO  o.a.AndroidAnnotationProcessor:84 - Initialize AndroidAnnotations 3.2 with options {androidManifestFile=E:\android project\css-reader\News\app\build\intermediates\manifests\full\debug\AndroidManifest.xml, resourcePackageName=com.phuchieu.news}
+17:43:48.849 [Daemon worker Thread 3] INFO  o.a.AndroidAnnotationProcessor:108 - Start processing for 14 annotations on 30 elements
+17:43:48.860 [Daemon worker Thread 3] DEBUG o.a.h.AndroidManifestFinder:98 - AndroidManifest.xml file found with specified path: E:\android project\css-reader\News\app\build\intermediates\manifests\full\debug\AndroidManifest.xml
+17:43:48.870 [Daemon worker Thread 3] WARN  o.a.h.AndroidManifestFinder:252 - A class activity declared in the AndroidManifest.xml cannot be found in the compile path: [com.activity.FeedView_]
+17:43:48.872 [Daemon worker Thread 3] INFO  o.a.AndroidAnnotationProcessor:171 - AndroidManifest.xml found: AndroidManifest [applicationPackage=com.phuchieu.news, componentQualifiedNames=[com.activity.Splash_, com.activity.CategoryScreen_, com.activity.FeedViewActivity_, com.activity.SearchScreen_, com.activity.MainActivity_, com.costum.android.widget.LoadMoreListView], permissionQualifiedNames=[], applicationClassName=null, libraryProject=false, debugabble=false, minSdkVersion=17, maxSdkVersion=-1, targetSdkVersion=21]
+17:43:48.873 [Daemon worker Thread 3] INFO  o.a.r.ProjectRClassFinder:50 - Found project R class: com.phuchieu.news.R
+17:43:48.878 [Daemon worker Thread 3] INFO  o.a.r.AndroidRClassFinder:44 - Found Android class: android.R
+17:43:48.893 [Daemon worker Thread 3] INFO  o.a.p.ModelValidator:42 - Validating elements
+17:43:48.893 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with EActivityHandler: [com.activity.CategoryScreen, com.activity.FeedViewActivity, com.activity.MainActivity, com.activity.SearchScreen, com.activity.Splash, com.phuchieu.news.MainActivity]
+17:43:48.897 [Daemon worker Thread 3] WARN  o.a.h.AnnotationHelper:126 - The component MainActivity_ is not registered in the AndroidManifest.xml file.
+17:43:48.898 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with EFragmentHandler: [com.activity.FeedViewFragment]
+17:43:48.899 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with EBeanHandler: [com.feed.FeedListAdapter, com.services.FeedService]
+17:43:48.900 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with EViewGroupHandler: [com.feed.FeedItemView]
+17:43:48.901 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with ViewByIdHandler: [table, pager, title, layout, listView, button1, listView, SearchText, title, description, isRead, imageView]
+17:43:48.908 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with ItemClickHandler: [listViewItemClicked(com.feed.Feed), listViewItemClicked(com.feed.Feed)]
+17:43:48.910 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with RootContextHanlder: [context]
+17:43:48.912 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with BeanHandler: [adapter, adapter, feedService]
+17:43:48.913 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with ExtraHandler: [link, linkCategory, link]
+17:43:48.913 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with WindowFeatureHandler: [com.activity.FeedViewActivity]
+17:43:48.914 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with AfterInjectHandler: [afterInject(), run()]
+17:43:48.914 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with AfterViewsHandler: [afterView(), bindLinkToView(), afterView(), init(), afterView(), afterExtra()]
+17:43:48.915 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with UiThreadHandler: [updateAdapter(), runUI(), setSelectedPage(int), setHTML(java.util.List<com.content.Content>), updateList(), run(), uIThread()]
+17:43:48.915 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with BackgroundHandler: [runBackground(), loadMoreData(), runBackground(), loadNextPage(), background(), performSearch(java.lang.String)]
+17:43:48.922 [Daemon worker Thread 3] INFO  o.a.p.ModelProcessor:69 - Processing root elements
+17:43:48.923 [Daemon worker Thread 3] DEBUG o.a.p.ModelProcessor:160 - Processing root elements EActivityHandler: [com.activity.Splash, com.phuchieu.news.MainActivity, com.activity.FeedViewActivity, com.activity.CategoryScreen, com.activity.MainActivity, com.activity.SearchScreen]
+17:43:48.948 [Daemon worker Thread 3] DEBUG o.a.p.ModelProcessor:160 - Processing root elements EFragmentHandler: [com.activity.FeedViewFragment]
+17:43:48.953 [Daemon worker Thread 3] DEBUG o.a.p.ModelProcessor:160 - Processing root elements EBeanHandler: [com.feed.FeedListAdapter, com.services.FeedService]
+17:43:48.954 [Daemon worker Thread 3] DEBUG o.a.p.ModelProcessor:160 - Processing root elements EViewGroupHandler: [com.feed.FeedItemView]
+17:43:48.957 [Daemon worker Thread 3] INFO  o.a.p.ModelProcessor:77 - Processing enclosed elements
+17:43:48.973 [Daemon worker Thread 3] INFO  o.a.AndroidAnnotationProcessor:250 - Number of files generated by AndroidAnnotations: 10
+17:43:48.975 [Daemon worker Thread 3] INFO  o.a.g.ApiCodeGenerator:52 - Writting following API classes in project: []
+17:43:48.976 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.activity.CategoryScreen_
+17:43:48.988 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.activity.FeedViewActivity_
+17:43:49.7 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.activity.FeedViewFragment_
+17:43:49.15 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.activity.MainActivity_
+17:43:49.33 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.activity.SearchScreen_
+17:43:49.43 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.activity.Splash_
+17:43:49.50 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.services.FeedService_
+17:43:49.52 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.feed.FeedItemView_
+17:43:49.57 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.feed.FeedListAdapter_
+17:43:49.60 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.phuchieu.news.MainActivity_
+17:43:49.67 [Daemon worker Thread 3] INFO  o.a.p.TimeStats:81 - Time measurements: [Whole Processing = 218 ms], [Generate Sources = 94 ms], [Process Annotations = 58 ms], [Validate Annotations = 23 ms], [Extract Manifest = 13 ms], [Find R Classes = 12 ms], [Extract Annotations = 9 ms], 
+17:43:49.67 [Daemon worker Thread 3] INFO  o.a.AndroidAnnotationProcessor:122 - Finish processing
+17:44:32.420 [Daemon worker Thread 3] INFO  o.a.AndroidAnnotationProcessor:84 - Initialize AndroidAnnotations 3.2 with options {androidManifestFile=E:\android project\css-reader\News\app\build\intermediates\manifests\full\debug\AndroidManifest.xml, resourcePackageName=com.phuchieu.news}
+17:44:32.472 [Daemon worker Thread 3] INFO  o.a.AndroidAnnotationProcessor:108 - Start processing for 14 annotations on 30 elements
+17:44:32.480 [Daemon worker Thread 3] DEBUG o.a.h.AndroidManifestFinder:98 - AndroidManifest.xml file found with specified path: E:\android project\css-reader\News\app\build\intermediates\manifests\full\debug\AndroidManifest.xml
+17:44:32.516 [Daemon worker Thread 3] WARN  o.a.h.AndroidManifestFinder:252 - A class activity declared in the AndroidManifest.xml cannot be found in the compile path: [com.activity.FeedView_]
+17:44:32.518 [Daemon worker Thread 3] INFO  o.a.AndroidAnnotationProcessor:171 - AndroidManifest.xml found: AndroidManifest [applicationPackage=com.phuchieu.news, componentQualifiedNames=[com.activity.Splash_, com.activity.CategoryScreen_, com.activity.FeedViewActivity_, com.activity.SearchScreen_, com.activity.MainActivity_, com.costum.android.widget.LoadMoreListView], permissionQualifiedNames=[], applicationClassName=null, libraryProject=false, debugabble=false, minSdkVersion=17, maxSdkVersion=-1, targetSdkVersion=21]
+17:44:32.518 [Daemon worker Thread 3] INFO  o.a.r.ProjectRClassFinder:50 - Found project R class: com.phuchieu.news.R
+17:44:32.523 [Daemon worker Thread 3] INFO  o.a.r.AndroidRClassFinder:44 - Found Android class: android.R
+17:44:32.535 [Daemon worker Thread 3] INFO  o.a.p.ModelValidator:42 - Validating elements
+17:44:32.535 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with EActivityHandler: [com.activity.CategoryScreen, com.activity.FeedViewActivity, com.activity.MainActivity, com.activity.SearchScreen, com.activity.Splash, com.phuchieu.news.MainActivity]
+17:44:32.538 [Daemon worker Thread 3] WARN  o.a.h.AnnotationHelper:126 - The component MainActivity_ is not registered in the AndroidManifest.xml file.
+17:44:32.538 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with EFragmentHandler: [com.activity.FeedViewFragment]
+17:44:32.540 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with EBeanHandler: [com.feed.FeedListAdapter, com.services.FeedService]
+17:44:32.540 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with EViewGroupHandler: [com.feed.FeedItemView]
+17:44:32.541 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with ViewByIdHandler: [table, pager, title, layout, listView, button1, listView, SearchText, title, description, isRead, imageView]
+17:44:32.544 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with ItemClickHandler: [listViewItemClicked(com.feed.Feed), listViewItemClicked(com.feed.Feed)]
+17:44:32.546 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with RootContextHanlder: [context]
+17:44:32.547 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with BeanHandler: [adapter, adapter, feedService]
+17:44:32.548 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with ExtraHandler: [link, linkCategory, link]
+17:44:32.548 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with WindowFeatureHandler: [com.activity.FeedViewActivity]
+17:44:32.548 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with AfterInjectHandler: [afterInject(), run()]
+17:44:32.548 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with AfterViewsHandler: [afterView(), bindLinkToView(), afterView(), init(), afterView(), afterExtra()]
+17:44:32.549 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with UiThreadHandler: [updateAdapter(), runUI(), setSelectedPage(int), setHTML(java.util.List<com.content.Content>), updateList(), run(), uIThread()]
+17:44:32.549 [Daemon worker Thread 3] DEBUG o.a.p.ModelValidator:62 - Validating with BackgroundHandler: [runBackground(), loadMoreData(), runBackground(), loadNextPage(), background(), performSearch(java.lang.String)]
+17:44:32.556 [Daemon worker Thread 3] INFO  o.a.p.ModelProcessor:69 - Processing root elements
+17:44:32.557 [Daemon worker Thread 3] DEBUG o.a.p.ModelProcessor:160 - Processing root elements EActivityHandler: [com.activity.CategoryScreen, com.activity.SearchScreen, com.phuchieu.news.MainActivity, com.activity.FeedViewActivity, com.activity.MainActivity, com.activity.Splash]
+17:44:32.579 [Daemon worker Thread 3] DEBUG o.a.p.ModelProcessor:160 - Processing root elements EFragmentHandler: [com.activity.FeedViewFragment]
+17:44:32.583 [Daemon worker Thread 3] DEBUG o.a.p.ModelProcessor:160 - Processing root elements EBeanHandler: [com.feed.FeedListAdapter, com.services.FeedService]
+17:44:32.584 [Daemon worker Thread 3] DEBUG o.a.p.ModelProcessor:160 - Processing root elements EViewGroupHandler: [com.feed.FeedItemView]
+17:44:32.587 [Daemon worker Thread 3] INFO  o.a.p.ModelProcessor:77 - Processing enclosed elements
+17:44:32.600 [Daemon worker Thread 3] INFO  o.a.AndroidAnnotationProcessor:250 - Number of files generated by AndroidAnnotations: 10
+17:44:32.601 [Daemon worker Thread 3] INFO  o.a.g.ApiCodeGenerator:52 - Writting following API classes in project: []
+17:44:32.602 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.activity.CategoryScreen_
+17:44:32.613 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.activity.FeedViewActivity_
+17:44:32.627 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.activity.FeedViewFragment_
+17:44:32.634 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.activity.MainActivity_
+17:44:32.645 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.activity.SearchScreen_
+17:44:32.654 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.activity.Splash_
+17:44:32.661 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.services.FeedService_
+17:44:32.662 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.feed.FeedItemView_
+17:44:32.667 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.feed.FeedListAdapter_
+17:44:32.669 [Daemon worker Thread 3] DEBUG o.a.g.SourceCodewriter:55 - Generating class: com.phuchieu.news.MainActivity_
+17:44:32.675 [Daemon worker Thread 3] INFO  o.a.p.TimeStats:81 - Time measurements: [Whole Processing = 203 ms], [Generate Sources = 75 ms], [Process Annotations = 51 ms], [Extract Manifest = 39 ms], [Validate Annotations = 14 ms], [Find R Classes = 11 ms], [Extract Annotations = 6 ms], 
+17:44:32.676 [Daemon worker Thread 3] INFO  o.a.AndroidAnnotationProcessor:122 - Finish processing
