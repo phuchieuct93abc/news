@@ -71,6 +71,7 @@ MERGED from com.android.support:support-v4:21.0.3:15:5
 MERGED from News:loadMoreListView:unspecified:7:5
 MERGED from News:materialDesignLib:unspecified:7:5
 MERGED from com.android.support:support-v4:21.0.3:15:5
+MERGED from com.koushikdutta.urlimageviewhelper:UrlImageViewHelper:1.0.2:3:5
 	android:targetSdkVersion
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
@@ -83,3 +84,7 @@ ADDED from News:loadMoreListView:unspecified:14:9
 		ADDED from News:loadMoreListView:unspecified:16:13
 	android:name
 		ADDED from News:loadMoreListView:unspecified:15:13
+uses-permission#android.permission.INTERNET
+ADDED from com.koushikdutta.urlimageviewhelper:UrlImageViewHelper:1.0.2:5:5
+	android:name
+		ADDED from com.koushikdutta.urlimageviewhelper:UrlImageViewHelper:1.0.2:5:22

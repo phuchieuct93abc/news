@@ -9,13 +9,6 @@
         <dex dex="E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\classes-ab957832400796e75372a27918fb336eedaa3e89.jar" />
     </item>
     <item
-        jar="E:\android project\css-reader\News\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-7b18ebc520beb899abf478f70ca60b8c568e06dd.jar" />
-    </item>
-    <item
         jar="E:\android project\css-reader\News\app\libs\android-iconify-1.0.8.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -23,11 +16,11 @@
         <dex dex="E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\android-iconify-1.0.8-ab592b742d7c7191000bef5381facce4a74bebf7.jar" />
     </item>
     <item
-        jar="E:\android project\css-reader\News\app\build\intermediates\exploded-aar\News\materialDesignLib\unspecified\libs\nineoldandroids-2.4.0.jar"
+        jar="E:\android project\css-reader\News\app\build\intermediates\exploded-aar\com.koushikdutta.urlimageviewhelper\UrlImageViewHelper\1.0.2\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="59f19e43354d32de831379c23ce03bb259a4c2b7">
-        <dex dex="E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\nineoldandroids-2.4.0-9b1b9b34e97dd6544699afe04e4f6ba00f775633.jar" />
+        sha1="25462484cada238dff16126b59a4a27f1981a811">
+        <dex dex="E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\classes-04da0f8587fd8ecc8f5ba694d00af203586f1398.jar" />
     </item>
     <item
         jar="E:\android project\css-reader\News\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
@@ -61,15 +54,8 @@
         jar="E:\android project\css-reader\News\app\build\intermediates\exploded-aar\News\loadMoreListView\unspecified\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="eda6b325566c9037e988c178f1d8041e35034e0c">
+        sha1="0a732a14053f1cc01e42b8136b7815c1c154b005">
         <dex dex="E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\classes-f48c50872ec10e653b002bbf99a789c948101cce.jar" />
-    </item>
-    <item
-        jar="E:\android project\css-reader\News\app\build\intermediates\exploded-aar\News\materialDesignLib\unspecified\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="a5fc1ed600f05d16d73e47ce485065c157c2dfc0">
-        <dex dex="E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\classes-0504d3f5bf314be398a48afccc3d4720cd1b66c5.jar" />
     </item>
     <item
         jar="E:\android studio\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
@@ -77,6 +63,27 @@
         revision="21.1.2"
         sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
         <dex dex="E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-f17d02cfe9007703256f482d424e849907d46920.jar" />
+    </item>
+    <item
+        jar="E:\android project\css-reader\News\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-7b18ebc520beb899abf478f70ca60b8c568e06dd.jar" />
+    </item>
+    <item
+        jar="E:\android project\css-reader\News\app\build\intermediates\exploded-aar\News\materialDesignLib\unspecified\libs\nineoldandroids-2.4.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="59f19e43354d32de831379c23ce03bb259a4c2b7">
+        <dex dex="E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\nineoldandroids-2.4.0-9b1b9b34e97dd6544699afe04e4f6ba00f775633.jar" />
+    </item>
+    <item
+        jar="E:\android project\css-reader\News\app\build\intermediates\exploded-aar\News\materialDesignLib\unspecified\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="edfe897b927b08624c68db80e745c22a0d447607">
+        <dex dex="E:\android project\css-reader\News\app\build\intermediates\pre-dexed\debug\classes-0504d3f5bf314be398a48afccc3d4720cd1b66c5.jar" />
     </item>
 
 </items>

@@ -79,9 +79,9 @@ public final class SearchScreen_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
+        listView = ((ListView) hasViews.findViewById(com.phuchieu.news.R.id.listView));
         button1 = ((Button) hasViews.findViewById(com.phuchieu.news.R.id.button1));
         SearchText = ((EditText) hasViews.findViewById(com.phuchieu.news.R.id.SearchText));
-        listView = ((ListView) hasViews.findViewById(com.phuchieu.news.R.id.listView));
         if (listView!= null) {
             listView.setOnItemClickListener(new OnItemClickListener() {
 

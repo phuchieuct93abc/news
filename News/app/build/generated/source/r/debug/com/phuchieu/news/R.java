@@ -1493,12 +1493,13 @@ containing a value of this type.
         public static final int ic_launcher=0x7f020040;
         public static final int ic_pulltorefresh_arrow=0x7f020041;
         public static final int ic_reloj_max=0x7f020042;
-        public static final int news=0x7f020043;
-        public static final int news_icon=0x7f020044;
-        public static final int shadow_down=0x7f020045;
-        public static final int shadow_right=0x7f020046;
-        public static final int sprite_check=0x7f020047;
-        public static final int u93ka80a=0x7f020048;
+        public static final int loading=0x7f020043;
+        public static final int news=0x7f020044;
+        public static final int news_icon=0x7f020045;
+        public static final int shadow_down=0x7f020046;
+        public static final int shadow_right=0x7f020047;
+        public static final int sprite_check=0x7f020048;
+        public static final int u93ka80a=0x7f020049;
     }
     public static final class id {
         public static final int SearchText=0x7f090064;
