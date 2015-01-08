@@ -29,8 +29,8 @@ public final class FeedViewActivity_
 {
 
     private final OnViewChangedNotifier onViewChangedNotifier_ = new OnViewChangedNotifier();
-    public final static String LINK_EXTRA = "selectedLink";
     public final static String LINK_CATEGORY_EXTRA = "linkCategory";
+    public final static String LINK_EXTRA = "selectedLink";
     private Handler handler_ = new Handler(Looper.getMainLooper());
 
     @Override
@@ -95,11 +95,11 @@ public final class FeedViewActivity_
     private void injectExtras_() {
         Bundle extras_ = getIntent().getExtras();
         if (extras_!= null) {
-            if (extras_.containsKey(LINK_EXTRA)) {
-                link = extras_.getString(LINK_EXTRA);
-            }
             if (extras_.containsKey(LINK_CATEGORY_EXTRA)) {
                 linkCategory = extras_.getString(LINK_CATEGORY_EXTRA);
+            }
+            if (extras_.containsKey(LINK_EXTRA)) {
+                link = extras_.getString(LINK_EXTRA);
             }
         }
     }
@@ -111,20 +111,6 @@ public final class FeedViewActivity_
     }
 
     @Override
-    public void runUI() {
-        handler_.post(new Runnable() {
-
-
-            @Override
-            public void run() {
-                FeedViewActivity_.super.runUI();
-            }
-
-        }
-        );
-    }
-
-    @Override
     public void setSelectedPage(final int index) {
         handler_.post(new Runnable() {
 
@@ -132,6 +118,20 @@ public final class FeedViewActivity_
             @Override
             public void run() {
                 FeedViewActivity_.super.setSelectedPage(index);
+            }
+
+        }
+        );
+    }
+
+    @Override
+    public void runUI() {
+        handler_.post(new Runnable() {
+
+
+            @Override
+            public void run() {
+                FeedViewActivity_.super.runUI();
             }
 
         }
@@ -222,12 +222,12 @@ public final class FeedViewActivity_
             }
         }
 
-        public FeedViewActivity_.IntentBuilder_ link(String link) {
-            return super.extra(LINK_EXTRA, link);
-        }
-
         public FeedViewActivity_.IntentBuilder_ linkCategory(String linkCategory) {
             return super.extra(LINK_CATEGORY_EXTRA, linkCategory);
+        }
+
+        public FeedViewActivity_.IntentBuilder_ link(String link) {
+            return super.extra(LINK_EXTRA, link);
         }
 
     }

@@ -57,17 +57,8 @@ public class MainActivity extends Activity {
     }
 
     private void setOnScrollListener() {
-/*        listView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener {
-            @Override
-            public void onRefresh() {
 
-            });
-        }*/
-      /*  listView.setRefreshingColor(getResources().getColor(android.R.color.holo_orange_light),
-                getResources().getColor(android.R.color.holo_blue_light),
-                getResources().getColor(android.R.color.holo_green_light),
-                getResources().getColor(android.R.color.holo_red_light));*/
-        listView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+      listView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 FeedService.clearCache();
@@ -81,9 +72,10 @@ public class MainActivity extends Activity {
                 Log.i("hieu", "load");
                 numberOfPage++;
                 loadNextPage();
+                return;
             }
 
-        }, 100);
+        }, 1);
         listView.setupSwipeToDismiss(new SwipeDismissListViewTouchListener.DismissCallbacks() {
             @Override
             public boolean canDismiss(int position) {
@@ -117,12 +109,13 @@ public class MainActivity extends Activity {
         List<Feed> rssItems = FeedService.getFeedFromUrl(nextLink);
 
         adapter.setListDataMore(rssItems);
-       // updateList();
+       updateList();
     }
 
     @UiThread
     void updateList() {
-       // adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
+        listView.hideMoreProgress();
 /*
         listView.onLoadMoreComplete();
 */
