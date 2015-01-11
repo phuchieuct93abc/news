@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.phuchieu.news"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.phuchieu.news" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <application tools:replace="android:icon"
+    <application
         android:allowBackup="true"
         android:icon="@drawable/news_icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
-      >
+        tools:replace="android:icon" >
         <activity
             android:name="com.activity.Splash_"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -24,5 +25,10 @@
         <activity android:name="com.activity.FeedView_" />
         <activity android:name="com.activity.SearchScreen_" />
         <activity android:name="com.activity.MainActivity_" />
+        <activity
+            android:name=".MainActivity2"
+            android:label="@string/title_activity_main_activity2" >
+        </activity>
     </application>
+
 </manifest>
