@@ -20,9 +20,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.costum.android.widget.PullAndLoadListView;
-import com.costum.android.widget.PullAndLoadListView.OnLoadMoreListener;
-import com.costum.android.widget.PullToRefreshListView.OnRefreshListener;
 import com.feed.Feed;
 import com.feed.FeedListAdapter;
 import com.phuchieu.news.R;
@@ -87,19 +84,7 @@ public class MainActivity extends Activity {
             }
         }, false);
 
-		/*listView.setOnLoadMoreListener(new OnLoadMoreListener() {
-            public void onLoadMore() {
-				numberOfPage++;
-				loadNextPage();
-			}
 
-		});
-		listView.setOnRefreshListener(new OnRefreshListener() {
-			@Override
-			public void onRefresh() {
-
-			}
-		});*/
     }
 
     @Background

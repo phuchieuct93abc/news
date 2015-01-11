@@ -62,7 +62,6 @@ dependencies {
     compile 'org.androidannotations:androidannotations-api:3.2'
     apt 'org.androidannotations:androidannotations:3.2'
     compile files('libs/jsoup-1.8.1.jar')
-    compile project(':loadMoreListView')
     compile project(':materialDesignLib')
     compile files('libs/android-iconify-1.0.8.jar')
     compile 'com.koushikdutta.urlimageviewhelper:urlimageviewhelper:1.0.4'
