@@ -73,16 +73,7 @@ public class MainActivity extends Activity {
             }
 
         }, 1);
-        listView.setupSwipeToDismiss(new SwipeDismissListViewTouchListener.DismissCallbacks() {
-            @Override
-            public boolean canDismiss(int position) {
-                return true;
-            }
 
-            @Override
-            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-            }
-        }, false);
 
 
     }
