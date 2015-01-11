@@ -1,9 +1,11 @@
 package com.activity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,7 +29,7 @@ import org.androidannotations.annotations.ViewById;
 import java.util.List;
 
 @EActivity(R.layout.first_screen)
-public class CategoryScreen extends Activity {
+public class CategoryScreen extends ActionBarActivity {
 	Context context = this;
 	@ViewById
 	TableLayout table;
