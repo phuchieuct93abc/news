@@ -23,7 +23,7 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
-@EFragment(R.layout.main_activity)
+@EFragment(R.layout.activity_main)
 public class MainActivity extends Fragment {
 
     @Override
