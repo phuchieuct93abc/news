@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
@@ -37,8 +38,10 @@ public class SearchScreen extends Activity {
 	FeedListAdapter adapter;
 	@ViewById
 	EditText SearchText;
+    private Timer timer = new Timer();
 
-	private final long DELAY = 500;
+
+    private final long DELAY = 500;
 
 	/*
 	 * @TextChange void SearchTextTextChanged(TextView hello, CharSequence text)
@@ -52,10 +55,24 @@ public class SearchScreen extends Activity {
 		performSearch("Smart phone");
 		setDelaySearchText();
 	}
+@AfterTextChange(R.id.SearchText)
+void afterTextChange(Editable arg0){
+
+    timer.cancel();
+    timer = new Timer();
+    timer.schedule(new TimerTask() {
+        @Override
+        public void run() {
+            Log.i("hieu", SearchText.getText().toString());
+            performSearch(SearchText.getText().toString());
+        }
+
+    }, DELAY);
+}
+
 
 	private void setDelaySearchText() {
 		SearchText.addTextChangedListener(new TextWatcher() {
-			private Timer timer = new Timer();
 
 			@Override
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
@@ -71,16 +88,7 @@ public class SearchScreen extends Activity {
 
 			@Override
 			public void afterTextChanged(Editable arg0) {
-				timer.cancel();
-				timer = new Timer();
-				timer.schedule(new TimerTask() {
-					@Override
-					public void run() {
-						Log.i("hieu", SearchText.getText().toString());
-						performSearch(SearchText.getText().toString());
-					}
 
-				}, DELAY);
 			}
 		});
 	}
