@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">NEWS</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -7,5 +8,7 @@
     <string name="search">Search</string>
     <string name="Splash_Screen">Written by Phuc Hieu</string>
     <string name="placeHolder_image">Image</string>
-     <string name="is_read">Da doc</string>
+    <string name="is_read">Da doc</string>
+    <string name="title_activity_list_feed">ListFeed</string>
+
 </resources>

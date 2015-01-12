@@ -25,7 +25,10 @@
         <activity android:name="com.activity.FeedView_" />
         <activity android:name="com.activity.SearchScreen_" />
         <activity android:name="com.activity.MainActivity_" />
-
+        <activity
+            android:name="com.activity.ListFeed_"
+            android:label="@string/title_activity_list_feed" >
+        </activity>
     </application>
 
 </manifest>

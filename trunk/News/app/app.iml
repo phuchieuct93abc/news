@@ -95,7 +95,6 @@
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="urlimageviewhelper-1.0.4" level="project" />
     <orderEntry type="module" module-name="materialDesignLib" exported="" />
-    <orderEntry type="module" module-name="loadMoreListView" exported="" />
   </component>
 </module>
 
