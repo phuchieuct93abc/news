@@ -80,7 +80,7 @@ public class CategoryScreen extends ActionBarActivity {
 		return new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				MainActivity_.intent(context).link(url).start();
+				//MainActivity_.intent(context).link(url).start();
 			}
 		};
 	}

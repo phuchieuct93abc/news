@@ -1,18 +1,9 @@
 package com.services;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.androidannotations.annotations.EBean;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
 
 import com.content.Content;
 import com.content.ImageContent;
@@ -20,6 +11,16 @@ import com.content.TextContent;
 import com.content.Video;
 import com.feed.Feed;
 import com.feed.FeedContent;
+
+import org.androidannotations.annotations.EBean;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @EBean
 public class FeedService {
@@ -131,7 +132,9 @@ public class FeedService {
 	private static List<Element> getFeed(String source) {
 		try {
 			Document doc = getHTMLFromURL(source);
+
 			Elements elements = doc.select(".story");
+            Log.i("hieu", elements.size() + "");
 			return elements;
 
 		} catch (Exception e) {

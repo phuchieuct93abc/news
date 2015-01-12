@@ -1,36 +1,36 @@
 package com.activity;
 
-import java.util.List;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Background;
-import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.Extra;
-import org.androidannotations.annotations.ItemClick;
-import org.androidannotations.annotations.UiThread;
-import org.androidannotations.annotations.ViewById;
-
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.widget.ListView;
 
 import com.feed.Feed;
 import com.feed.FeedListAdapter;
 import com.phuchieu.news.R;
 import com.quentindommerc.superlistview.OnMoreListener;
-import com.quentindommerc.superlistview.SuperGridview;
 import com.quentindommerc.superlistview.SuperListview;
-import com.quentindommerc.superlistview.SwipeDismissListViewTouchListener;
 import com.services.FeedService;
 
-@EActivity(R.layout.activity_main)
-public class MainActivity extends Activity {
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ItemClick;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.List;
+
+@EFragment(R.layout.main_activity)
+public class MainActivity extends Fragment {
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateAdaper();
+    }
 
     @ViewById
     SuperListview listView;
@@ -39,12 +39,23 @@ public class MainActivity extends Activity {
     FeedListAdapter adapter;
 
     private int numberOfPage = 1;
-    Context context = this;
 
-    @Override
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    Context context;
+
+/*    @Override
     protected void onResume() {
         super.onResume();
+    }*/
+
+
+    public void updateAdaper()
+    {
         adapter.notifyDataSetChanged();
+
     }
 
     @AfterViews
@@ -66,10 +77,8 @@ public class MainActivity extends Activity {
         listView.setupMoreListener(new OnMoreListener() {
             @Override
             public void onMoreAsked(int numberOfItems, int numberBeforeMore, int currentItemPos) {
-                Log.i("hieu", "load");
                 numberOfPage++;
                 loadNextPage();
-                return;
             }
 
         }, 1);
@@ -92,27 +101,26 @@ public class MainActivity extends Activity {
     void updateList() {
         adapter.notifyDataSetChanged();
         listView.hideMoreProgress();
-/*
-        listView.onLoadMoreComplete();
-*/
     }
 
     @ItemClick
     public void listViewItemClicked(Feed clickedItem) {
         FeedViewActivity_.intent(context)
                 .extra("selectedLink", clickedItem.getLink())
-                .extra("linkCategory", link).start();
+                .extra("linkCategory", link).flags(Intent.FLAG_ACTIVITY_NEW_TASK).start();
 
     }
 
-    @Extra
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    //    @Extra
     String link;
 
     @UiThread
     void run() {
         listView.setAdapter(adapter);
-/*		listView.onRefreshComplete();
-        listView.onLoadMoreComplete();*/
     }
 
     @Background
@@ -127,25 +135,4 @@ public class MainActivity extends Activity {
 
     }
 
-    // Action bar
-	/*@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main_activity_actions, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle presses on the action bar items
-		switch (item.getItemId()) {
-		case R.id.action_search:
-			SearchScreen_.intent(context).start();
-			return true;
-		case R.id.action_settings:
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}*/
 }
