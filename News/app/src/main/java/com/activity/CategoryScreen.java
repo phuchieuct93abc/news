@@ -1,14 +1,11 @@
 package com.activity;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,7 +25,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import java.util.List;
 
-@EActivity(R.layout.first_screen)
+@EActivity(R.layout.caterogy_activity)
 public class CategoryScreen extends ActionBarActivity {
 	Context context = this;
 	@ViewById
