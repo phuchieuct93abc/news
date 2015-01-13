@@ -1,4 +1,4 @@
-package com.activity;
+package com.activity.ListFeedView;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
