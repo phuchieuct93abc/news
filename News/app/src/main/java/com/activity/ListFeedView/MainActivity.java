@@ -1,4 +1,4 @@
-package com.activity;
+package com.activity.ListFeedView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 
+import com.activity.FeedViewActivity_;
 import com.feed.Feed;
 import com.feed.FeedListAdapter;
 import com.phuchieu.news.R;

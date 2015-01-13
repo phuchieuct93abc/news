@@ -19,6 +19,7 @@ import com.gc.materialdesign.views.ButtonRectangle;
 import com.phuchieu.news.R;
 import com.services.main_screen.Tile;
 import com.services.main_screen.TileService;
+import com.activity.ListFeedView.*;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
