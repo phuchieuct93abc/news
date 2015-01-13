@@ -81,6 +81,8 @@ public class CategoryScreen extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				//MainActivity_.intent(context).link(url).start();
+                ListFeed_.intent(context).link(url).start();
+
 			}
 		};
 	}
