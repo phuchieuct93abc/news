@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.phuchieu.news" >
+    package="com.phuchieu.news">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -10,10 +10,10 @@
         android:icon="@drawable/news_icon"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
-        tools:replace="android:icon" >
+        tools:replace="android:icon">
         <activity
             android:name="com.activity.Splash_"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,13 +22,9 @@
         </activity>
         <activity android:name="com.activity.CategoryScreen_" />
         <activity android:name="com.activity.FeedViewActivity_" />
-        <activity android:name="com.activity.FeedView_" />
         <activity android:name="com.activity.SearchScreen_" />
         <activity android:name="com.activity.MainActivity_" />
-        <activity
-            android:name="com.activity.ListFeed_"
-            android:label="@string/title_activity_list_feed" >
-        </activity>
+        <activity android:name="com.activity.ListFeed_" />
     </application>
 
 </manifest>
