@@ -1,5 +1,6 @@
 package com.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -28,7 +29,7 @@ import org.androidannotations.annotations.ViewById;
 import java.util.List;
 
 @EActivity(R.layout.caterogy_activity)
-public class CategoryScreen extends ActionBarActivity {
+public class CategoryScreen extends Activity {
 	Context context = this;
 	@ViewById
 	TableLayout table;
@@ -82,7 +83,6 @@ public class CategoryScreen extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 
-				ListFeed_.intent(context).start();
                 ListFeed_.intent(context).link(url).start();
 
 			}

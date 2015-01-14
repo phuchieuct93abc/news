@@ -1,15 +1,19 @@
 package com.activity.ListFeedView;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.phuchieu.news.R;
 import com.services.main_screen.Tile;
@@ -22,7 +26,6 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
-
 @EActivity(R.layout.activity_list_feed)
 public class ListFeed extends ActionBarActivity {
     @ViewById
@@ -33,17 +36,25 @@ public class ListFeed extends ActionBarActivity {
     String link;
 
 
+
     @AfterViews
     void afterInjected() {
-        setFragment();
+       setFragment();
         adapter.setLink(link);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        Log.i("hieu", "" + android.os.Build.VERSION.SDK_INT);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 
     }
 
     private void setFragment() {
-        adapter = new PagerAdapterListFeed(getSupportFragmentManager());
+       adapter = new PagerAdapterListFeed(getSupportFragmentManager());
         adapter.setContext(getApplicationContext());
         pagerListFeed.setAdapter(adapter);
     }
@@ -55,6 +66,18 @@ public class ListFeed extends ActionBarActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_test, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 
