@@ -18,6 +18,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.Window;
 
 import com.feed.Feed;
@@ -41,7 +42,10 @@ public class FeedViewActivity extends FragmentActivity {
 
 	@Background
 	void runBackground() {
-		linkCategory = FeedService.getIndexOfFeedInCategory(linkCategory, link);
+        List<String> abc = FeedService.getCategoryBaseOnFeed(linkCategory, link);
+        Log.i("hieu",abc.get(0) +" "+abc.get(1) );
+        linkCategory = abc.get(0);
+        page = Integer.parseInt(abc.get(1));
 		List<String> categoryFromPageOne = FeedService.getLinkCategoryFromPageOne(linkCategory);
 		for(String item : categoryFromPageOne){
 			for(String item2:FeedService.getListFeedLinkFromCaterogy(item)){

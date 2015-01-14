@@ -81,7 +81,8 @@ public class CategoryScreen extends ActionBarActivity {
 		return new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//MainActivity_.intent(context).link(url).start();
+
+				ListFeed_.intent(context).start();
                 ListFeed_.intent(context).link(url).start();
 
 			}
@@ -103,7 +104,7 @@ public class CategoryScreen extends ActionBarActivity {
 		case R.id.action_search:
 			SearchScreen_.intent(context).start();
 			return true;
-		case R.id.action_settings:
+		case R.id.action_compose:
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
