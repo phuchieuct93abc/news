@@ -1,18 +1,5 @@
 package com.activity;
 
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import org.androidannotations.annotations.AfterTextChange;
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Background;
-import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ItemClick;
-import org.androidannotations.annotations.UiThread;
-import org.androidannotations.annotations.ViewById;
-
 import android.app.Activity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,6 +13,19 @@ import com.feed.FeedListAdapter;
 import com.phuchieu.news.R;
 import com.services.FeedService;
 import com.services.SearchService;
+
+import org.androidannotations.annotations.AfterTextChange;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ItemClick;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @EActivity(R.layout.search_screen)
 public class SearchScreen extends Activity {

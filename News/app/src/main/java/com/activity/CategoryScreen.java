@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -16,16 +14,17 @@ import android.widget.IconTextView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import com.activity.ListFeedView.ListFeed_;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.phuchieu.news.R;
 import com.services.main_screen.Tile;
 import com.services.main_screen.TileService;
-import com.activity.ListFeedView.*;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+
 import java.util.List;
 
 @EActivity(R.layout.caterogy_activity)

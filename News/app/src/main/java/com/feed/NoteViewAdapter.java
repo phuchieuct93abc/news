@@ -1,7 +1,5 @@
 package com.feed;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.phuchieu.news.R;
+
+import java.util.ArrayList;
 
 public class NoteViewAdapter extends BaseAdapter {
     private LayoutInflater inflater;        

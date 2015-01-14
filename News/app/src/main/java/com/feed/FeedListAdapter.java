@@ -1,18 +1,18 @@
 package com.feed;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.RootContext;
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.services.FeedService;
+
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @EBean
 public class FeedListAdapter extends BaseAdapter {

@@ -4,12 +4,12 @@ package com.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
-import android.view.Window;
 
 import com.phuchieu.news.R;
 import com.services.FeedService;
 
-import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
 @EActivity(R.layout.splash)
 public class Splash extends Activity {
 
