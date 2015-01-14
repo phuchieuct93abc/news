@@ -6,6 +6,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.phuchieu.news.R;
 import com.services.main_screen.Tile;
@@ -20,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @EActivity(R.layout.activity_list_feed)
-public class ListFeed extends FragmentActivity {
+public class ListFeed extends ActionBarActivity {
     @ViewById
     ViewPager pagerListFeed;
     PagerAdapterListFeed adapter;
@@ -33,6 +37,8 @@ public class ListFeed extends FragmentActivity {
     void afterInjected() {
         setFragment();
         adapter.setLink(link);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -40,6 +46,14 @@ public class ListFeed extends FragmentActivity {
         adapter = new PagerAdapterListFeed(getSupportFragmentManager());
         adapter.setContext(getApplicationContext());
         pagerListFeed.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_test, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
 

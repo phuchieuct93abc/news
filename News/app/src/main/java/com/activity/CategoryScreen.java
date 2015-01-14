@@ -93,11 +93,11 @@ public class CategoryScreen extends ActionBarActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        inflater.inflate(R.menu.menu_test, menu);
         return super.onCreateOptionsMenu(menu);
 	}
 
-	@Override
+	/*@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle presses on the action bar items
 		switch (item.getItemId()) {
@@ -109,5 +109,5 @@ public class CategoryScreen extends ActionBarActivity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
-	}
+	}*/
 }
