@@ -1,16 +1,5 @@
 package com.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Background;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.UiThread;
-import org.androidannotations.annotations.ViewById;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
@@ -29,6 +18,17 @@ import com.feed.FeedContent;
 import com.feed.NoteViewAdapter;
 import com.phuchieu.news.R;
 import com.services.FeedService;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressLint("SetJavaScriptEnabled")
 @EFragment(R.layout.view)
