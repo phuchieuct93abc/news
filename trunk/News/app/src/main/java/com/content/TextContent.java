@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 public class TextContent extends Content {
 	String text;
-	private final static int textSize = 20;
+	private final static int textSize = 25;
 
 	public TextContent(String text, Context context) {
 		super(context);

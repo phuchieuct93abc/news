@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -149,8 +150,16 @@ public class FeedViewActivity extends ActionBarActivity {
 	}
     @AfterViews
     void afterView(){
-/*        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);*/
+        setToolbar();
+    }
+    private void setToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+/*        getSupportActionBar().setIcon(R.drawable.ic_launcher_2);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);*/
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @Override
@@ -160,6 +169,7 @@ public class FeedViewActivity extends ActionBarActivity {
         inflater.inflate(R.menu.menu_test, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
