@@ -1,4 +1,4 @@
-package com.activity;
+package com.activity.ListFeedView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

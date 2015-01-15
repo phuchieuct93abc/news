@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.activity.CategoryScreen_" />
-        <activity android:name="com.activity.FeedViewActivity_"
+        <activity android:name="com.activity.FeedView.FeedViewActivity_"
 
             />
         <activity android:name="com.activity.SearchScreen_" />
