@@ -1,4 +1,4 @@
-package com.activity;
+package com.activity.FeedView;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -14,6 +14,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.Window;
 
+import com.activity.ListFeedView.FeedViewFragment;
+import com.activity.ListFeedView.FeedViewFragment_;
 import com.feed.Feed;
 import com.phuchieu.news.R;
 import com.services.FeedService;
