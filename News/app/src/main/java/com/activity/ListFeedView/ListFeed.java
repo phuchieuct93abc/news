@@ -38,15 +38,18 @@ public class ListFeed extends ActionBarActivity {
     void afterInjected() {
        setFragment();
         adapter.setLink(link);
+        setToolbar();
+    }
+
+    private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.ic_launcher_2);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
+/*        getSupportActionBar().setIcon(R.drawable.ic_launcher_2);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);*/
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-
     }
 
     private void setFragment() {
