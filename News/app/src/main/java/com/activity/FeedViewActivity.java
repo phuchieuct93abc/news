@@ -34,124 +34,124 @@ import java.util.List;
 @WindowFeature(Window.FEATURE_NO_TITLE)
 public class FeedViewActivity extends ActionBarActivity {
 
-	@Extra("selectedLink")
-	String link;
-	@Extra("linkCategory")
-	String linkCategory;
+    @Extra("selectedLink")
+    String link;
+    @Extra("linkCategory")
+    String linkCategory;
 
-	PagerAdapter mDemoCollectionPagerAdapter;
-	@ViewById
-	ViewPager pager;
-	List<String> listFeedLink = new ArrayList<String>();
-	int page = 1;
+    PagerAdapter mDemoCollectionPagerAdapter;
+    @ViewById
+    ViewPager pager;
+    List<String> listFeedLink = new ArrayList<String>();
+    int page = 1;
 
-	@Background
-	void runBackground() {
+    @Background
+    void runBackground() {
         List<String> abc = FeedService.getCategoryBaseOnFeed(linkCategory, link);
-        Log.i("hieu",abc.get(0) +" "+abc.get(1) );
+        Log.i("hieu", abc.get(0) + " " + abc.get(1));
         linkCategory = abc.get(0);
         page = Integer.parseInt(abc.get(1));
-		List<String> categoryFromPageOne = FeedService.getLinkCategoryFromPageOne(linkCategory);
-		for(String item : categoryFromPageOne){
-			for(String item2:FeedService.getListFeedLinkFromCaterogy(item)){
-				this.listFeedLink.add(item2);
-			}
-		}
-		runUI();
-	}
+        List<String> categoryFromPageOne = FeedService.getLinkCategoryFromPageOne(linkCategory);
+        for (String item : categoryFromPageOne) {
+            for (String item2 : FeedService.getListFeedLinkFromCaterogy(item)) {
+                this.listFeedLink.add(item2);
+            }
+        }
+        runUI();
+    }
 
-	@Background
-	public void loadMoreData() {
-		
-			page++;
-			getMoreDateFromPageFromEnd();
-		
-	}
+    @Background
+    public void loadMoreData() {
 
+        page++;
+        getMoreDateFromPageFromEnd();
 
-
-	private void getMoreDateFromPageFromEnd() {
-		getMoreDateFromPage(false);
-	}
-
-	private void getMoreDateFromPage(Boolean fromStart) {
-		String nextLink = FeedService.getLinkByPageNumber(linkCategory, page);
-		List<Feed> feeds = FeedService.getFeedFromUrl(nextLink);
-		if (fromStart) {
-			for (Feed feed : feeds) {
-				String feedLink = feed.getLink();
-				listFeedLink.add(0, feedLink);
-			}
-		} else {
-
-		}
-		for (Feed feed : feeds) {
-			String feedLink = feed.getLink();
-			listFeedLink.add(feedLink);
-		}
-
-		mDemoCollectionPagerAdapter.setListLink(listFeedLink);
-		updateAdapter();
-	}
-
-	@UiThread
-	public void updateAdapter() {
-		mDemoCollectionPagerAdapter.notifyDataSetChanged();
-
-	}
-
-	@UiThread
-	void runUI() {
-		mDemoCollectionPagerAdapter = new PagerAdapter(
-				getSupportFragmentManager());
-		mDemoCollectionPagerAdapter.setContext(this);
-		mDemoCollectionPagerAdapter.setLink(link);
-		mDemoCollectionPagerAdapter.setListLink(listFeedLink);
-		pager.setAdapter(mDemoCollectionPagerAdapter);
-
-		OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
-
-			@Override
-			public void onPageSelected(int arg0) {
-				FeedService.setRead(listFeedLink.get(arg0));
-				if (arg0 == listFeedLink.size() - 2) {
-					loadMoreData();
-				}
-			}
-
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				
+    }
 
 
-			}
+    private void getMoreDateFromPageFromEnd() {
+        getMoreDateFromPage(false);
+    }
 
-			@Override
-			public void onPageScrollStateChanged(int arg0) {
-				
-			}
-		};
-		pager.setOnPageChangeListener(onPageChangeListener);
-		setSelectedPage(listFeedLink.indexOf(link));
-		FeedService.setRead(link);
+    private void getMoreDateFromPage(Boolean fromStart) {
+        String nextLink = FeedService.getLinkByPageNumber(linkCategory, page);
+        List<Feed> feeds = FeedService.getFeedFromUrl(nextLink);
+        if (fromStart) {
+            for (Feed feed : feeds) {
+                String feedLink = feed.getLink();
+                listFeedLink.add(0, feedLink);
+            }
+        } else {
+
+        }
+        for (Feed feed : feeds) {
+            String feedLink = feed.getLink();
+            listFeedLink.add(feedLink);
+        }
+
+        mDemoCollectionPagerAdapter.setListLink(listFeedLink);
+        updateAdapter();
+    }
+
+    @UiThread
+    public void updateAdapter() {
+        mDemoCollectionPagerAdapter.notifyDataSetChanged();
+
+    }
+
+    @UiThread
+    void runUI() {
+        mDemoCollectionPagerAdapter = new PagerAdapter(
+                getSupportFragmentManager());
+        mDemoCollectionPagerAdapter.setContext(this);
+        mDemoCollectionPagerAdapter.setLink(link);
+        mDemoCollectionPagerAdapter.setListLink(listFeedLink);
+        pager.setAdapter(mDemoCollectionPagerAdapter);
+
+        OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int arg0) {
+                FeedService.setRead(listFeedLink.get(arg0));
+                if (arg0 == listFeedLink.size() - 2) {
+                    loadMoreData();
+                }
+            }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
 
 
-	}
+            }
 
-	@UiThread
-	void setSelectedPage(int index) {
-		pager.setCurrentItem(index);
-	}
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
 
-	@AfterInject
-	void run() {
+            }
+        };
+        pager.setOnPageChangeListener(onPageChangeListener);
+        setSelectedPage(listFeedLink.indexOf(link));
+        FeedService.setRead(link);
+
+
+    }
+
+    @UiThread
+    void setSelectedPage(int index) {
+        pager.setCurrentItem(index);
+    }
+
+    @AfterInject
+    void run() {
 
         runBackground();
-	}
+    }
+
     @AfterViews
-    void afterView(){
+    void afterView() {
         setToolbar();
     }
+
     private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(toolbar);
@@ -188,58 +188,58 @@ public class FeedViewActivity extends ActionBarActivity {
 // and NOT a FragmentPagerAdapter.
 class PagerAdapter extends FragmentStatePagerAdapter {
 
-	FeedService feedService = new FeedService();
-	String link;
-	List<String> listLink;
+    FeedService feedService = new FeedService();
+    String link;
+    List<String> listLink;
+    Context context;
 
-	public void addMoreListLink(String link) {
-		listLink.add(link);
-	}
+    public PagerAdapter(FragmentManager fm) {
+        super(fm);
+    }
 
-	public List<String> getListLink() {
-		return listLink;
-	}
+    public void addMoreListLink(String link) {
+        listLink.add(link);
+    }
 
-	public PagerAdapter(FragmentManager fm) {
-		super(fm);
-	}
+    public List<String> getListLink() {
+        return listLink;
+    }
 
-	public void setListLink(List<String> categoryLink) {
-		this.listLink = categoryLink;
-	}
+    public void setListLink(List<String> categoryLink) {
+        this.listLink = categoryLink;
+    }
 
-	public String getLink() {
-		return link;
-	}
+    public String getLink() {
+        return link;
+    }
 
-	public void setLink(String link) {
-		this.link = link;
-	}
+    public void setLink(String link) {
+        this.link = link;
+    }
 
-	Context context;
+    public void setContext(Context context) {
+        this.context = context;
+    }
 
-	public void setContext(Context context) {
-		this.context = context;
-	}
+    @Override
+    public Fragment getItem(int i) {
+        Fragment fragment = new FeedViewFragment_();
+        ((FeedViewFragment) fragment).setContext(this.context);
+        ((FeedViewFragment) fragment).setLink(getListLink().get(i));
+        return fragment;
+    }
 
-	@Override
-	public Fragment getItem(int i) {
-		Fragment fragment = new FeedViewFragment_();
-		((FeedViewFragment) fragment).setContext(this.context);
-		((FeedViewFragment) fragment).setLink(getListLink().get(i));
-		return fragment;
-	}
+    @Override
+    public int getCount() {
+        return listLink.size();
+    }
 
-	@Override
-	public int getCount() {
-		return listLink.size();
-	}
-
-	@Override
-	public CharSequence getPageTitle(int position) {
-	/*	String feedLink = getListLink().get(position);
+    @Override
+    public CharSequence getPageTitle(int position) {
+    /*	String feedLink = getListLink().get(position);
 		// String title = FeedService.getFeedContent(feedLink).getTitle();
-*/		String title = "NEWS " + position;
-		return title;
-	}
+*/
+        String title = "NEWS " + position;
+        return title;
+    }
 }

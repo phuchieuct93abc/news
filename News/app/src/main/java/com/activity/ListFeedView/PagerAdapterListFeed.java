@@ -16,6 +16,7 @@ class PagerAdapterListFeed extends FragmentStatePagerAdapter {
     List<String> categoryUrlList = new ArrayList<>();
     List<Tile> categoryList;
     Context context;
+
     public PagerAdapterListFeed(FragmentManager fm) {
         super(fm);
         categoryList = TileService.getList();

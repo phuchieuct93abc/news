@@ -27,34 +27,31 @@ import java.util.List;
 @EFragment(R.layout.activity_main)
 public class MainActivity extends Fragment {
 
+    @ViewById
+    SuperListview listView;
+    @Bean
+    FeedListAdapter adapter;
+    Context context;
+    //    @Extra
+    String link;
+    private int numberOfPage = 1;
+
     @Override
     public void onResume() {
         super.onResume();
         updateAdaper();
     }
 
-    @ViewById
-    SuperListview listView;
-
-    @Bean
-    FeedListAdapter adapter;
-
-    private int numberOfPage = 1;
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
-    Context context;
-
 /*    @Override
     protected void onResume() {
         super.onResume();
     }*/
 
+    public void setContext(Context context) {
+        this.context = context;
+    }
 
-    public void updateAdaper()
-    {
+    public void updateAdaper() {
         adapter.notifyDataSetChanged();
 
     }
@@ -67,7 +64,7 @@ public class MainActivity extends Fragment {
 
     private void setOnScrollListener() {
 
-      listView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        listView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 FeedService.clearCache();
@@ -85,19 +82,18 @@ public class MainActivity extends Fragment {
         }, 1);
 
 
-
     }
 
     @Background
     void loadNextPage() {
         String nextLink = "";
         try {
-             nextLink = FeedService.getLinkByPageNumber(link, numberOfPage);
+            nextLink = FeedService.getLinkByPageNumber(link, numberOfPage);
             List<Feed> rssItems = FeedService.getFeedFromUrl(nextLink);
 
             adapter.setListDataMore(rssItems);
         } catch (Exception e) {
-            Log.e("hieu","cannot get more "+nextLink);
+            Log.e("hieu", "cannot get more " + nextLink);
             e.printStackTrace();
         } finally {
             updateList();
@@ -123,9 +119,6 @@ public class MainActivity extends Fragment {
     public void setLink(String link) {
         this.link = link;
     }
-
-    //    @Extra
-    String link;
 
     @UiThread
     void run() {

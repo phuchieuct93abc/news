@@ -33,77 +33,81 @@ import java.util.List;
 @SuppressLint("SetJavaScriptEnabled")
 @EFragment(R.layout.view)
 public class FeedViewFragment extends Fragment {
-	String link;
-	@ViewById
-	TextView title;
-	@ViewById
-	LinearLayout layout;
+    String link;
+    @ViewById
+    TextView title;
+    @ViewById
+    LinearLayout layout;
 
-	FeedContent feedContent;
-	String contentHTML, html;
-	NoteViewAdapter noteViewAdapter;
-	Context context;
+    FeedContent feedContent;
+    String contentHTML, html;
+    NoteViewAdapter noteViewAdapter;
+    Context context;
 
-	public void setContext(Context context){
-		this.context = context;
-		
-	}
-	public void setLink(String link){
-		this.link = link;
-	}
-	
-	@Background
-	void runBackground() {
-		try {
+    public void setContext(Context context) {
+        this.context = context;
 
-			feedContent = FeedService.getFeedContent(link);
-			Document doc = Jsoup.parseBodyFragment(feedContent.getContentHTML());
+    }
 
-			List<Content> contents = FeedService.parseContent(doc,context);
+    public void setLink(String link) {
+        this.link = link;
+    }
 
-			setHTML(contents);
-		} catch (Exception e) {
-			
-			List<Content> contents = new ArrayList<Content>();
-			TextContent t=new TextContent("Cannot get content", context);
-			contents.add(t);
-			setHTML(contents);
-			
-		}
-	}
+    @Background
+    void runBackground() {
+        try {
 
-	@UiThread
-	void setHTML(List<Content> contents) {
-		try {
-			for (Content content : contents) {
-				addContent(content);
-			}
-			String feedTitle = feedContent.getTitle();
-			setTitle(feedTitle);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			Log.i("fail get feed",link);
-		}
-		
-	}
-	private void setTitle(String feedTitle) {
-		String tempString=feedTitle;
-		SpannableString spanString = new SpannableString(tempString);
-		spanString.setSpan(new UnderlineSpan(), 0, spanString.length(), 0);
-		spanString.setSpan(new StyleSpan(Typeface.BOLD), 0, spanString.length(), 0);
-		spanString.setSpan(new StyleSpan(Typeface.ITALIC), 0, spanString.length(), 0);
-		title.setText(spanString);
-	}
+            feedContent = FeedService.getFeedContent(link);
+            Document doc = Jsoup.parseBodyFragment(feedContent.getContentHTML());
 
-	private void addContent(Content content) {
+            List<Content> contents = FeedService.parseContent(doc, context);
 
-		View view = content.toView();
-		layout.addView(view);
-	}
+            setHTML(contents);
+        } catch (Exception e) {
 
-	@AfterViews
-	void bindLinkToView() {
-		runBackground();
-	};
+            List<Content> contents = new ArrayList<Content>();
+            TextContent t = new TextContent("Cannot get content", context);
+            contents.add(t);
+            setHTML(contents);
+
+        }
+    }
+
+    @UiThread
+    void setHTML(List<Content> contents) {
+        try {
+            for (Content content : contents) {
+                addContent(content);
+            }
+            String feedTitle = feedContent.getTitle();
+            setTitle(feedTitle);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            Log.i("fail get feed", link);
+        }
+
+    }
+
+    private void setTitle(String feedTitle) {
+        String tempString = feedTitle;
+        SpannableString spanString = new SpannableString(tempString);
+        spanString.setSpan(new UnderlineSpan(), 0, spanString.length(), 0);
+        spanString.setSpan(new StyleSpan(Typeface.BOLD), 0, spanString.length(), 0);
+        spanString.setSpan(new StyleSpan(Typeface.ITALIC), 0, spanString.length(), 0);
+        title.setText(spanString);
+    }
+
+    private void addContent(Content content) {
+
+        View view = content.toView();
+        layout.addView(view);
+    }
+
+    @AfterViews
+    void bindLinkToView() {
+        runBackground();
+    }
+
+    ;
 }

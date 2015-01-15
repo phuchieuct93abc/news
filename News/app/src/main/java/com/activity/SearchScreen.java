@@ -29,94 +29,91 @@ import java.util.TimerTask;
 
 @EActivity(R.layout.search_screen)
 public class SearchScreen extends Activity {
-	@ViewById
-	Button button1;
-	@ViewById
-	ListView listView;
-
-	@Bean
-	FeedListAdapter adapter;
-	@ViewById
-	EditText SearchText;
-    private Timer timer = new Timer();
-
-
     private final long DELAY = 500;
+    @ViewById
+    Button button1;
+    @ViewById
+    ListView listView;
+    @Bean
+    FeedListAdapter adapter;
+    @ViewById
+    EditText SearchText;
+    List<org.jsoup.nodes.Element> feeds;
 
 	/*
-	 * @TextChange void SearchTextTextChanged(TextView hello, CharSequence text)
+     * @TextChange void SearchTextTextChanged(TextView hello, CharSequence text)
 	 * { performSearch(text.toString()); }
 	 */
+    private Timer timer = new Timer();
 
-	List<org.jsoup.nodes.Element> feeds;
+    @AfterViews
+    void init() {
+        performSearch("Smart phone");
+        setDelaySearchText();
+    }
 
-	@AfterViews
-	void init() {
-		performSearch("Smart phone");
-		setDelaySearchText();
-	}
-@AfterTextChange(R.id.SearchText)
-void afterTextChange(Editable arg0){
+    @AfterTextChange(R.id.SearchText)
+    void afterTextChange(Editable arg0) {
 
-    timer.cancel();
-    timer = new Timer();
-    timer.schedule(new TimerTask() {
-        @Override
-        public void run() {
-            Log.i("hieu", SearchText.getText().toString());
-            performSearch(SearchText.getText().toString());
+        timer.cancel();
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Log.i("hieu", SearchText.getText().toString());
+                performSearch(SearchText.getText().toString());
+            }
+
+        }, DELAY);
+    }
+
+
+    private void setDelaySearchText() {
+        SearchText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2,
+                                      int arg3) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1,
+                                          int arg2, int arg3) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+
+            }
+        });
+    }
+
+    @Background
+    void performSearch(String key) {
+        try {
+            adapter.clear();
+            String link = SearchService.search(key);
+            List<Feed> feedFromUrl = FeedService.getFeedFromUrl(link);
+            adapter.setListData(feedFromUrl);
+            uIThread();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
 
-    }, DELAY);
-}
+    @UiThread
+    void uIThread() {
+        listView.setAdapter(adapter);
+    }
 
+    @ItemClick
+    public void listViewItemClicked(Feed clickedItem) {
+        String link = clickedItem.getLink();
+        link = link.replace("http://www", "http://m");
+        //FeedView_.intent(this).link(link).start();
 
-	private void setDelaySearchText() {
-		SearchText.addTextChangedListener(new TextWatcher() {
-
-			@Override
-			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
-					int arg3) {
-
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1,
-					int arg2, int arg3) {
-
-			}
-
-			@Override
-			public void afterTextChanged(Editable arg0) {
-
-			}
-		});
-	}
-
-	@Background
-	void performSearch(String key) {
-		try {
-			adapter.clear();
-			String link = SearchService.search(key);
-			List<Feed> feedFromUrl = FeedService.getFeedFromUrl(link);
-			adapter.setListData(feedFromUrl);
-			uIThread();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@UiThread
-	void uIThread() {
-		listView.setAdapter(adapter);
-	}
-
-	@ItemClick
-	public void listViewItemClicked(Feed clickedItem) {
-		String link = clickedItem.getLink();
-		link = link.replace("http://www", "http://m");
-		//FeedView_.intent(this).link(link).start();
-
-	}
+    }
 
 }

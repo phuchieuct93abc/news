@@ -3,7 +3,6 @@ package com.services;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.util.Log;
 
 import com.content.Content;
 import com.content.ImageContent;

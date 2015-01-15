@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.phuchieu.news.R;
-import com.services.SearchService;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -92,7 +91,7 @@ public class ListFeed extends ActionBarActivity {
                 if (!searchValue.isEmpty()) {
                     performSearch(searchValue);
 
-                }else{
+                } else {
                     assignAdapter(caterogyListAdapter);
 
                 }
@@ -101,6 +100,7 @@ public class ListFeed extends ActionBarActivity {
 
         }, DELAY);
     }
+
     @Background
     void performSearch(String searchValue) {
         searchAdapter.setSearchValue(searchValue);

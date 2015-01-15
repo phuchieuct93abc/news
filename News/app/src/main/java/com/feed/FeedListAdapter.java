@@ -17,63 +17,65 @@ import java.util.List;
 @EBean
 public class FeedListAdapter extends BaseAdapter {
 
-	List<Feed> feeds = new ArrayList<Feed>();
+    List<Feed> feeds = new ArrayList<Feed>();
 
-	@RootContext
-	Context context;
-	@Bean
-	FeedService feedService;
-	public void setListDataMore(List<Feed> feeds){
-		for(Feed feed : feeds){
-			
-		this.feeds.add(feed);
-		}
-	}
+    @RootContext
+    Context context;
+    @Bean
+    FeedService feedService;
 
-	public void setDataFromSearch(Feed feed) {
-		feeds.add(feed);
+    public void setListDataMore(List<Feed> feeds) {
+        for (Feed feed : feeds) {
 
-	}
+            this.feeds.add(feed);
+        }
+    }
 
-	public void setListData(List<Feed> feeds){
-		clear();
-		
-		for(Feed feed : feeds){
+    public void setDataFromSearch(Feed feed) {
+        feeds.add(feed);
 
-			this.feeds.add(feed);
-		}
-	}
-	public void clear() {
-		feeds = new ArrayList<Feed>();
-	}
+    }
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+    public void setListData(List<Feed> feeds) {
+        clear();
 
-		FeedItemView FeedItemView;
-		if (convertView == null) {
-			FeedItemView = FeedItemView_.build(context);
-		} else {
-			FeedItemView = (FeedItemView) convertView;
-		}
+        for (Feed feed : feeds) {
 
-		FeedItemView.bindDataToView(getItem(position));
+            this.feeds.add(feed);
+        }
+    }
 
-		return FeedItemView;
-	}
+    public void clear() {
+        feeds = new ArrayList<Feed>();
+    }
 
-	@Override
-	public int getCount() {
-		return feeds.size();
-	}
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
 
-	@Override
-	public Feed getItem(int position) {
-		return feeds.get(position);
-	}
+        FeedItemView FeedItemView;
+        if (convertView == null) {
+            FeedItemView = FeedItemView_.build(context);
+        } else {
+            FeedItemView = (FeedItemView) convertView;
+        }
 
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
+        FeedItemView.bindDataToView(getItem(position));
+
+        return FeedItemView;
+    }
+
+    @Override
+    public int getCount() {
+        return feeds.size();
+    }
+
+    @Override
+    public Feed getItem(int position) {
+        return feeds.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 }

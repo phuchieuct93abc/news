@@ -15,35 +15,35 @@ import org.androidannotations.annotations.ViewById;
 @EViewGroup(R.layout.feed_view)
 public class FeedItemView extends RelativeLayout {
 
-	@ViewById
-	TextView title;
+    @ViewById
+    TextView title;
 
-	@ViewById
-	TextView description;
+    @ViewById
+    TextView description;
 
-	@ViewById
-	TextView isRead;
+    @ViewById
+    TextView isRead;
 
-	@ViewById
-	ImageView imageView;
+    @ViewById
+    ImageView imageView;
 
-	public FeedItemView(Context context) {
-		super(context);
-	}
+    public FeedItemView(Context context) {
+        super(context);
+    }
 
-	public void bindDataToView(Feed feed) {
-		if(feed.isRead()){
-			isRead.setVisibility(View.VISIBLE);
+    public void bindDataToView(Feed feed) {
+        if (feed.isRead()) {
+            isRead.setVisibility(View.VISIBLE);
 
-		}else{
-			isRead.setVisibility(View.GONE);
+        } else {
+            isRead.setVisibility(View.GONE);
 
-		}
-		title.setText(feed.getTitle());
-		description.setText(feed.getContent());
+        }
+        title.setText(feed.getTitle());
+        description.setText(feed.getContent());
 
-		UrlImageViewHelper.setUrlDrawable(imageView, feed.getImage());
+        UrlImageViewHelper.setUrlDrawable(imageView, feed.getImage());
 
-	}
+    }
 
 }

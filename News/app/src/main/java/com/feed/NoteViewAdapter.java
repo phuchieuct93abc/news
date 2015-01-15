@@ -12,11 +12,11 @@ import com.phuchieu.news.R;
 import java.util.ArrayList;
 
 public class NoteViewAdapter extends BaseAdapter {
-    private LayoutInflater inflater;        
+    private LayoutInflater inflater;
     private ArrayList<String> notes;
 
     public NoteViewAdapter(Context currentContext, ArrayList<String> allNotes) {
-        inflater = LayoutInflater.from(currentContext);        
+        inflater = LayoutInflater.from(currentContext);
         notes = allNotes;
     }
 
@@ -41,7 +41,7 @@ public class NoteViewAdapter extends BaseAdapter {
 
         if (convertView == null) {
             layout = inflater.inflate(R.layout.list_feed_viewer, null);
-        }            
+        }
 
         //Get's value from our ArrayList by the position
         String note = notes.get(position);

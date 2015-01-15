@@ -11,9 +11,9 @@ import org.jsoup.nodes.Element;
 import java.util.List;
 
 public interface FeedServiceInterface {
-List<Element> getFeed(String source);
+    List<Element> getFeed(String source);
 
-FeedContent getFeedContent(String url);
+    FeedContent getFeedContent(String url);
 
-List<Content> parseContent(Document doc, Context context);
+    List<Content> parseContent(Document doc, Context context);
 }
