@@ -29,75 +29,73 @@ import java.util.List;
 
 @EActivity(R.layout.caterogy_activity)
 public class CategoryScreen extends Activity {
-	Context context = this;
-	@ViewById
-	TableLayout table;
-	List<Tile> tiles;
-	Typeface font;
+    Context context = this;
+    @ViewById
+    TableLayout table;
+    List<Tile> tiles;
+    Typeface font;
 
-	@AfterViews
-	void afterView() {
-		setClickListenerForButton();
-	}
+    @AfterViews
+    void afterView() {
+        setClickListenerForButton();
+    }
 
-	@AfterInject
-	void afterInject() {
-		tiles = TileService.getList();
-	}
+    @AfterInject
+    void afterInject() {
+        tiles = TileService.getList();
+    }
 
-	private void setClickListenerForButton() {
-		for (int x = 0; x < table.getChildCount(); x++) {
-			TableRow row = (TableRow) table.getChildAt(x);
-			for (int y = 0; y < row.getChildCount(); y++) {
-
-
+    private void setClickListenerForButton() {
+        for (int x = 0; x < table.getChildCount(); x++) {
+            TableRow row = (TableRow) table.getChildAt(x);
+            for (int y = 0; y < row.getChildCount(); y++) {
 
 
-				ButtonRectangle button = (ButtonRectangle) row.getChildAt(y);
-				int index = 2 * x + y;
-				Tile tile = tiles.get(index);
-				addIcon(button,tile.getIcon());	
-				button.setText(tile.getTitle());
-				button.setPaddingRelative(10, 0, 0, 0);
-				button.setGravity(Gravity.START);
-				OnClickListener initialOnClickListener = initialOnClickListener(tile.getUrl());
-				button.setOnClickListener(initialOnClickListener);
-			}
-		}
-	}
+                ButtonRectangle button = (ButtonRectangle) row.getChildAt(y);
+                int index = 2 * x + y;
+                Tile tile = tiles.get(index);
+                addIcon(button, tile.getIcon());
+                button.setText(tile.getTitle());
+                button.setPaddingRelative(10, 0, 0, 0);
+                button.setGravity(Gravity.START);
+                OnClickListener initialOnClickListener = initialOnClickListener(tile.getUrl());
+                button.setOnClickListener(initialOnClickListener);
+            }
+        }
+    }
 
-	private void addIcon(ButtonRectangle button,String icon) {
-		IconTextView iconView = new IconTextView(this);
-		iconView.setText("{"+icon+"}");
-		iconView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-		iconView.setGravity(Gravity.CENTER);
-		iconView.setTextColor(Color.WHITE);
-		iconView.setPaddingRelative(10, 0, 0, 0);
-		iconView.setTextSize(20);
-		button.addView(iconView);
-	}
+    private void addIcon(ButtonRectangle button, String icon) {
+        IconTextView iconView = new IconTextView(this);
+        iconView.setText("{" + icon + "}");
+        iconView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        iconView.setGravity(Gravity.CENTER);
+        iconView.setTextColor(Color.WHITE);
+        iconView.setPaddingRelative(10, 0, 0, 0);
+        iconView.setTextSize(20);
+        button.addView(iconView);
+    }
 
-	private OnClickListener initialOnClickListener(final String url) {
-		return new OnClickListener() {
-			@Override
-			public void onClick(View v) {
+    private OnClickListener initialOnClickListener(final String url) {
+        return new OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
                 ListFeed_.intent(context).link(url).start();
 
-			}
-		};
-	}
+            }
+        };
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_test, menu);
         return super.onCreateOptionsMenu(menu);
-	}
+    }
 
 	/*@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle presses on the action bar items
 		switch (item.getItemId()) {
 		case R.id.action_search:

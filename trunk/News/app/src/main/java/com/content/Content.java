@@ -4,15 +4,15 @@ import android.content.Context;
 import android.view.View;
 
 public class Content {
-	Context context;
+    Context context;
 
-	public Content(Context context) {
-		this.context = context;
-	}
+    public Content(Context context) {
+        this.context = context;
+    }
 
-	public View toView() {
-		return null;
-	}
+    public View toView() {
+        return null;
+    }
 
 
 }
