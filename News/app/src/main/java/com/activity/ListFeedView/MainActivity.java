@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 
 import com.activity.FeedViewActivity_;
 import com.feed.Feed;
@@ -89,12 +90,20 @@ public class MainActivity extends Fragment {
 
     @Background
     void loadNextPage() {
+        String nextLink = "";
+        try {
+             nextLink = FeedService.getLinkByPageNumber(link, numberOfPage);
+            List<Feed> rssItems = FeedService.getFeedFromUrl(nextLink);
 
-        String nextLink = FeedService.getLinkByPageNumber(link, numberOfPage);
-        List<Feed> rssItems = FeedService.getFeedFromUrl(nextLink);
+            adapter.setListDataMore(rssItems);
+        } catch (Exception e) {
+            Log.e("hieu","cannot get more "+nextLink);
+            e.printStackTrace();
+        } finally {
+            updateList();
 
-        adapter.setListDataMore(rssItems);
-       updateList();
+        }
+
     }
 
     @UiThread

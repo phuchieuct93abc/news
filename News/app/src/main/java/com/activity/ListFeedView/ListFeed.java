@@ -1,44 +1,46 @@
 package com.activity.ListFeedView;
 
-import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.phuchieu.news.R;
-import com.services.main_screen.Tile;
-import com.services.main_screen.TileService;
+import com.services.SearchService;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 @EActivity(R.layout.activity_list_feed)
 public class ListFeed extends ActionBarActivity {
+    private final long DELAY = 500;
     @ViewById
     ViewPager pagerListFeed;
-    PagerAdapterListFeed adapter;
+    PagerAdapterListFeed caterogyListAdapter = new PagerAdapterListFeed(getSupportFragmentManager());
 
+    SearchAdapter searchAdapter = new SearchAdapter(getSupportFragmentManager());
     @Extra
     String link;
-
-
+    private Timer timer = new Timer();
 
     @AfterViews
     void afterInjected() {
-       setFragment();
-        adapter.setLink(link);
+        setFragment();
+        caterogyListAdapter.setLink(link);
         setToolbar();
+
+
     }
 
     private void setToolbar() {
@@ -53,18 +55,64 @@ public class ListFeed extends ActionBarActivity {
     }
 
     private void setFragment() {
-       adapter = new PagerAdapterListFeed(getSupportFragmentManager());
-        adapter.setContext(getApplicationContext());
-        pagerListFeed.setAdapter(adapter);
+        caterogyListAdapter.setContext(getApplicationContext());
+        searchAdapter.setContext(getApplicationContext());
+        pagerListFeed.setAdapter(caterogyListAdapter);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_test, menu);
+        getMenuInflater().inflate(R.menu.menu_test, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(final String s) {
+
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(final String s) {
+                setSearchView(s);
+                return false;
+            }
+        });
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private void setSearchView(final String searchValue) {
+        timer.cancel();
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (!searchValue.isEmpty()) {
+                    performSearch(searchValue);
+
+                }else{
+                    assignAdapter(caterogyListAdapter);
+
+                }
+
+            }
+
+        }, DELAY);
+    }
+    @Background
+    void performSearch(String searchValue) {
+        searchAdapter.setSearchValue(searchValue);
+        assignAdapter(searchAdapter);
+
+
+    }
+
+    @UiThread
+    void assignAdapter(FragmentStatePagerAdapter adapter) {
+        adapter.notifyDataSetChanged();
+        pagerListFeed.setAdapter(adapter);
     }
 
     @Override
@@ -82,49 +130,3 @@ public class ListFeed extends ActionBarActivity {
 
 }
 
-class PagerAdapterListFeed extends FragmentStatePagerAdapter {
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    String link;
-    List<String> categoryUrlList = new ArrayList<>();
-    List<Tile> categoryList;
-
-
-    public PagerAdapterListFeed(FragmentManager fm) {
-        super(fm);
-
-        categoryList = TileService.getList();
-        for (Tile t : categoryList) {
-            categoryUrlList.add(t.getUrl());
-        }
-
-    }
-
-
-    Context context;
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
-    @Override
-    public Fragment getItem(int i) {
-        Fragment fragment = new MainActivity_();
-        ((MainActivity) fragment).setContext(context);
-        ((MainActivity) fragment).setLink(categoryUrlList.get(i));
-
-        return fragment;
-    }
-
-    @Override
-    public int getCount() {
-        return categoryUrlList.size();
-    }
-
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return categoryList.get(position).getTitle();
-    }
-}

@@ -150,7 +150,6 @@ public class FeedService {
             Document doc = getHTMLFromURL(source);
 
             Elements elements = doc.select(".story");
-            Log.i("hieu", elements.size() + "");
             return elements;
 
         } catch (Exception e) {
