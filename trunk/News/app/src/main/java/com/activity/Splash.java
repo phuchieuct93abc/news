@@ -14,16 +14,13 @@ import org.androidannotations.annotations.EActivity;
 @EActivity(R.layout.splash)
 public class Splash extends Activity {
 
-    /**
-     * Duration of wait *
-     */
-    private final int SPLASH_DISPLAY_LENGTH = 1000;
+    private final static int SPLASH_DISPLAY_LENGTH = 2000;
     private Context context = this;
 
 
     @AfterViews
     void afterView() {
-        FeedService.setContext(getApplicationContext());
+        FeedService.setContext(getBaseContext());
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
