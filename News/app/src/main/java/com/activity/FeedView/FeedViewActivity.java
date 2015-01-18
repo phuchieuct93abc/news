@@ -1,9 +1,8 @@
 package com.activity.FeedView;
 
-import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBarActivity;
@@ -12,10 +11,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
-import com.activity.ListFeedView.FeedViewFragment;
-import com.activity.ListFeedView.FeedViewFragment_;
 import com.feed.Feed;
 import com.phuchieu.news.R;
 import com.services.FeedService;
@@ -40,17 +43,17 @@ public class FeedViewActivity extends ActionBarActivity {
     String link;
     @Extra("linkCategory")
     String linkCategory;
-
     PagerAdapter mDemoCollectionPagerAdapter;
     @ViewById
     ViewPager pager;
+    @ViewById
+    RelativeLayout viewSwipe;
     List<String> listFeedLink = new ArrayList<String>();
     int page = 1;
 
     @Background
     void runBackground() {
         List<String> abc = FeedService.getCategoryBaseOnFeed(linkCategory, link);
-        Log.i("hieu", abc.get(0) + " " + abc.get(1));
         linkCategory = abc.get(0);
         page = Integer.parseInt(abc.get(1));
         List<String> categoryFromPageOne = FeedService.getLinkCategoryFromPageOne(linkCategory);
@@ -168,80 +171,70 @@ public class FeedViewActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_test, menu);
+        inflater.inflate(R.menu.view_feed_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
+        Log.i("hieu", item.getItemId() + " " + R.id.textSize);
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                return true;
+            case R.id.textSize:
+                showTextSizeDialog();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-}
+    private void showTextSizeDialog() {
+        final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
+        final SeekBar seek = new SeekBar(this);
+        final TextView textView = new TextView(this);
+        textView.setText("Text 123");
+        LinearLayout layout = new LinearLayout(this);
+        layout.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.addView(seek);
+        layout.addView(textView);
+        seek.setMax(20);
+        popDialog.setTitle("Change Text Size");
+        popDialog.setView(layout);
+        seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                textView.setTextSize(progress * 2);
+                LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
+                for(int i=0;i<= pager.getChildCount();i++){
+                    View view = pager.getChildAt(i);
+                    if(view instanceof TextView){
+                       ((TextView) view).setTextSize(progress * 2);
+                    }
+                }
+            }
 
-// Since this is an object collection, use a FragmentStatePagerAdapter,
-// and NOT a FragmentPagerAdapter.
-class PagerAdapter extends FragmentStatePagerAdapter {
+            public void onStartTrackingTouch(SeekBar arg0) {
+            }
 
-    FeedService feedService = new FeedService();
-    String link;
-    List<String> listLink;
-    Context context;
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
 
-    public PagerAdapter(FragmentManager fm) {
-        super(fm);
-    }
 
-    public void addMoreListLink(String link) {
-        listLink.add(link);
-    }
+        // Button OK
+        popDialog.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
 
-    public List<String> getListLink() {
-        return listLink;
-    }
+                        dialog.dismiss();
 
-    public void setListLink(List<String> categoryLink) {
-        this.listLink = categoryLink;
-    }
+                    }
 
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
-    @Override
-    public Fragment getItem(int i) {
-        Fragment fragment = new FeedViewFragment_();
-        ((FeedViewFragment) fragment).setContext(this.context);
-        ((FeedViewFragment) fragment).setLink(getListLink().get(i));
-        return fragment;
-    }
-
-    @Override
-    public int getCount() {
-        return listLink.size();
-    }
-
-    @Override
-    public CharSequence getPageTitle(int position) {
-    /*	String feedLink = getListLink().get(position);
-		// String title = FeedService.getFeedContent(feedLink).getTitle();
-*/
-        String title = "NEWS " + position;
-        return title;
+                });
+        popDialog.create();
+        popDialog.show();
     }
 }

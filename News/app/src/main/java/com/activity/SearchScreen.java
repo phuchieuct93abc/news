@@ -60,7 +60,6 @@ public class SearchScreen extends Activity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                Log.i("hieu", SearchText.getText().toString());
                 performSearch(SearchText.getText().toString());
             }
 
