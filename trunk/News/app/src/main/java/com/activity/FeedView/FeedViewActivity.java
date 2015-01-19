@@ -3,6 +3,7 @@ package com.activity.FeedView;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBarActivity;
@@ -11,7 +12,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -19,6 +19,9 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.activity.ListFeedView.FeedViewFragment;
+import com.config.Config_;
+import com.content.TextContent;
 import com.feed.Feed;
 import com.phuchieu.news.R;
 import com.services.FeedService;
@@ -31,6 +34,7 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.WindowFeature;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +52,10 @@ public class FeedViewActivity extends ActionBarActivity {
     ViewPager pager;
     @ViewById
     RelativeLayout viewSwipe;
-    List<String> listFeedLink = new ArrayList<String>();
+    List<String> listFeedLink = new ArrayList<>();
     int page = 1;
+    @Pref
+    Config_ config;
 
     @Background
     void runBackground() {
@@ -67,10 +73,8 @@ public class FeedViewActivity extends ActionBarActivity {
 
     @Background
     public void loadMoreData() {
-
         page++;
         getMoreDateFromPageFromEnd();
-
     }
 
 
@@ -86,8 +90,6 @@ public class FeedViewActivity extends ActionBarActivity {
                 String feedLink = feed.getLink();
                 listFeedLink.add(0, feedLink);
             }
-        } else {
-
         }
         for (Feed feed : feeds) {
             String feedLink = feed.getLink();
@@ -195,25 +197,20 @@ public class FeedViewActivity extends ActionBarActivity {
         final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
         final SeekBar seek = new SeekBar(this);
         final TextView textView = new TextView(this);
+        final int[] textSize = new int[1];
         textView.setText("Text 123");
-        LinearLayout layout = new LinearLayout(this);
-        layout.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.addView(seek);
-        layout.addView(textView);
+        final LinearLayout[] layout = {new LinearLayout(this)};
+        layout[0].setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        layout[0].setOrientation(LinearLayout.VERTICAL);
+        layout[0].addView(seek);
+        layout[0].addView(textView);
         seek.setMax(20);
         popDialog.setTitle("Change Text Size");
-        popDialog.setView(layout);
+        popDialog.setView(layout[0]);
         seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 textView.setTextSize(progress * 2);
-                LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
-                for(int i=0;i<= layout.getChildCount();i++){
-                    View view = layout.getChildAt(i);
-                    if(view instanceof TextView){
-                       ((TextView) view).setTextSize(progress * 2);
-                    }
-                }
+                textSize[0] = progress *2;
             }
 
             public void onStartTrackingTouch(SeekBar arg0) {
@@ -228,6 +225,13 @@ public class FeedViewActivity extends ActionBarActivity {
         popDialog.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+                        for(int i=0;i<fragments.size();i++){
+                            FeedViewFragment view = (FeedViewFragment) fragments.get(i);
+                            view.setTextSize(textSize[0]);
+                        }
+                        config.edit().textSize().put(textSize[0]).apply();
+                        TextContent.setTextSize(textSize[0]);
                         dialog.dismiss();
                     }
                 });
