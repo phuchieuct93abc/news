@@ -7,26 +7,17 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.activity.ListFeedView.FeedViewFragment;
 import com.activity.ListFeedView.FeedViewFragment_;
-import com.services.FeedService;
 
 import java.util.List;
 
-/**
- * Created by phuchieuct on 1/18/2015.
- */
 class PagerAdapter extends FragmentStatePagerAdapter {
 
-    FeedService feedService = new FeedService();
     String link;
     List<String> listLink;
     Context context;
 
     public PagerAdapter(FragmentManager fm) {
         super(fm);
-    }
-
-    public void addMoreListLink(String link) {
-        listLink.add(link);
     }
 
     public List<String> getListLink() {
@@ -67,7 +58,6 @@ class PagerAdapter extends FragmentStatePagerAdapter {
     /*	String feedLink = getListLink().get(position);
 		// String title = FeedService.getFeedContent(feedLink).getTitle();
 */
-        String title = "NEWS " + position;
-        return title;
+        return "NEWS " + position;
     }
 }
