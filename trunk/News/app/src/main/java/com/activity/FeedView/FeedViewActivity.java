@@ -208,8 +208,8 @@ public class FeedViewActivity extends ActionBarActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 textView.setTextSize(progress * 2);
                 LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
-                for(int i=0;i<= pager.getChildCount();i++){
-                    View view = pager.getChildAt(i);
+                for(int i=0;i<= layout.getChildCount();i++){
+                    View view = layout.getChildAt(i);
                     if(view instanceof TextView){
                        ((TextView) view).setTextSize(progress * 2);
                     }
@@ -228,11 +228,8 @@ public class FeedViewActivity extends ActionBarActivity {
         popDialog.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
                         dialog.dismiss();
-
                     }
-
                 });
         popDialog.create();
         popDialog.show();
