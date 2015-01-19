@@ -46,7 +46,14 @@ public class FeedViewFragment extends Fragment {
 
     public void setContext(Context context) {
         this.context = context;
-
+    }
+    public void setTextSize(int textSize){
+        for(int i=0;i<= layout.getChildCount();i++){
+            View view = layout.getChildAt(i);
+            if(view instanceof TextView){
+                ((TextView) view).setTextSize(textSize * 2);
+            }
+        }
     }
 
     public void setLink(String link) {
