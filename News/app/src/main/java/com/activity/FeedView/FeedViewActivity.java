@@ -21,7 +21,6 @@ import android.widget.TextView;
 
 import com.activity.ListFeedView.FeedViewFragment;
 import com.config.Config_;
-import com.content.TextContent;
 import com.feed.Feed;
 import com.phuchieu.news.R;
 import com.services.FeedService;
@@ -47,7 +46,7 @@ public class FeedViewActivity extends ActionBarActivity {
     String link;
     @Extra("linkCategory")
     String linkCategory;
-    PagerAdapter mDemoCollectionPagerAdapter;
+    PagerAdapter pagerAdapter;
     @ViewById
     ViewPager pager;
     @ViewById
@@ -96,24 +95,25 @@ public class FeedViewActivity extends ActionBarActivity {
             listFeedLink.add(feedLink);
         }
 
-        mDemoCollectionPagerAdapter.setListLink(listFeedLink);
+        pagerAdapter.setListLink(listFeedLink);
         updateAdapter();
     }
 
     @UiThread
     public void updateAdapter() {
-        mDemoCollectionPagerAdapter.notifyDataSetChanged();
+        pagerAdapter.notifyDataSetChanged();
 
     }
 
     @UiThread
     void runUI() {
-        mDemoCollectionPagerAdapter = new PagerAdapter(
+        pagerAdapter = new PagerAdapter(
                 getSupportFragmentManager());
-        mDemoCollectionPagerAdapter.setContext(this);
-        mDemoCollectionPagerAdapter.setLink(link);
-        mDemoCollectionPagerAdapter.setListLink(listFeedLink);
-        pager.setAdapter(mDemoCollectionPagerAdapter);
+        pagerAdapter.setContext(this);
+        pagerAdapter.setLink(link);
+        pagerAdapter.setListLink(listFeedLink);
+        pagerAdapter.setTextSize(config.textSize().get());
+        pager.setAdapter(pagerAdapter);
 
         OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
 
@@ -157,6 +157,7 @@ public class FeedViewActivity extends ActionBarActivity {
     @AfterViews
     void afterView() {
         setToolbar();
+
     }
 
     private void setToolbar() {
@@ -230,8 +231,8 @@ public class FeedViewActivity extends ActionBarActivity {
                             FeedViewFragment view = (FeedViewFragment) fragments.get(i);
                             view.setTextSize(textSize[0]);
                         }
-                        config.edit().textSize().put(textSize[0]).apply();
-                        TextContent.setTextSize(textSize[0]);
+                       config.edit().textSize().put(textSize[0]).apply();
+                        pagerAdapter.setTextSize(textSize[0]);
                         dialog.dismiss();
                     }
                 });

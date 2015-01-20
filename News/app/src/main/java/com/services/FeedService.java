@@ -3,6 +3,7 @@ package com.services;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
 
 import com.content.Content;
 import com.content.ImageContent;
@@ -76,6 +77,7 @@ public class FeedService {
             }
             String result = prefs.getString(url, "");
             if (result.equals("")) {
+                Log.d("hieu","get from new net"+url);
                 Document doc;
                 try {
                     doc = getDataFromURLAndSetToCache(url, prefs);
@@ -85,6 +87,7 @@ public class FeedService {
                 }
                 return doc;
             } else {
+                Log.d("hieu","get from cache"+url);
 
                 return Jsoup.parse(result);
             }
