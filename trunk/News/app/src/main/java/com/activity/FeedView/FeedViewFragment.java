@@ -43,6 +43,15 @@ public class FeedViewFragment extends Fragment {
     String contentHTML, html;
     NoteViewAdapter noteViewAdapter;
     Context context;
+    int textSize;
+
+    public void setTitle(TextView title) {
+        this.title = title;
+    }
+    public void setTextSizePref(int textSize){
+        this.textSize = textSize;
+
+    }
 
     public void setContext(Context context) {
         this.context = context;
@@ -51,7 +60,7 @@ public class FeedViewFragment extends Fragment {
         for(int i=0;i<= layout.getChildCount();i++){
             View view = layout.getChildAt(i);
             if(view instanceof TextView){
-                ((TextView) view).setTextSize(textSize * 2);
+                ((TextView) view).setTextSize(textSize);
             }
         }
     }
@@ -66,9 +75,7 @@ public class FeedViewFragment extends Fragment {
 
             feedContent = FeedService.getFeedContent(link);
             Document doc = Jsoup.parseBodyFragment(feedContent.getContentHTML());
-
             List<Content> contents = FeedService.parseContent(doc, context);
-
             setHTML(contents);
         } catch (Exception e) {
 
@@ -106,7 +113,7 @@ public class FeedViewFragment extends Fragment {
     }
 
     private void addContent(Content content) {
-
+        content.setTextSize(textSize);
         View view = content.toView();
         layout.addView(view);
     }

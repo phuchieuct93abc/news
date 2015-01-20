@@ -5,18 +5,8 @@ import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
 
-import com.config.Config_;
-
-import org.androidannotations.annotations.sharedpreferences.Pref;
-
 public class TextContent extends Content {
-    private static int textSize = 25;
     String text;
-    public static void setTextSize(int textSize) {
-        TextContent.textSize = textSize;
-    }
-
-
 
     public TextContent(String text, Context context) {
         super(context);
@@ -37,10 +27,13 @@ public class TextContent extends Content {
     }
 
     public View toView() {
+        if (this.textSize == 0) {
+            this.textSize = 20;
+        }
         TextView textView = new TextView(context);
         textView.setTextColor(Color.BLACK);
         textView.setText("    " + toString());
-        textView.setTextSize(TextContent.textSize);
+        textView.setTextSize(this.textSize);
         return textView;
     }
 
