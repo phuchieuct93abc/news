@@ -38,7 +38,6 @@ public class Test extends ActionBarActivity {
 
         if (id == R.id.home) {
 
-            Log.i("Hieu", "123");
         }
         return super.onOptionsItemSelected(item);
     }

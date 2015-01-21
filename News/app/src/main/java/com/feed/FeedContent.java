@@ -3,36 +3,36 @@ package com.feed;
 import org.jsoup.nodes.Element;
 
 public class FeedContent {
-    Element title, summary, content;
+    String title, summary, content;
 
-    public FeedContent(Element title, Element summary, Element content) {
+    public FeedContent(String title, String summary, String content) {
         this.title = title;
         this.summary = summary;
         this.content = content;
     }
 
     public String getSummary() {
-        return summary.text();
+        return summary;
     }
 
     public String getSummaryHTML() {
-        return summary.html();
+        return summary;
     }
 
     public String getTitle() {
-        return title.text();
+        return title;
     }
 
     public String getTitleHTML() {
-        return title.html();
+        return title;
     }
 
     public String getContent() {
-        return content.text();
+        return content;
     }
 
     public String getContentHTML() {
-        return content.html();
+        return content;
     }
 
 

@@ -78,7 +78,8 @@ public class FeedViewFragment extends Fragment {
             List<Content> contents = FeedService.parseContent(doc, context);
             setHTML(contents);
         } catch (Exception e) {
-
+        Log.e("hieu",e.getMessage());
+        e.printStackTrace();
             List<Content> contents = new ArrayList<Content>();
             TextContent t = new TextContent("Cannot get content", context);
             contents.add(t);
@@ -98,7 +99,6 @@ public class FeedViewFragment extends Fragment {
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            Log.i("fail get feed", link);
         }
 
     }

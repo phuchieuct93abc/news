@@ -181,7 +181,6 @@ public class FeedViewActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
-        Log.i("hieu", item.getItemId() + " " + R.id.textSize);
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();

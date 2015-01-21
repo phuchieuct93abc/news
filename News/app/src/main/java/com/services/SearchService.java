@@ -12,7 +12,6 @@ public class SearchService {
 					.get().select(".story");*/
             return link;
         } catch (Exception e) {
-            //Log.i("error", e.getMessage());
             return null;
 
         }
