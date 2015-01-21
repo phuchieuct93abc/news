@@ -28,6 +28,7 @@ public class FeedService {
     static String sharedPreferencesCaterogy = "CATEROGY_CACHE";
     static String sharedPreferencesFeed = "FEED_CACHE";
     static String sharedPreferencesReadFeed = "READ_FEED_CACHE";
+    static String FeedContentWebservice = "http://dataprovider.touch.baomoi.com/json/article.aspx?articleId={id}";
 
     private static Boolean isCategoryLink(String url) {
         return url.indexOf("/p/") > -1;
@@ -69,6 +70,10 @@ public class FeedService {
                 prefs = getContext().getSharedPreferences(
                         FeedService.sharedPreferencesCaterogy,
                         Context.MODE_PRIVATE);
+
+
+
+
             } else {
                 prefs = getContext()
                         .getSharedPreferences(
@@ -77,7 +82,6 @@ public class FeedService {
             }
             String result = prefs.getString(url, "");
             if (result.equals("")) {
-                Log.d("hieu","get from new net"+url);
                 Document doc;
                 try {
                     doc = getDataFromURLAndSetToCache(url, prefs);
@@ -88,7 +92,6 @@ public class FeedService {
                 return doc;
             } else {
                 Log.d("hieu","get from cache"+url);
-
                 return Jsoup.parse(result);
             }
         } catch (Exception e) {
@@ -146,9 +149,11 @@ public class FeedService {
 
     }
 
-
+//Get content from link of category
     private static List<Element> getFeed(String source) {
         try {
+            Log.i("hieu","getFeed "+source);
+
             Document doc = getHTMLFromURL(source);
 
             Elements elements = doc.select(".story");
@@ -188,6 +193,7 @@ public class FeedService {
         return element.hasClass("advertorial");
     }
 
+    //get content fromlink of feed
     public static FeedContent getFeedContent(String url) {
         Document doc = getHTMLFromURL(url);
 
@@ -241,9 +247,6 @@ public class FeedService {
         return linkCategory + "/p/" + index + ".epi";
     }
 
-    public static String getCaterogyFromFeedLink(String feedLink) {
-        return null;
-    }
 
     public static List<String> getLinkCategoryFromPageOne(String link) {
         int currentLink = 1;

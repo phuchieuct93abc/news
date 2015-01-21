@@ -19,7 +19,6 @@ class PagerAdapter extends FragmentStatePagerAdapter {
     int textSize;
 
     public void setTextSize(int textSize) {
-        Log.i("hieu","text size"+textSize);
         this.textSize = textSize;
     }
 
@@ -53,7 +52,6 @@ class PagerAdapter extends FragmentStatePagerAdapter {
         Fragment fragment = new FeedViewFragment_();
         ((FeedViewFragment) fragment).setContext(this.context);
         ((FeedViewFragment) fragment).setLink(getListLink().get(i));
-        Log.i("hieu", this.textSize + "");
         ((FeedViewFragment) fragment).setTextSizePref(this.textSize);
 
         return fragment;
