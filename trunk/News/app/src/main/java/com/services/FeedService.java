@@ -194,20 +194,26 @@ public class FeedService {
 
     //get content fromlink of feed
     public static FeedContent getFeedContent(String url) {
-        int firtIndex = url.lastIndexOf("/");
+/*        int firtIndex = url.lastIndexOf("/");
         int lastIndex = url.lastIndexOf(".epi");
         String articalId = url.substring(firtIndex+1,lastIndex);
         String request=FeedContentWebservice.replace("{id}",articalId);
         String content = FeedContentService.getFeedContent(request);
         String title =Jsoup.parseBodyFragment(content).select("strong").get(0).text();
-        String summary = "summay";
+        String summary = "summay";*/
+        Document doc = getHTMLFromURL(url);
+        Log.i("hieu",url);
+        doc.select("body");
+        String title = doc.select("h1").get(0).text();
+        String summary = doc.select(".summary").get(0).text();
+        String content = doc.select(".article").get(0).html();
+
         return new FeedContent(title, summary, content);
 
     }
     public static List<Content> parseContent(Document doc, Context context) {
         List<Content> contentList = new ArrayList<Content>();
-        Log.i("hieu",doc.html());
-        for (Element element : doc.select("body>p")) {
+        for (Element element : doc.children()) {
             addContent(element, contentList, context);
         }
 
@@ -216,17 +222,23 @@ public class FeedService {
     }
 
     private static void addContent(Element element, List<Content> contentList, Context context) {
-        if (element.text().length() > 0) {
-            contentList.add(new TextContent(element.text(), context));
+        if (element.ownText().length() > 0) {
+            contentList.add(new TextContent(element.ownText(), context));
         }
-        if (element.select("img").size() > 0) {
+        if (element.select(">img").size() > 0) {
             contentList.add(new ImageContent(
-                    element.select("img").attr("data-img-src"), context));
+                    element.select(">img").attr("src"), context));
         }
-        if (element.select("iframe").size() > 0) {
+        if (element.select(">iframe").size() > 0) {
             contentList.add(new Video(element.select(">iframe").outerHtml(),
                     context));
 
+        }
+        if (element.children().size() != 0) {
+            for (Element childElement : element.children()) {
+                addContent(childElement, contentList, context);
+
+            }
         }
 
     }
