@@ -13,7 +13,7 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 
 public class FeedContentService {
-    public static Document getFeedContent(String link) {
+    public static String getFeedContent(String link) {
 
         Element doc;
         String dataJson = null;
@@ -26,11 +26,12 @@ public class FeedContentService {
             e.printStackTrace();
             dataJson="<p>Can not get content + "+link+"</p>";
         }finally {
+            Log.e("hieu",link);
             JsonParser jp = new JsonParser(); //from gson
             JsonElement root = jp.parse(dataJson); //convert the input stream to a json element
             JsonObject rootObject = root.getAsJsonObject(); //may be an array, may be an object.
             String bodyContentFromJson = rootObject.get("article").getAsJsonObject().get("Body").getAsString();
-            return new Document(bodyContentFromJson);
+            return bodyContentFromJson;
         }
     }
 }
