@@ -19,6 +19,7 @@ import com.feed.NoteViewAdapter;
 import com.phuchieu.news.R;
 import com.services.FeedService;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EFragment;
@@ -72,7 +73,6 @@ public class FeedViewFragment extends Fragment {
     @Background
     void runBackground() {
         try {
-
             feedContent = FeedService.getFeedContent(link);
             Document doc = Jsoup.parseBodyFragment(feedContent.getContentHTML());
             List<Content> contents = FeedService.parseContent(doc, context);
@@ -123,5 +123,5 @@ public class FeedViewFragment extends Fragment {
         runBackground();
     }
 
-    ;
+
 }

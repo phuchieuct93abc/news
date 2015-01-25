@@ -12,6 +12,7 @@ import com.feed.FeedListAdapter;
 import com.phuchieu.news.R;
 import com.quentindommerc.superlistview.OnMoreListener;
 import com.quentindommerc.superlistview.SuperListview;
+import com.services.CategoryService_JSON;
 import com.services.FeedService;
 
 import org.androidannotations.annotations.AfterViews;
@@ -89,7 +90,8 @@ public class MainActivity extends Fragment {
         String nextLink = "";
         try {
             nextLink = FeedService.getLinkByPageNumber(link, numberOfPage);
-            List<Feed> rssItems = FeedService.getFeedFromUrl(nextLink);
+           // List<Feed> rssItems = FeedService.getFeedFromUrl(nextLink);
+            List<Feed> rssItems  = CategoryService_JSON.getListFeedFromCategory(CategoryService_JSON.LINK_CATEGORY,numberOfPage);
 
             adapter.setListDataMore(rssItems);
         } catch (Exception e) {
@@ -128,7 +130,9 @@ public class MainActivity extends Fragment {
     @Background
     void background() {
         try {
-            List<Feed> rssItems = FeedService.getFeedFromUrl(link);
+//            List<Feed> rssItems = FeedService.getFeedFromUrl(link);
+            List<Feed> rssItems  = CategoryService_JSON.getListFeedFromCategory(CategoryService_JSON.LINK_CATEGORY,0);
+
             adapter.setListData(rssItems);
             run();
         } catch (Exception e) {
