@@ -12,7 +12,7 @@ import com.phuchieu.news.R;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
-@EViewGroup(R.layout.feed_view)
+@EViewGroup(R.layout.feed_view_big_image)
 public class FeedItemView extends RelativeLayout {
 
     @ViewById
@@ -32,13 +32,17 @@ public class FeedItemView extends RelativeLayout {
     }
 
     public void bindDataToView(Feed feed) {
-        if (feed.isRead()) {
-            isRead.setVisibility(View.VISIBLE);
+        if(isRead != null){
+            if (feed.isRead()) {
+                isRead.setVisibility(View.VISIBLE);
 
-        } else {
-            isRead.setVisibility(View.GONE);
+            } else {
+                isRead.setVisibility(View.GONE);
 
+            }
         }
+
+
         title.setText(feed.getTitle());
         description.setText(feed.getContent());
 
