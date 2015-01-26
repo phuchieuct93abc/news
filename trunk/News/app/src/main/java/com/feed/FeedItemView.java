@@ -1,6 +1,7 @@
 package com.feed;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -27,11 +28,13 @@ public class FeedItemView extends RelativeLayout {
     @ViewById
     ImageView imageView;
 
+
     public FeedItemView(Context context) {
         super(context);
     }
 
     public void bindDataToView(Feed feed) {
+
         if(isRead != null){
             if (feed.isRead()) {
                 isRead.setVisibility(View.VISIBLE);

@@ -4,8 +4,10 @@ import com.services.FeedService;
 
 public class Feed {
     String title, content, link, image;
+    String id;
 
-    public Feed(String title, String content, String link, String image) {
+    public Feed(String id,String title, String content, String link, String image) {
+        this.id=id;
         this.title = title;
         this.content = content;
         this.link = link;
