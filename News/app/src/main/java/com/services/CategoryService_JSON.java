@@ -45,11 +45,12 @@ public class CategoryService_JSON {
                 try {
                     JSONObject oneObject = jArray.getJSONObject(i);
                     // Pulling items from the array
+                    String id = oneObject.getString("ContentID");
                     String title = oneObject.getString("Title");
                     String description = oneObject.getString("Description");
                     String url =  oneObject.getString("BaomoiUrl");
                     String image =  oneObject.getString("LandscapeAvatar");
-                    Feed feed = new Feed(title, description, url, image);
+                    Feed feed = new Feed(id,title, description, url, image);
                     result.add(feed);
                 } catch (JSONException e) {
                     e.printStackTrace();
