@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -57,7 +58,8 @@ public class FeedViewActivity extends ActionBarActivity {
 
     @Background
     void runBackground() {
-        List<String> abc = FeedService.getCategoryBaseOnFeed(linkCategory, id);
+        Log.i("hieu", id);
+      /*  List<String> abc = FeedService.getCategoryBaseOnFeed(linkCategory, id);
         linkCategory = abc.get(0);
         page = Integer.parseInt(abc.get(1));
         List<String> categoryFromPageOne = FeedService.getLinkCategoryFromPageOne(linkCategory);
@@ -65,7 +67,7 @@ public class FeedViewActivity extends ActionBarActivity {
             for (String item2 : FeedService.getListFeedLinkFromCaterogy(item)) {
                 this.listFeedLink.add(item2);
             }
-        }
+        }*/
         runUI();
     }
 
@@ -112,16 +114,17 @@ public class FeedViewActivity extends ActionBarActivity {
         pagerAdapter.setLink(id);
         pagerAdapter.setListLink(listFeedLink);
         pagerAdapter.setTextSize(config.textSize().get());
+        Log.i("hieu","adapter");
         pager.setAdapter(pagerAdapter);
 
         OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
 
             @Override
             public void onPageSelected(int arg0) {
-                FeedService.setRead(listFeedLink.get(arg0));
+               /* FeedService.setRead(listFeedLink.get(arg0));
                 if (arg0 == listFeedLink.size() - 2) {
                     loadMoreData();
-                }
+                }*/
             }
 
             @Override

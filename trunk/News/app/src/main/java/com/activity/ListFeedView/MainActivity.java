@@ -86,7 +86,7 @@ public class MainActivity extends Fragment {
         try {
             nextLink = FeedService.getLinkByPageNumber(link, numberOfPage);
            // List<Feed> rssItems = FeedService.getFeedFromUrl(nextLink);
-            List<Feed> rssItems  = CategoryService_JSON.getListFeedFromCategory(CategoryService_JSON.LINK_CATEGORY,numberOfPage);
+            List<Feed> rssItems  = CategoryService_JSON.getListFeedFromCategory(CategoryService_JSON.LINK_CATEGORY);
 
             adapter.setListDataMore(rssItems);
         } catch (Exception e) {
@@ -126,7 +126,7 @@ public class MainActivity extends Fragment {
     void background() {
         try {
 //            List<Feed> rssItems = FeedService.getFeedFromUrl(link);
-            List<Feed> rssItems  = CategoryService_JSON.getListFeedFromCategory(CategoryService_JSON.LINK_CATEGORY,0);
+            List<Feed> rssItems  = CategoryService_JSON.getListFeedFromCategory(CategoryService_JSON.LINK_CATEGORY);
 
             adapter.setListData(rssItems);
             run();

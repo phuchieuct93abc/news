@@ -3,7 +3,23 @@ package com.feed;
 import com.services.FeedService;
 
 public class Feed {
-    String id,title, content, link, image;
+    String id;
+    String title;
+    String content;
+    String link;
+    String image;
+    String listId;
+    String contentHTML;
+
+
+    public String getContentHTML() {
+        return contentHTML;
+    }
+
+    public void setContentHTML(String contentHTML) {
+        this.contentHTML = contentHTML;
+    }
+
 
     public void setId(String id) {
         this.id = id;
@@ -14,8 +30,9 @@ public class Feed {
     }
 
 
-    public Feed(String id,String title, String content, String link, String image) {
+    public Feed(String id,String listId,String title, String content, String link, String image) {
         this.id=id;
+        this.listId = listId;
         this.title = title;
         this.content = content;
         this.link = link;

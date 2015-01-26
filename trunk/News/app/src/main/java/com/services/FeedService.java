@@ -176,7 +176,7 @@ public class FeedService {
                 String content = element.select(".summary").text();
                 String link = element.select("a").attr("href");
                 String image = element.select("img").attr("src");
-                feeds.add(new Feed("id",title, content, link, image));
+                feeds.add(new Feed("id","listid",title, content, link, image));
 
             }
 

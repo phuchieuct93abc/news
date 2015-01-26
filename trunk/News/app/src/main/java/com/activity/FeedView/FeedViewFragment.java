@@ -9,24 +9,24 @@ import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.content.Content;
 import com.content.TextContent;
+import com.feed.Feed;
 import com.feed.FeedContent;
-import com.feed.NoteViewAdapter;
 import com.phuchieu.news.R;
-import com.services.FeedService;
+import com.services.CategoryService_JSON;
+import com.services.FeedContentService_JSON;
 
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,17 +39,29 @@ public class FeedViewFragment extends Fragment {
     TextView title;
     @ViewById
     LinearLayout layout;
+    @ViewById
+    WebView webView;
 
     FeedContent feedContent;
     String contentHTML, html;
-    NoteViewAdapter noteViewAdapter;
     Context context;
     int textSize;
+
+    public Feed getFeed() {
+        return feed;
+    }
+
+    public void setFeed(Feed feed) {
+        this.feed = feed;
+    }
+
+    Feed feed;
 
     public void setTitle(TextView title) {
         this.title = title;
     }
-    public void setTextSizePref(int textSize){
+
+    public void setTextSizePref(int textSize) {
         this.textSize = textSize;
 
     }
@@ -57,10 +69,11 @@ public class FeedViewFragment extends Fragment {
     public void setContext(Context context) {
         this.context = context;
     }
-    public void setTextSize(int textSize){
-        for(int i=0;i<= layout.getChildCount();i++){
+
+    public void setTextSize(int textSize) {
+        for (int i = 0; i <= layout.getChildCount(); i++) {
             View view = layout.getChildAt(i);
-            if(view instanceof TextView){
+            if (view instanceof TextView) {
                 ((TextView) view).setTextSize(textSize);
             }
         }
@@ -73,19 +86,38 @@ public class FeedViewFragment extends Fragment {
     @Background
     void runBackground() {
         try {
-            feedContent = FeedService.getFeedContent(link);
+/*            feedContent = FeedService.getFeedContent(link);
             Document doc = Jsoup.parseBodyFragment(feedContent.getContentHTML());
             List<Content> contents = FeedService.parseContent(doc, context);
-            setHTML(contents);
+            setHTML(contents);*/
+//            this.feed = CategoryService_JSON.getListFeed().get(0);
+            String contentHTML = FeedContentService_JSON.getFeedContentFromFeed(feed).getContentHTML();
+            Log.e("hieu", contentHTML);
+            setContentToWebview(contentHTML);
+
         } catch (Exception e) {
-        Log.e("hieu",e.getMessage());
-        e.printStackTrace();
+            Log.e("hieu", e.getMessage());
+            e.printStackTrace();
             List<Content> contents = new ArrayList<Content>();
             TextContent t = new TextContent("Cannot get content", context);
             contents.add(t);
             setHTML(contents);
 
         }
+    }
+
+    @UiThread
+    void setContentToWebview(String contentHTML) {
+        contentHTML = contentHTML.replaceAll("src=\"_\"","style=\"width: 100%;height:auto\"");
+        contentHTML = contentHTML.replaceAll("data-img-","");
+
+
+        WebSettings settings = webView.getSettings();
+        settings.setUseWideViewPort(false);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        settings.setDefaultTextEncodingName("utf-8");
+//        webView.loadData(contentHTML, "text/html", "utf-8");
+        webView.loadDataWithBaseURL(null, contentHTML, "text/html", "UTF-8", null);
     }
 
     @UiThread

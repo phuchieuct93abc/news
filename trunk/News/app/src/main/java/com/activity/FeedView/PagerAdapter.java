@@ -8,6 +8,8 @@ import android.util.Log;
 
 import com.activity.ListFeedView.FeedViewFragment;
 import com.activity.ListFeedView.FeedViewFragment_;
+import com.feed.Feed;
+import com.services.CategoryService_JSON;
 
 import java.util.List;
 
@@ -17,6 +19,7 @@ class PagerAdapter extends FragmentStatePagerAdapter {
     List<String> listLink;
     Context context;
     int textSize;
+    List<Feed> listFeed = CategoryService_JSON.getListFeed();
 
     public void setTextSize(int textSize) {
         this.textSize = textSize;
@@ -50,16 +53,16 @@ class PagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int i) {
         Fragment fragment = new FeedViewFragment_();
-        ((FeedViewFragment) fragment).setContext(this.context);
+       /* ((FeedViewFragment) fragment).setContext(this.context);
         ((FeedViewFragment) fragment).setLink(getListLink().get(i));
-        ((FeedViewFragment) fragment).setTextSizePref(this.textSize);
-
+        ((FeedViewFragment) fragment).setTextSizePref(this.textSize);*/
+        ((FeedViewFragment) fragment).setFeed(listFeed.get(i));
         return fragment;
     }
 
     @Override
     public int getCount() {
-        return listLink.size();
+        return listFeed.size();
     }
 
     @Override
