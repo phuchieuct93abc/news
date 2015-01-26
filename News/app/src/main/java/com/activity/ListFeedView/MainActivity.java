@@ -40,19 +40,14 @@ public class MainActivity extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        updateAdaper();
+        updateAdapter();
     }
-
-/*    @Override
-    protected void onResume() {
-        super.onResume();
-    }*/
 
     public void setContext(Context context) {
         this.context = context;
     }
 
-    public void updateAdaper() {
+    public void updateAdapter() {
         adapter.notifyDataSetChanged();
 
     }
@@ -113,7 +108,7 @@ public class MainActivity extends Fragment {
     @ItemClick
     public void listViewItemClicked(Feed clickedItem) {
         FeedViewActivity_.intent(context)
-                .extra("selectedLink", clickedItem.getLink())
+                .extra("selectedId", clickedItem.getId())
                 .extra("linkCategory", link).flags(Intent.FLAG_ACTIVITY_NEW_TASK).start();
 
     }

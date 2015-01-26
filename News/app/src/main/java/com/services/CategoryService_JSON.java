@@ -19,7 +19,7 @@ import java.util.List;
 
 public class CategoryService_JSON {
     public static String LINK_CATEGORY = "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType=zone&listId=53&imageMinSize=300&mode=quickview";
-
+    public static List<Feed> listFeed = new ArrayList<>();
     private static String readUrl(String urlString) {
         Document doc = null;
         try {
@@ -40,7 +40,6 @@ public class CategoryService_JSON {
 
             JSONObject jObject = new JSONObject(responseCategory);
             JSONArray jArray = jObject.getJSONArray("articlelist");
-            List<Feed> result = new ArrayList<>();
             for (int i = 0; i < jArray.length(); i++) {
                 try {
                     JSONObject oneObject = jArray.getJSONObject(i);
@@ -51,12 +50,12 @@ public class CategoryService_JSON {
                     String url =  oneObject.getString("BaomoiUrl");
                     String image =  oneObject.getString("LandscapeAvatar");
                     Feed feed = new Feed(id,title, description, url, image);
-                    result.add(feed);
+                    listFeed.add(feed);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-            return result;
+            return listFeed;
         } catch (Exception e) {
             e.printStackTrace();
             return new ArrayList<>();

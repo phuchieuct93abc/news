@@ -3,8 +3,16 @@ package com.feed;
 import com.services.FeedService;
 
 public class Feed {
-    String title, content, link, image;
-    String id;
+    String id,title, content, link, image;
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
 
     public Feed(String id,String title, String content, String link, String image) {
         this.id=id;
