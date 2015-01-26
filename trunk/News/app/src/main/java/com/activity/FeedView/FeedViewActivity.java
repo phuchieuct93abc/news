@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -42,8 +41,8 @@ import java.util.List;
 @WindowFeature(Window.FEATURE_NO_TITLE)
 public class FeedViewActivity extends ActionBarActivity {
 
-    @Extra("selectedLink")
-    String link;
+    @Extra("selectedId")
+    String id;
     @Extra("linkCategory")
     String linkCategory;
     PagerAdapter pagerAdapter;
@@ -58,7 +57,7 @@ public class FeedViewActivity extends ActionBarActivity {
 
     @Background
     void runBackground() {
-        List<String> abc = FeedService.getCategoryBaseOnFeed(linkCategory, link);
+        List<String> abc = FeedService.getCategoryBaseOnFeed(linkCategory, id);
         linkCategory = abc.get(0);
         page = Integer.parseInt(abc.get(1));
         List<String> categoryFromPageOne = FeedService.getLinkCategoryFromPageOne(linkCategory);
@@ -110,7 +109,7 @@ public class FeedViewActivity extends ActionBarActivity {
         pagerAdapter = new PagerAdapter(
                 getSupportFragmentManager());
         pagerAdapter.setContext(this);
-        pagerAdapter.setLink(link);
+        pagerAdapter.setLink(id);
         pagerAdapter.setListLink(listFeedLink);
         pagerAdapter.setTextSize(config.textSize().get());
         pager.setAdapter(pagerAdapter);
@@ -137,8 +136,8 @@ public class FeedViewActivity extends ActionBarActivity {
             }
         };
         pager.setOnPageChangeListener(onPageChangeListener);
-        setSelectedPage(listFeedLink.indexOf(link));
-        FeedService.setRead(link);
+        setSelectedPage(listFeedLink.indexOf(id));
+        FeedService.setRead(id);
 
 
     }
