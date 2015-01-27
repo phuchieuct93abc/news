@@ -64,6 +64,7 @@ public class MainActivity extends Fragment {
             @Override
             public void onRefresh() {
                 FeedService.clearCache();
+                CategoryService_JSON.clearCacheList();
                 background();
             }
         });

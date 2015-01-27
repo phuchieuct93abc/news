@@ -23,6 +23,7 @@ import com.activity.ListFeedView.FeedViewFragment;
 import com.config.Config_;
 import com.feed.Feed;
 import com.phuchieu.news.R;
+import com.services.CategoryService_JSON;
 import com.services.FeedService;
 
 import org.androidannotations.annotations.AfterInject;
@@ -139,10 +140,8 @@ public class FeedViewActivity extends ActionBarActivity {
             }
         };
         pager.setOnPageChangeListener(onPageChangeListener);
-        setSelectedPage(listFeedLink.indexOf(id));
+        setSelectedPage(CategoryService_JSON.getIndexInCaterogyById(id));
         FeedService.setRead(id);
-
-
     }
 
     @UiThread
