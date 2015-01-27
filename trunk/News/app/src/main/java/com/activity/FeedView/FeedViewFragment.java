@@ -1,4 +1,4 @@
-package com.activity.ListFeedView;
+package com.activity.FeedView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -19,7 +19,6 @@ import com.content.TextContent;
 import com.feed.Feed;
 import com.feed.FeedContent;
 import com.phuchieu.news.R;
-import com.services.CategoryService_JSON;
 import com.services.FeedContentService_JSON;
 
 import org.androidannotations.annotations.AfterViews;
@@ -43,7 +42,6 @@ public class FeedViewFragment extends Fragment {
     WebView webView;
 
     FeedContent feedContent;
-    String contentHTML, html;
     Context context;
     int textSize;
 
@@ -59,11 +57,6 @@ public class FeedViewFragment extends Fragment {
 
     public void setTitle(TextView title) {
         this.title = title;
-    }
-
-    public void setTextSizePref(int textSize) {
-        this.textSize = textSize;
-
     }
 
     public void setContext(Context context) {
@@ -95,11 +88,10 @@ public class FeedViewFragment extends Fragment {
             setContentToWebview(contentHTML);
 
 
-
         } catch (Exception e) {
             Log.e("hieu", e.getMessage());
             e.printStackTrace();
-            List<Content> contents = new ArrayList<Content>();
+            List<Content> contents = new ArrayList<>();
             TextContent t = new TextContent("Cannot get content", context);
             contents.add(t);
             setHTML(contents);
@@ -109,9 +101,9 @@ public class FeedViewFragment extends Fragment {
 
     @UiThread
     void setContentToWebview(String contentHTML) {
-        contentHTML = contentHTML.replaceAll("src=\"_\"","style=\"width: 100%;height:auto\"");
-        contentHTML = contentHTML.replaceAll("data-img-","");
-        contentHTML = contentHTML +"<style>p { text-indent: 50px;}img{margin-left:-50px}p:nth-last-child(2){text-indent: 0em;} </style>";
+        contentHTML = contentHTML.replaceAll("src=\"_\"", "style=\"width: 100%;height:auto\"");
+        contentHTML = contentHTML.replaceAll("data-img-", "");
+        contentHTML = contentHTML + "<style>p { text-indent: 50px;}img{margin-left:-50px}p:nth-last-child(2){text-indent: 0em;} </style>";
 
         WebSettings settings = webView.getSettings();
         settings.setUseWideViewPort(false);

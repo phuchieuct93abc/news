@@ -4,10 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 
-import com.activity.ListFeedView.FeedViewFragment;
-import com.activity.ListFeedView.FeedViewFragment_;
 import com.feed.Feed;
 import com.services.CategoryService_JSON;
 
@@ -30,7 +27,7 @@ class PagerAdapter extends FragmentStatePagerAdapter {
         this.listFeed = listFeed;
     }
 
-    public void loadMoredata(){
+    public void loadMoredata() {
         listFeed = CategoryService_JSON.getListFeedFromCategory(CategoryService_JSON.LINK_CATEGORY);
     }
 
@@ -81,7 +78,7 @@ class PagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
     /*	String feedLink = getListLink().get(position);
-		// String title = FeedService.getFeedContent(feedLink).getTitle();
+        // String title = FeedService.getFeedContent(feedLink).getTitle();
 */
         return "NEWS " + position;
     }
