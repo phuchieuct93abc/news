@@ -1,7 +1,5 @@
 package com.feed;
 
-import org.jsoup.nodes.Element;
-
 public class FeedContent {
     String title, summary, content;
 
