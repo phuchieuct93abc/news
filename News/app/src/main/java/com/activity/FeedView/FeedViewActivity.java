@@ -19,7 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.activity.ListFeedView.FeedViewFragment;
 import com.config.Config_;
 import com.feed.Feed;
 import com.phuchieu.news.R;
