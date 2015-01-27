@@ -25,10 +25,11 @@ public class FeedListAdapter extends BaseAdapter {
     FeedService feedService;
 
     public void setListDataMore(List<Feed> feeds) {
-        for (Feed feed : feeds) {
+        this.feeds = feeds;
+        /*for (Feed feed : feeds) {
 
             this.feeds.add(feed);
-        }
+        }*/
     }
 
     public void setDataFromSearch(Feed feed) {
