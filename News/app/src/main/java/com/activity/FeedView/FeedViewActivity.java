@@ -74,8 +74,17 @@ public class FeedViewActivity extends ActionBarActivity {
 
     @Background
     public void loadMoreData() {
-        page++;
-        getMoreDateFromPageFromEnd();
+        try {
+            page++;
+            pagerAdapter.loadMoredata();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("hieu",e.getMessage());
+        } finally {
+            updateAdapter();
+
+        }
+        //getMoreDateFromPageFromEnd();
     }
 
 
@@ -115,17 +124,17 @@ public class FeedViewActivity extends ActionBarActivity {
         pagerAdapter.setLink(id);
         pagerAdapter.setListLink(listFeedLink);
         pagerAdapter.setTextSize(config.textSize().get());
-        Log.i("hieu","adapter");
+        Log.i("hieu", "adapter");
         pager.setAdapter(pagerAdapter);
 
         OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
 
             @Override
             public void onPageSelected(int arg0) {
-               /* FeedService.setRead(listFeedLink.get(arg0));
-                if (arg0 == listFeedLink.size() - 2) {
+               // FeedService.setRead(listFeedLink.get(arg0));
+                if (arg0 == CategoryService_JSON.getListFeed().size() - 2) {
                     loadMoreData();
-                }*/
+                }
             }
 
             @Override
@@ -211,7 +220,7 @@ public class FeedViewActivity extends ActionBarActivity {
         seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 textView.setTextSize(progress * 2);
-                textSize[0] = progress *2;
+                textSize[0] = progress * 2;
             }
 
             public void onStartTrackingTouch(SeekBar arg0) {
@@ -227,11 +236,11 @@ public class FeedViewActivity extends ActionBarActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         List<Fragment> fragments = getSupportFragmentManager().getFragments();
-                        for(int i=0;i<fragments.size();i++){
+                        for (int i = 0; i < fragments.size(); i++) {
                             FeedViewFragment view = (FeedViewFragment) fragments.get(i);
                             view.setTextSize(textSize[0]);
                         }
-                       config.edit().textSize().put(textSize[0]).apply();
+                        config.edit().textSize().put(textSize[0]).apply();
                         pagerAdapter.setTextSize(textSize[0]);
                         dialog.dismiss();
                     }

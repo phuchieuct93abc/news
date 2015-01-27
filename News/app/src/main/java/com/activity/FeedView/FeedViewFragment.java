@@ -92,8 +92,9 @@ public class FeedViewFragment extends Fragment {
             setHTML(contents);*/
 //            this.feed = CategoryService_JSON.getListFeed().get(0);
             String contentHTML = FeedContentService_JSON.getFeedContentFromFeed(feed).getContentHTML();
-            Log.e("hieu", contentHTML);
             setContentToWebview(contentHTML);
+
+
 
         } catch (Exception e) {
             Log.e("hieu", e.getMessage());
@@ -110,13 +111,13 @@ public class FeedViewFragment extends Fragment {
     void setContentToWebview(String contentHTML) {
         contentHTML = contentHTML.replaceAll("src=\"_\"","style=\"width: 100%;height:auto\"");
         contentHTML = contentHTML.replaceAll("data-img-","");
-
+        contentHTML = contentHTML +"<style>p { text-indent: 50px;}img{margin-left:-50px}p:nth-last-child(2){text-indent: 0em;} </style>";
 
         WebSettings settings = webView.getSettings();
         settings.setUseWideViewPort(false);
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
         settings.setDefaultTextEncodingName("utf-8");
-//        webView.loadData(contentHTML, "text/html", "utf-8");
+        settings.setDefaultFontSize(22);
         webView.loadDataWithBaseURL(null, contentHTML, "text/html", "UTF-8", null);
     }
 
@@ -152,6 +153,8 @@ public class FeedViewFragment extends Fragment {
 
     @AfterViews
     void bindLinkToView() {
+
+        title.setText(feed.getTitle());
         runBackground();
     }
 
