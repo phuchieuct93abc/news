@@ -227,7 +227,6 @@ public class FeedViewActivity extends ActionBarActivity {
                         List<Fragment> fragments = getSupportFragmentManager().getFragments();
                         for (int i = 0; i < fragments.size(); i++) {
                             FeedViewFragment view = (FeedViewFragment) fragments.get(i);
-                            view.setTextSize(textSize[0]);
                         }
                         config.edit().textSize().put(textSize[0]).apply();
                         pagerAdapter.setTextSize(textSize[0]);
