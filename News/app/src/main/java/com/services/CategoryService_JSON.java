@@ -35,7 +35,6 @@ public class CategoryService_JSON {
     public static String readUrl(String urlString) {
         Document doc = null;
         try {
-            Log.i("hieu", urlString);
             doc = Jsoup.connect(urlString).timeout(10000).get();
 
         } catch (IOException e) {
@@ -48,10 +47,7 @@ public class CategoryService_JSON {
         try {
             startPage += 10;
             caterogyLink = caterogyLink.replace("{START_PAGE}", "" + startPage);
-            Log.i("hieu123",caterogyLink);
-
             String responseCategory = readUrl(caterogyLink);
-
             JSONObject jObject = new JSONObject(responseCategory);
             JSONArray jArray = jObject.getJSONArray("articlelist");
             for (int i = 0; i < jArray.length(); i++) {
@@ -65,12 +61,13 @@ public class CategoryService_JSON {
                     String image = oneObject.getString("LandscapeAvatar");
                     String listId = oneObject.getString("ListId");
                     Feed feed = new Feed(id, listId, title, description, url, image);
-                    listFeed.add(feed);
+                    if(getIndexInCaterogyById(id) == -1){
+                        listFeed.add(feed);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-            Log.i("hieu", listFeed.size() + "");
             return listFeed;
         } catch (Exception e) {
             e.printStackTrace();

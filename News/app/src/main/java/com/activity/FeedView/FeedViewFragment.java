@@ -103,7 +103,7 @@ public class FeedViewFragment extends Fragment {
     void setContentToWebview(String contentHTML) {
         contentHTML = contentHTML.replaceAll("src=\"_\"", "style=\"width: 100%;height:auto\"");
         contentHTML = contentHTML.replaceAll("data-img-", "");
-        contentHTML = contentHTML + "<style>p { text-indent: 50px;}img{margin-left:-50px}p:nth-last-child(2){text-indent: 0em;} </style>";
+        contentHTML = contentHTML + "<style>body{background-color:#EEEEEE}p { text-indent: 50px;}img{margin-left:-50px}p:nth-last-child(2){text-indent: 0em;}</style>";
 
         WebSettings settings = webView.getSettings();
         settings.setUseWideViewPort(false);
@@ -145,7 +145,6 @@ public class FeedViewFragment extends Fragment {
 
     @AfterViews
     void bindLinkToView() {
-
         title.setText(feed.getTitle());
         runBackground();
     }
