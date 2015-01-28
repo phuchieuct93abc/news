@@ -58,16 +58,6 @@ public class FeedViewActivity extends ActionBarActivity {
 
     @Background
     void runBackground() {
-        Log.i("hieu", id);
-      /*  List<String> abc = FeedService.getCategoryBaseOnFeed(linkCategory, id);
-        linkCategory = abc.get(0);
-        page = Integer.parseInt(abc.get(1));
-        List<String> categoryFromPageOne = FeedService.getLinkCategoryFromPageOne(linkCategory);
-        for (String item : categoryFromPageOne) {
-            for (String item2 : FeedService.getListFeedLinkFromCaterogy(item)) {
-                this.listFeedLink.add(item2);
-            }
-        }*/
         runUI();
     }
 
