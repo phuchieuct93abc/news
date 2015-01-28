@@ -34,10 +34,7 @@ import java.util.List;
 @EFragment(R.layout.view)
 public class FeedViewFragment extends Fragment {
     String link;
-    @ViewById
-    TextView title;
-    @ViewById
-    LinearLayout layout;
+
     @ViewById
     WebView webView;
 
@@ -55,21 +52,9 @@ public class FeedViewFragment extends Fragment {
 
     Feed feed;
 
-    public void setTitle(TextView title) {
-        this.title = title;
-    }
 
     public void setContext(Context context) {
         this.context = context;
-    }
-
-    public void setTextSize(int textSize) {
-        for (int i = 0; i <= layout.getChildCount(); i++) {
-            View view = layout.getChildAt(i);
-            if (view instanceof TextView) {
-                ((TextView) view).setTextSize(textSize);
-            }
-        }
     }
 
     public void setLink(String link) {
@@ -86,8 +71,6 @@ public class FeedViewFragment extends Fragment {
 //            this.feed = CategoryService_JSON.getListFeed().get(0);
             String contentHTML = FeedContentService_JSON.getFeedContentFromFeed(feed).getContentHTML();
             setContentToWebview(contentHTML);
-
-
         } catch (Exception e) {
             Log.e("hieu", e.getMessage());
             e.printStackTrace();
@@ -98,9 +81,9 @@ public class FeedViewFragment extends Fragment {
 
         }
     }
-
     @UiThread
     void setContentToWebview(String contentHTML) {
+        contentHTML = "<h3>{HEADER}</h3>".replace("{HEADER}",feed.getTitle())+contentHTML;
         contentHTML = contentHTML.replaceAll("src=\"_\"", "style=\"width: 100%;height:auto\"");
         contentHTML = contentHTML.replaceAll("data-img-", "");
         contentHTML = contentHTML + "<style>body{background-color:#EEEEEE}p { text-indent: 50px;}img{margin-left:-50px}p:nth-last-child(2){text-indent: 0em;}</style>";
@@ -134,18 +117,15 @@ public class FeedViewFragment extends Fragment {
         spanString.setSpan(new UnderlineSpan(), 0, spanString.length(), 0);
         spanString.setSpan(new StyleSpan(Typeface.BOLD), 0, spanString.length(), 0);
         spanString.setSpan(new StyleSpan(Typeface.ITALIC), 0, spanString.length(), 0);
-        title.setText(spanString);
     }
 
     private void addContent(Content content) {
         content.setTextSize(textSize);
         View view = content.toView();
-        layout.addView(view);
     }
 
     @AfterViews
     void bindLinkToView() {
-        title.setText(feed.getTitle());
         runBackground();
     }
 
