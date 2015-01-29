@@ -3,6 +3,7 @@ package com.activity.FeedView;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -56,6 +57,17 @@ public class FeedViewActivity extends ActionBarActivity {
     @Pref
     Config_ config;
 
+    int indexOfFragment;
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("index",indexOfFragment);
+        setResult(2, intent);
+        finish();
+        super.onBackPressed();
+
+    }
+
     @Background
     void runBackground() {
         runUI();
@@ -68,7 +80,7 @@ public class FeedViewActivity extends ActionBarActivity {
             pagerAdapter.loadMoredata();
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("hieu",e.getMessage());
+            Log.e("hieu", e.getMessage());
         } finally {
             updateAdapter();
 
@@ -120,7 +132,8 @@ public class FeedViewActivity extends ActionBarActivity {
 
             @Override
             public void onPageSelected(int arg0) {
-               // FeedService.setRead(listFeedLink.get(arg0));
+                // FeedService.setRead(listFeedLink.get(arg0));
+                indexOfFragment = arg0;
                 if (arg0 == CategoryService_JSON.getListFeed().size() - 2) {
                     loadMoreData();
                 }

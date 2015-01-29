@@ -11,7 +11,7 @@ import com.phuchieu.news.R;
 public class ImageContent extends Content {
     String url;
     Context context;
-    int cacheMinute = 10*60*1000;
+    int cacheMinute = 10 * 60 * 1000;
 
     public ImageContent(String url, Context context) {
         super(context);
@@ -29,7 +29,7 @@ public class ImageContent extends Content {
             ImageView imageView = new ImageView(context);
             imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             imageView.setAdjustViewBounds(true);
-            UrlImageViewHelper.setUrlDrawable(imageView, toString(), R.drawable.loading,cacheMinute);
+            UrlImageViewHelper.setUrlDrawable(imageView, toString(), R.drawable.loading, cacheMinute);
             return imageView;
         } catch (Exception e) {
             e.printStackTrace();

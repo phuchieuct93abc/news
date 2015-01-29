@@ -23,9 +23,9 @@ public class FeedContentService {
 
         } catch (IOException e) {
             e.printStackTrace();
-            dataJson="<p>Can not get content + "+link+"</p>";
-        }finally {
-            Log.e("hieu",link);
+            dataJson = "<p>Can not get content + " + link + "</p>";
+        } finally {
+            Log.e("hieu", link);
             JsonParser jp = new JsonParser(); //from gson
             JsonElement root = jp.parse(dataJson); //convert the input stream to a json element
             JsonObject rootObject = root.getAsJsonObject(); //may be an array, may be an object.

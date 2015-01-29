@@ -1,7 +1,5 @@
 package com.services;
 
-import android.util.Log;
-
 import com.feed.Feed;
 
 import org.json.JSONArray;
@@ -19,14 +17,15 @@ public class CategoryService_JSON {
     public static List<Feed> listFeed = new ArrayList<>();
     private static int startPage = -10;
 
+    public static List<Feed> getListFeed() {
+        return listFeed;
+    }
+
     public static void setListFeed(List<Feed> listFeed) {
         CategoryService_JSON.listFeed = listFeed;
     }
 
-    public static List<Feed> getListFeed() {
-        return listFeed;
-    }
-    public static void clearCacheList(){
+    public static void clearCacheList() {
         setListFeed(new ArrayList<Feed>());
         startPage = -10;
     }
@@ -61,7 +60,7 @@ public class CategoryService_JSON {
                     String image = oneObject.getString("LandscapeAvatar");
                     String listId = oneObject.getString("ListId");
                     Feed feed = new Feed(id, listId, title, description, url, image);
-                    if(getIndexInCaterogyById(id) == -1){
+                    if (getIndexInCaterogyById(id) == -1) {
                         listFeed.add(feed);
                     }
                 } catch (JSONException e) {
@@ -76,9 +75,10 @@ public class CategoryService_JSON {
 
 
     }
-    public static int getIndexInCaterogyById(String id){
-       for(Feed d : listFeed){
-            if(d.getId().equals(id)){
+
+    public static int getIndexInCaterogyById(String id) {
+        for (Feed d : listFeed) {
+            if (d.getId().equals(id)) {
                 return listFeed.indexOf(d);
             }
         }

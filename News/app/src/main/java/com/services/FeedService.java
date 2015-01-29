@@ -72,8 +72,6 @@ public class FeedService {
                         Context.MODE_PRIVATE);
 
 
-
-
             } else {
                 prefs = getContext()
                         .getSharedPreferences(
@@ -91,7 +89,7 @@ public class FeedService {
                 }
                 return doc;
             } else {
-                Log.d("hieu","get from cache"+url);
+                Log.d("hieu", "get from cache" + url);
                 return Jsoup.parse(result);
             }
         } catch (Exception e) {
@@ -149,7 +147,7 @@ public class FeedService {
 
     }
 
-//Get content from link of category
+    //Get content from link of category
     private static List<Element> getFeed(String source) {
         try {
 
@@ -176,7 +174,7 @@ public class FeedService {
                 String content = element.select(".summary").text();
                 String link = element.select("a").attr("href");
                 String image = element.select("img").attr("src");
-                feeds.add(new Feed("id","listid",title, content, link, image));
+                feeds.add(new Feed("id", "listid", title, content, link, image));
 
             }
 
@@ -202,7 +200,7 @@ public class FeedService {
         String title =Jsoup.parseBodyFragment(content).select("strong").get(0).text();
         String summary = "summay";*/
         Document doc = getHTMLFromURL(url);
-        Log.i("hieu",url);
+        Log.i("hieu", url);
         doc.select("body");
         String title = doc.select("h1").get(0).text();
         String summary = doc.select(".summary").get(0).text();
@@ -211,6 +209,7 @@ public class FeedService {
         return new FeedContent(title, summary, content);
 
     }
+
     public static List<Content> parseContent(Document doc, Context context) {
         List<Content> contentList = new ArrayList<Content>();
         for (Element element : doc.children()) {
