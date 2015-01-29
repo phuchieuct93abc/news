@@ -11,8 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.content.Content;
 import com.content.TextContent;
@@ -41,6 +39,7 @@ public class FeedViewFragment extends Fragment {
     FeedContent feedContent;
     Context context;
     int textSize;
+    Feed feed;
 
     public Feed getFeed() {
         return feed;
@@ -49,9 +48,6 @@ public class FeedViewFragment extends Fragment {
     public void setFeed(Feed feed) {
         this.feed = feed;
     }
-
-    Feed feed;
-
 
     public void setContext(Context context) {
         this.context = context;
@@ -81,9 +77,10 @@ public class FeedViewFragment extends Fragment {
 
         }
     }
+
     @UiThread
     void setContentToWebview(String contentHTML) {
-        contentHTML = "<h3>{HEADER}</h3>".replace("{HEADER}",feed.getTitle())+contentHTML;
+        contentHTML = "<h3>{HEADER}</h3>".replace("{HEADER}", feed.getTitle()) + contentHTML;
         contentHTML = contentHTML.replaceAll("src=\"_\"", "style=\"width: 100%;height:auto\"");
         contentHTML = contentHTML.replaceAll("data-img-", "");
         contentHTML = contentHTML + "<style>body{background-color:#EEEEEE}p { text-indent: 50px;}img{margin-left:-50px}p:nth-last-child(2){text-indent: 0em;}</style>";

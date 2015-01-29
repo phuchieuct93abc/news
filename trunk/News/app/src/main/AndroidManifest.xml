@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.phuchieu.news" >
+    package="com.phuchieu.news">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-sdk android:minSdkVersion="17" />
@@ -10,29 +10,39 @@
         android:icon="@drawable/ic_launcher_2"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-        tools:replace="android:icon" >
+        tools:replace="android:icon"
+        android:screenOrientation="portrait">
         <activity
             android:name="com.activity.Splash_"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.activity.CategoryScreen_" />
-        <activity android:name="com.activity.FeedView.FeedViewActivity_"
+        <activity
+            android:name="com.activity.CategoryScreen_"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.activity.FeedView.FeedViewActivity_"
+            android:screenOrientation="portrait"
 
             />
-        <activity android:name="com.activity.SearchScreen_" />
-        <activity android:name="com.activity.ListFeedView.MainActivity_" />
-        <activity android:name="com.activity.ListFeedView.ListFeed_"
+        <activity
+            android:name="com.activity.SearchScreen_"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.activity.ListFeedView.MainActivity_"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.activity.ListFeedView.ListFeed_"
+            android:screenOrientation="portrait"
 
             />
         <activity
             android:name="com.activity.Test"
-            android:label="@string/title_activity_test" >
-        </activity>
+            android:label="@string/title_activity_test"></activity>
     </application>
 
 </manifest>

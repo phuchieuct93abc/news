@@ -19,6 +19,10 @@ class PagerAdapter extends FragmentStatePagerAdapter {
     List<Feed> listFeed = CategoryService_JSON.getListFeed();
 
 
+    public PagerAdapter(FragmentManager fm) {
+        super(fm);
+    }
+
     public List<Feed> getListFeed() {
         return listFeed;
     }
@@ -33,11 +37,6 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 
     public void setTextSize(int textSize) {
         this.textSize = textSize;
-    }
-
-
-    public PagerAdapter(FragmentManager fm) {
-        super(fm);
     }
 
     public List<String> getListLink() {

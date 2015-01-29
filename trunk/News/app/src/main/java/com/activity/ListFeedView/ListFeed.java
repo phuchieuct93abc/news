@@ -1,20 +1,26 @@
 package com.activity.ListFeedView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.phuchieu.news.R;
+import com.quentindommerc.superlistview.SuperListview;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
@@ -32,6 +38,23 @@ public class ListFeed extends ActionBarActivity {
     @Extra
     String link;
     private Timer timer = new Timer();
+    Context context = this;
+
+    @ViewById
+    SuperListview listView;
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i("hieu", "revice2");
+        int index= data.getExtras().getInt("index");
+        //listView.setScrollY(100);
+        //listView.scro
+        //smoothScrollToPosition(int position)
+        //Toast.makeText(context, + "", Toast.LENGTH_LONG).show();
+        //getFragmentManager().findFragmentById()
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @AfterViews
     void afterInjected() {

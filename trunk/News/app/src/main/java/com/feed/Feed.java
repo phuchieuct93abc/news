@@ -12,6 +12,15 @@ public class Feed {
     String contentHTML;
 
 
+    public Feed(String id, String listId, String title, String content, String link, String image) {
+        this.id = id;
+        this.listId = listId;
+        this.title = title;
+        this.content = content;
+        this.link = link;
+        this.image = image;
+    }
+
     public String getContentHTML() {
         return contentHTML;
     }
@@ -20,23 +29,12 @@ public class Feed {
         this.contentHTML = contentHTML;
     }
 
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getId() {
         return id;
     }
 
-
-    public Feed(String id,String listId,String title, String content, String link, String image) {
-        this.id=id;
-        this.listId = listId;
-        this.title = title;
-        this.content = content;
-        this.link = link;
-        this.image = image;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Boolean isRead() {

@@ -39,10 +39,10 @@ public class SearchScreen extends Activity {
     EditText SearchText;
     List<org.jsoup.nodes.Element> feeds;
 
-	/*
+    /*
      * @TextChange void SearchTextTextChanged(TextView hello, CharSequence text)
-	 * { performSearch(text.toString()); }
-	 */
+     * { performSearch(text.toString()); }
+     */
     private Timer timer = new Timer();
 
     @AfterViews

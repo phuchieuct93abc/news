@@ -28,14 +28,12 @@ public class FeedItemView extends RelativeLayout {
     @ViewById
     ImageView imageView;
 
-
     public FeedItemView(Context context) {
         super(context);
     }
 
     public void bindDataToView(Feed feed) {
-
-        if(isRead != null){
+        if (isRead != null) {
             if (feed.isRead()) {
                 isRead.setVisibility(View.VISIBLE);
 
@@ -44,15 +42,10 @@ public class FeedItemView extends RelativeLayout {
 
             }
         }
-
-
         title.setText(feed.getTitle());
         description.setEllipsize(TextUtils.TruncateAt.END);
         description.setMaxLines(2);
         description.setText(feed.getContent());
-
         UrlImageViewHelper.setUrlDrawable(imageView, feed.getImage());
-
     }
-
 }
