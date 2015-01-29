@@ -2,13 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/layer_card_background"
+    android:padding="10dp"
+    >
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/placeHolder_image" />
+        android:contentDescription="@string/placeHolder_image"
+        android:adjustViewBounds="true"/>
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
