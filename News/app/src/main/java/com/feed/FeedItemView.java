@@ -1,6 +1,7 @@
 package com.feed;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -46,6 +47,8 @@ public class FeedItemView extends RelativeLayout {
 
 
         title.setText(feed.getTitle());
+        description.setEllipsize(TextUtils.TruncateAt.END);
+        description.setMaxLines(2);
         description.setText(feed.getContent());
 
         UrlImageViewHelper.setUrlDrawable(imageView, feed.getImage());
