@@ -1,5 +1,10 @@
 package com.feed;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.activity.Splash_;
+import com.services.CategoryService_JSON;
 import com.services.FeedService;
 
 public class Feed {
@@ -10,7 +15,7 @@ public class Feed {
     String image;
     String listId;
     String contentHTML;
-
+    public static String isReadPreferences = "ISREAD";
 
     public Feed(String id, String listId, String title, String content, String link, String image) {
         this.id = id;
@@ -38,7 +43,11 @@ public class Feed {
     }
 
     public Boolean isRead() {
-        return FeedService.isRead(this.link);
+        SharedPreferences sharedPreferences = Splash_.getContext().getSharedPreferences(Feed.isReadPreferences, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(this.id,false);
+
+
+
     }
 
     public String getLink() {

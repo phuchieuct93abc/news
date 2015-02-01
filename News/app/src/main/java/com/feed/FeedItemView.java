@@ -1,6 +1,7 @@
 package com.feed;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -33,19 +34,23 @@ public class FeedItemView extends RelativeLayout {
     }
 
     public void bindDataToView(Feed feed) {
-        if (isRead != null) {
             if (feed.isRead()) {
-                isRead.setVisibility(View.VISIBLE);
+//                isRead.setVisibility(View.VISIBLE);
+                title.setTextColor(Color.DKGRAY);
 
             } else {
-                isRead.setVisibility(View.GONE);
+//                isRead.setVisibility(View.GONE);
+                title.setTextColor(Color.RED);
+
 
             }
-        }
+
         title.setText(feed.getTitle());
         description.setEllipsize(TextUtils.TruncateAt.END);
         description.setMaxLines(2);
         description.setText(feed.getContent());
-        UrlImageViewHelper.setUrlDrawable(imageView, feed.getImage());
+
+//        Ion.with(imageView).load( feed.getImage());
+        UrlImageViewHelper.setUrlDrawable(imageView, feed.getImage(),null,UrlImageViewHelper.CACHE_DURATION_ONE_DAY);
     }
 }
