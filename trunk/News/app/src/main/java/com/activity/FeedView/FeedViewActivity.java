@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -20,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.activity.Splash_;
 import com.config.Config_;
 import com.feed.Feed;
 import com.phuchieu.news.R;
@@ -58,10 +60,11 @@ public class FeedViewActivity extends ActionBarActivity {
     Config_ config;
 
     int indexOfFragment;
+
     @Override
     public void onBackPressed() {
         Intent intent = new Intent();
-        intent.putExtra("index",indexOfFragment);
+        intent.putExtra("index", indexOfFragment);
         setResult(2, intent);
         finish();
         super.onBackPressed();
@@ -72,6 +75,7 @@ public class FeedViewActivity extends ActionBarActivity {
     void runBackground() {
         runUI();
     }
+
 
     @Background
     public void loadMoreData() {
@@ -137,11 +141,14 @@ public class FeedViewActivity extends ActionBarActivity {
                 if (arg0 == CategoryService_JSON.getListFeed().size() - 2) {
                     loadMoreData();
                 }
+                setIsReadForFeed(arg0);
+
+
+
             }
 
             @Override
             public void onPageScrolled(int arg0, float arg1, int arg2) {
-
 
             }
 
@@ -155,6 +162,12 @@ public class FeedViewActivity extends ActionBarActivity {
         FeedService.setRead(id);
     }
 
+    private void setIsReadForFeed(int arg0) {
+        Feed currentFeed= CategoryService_JSON.getListFeed().get(arg0);
+        SharedPreferences sharedPreferences = Splash_.getContext().getSharedPreferences(Feed.isReadPreferences,MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean(currentFeed.getId(),true).commit();
+    }
+
     @UiThread
     void setSelectedPage(int index) {
         pager.setCurrentItem(index);
@@ -164,6 +177,7 @@ public class FeedViewActivity extends ActionBarActivity {
     void run() {
 
         runBackground();
+        setIsReadForFeed(0);
     }
 
     @AfterViews

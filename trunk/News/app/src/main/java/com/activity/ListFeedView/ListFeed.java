@@ -46,8 +46,8 @@ public class ListFeed extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i("hieu", "revice2");
-        int index= data.getExtras().getInt("index");
+        //Log.i("hieu", "revice2");
+//        int index= data.getExtras().getInt("index");
         //listView.setScrollY(100);
         //listView.scro
         //smoothScrollToPosition(int position)

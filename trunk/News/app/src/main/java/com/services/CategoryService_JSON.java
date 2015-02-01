@@ -13,9 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryService_JSON {
-    public static String LINK_CATEGORY = "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType=zone&listId=53&imageMinSize=300&mode=quickview";
-    public static List<Feed> listFeed = new ArrayList<>();
     private static int startPage = -10;
+
+    public static String LINK_CATEGORY = "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType=zone&listId=53&imageMinSize=300&mode=quickview";
+
+    public static List<Feed> listFeed = new ArrayList<>();
 
     public static List<Feed> getListFeed() {
         return listFeed;
@@ -29,7 +31,6 @@ public class CategoryService_JSON {
         setListFeed(new ArrayList<Feed>());
         startPage = -10;
     }
-
 
     public static String readUrl(String urlString) {
         Document doc = null;
