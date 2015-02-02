@@ -1,5 +1,7 @@
 package com.services;
 
+import android.util.Log;
+
 import com.feed.Feed;
 
 import org.json.JSONArray;
@@ -15,9 +17,18 @@ import java.util.List;
 public class CategoryService_JSON {
     private static int startPage = -10;
 
-    public static String LINK_CATEGORY = "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType=zone&listId=53&imageMinSize=300&mode=quickview";
+    public static int KHCN = 53;
+    public static int THEGIOI = 71;
+
+    public static String LINK_CATEGORY = "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType=zone&listId={LIST_ID}&imageMinSize=300&mode=quickview";
 
     public static List<Feed> listFeed = new ArrayList<>();
+
+    private static String currentLink;
+    public static void setListId(int id){
+        currentLink = LINK_CATEGORY.replace("{LIST_ID}", id + "");
+
+    }
 
     public static List<Feed> getListFeed() {
         return listFeed;
@@ -29,7 +40,7 @@ public class CategoryService_JSON {
 
     public static void clearCacheList() {
         setListFeed(new ArrayList<Feed>());
-        startPage = -10;
+        //startPage = -10;
     }
 
     public static String readUrl(String urlString) {
@@ -43,11 +54,11 @@ public class CategoryService_JSON {
         return doc.select("body").text();
     }
 
-    public static List<Feed> getListFeedFromCategory(String caterogyLink) {
+    public static List<Feed> getListFeedFromCategory() {
         try {
             startPage += 10;
-            caterogyLink = caterogyLink.replace("{START_PAGE}", "" + startPage);
-            String responseCategory = readUrl(caterogyLink);
+            String link = currentLink.replace("{START_PAGE}", "" + startPage);
+            String responseCategory = readUrl(link);
             JSONObject jObject = new JSONObject(responseCategory);
             JSONArray jArray = jObject.getJSONArray("articlelist");
             for (int i = 0; i < jArray.length(); i++) {

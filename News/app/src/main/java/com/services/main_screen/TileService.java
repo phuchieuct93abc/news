@@ -7,13 +7,13 @@ public class TileService {
 
     public static List<Tile> getList() {
         List<Tile> tiles = new ArrayList<Tile>();
-        tiles.add(new Tile("TN", "Tin nóng", "news.jpeg", "http://m.baomoi.com/mostrecent/p/1.epi", "fa-heart"));
-        tiles.add(new Tile("KHCN", "Công nghệ", "news.jpeg", "http://m.baomoi.com/Home/mostrecent/KHCN/p/1.epi", "fa-gears"));
-        tiles.add(new Tile("TG", "Thế giới", "news.jpeg", "http://m.baomoi.com/Home/mostrecent/TheGioi/p/1.epi", "fa-globe"));
-        tiles.add(new Tile("VH", "Văn hóa", "news.jpeg", "http://m.baomoi.com/Home/mostrecent/VanHoa/p/1.epi", "fa-book"));
-        tiles.add(new Tile("KT", "Kinh tế", "news.jpeg", "http://m.baomoi.com/Home/mostrecent/KinhTe/p/1.epi", "fa-usd"));
-        tiles.add(new Tile("TT", "Thể thao", "news.jpeg", "http://m.baomoi.com/Home/mostrecent/TheThao/p/1.epi", "fa-futbol-o"));
-        tiles.add(new Tile("GT", "Giải trí", "news.jpeg", "http://m.baomoi.com/Home/mostrecent/GiaiTri/p/1.epi", "fa-music"));
+        tiles.add(new Tile("TN", "Tin nóng", "news.jpeg",53, "fa-heart"));
+        tiles.add(new Tile("KHCN", "Công nghệ", "news.jpeg",53, "fa-gears"));
+        tiles.add(new Tile("TG", "Thế giới", "news.jpeg", 53, "fa-globe"));
+        tiles.add(new Tile("VH", "Văn hóa", "news.jpeg", 53, "fa-book"));
+        tiles.add(new Tile("KT", "Kinh tế", "news.jpeg",53, "fa-usd"));
+        tiles.add(new Tile("TT", "Thể thao", "news.jpeg",53, "fa-futbol-o"));
+        tiles.add(new Tile("GT", "Giải trí", "news.jpeg", 53, "fa-music"));
         return tiles;
     }
 

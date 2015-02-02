@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +18,7 @@ import android.widget.TableRow;
 import com.activity.ListFeedView.ListFeed_;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.phuchieu.news.R;
+import com.services.CategoryService_JSON;
 import com.services.main_screen.Tile;
 import com.services.main_screen.TileService;
 
@@ -58,7 +60,7 @@ public class CategoryScreen extends Activity {
                 button.setText(tile.getTitle());
                 button.setPaddingRelative(10, 0, 0, 0);
                 button.setGravity(Gravity.START);
-                OnClickListener initialOnClickListener = initialOnClickListener(tile.getUrl());
+                OnClickListener initialOnClickListener = initialOnClickListener(tile.getId());
                 button.setOnClickListener(initialOnClickListener);
             }
         }
@@ -75,12 +77,12 @@ public class CategoryScreen extends Activity {
         button.addView(iconView);
     }
 
-    private OnClickListener initialOnClickListener(final String url) {
+    private OnClickListener initialOnClickListener(final int caterogyId) {
         return new OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                ListFeed_.intent(context).link(url).start();
+                CategoryService_JSON.setListId(caterogyId);
+                ListFeed_.intent(context).start();
 
             }
         };
