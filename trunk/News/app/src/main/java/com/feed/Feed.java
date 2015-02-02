@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 
 import com.activity.Splash_;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Feed {
     String id;
     String title;
@@ -14,6 +17,19 @@ public class Feed {
     String listId;
     String contentHTML;
     public static String isReadPreferences = "ISREAD";
+
+    public Feed(JSONObject jsonObject) {
+        try {
+            this.id = jsonObject.getString("ContentID");
+            this.title = jsonObject.getString("Title");
+            this.content = jsonObject.getString("Description");
+            this.link = jsonObject.getString("BaomoiUrl");
+            this.image = jsonObject.getString("LandscapeAvatar");
+            this.listId = jsonObject.getString("ListId");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Feed(String id, String listId, String title, String content, String link, String image) {
         this.id = id;
@@ -42,8 +58,7 @@ public class Feed {
 
     public Boolean isRead() {
         SharedPreferences sharedPreferences = Splash_.getContext().getSharedPreferences(Feed.isReadPreferences, Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean(this.id,false);
-
+        return sharedPreferences.getBoolean(this.id, false);
 
 
     }

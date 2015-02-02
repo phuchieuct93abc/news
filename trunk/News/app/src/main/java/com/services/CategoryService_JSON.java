@@ -1,7 +1,5 @@
 package com.services;
 
-import android.util.Log;
-
 import com.feed.Feed;
 
 import org.json.JSONArray;
@@ -36,6 +34,7 @@ public class CategoryService_JSON {
 
     public static void setListFeed(List<Feed> listFeed) {
         CategoryService_JSON.listFeed = listFeed;
+        startPage = -10;
     }
 
     public static void clearCacheList() {
@@ -65,14 +64,8 @@ public class CategoryService_JSON {
                 try {
                     JSONObject oneObject = jArray.getJSONObject(i);
                     // Pulling items from the array
-                    String id = oneObject.getString("ContentID");
-                    String title = oneObject.getString("Title");
-                    String description = oneObject.getString("Description");
-                    String url = oneObject.getString("BaomoiUrl");
-                    String image = oneObject.getString("LandscapeAvatar");
-                    String listId = oneObject.getString("ListId");
-                    Feed feed = new Feed(id, listId, title, description, url, image);
-                    if (getIndexInCaterogyById(id) == -1) {
+                    Feed feed = new Feed(oneObject);
+                    if (getIndexInCaterogyById(feed.getId()) == -1) {
                         listFeed.add(feed);
                     }
                 } catch (JSONException e) {
