@@ -3,7 +3,6 @@ package com.feed;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;

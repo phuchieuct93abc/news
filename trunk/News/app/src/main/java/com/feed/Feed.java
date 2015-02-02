@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.activity.Splash_;
-import com.services.CategoryService_JSON;
-import com.services.FeedService;
 
 public class Feed {
     String id;

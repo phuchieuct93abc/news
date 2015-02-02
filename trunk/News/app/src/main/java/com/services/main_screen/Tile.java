@@ -6,15 +6,16 @@ import android.view.View.OnClickListener;
 
 
 public class Tile {
-    String name, title, imgUrl, url, icon;
+    String name, title, imgUrl,  icon;
+    int id;
     OnClickListener onClick;
 
-    public Tile(String name, String title, String imgUrl, String url, String icon) {
+    public Tile(String name, String title, String imgUrl, int id, String icon) {
         super();
         this.name = name;
         this.title = title;
         this.imgUrl = imgUrl;
-        this.url = url;
+        this.id = id;
         this.icon = icon;
     }
 
@@ -34,12 +35,12 @@ public class Tile {
         this.onClick = onClick;
     }
 
-    public String getUrl() {
-        return url;
+    public int getId() {
+        return id;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setId(int id) {
+        this.id = id;
     }
 
 

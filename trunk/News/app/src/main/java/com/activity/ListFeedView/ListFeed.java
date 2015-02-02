@@ -8,10 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.phuchieu.news.R;
 import com.quentindommerc.superlistview.SuperListview;
@@ -20,7 +18,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
-import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
@@ -35,8 +32,6 @@ public class ListFeed extends ActionBarActivity {
     PagerAdapterListFeed caterogyListAdapter = new PagerAdapterListFeed(getSupportFragmentManager());
 
     SearchAdapter searchAdapter = new SearchAdapter(getSupportFragmentManager());
-    @Extra
-    String link;
     private Timer timer = new Timer();
     Context context = this;
 
@@ -53,13 +48,12 @@ public class ListFeed extends ActionBarActivity {
         //smoothScrollToPosition(int position)
         //Toast.makeText(context, + "", Toast.LENGTH_LONG).show();
         //getFragmentManager().findFragmentById()
-        super.onActivityResult(requestCode, resultCode, data);
+       // super.onActivityResult(requestCode, resultCode, data);
     }
 
     @AfterViews
     void afterInjected() {
         setFragment();
-        caterogyListAdapter.setLink(link);
         setToolbar();
 
 

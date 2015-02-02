@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
-import android.view.Window;
-import android.widget.Toast;
 
 import com.activity.FeedView.FeedViewActivity_;
 import com.feed.Feed;
@@ -22,10 +20,8 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ItemClick;
-import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.WindowFeature;
 
 import java.util.List;
 @EFragment(R.layout.activity_main)
@@ -75,6 +71,7 @@ public class MainActivity extends Fragment {
         listView.setupMoreListener(new OnMoreListener() {
             @Override
             public void onMoreAsked(int numberOfItems, int numberBeforeMore, int currentItemPos) {
+                Log.i("hieu","load next page");
                 numberOfPage++;
                 loadNextPage();
             }
@@ -86,15 +83,13 @@ public class MainActivity extends Fragment {
 
     @Background
     void loadNextPage() {
-        String nextLink = "";
         try {
-            nextLink = FeedService.getLinkByPageNumber(link, numberOfPage);
             // List<Feed> rssItems = FeedService.getFeedFromUrl(nextLink);
-            List<Feed> rssItems = CategoryService_JSON.getListFeedFromCategory(CategoryService_JSON.LINK_CATEGORY);
-
-            adapter.setListDataMore(rssItems);
+            Log.i("hieu","load more");
+            List<Feed> rssItems = CategoryService_JSON.getListFeedFromCategory();
+Log.i("hieu",rssItems.size()+"");            adapter.setListDataMore(rssItems);
         } catch (Exception e) {
-            Log.e("hieu", "cannot get more " + nextLink);
+            Log.e("hieu", "cannot get more ");
             e.printStackTrace();
         } finally {
             updateList();
@@ -122,7 +117,7 @@ public class MainActivity extends Fragment {
 
        /* FeedViewActivity_.intent(context)
                 .extra("selectedId", clickedItem.getId())
-                .extra("linkCategory", link).flags(Intent.FLAG_ACTIVITY_NEW_TASK).startForResult(REQUEST_CODE);*/
+                .extra("linkCategory", categoryId).flags(Intent.FLAG_ACTIVITY_NEW_TASK).startForResult(REQUEST_CODE);*/
 
     }
 
@@ -139,8 +134,9 @@ public class MainActivity extends Fragment {
     @Background
     void background() {
         try {
-//            List<Feed> rssItems = FeedService.getFeedFromUrl(link);
-            List<Feed> rssItems = CategoryService_JSON.getListFeedFromCategory(CategoryService_JSON.LINK_CATEGORY);
+//            List<Feed> rssItems = FeedService.getFeedFromUrl(categoryId);
+
+            List<Feed> rssItems = CategoryService_JSON.getListFeedFromCategory();
 
             adapter.setListData(rssItems);
             run();

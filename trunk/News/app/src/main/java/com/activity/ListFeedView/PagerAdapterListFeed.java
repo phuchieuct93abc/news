@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 class PagerAdapterListFeed extends FragmentStatePagerAdapter {
-    String link;
     List<String> categoryUrlList = new ArrayList<>();
     List<Tile> categoryList;
     Context context;
@@ -21,12 +20,8 @@ class PagerAdapterListFeed extends FragmentStatePagerAdapter {
         super(fm);
         categoryList = TileService.getList();
         for (Tile t : categoryList) {
-            categoryUrlList.add(t.getUrl());
+           // categoryUrlList.add(t.getId());
         }
-    }
-
-    public void setLink(String link) {
-        this.link = link;
     }
 
     public void setContext(Context context) {
@@ -37,18 +32,16 @@ class PagerAdapterListFeed extends FragmentStatePagerAdapter {
     public Fragment getItem(int i) {
         Fragment fragment = new MainActivity_();
         ((MainActivity) fragment).setContext(context);
-        ((MainActivity) fragment).setLink(categoryUrlList.get(i));
-
         return fragment;
     }
 
     @Override
     public int getCount() {
-        return categoryUrlList.size();
+        return 2;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return categoryList.get(position).getTitle();
+        return "ABC";
     }
 }
