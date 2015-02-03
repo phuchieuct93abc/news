@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Feed {
+    public static String isReadPreferences = "ISREAD";
     String id;
     String title;
     String content;
@@ -16,7 +17,6 @@ public class Feed {
     String image;
     String listId;
     String contentHTML;
-    public static String isReadPreferences = "ISREAD";
 
     public Feed(JSONObject jsonObject) {
         try {

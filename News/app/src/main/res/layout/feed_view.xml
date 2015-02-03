@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:contentDescription="@string/placeHolder_image" /> 
+        android:contentDescription="@string/placeHolder_image" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -18,7 +18,7 @@
         android:layout_alignParentTop="true"
         android:layout_margin="@dimen/padding"
         android:layout_toEndOf="@+id/imageView"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/title"
@@ -42,15 +42,14 @@
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
-            android:textSize="15dp"
-             />
+            android:textSize="15dp" />
     </LinearLayout>
 
 </RelativeLayout>

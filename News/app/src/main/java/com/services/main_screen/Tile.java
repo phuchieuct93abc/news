@@ -12,13 +12,7 @@ public class Tile {
     String title;
     String imgUrl;
     String icon;
-
-    public Categori getCaterogi() {
-        return caterogi;
-    }
-
     Categori caterogi;
-
     OnClickListener onClick;
 
     public Tile(String name, String title, String imgUrl, Categori caterogi, String icon) {
@@ -28,6 +22,10 @@ public class Tile {
         this.imgUrl = imgUrl;
         this.icon = icon;
         this.caterogi = caterogi;
+    }
+
+    public Categori getCaterogi() {
+        return caterogi;
     }
 
     public String getIcon() {

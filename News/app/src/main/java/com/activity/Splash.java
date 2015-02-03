@@ -18,10 +18,14 @@ public class Splash extends Activity {
     private final static int SPLASH_DISPLAY_LENGTH = 2000;
     public static Context context;
 
+    public static Context getContext() {
+        return context;
+
+    }
 
     @AfterViews
     void afterView() {
-        context=getApplicationContext();
+        context = getApplicationContext();
         FeedService.setContext(getBaseContext());
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -31,10 +35,6 @@ public class Splash extends Activity {
             }
         }, SPLASH_DISPLAY_LENGTH);
         //test();
-
-    }
-    public static Context getContext(){
-        return context;
 
     }
 

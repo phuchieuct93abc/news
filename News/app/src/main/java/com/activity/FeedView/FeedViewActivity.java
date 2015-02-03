@@ -144,7 +144,6 @@ public class FeedViewActivity extends ActionBarActivity {
                 setIsReadForFeed(arg0);
 
 
-
             }
 
             @Override
@@ -163,9 +162,9 @@ public class FeedViewActivity extends ActionBarActivity {
     }
 
     private void setIsReadForFeed(int arg0) {
-        Feed currentFeed= CategoryService_JSON.getListFeed().get(arg0);
-        SharedPreferences sharedPreferences = Splash_.getContext().getSharedPreferences(Feed.isReadPreferences,MODE_PRIVATE);
-        sharedPreferences.edit().putBoolean(currentFeed.getId(),true).commit();
+        Feed currentFeed = CategoryService_JSON.getListFeed().get(arg0);
+        SharedPreferences sharedPreferences = Splash_.getContext().getSharedPreferences(Feed.isReadPreferences, MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean(currentFeed.getId(), true).commit();
     }
 
     @UiThread

@@ -20,7 +20,7 @@ class PagerAdapterListFeed extends FragmentStatePagerAdapter {
         super(fm);
         categoryList = TileService.getList();
         for (Tile t : categoryList) {
-           // categoryUrlList.add(t.getId());
+            // categoryUrlList.add(t.getId());
         }
     }
 
