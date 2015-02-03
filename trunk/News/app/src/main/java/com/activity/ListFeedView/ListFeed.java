@@ -31,12 +31,10 @@ public class ListFeed extends ActionBarActivity {
     PagerAdapterListFeed caterogyListAdapter = new PagerAdapterListFeed(getSupportFragmentManager());
 
     SearchAdapter searchAdapter = new SearchAdapter(getSupportFragmentManager());
-    private Timer timer = new Timer();
     Context context = this;
-
     @ViewById
     SuperListview listView;
-
+    private Timer timer = new Timer();
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -47,7 +45,7 @@ public class ListFeed extends ActionBarActivity {
         //smoothScrollToPosition(int position)
         //Toast.makeText(context, + "", Toast.LENGTH_LONG).show();
         //getFragmentManager().findFragmentById()
-       // super.onActivityResult(requestCode, resultCode, data);
+        // super.onActivityResult(requestCode, resultCode, data);
     }
 
     @AfterViews

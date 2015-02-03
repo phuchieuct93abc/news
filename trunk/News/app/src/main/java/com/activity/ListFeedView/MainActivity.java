@@ -24,9 +24,11 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
+
 @EFragment(R.layout.activity_main)
 public class MainActivity extends Fragment {
 
+    public static final int REQUEST_CODE = 2;
     @ViewById
     SuperListview listView;
     @Bean
@@ -71,7 +73,7 @@ public class MainActivity extends Fragment {
         listView.setupMoreListener(new OnMoreListener() {
             @Override
             public void onMoreAsked(int numberOfItems, int numberBeforeMore, int currentItemPos) {
-                Log.i("hieu","load next page");
+                Log.i("hieu", "load next page");
                 numberOfPage++;
                 loadNextPage();
             }
@@ -85,9 +87,10 @@ public class MainActivity extends Fragment {
     void loadNextPage() {
         try {
             // List<Feed> rssItems = FeedService.getFeedFromUrl(nextLink);
-            Log.i("hieu","load more");
+            Log.i("hieu", "load more");
             List<Feed> rssItems = CategoryService_JSON.getListFeedFromCategory();
-Log.i("hieu",rssItems.size()+"");            adapter.setListDataMore(rssItems);
+            Log.i("hieu", rssItems.size() + "");
+            adapter.setListDataMore(rssItems);
         } catch (Exception e) {
             Log.e("hieu", "cannot get more ");
             e.printStackTrace();
@@ -103,7 +106,6 @@ Log.i("hieu",rssItems.size()+"");            adapter.setListDataMore(rssItems);
         adapter.notifyDataSetChanged();
         listView.hideMoreProgress();
     }
-    public static final int REQUEST_CODE =2;
 
     @ItemClick
     public void listViewItemClicked(Feed clickedItem) {
@@ -111,7 +113,7 @@ Log.i("hieu",rssItems.size()+"");            adapter.setListDataMore(rssItems);
         i.putExtra("selectedId", clickedItem.getId());
         i.putExtra("linkCategory", link);
 
-       startActivityForResult(i, 2);
+        startActivityForResult(i, 2);
 
 
 

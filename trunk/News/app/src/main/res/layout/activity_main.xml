@@ -6,9 +6,9 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.activity.ListFeedView.MainActivity" >
-    <com.quentindommerc.superlistview.SuperListview
-        xmlns:superlistview="http://schemas.android.com/apk/res-auto"
+    tools:context="com.activity.ListFeedView.MainActivity">
+
+    <com.quentindommerc.superlistview.SuperListview xmlns:superlistview="http://schemas.android.com/apk/res-auto"
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,9 +16,7 @@
         superlistview:superlv__listDivider="@android:color/transparent"
         superlistview:superlv__listDividerHeight="10dp"
         superlistview:superlv__listPadding="0dp"
-        superlistview:superlv__scrollbarStyle="outsideOverlay" >
-    </com.quentindommerc.superlistview.SuperListview>
-
+        superlistview:superlv__scrollbarStyle="outsideOverlay"></com.quentindommerc.superlistview.SuperListview>
 
 
 </RelativeLayout>
