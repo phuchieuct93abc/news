@@ -1,5 +1,8 @@
 package com.services;
 
+import android.widget.Toast;
+
+import com.activity.Splash;
 import com.feed.Feed;
 
 import org.json.JSONArray;
@@ -17,14 +20,19 @@ public class CategoryService_JSON {
 
     public static int KHCN = 53;
     public static int THEGIOI = 71;
+    public static String ZONE_LIST_TYPE="zone";
+    public static String SPECIAL_LIST_TYPE="specialzone";
 
-    public static String LINK_CATEGORY = "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType=zone&listId={LIST_ID}&imageMinSize=300&mode=quickview";
+
+    public static String LINK_CATEGORY = "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType={LIST_TYPE}&listId={LIST_ID}&imageMinSize=300&mode=quickview";
 
     public static List<Feed> listFeed = new ArrayList<>();
 
     private static String currentLink;
-    public static void setListId(int id){
+    public static void setListId(int id,String listType){
         currentLink = LINK_CATEGORY.replace("{LIST_ID}", id + "");
+        currentLink = LINK_CATEGORY.replace("{LIST_TYPE}", listType);
+
 
     }
 
@@ -39,7 +47,7 @@ public class CategoryService_JSON {
 
     public static void clearCacheList() {
         setListFeed(new ArrayList<Feed>());
-        //startPage = -10;
+        startPage = -10;
     }
 
     public static String readUrl(String urlString) {

@@ -59,7 +59,7 @@ public class CategoryScreen extends Activity {
                 button.setText(tile.getTitle());
                 button.setPaddingRelative(10, 0, 0, 0);
                 button.setGravity(Gravity.START);
-                OnClickListener initialOnClickListener = initialOnClickListener(tile.getId());
+                OnClickListener initialOnClickListener = initialOnClickListener(tile.getId(),tile.getListType());
                 button.setOnClickListener(initialOnClickListener);
             }
         }
@@ -76,11 +76,11 @@ public class CategoryScreen extends Activity {
         button.addView(iconView);
     }
 
-    private OnClickListener initialOnClickListener(final int caterogyId) {
+    private OnClickListener initialOnClickListener(final int caterogyId,final String listType) {
         return new OnClickListener() {
             @Override
             public void onClick(View v) {
-                CategoryService_JSON.setListId(caterogyId);
+                CategoryService_JSON.setListId(caterogyId,listType);
                 ListFeed_.intent(context).start();
 
             }
