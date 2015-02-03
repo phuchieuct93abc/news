@@ -6,17 +6,27 @@ import android.view.View.OnClickListener;
 
 
 public class Tile {
-    String name, title, imgUrl,  icon;
+    String name;
+    String title;
+    String imgUrl;
+    String icon;
+
+    public String getListType() {
+        return listType;
+    }
+
+    String listType;
     int id;
     OnClickListener onClick;
 
-    public Tile(String name, String title, String imgUrl, int id, String icon) {
+    public Tile(String name, String title, String imgUrl, int id,String listType, String icon) {
         super();
         this.name = name;
         this.title = title;
         this.imgUrl = imgUrl;
         this.id = id;
         this.icon = icon;
+        this.listType = listType;
     }
 
     public String getIcon() {
