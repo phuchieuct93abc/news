@@ -1,5 +1,6 @@
 package com.services;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import com.activity.Splash;
@@ -31,8 +32,8 @@ public class CategoryService_JSON {
     private static String currentLink;
     public static void setListId(int id,String listType){
         currentLink = LINK_CATEGORY.replace("{LIST_ID}", id + "");
-        currentLink = LINK_CATEGORY.replace("{LIST_TYPE}", listType);
-
+        currentLink = currentLink.replace("{LIST_TYPE}", listType);
+        clearCacheList();
 
     }
 
@@ -65,6 +66,8 @@ public class CategoryService_JSON {
         try {
             startPage += 10;
             String link = currentLink.replace("{START_PAGE}", "" + startPage);
+            Log.i("hieu",link );
+
             String responseCategory = readUrl(link);
             JSONObject jObject = new JSONObject(responseCategory);
             JSONArray jArray = jObject.getJSONArray("articlelist");
