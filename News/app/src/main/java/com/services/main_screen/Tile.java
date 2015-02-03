@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.services.Categori;
+
 
 public class Tile {
     String name;
@@ -11,22 +13,21 @@ public class Tile {
     String imgUrl;
     String icon;
 
-    public String getListType() {
-        return listType;
+    public Categori getCaterogi() {
+        return caterogi;
     }
 
-    String listType;
-    int id;
+    Categori caterogi;
+
     OnClickListener onClick;
 
-    public Tile(String name, String title, String imgUrl, int id,String listType, String icon) {
+    public Tile(String name, String title, String imgUrl, Categori caterogi, String icon) {
         super();
         this.name = name;
         this.title = title;
         this.imgUrl = imgUrl;
-        this.id = id;
         this.icon = icon;
-        this.listType = listType;
+        this.caterogi = caterogi;
     }
 
     public String getIcon() {
@@ -43,14 +44,6 @@ public class Tile {
 
     public void setOnClick(OnClickListener onClick) {
         this.onClick = onClick;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
 

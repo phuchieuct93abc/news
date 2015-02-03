@@ -17,6 +17,7 @@ import android.widget.TableRow;
 import com.activity.ListFeedView.ListFeed_;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.phuchieu.news.R;
+import com.services.Categori;
 import com.services.CategoryService_JSON;
 import com.services.main_screen.Tile;
 import com.services.main_screen.TileService;
@@ -59,7 +60,7 @@ public class CategoryScreen extends Activity {
                 button.setText(tile.getTitle());
                 button.setPaddingRelative(10, 0, 0, 0);
                 button.setGravity(Gravity.START);
-                OnClickListener initialOnClickListener = initialOnClickListener(tile.getId(),tile.getListType());
+                OnClickListener initialOnClickListener = initialOnClickListener(tile.getCaterogi());
                 button.setOnClickListener(initialOnClickListener);
             }
         }
@@ -76,11 +77,11 @@ public class CategoryScreen extends Activity {
         button.addView(iconView);
     }
 
-    private OnClickListener initialOnClickListener(final int caterogyId,final String listType) {
+    private OnClickListener initialOnClickListener(final Categori categori) {
         return new OnClickListener() {
             @Override
             public void onClick(View v) {
-                CategoryService_JSON.setListId(caterogyId,listType);
+                CategoryService_JSON.setListId(categori);
                 ListFeed_.intent(context).start();
 
             }
