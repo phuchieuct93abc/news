@@ -1,6 +1,5 @@
 package com.activity.ListFeedView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.MenuItemCompat;
@@ -25,13 +24,11 @@ import java.util.TimerTask;
 
 @EActivity(R.layout.activity_list_feed)
 public class ListFeed extends ActionBarActivity {
-    private final long DELAY = 500;
     @ViewById
     ViewPager pagerListFeed;
     PagerAdapterListFeed caterogyListAdapter = new PagerAdapterListFeed(getSupportFragmentManager());
 
     SearchAdapter searchAdapter = new SearchAdapter(getSupportFragmentManager());
-    Context context = this;
     @ViewById
     SuperListview listView;
     private Timer timer = new Timer();
@@ -99,6 +96,7 @@ public class ListFeed extends ActionBarActivity {
     private void setSearchView(final String searchValue) {
         timer.cancel();
         timer = new Timer();
+        long DELAY = 500;
         timer.schedule(new TimerTask() {
             @Override
             public void run() {

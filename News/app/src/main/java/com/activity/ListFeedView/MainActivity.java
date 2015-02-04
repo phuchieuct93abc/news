@@ -28,7 +28,6 @@ import java.util.List;
 @EFragment(R.layout.activity_main)
 public class MainActivity extends Fragment {
 
-    public static final int REQUEST_CODE = 2;
     @ViewById
     SuperListview listView;
     @Bean
@@ -36,7 +35,6 @@ public class MainActivity extends Fragment {
     Context context;
     //    @Extra
     String link;
-    private int numberOfPage = 1;
 
     @Override
     public void onResume() {
@@ -73,8 +71,6 @@ public class MainActivity extends Fragment {
         listView.setupMoreListener(new OnMoreListener() {
             @Override
             public void onMoreAsked(int numberOfItems, int numberBeforeMore, int currentItemPos) {
-                Log.i("hieu", "load next page");
-                numberOfPage++;
                 loadNextPage();
             }
 

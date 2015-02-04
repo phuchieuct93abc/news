@@ -35,7 +35,6 @@ public class CategoryScreen extends Activity {
     @ViewById
     TableLayout table;
     List<Tile> tiles;
-    Typeface font;
 
     @AfterViews
     void afterView() {

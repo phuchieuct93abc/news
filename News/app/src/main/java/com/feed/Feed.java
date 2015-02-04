@@ -18,6 +18,12 @@ public class Feed {
     String listId;
     String contentHTML;
 
+    public String getSourceName() {
+        return sourceName;
+    }
+
+    String sourceName;
+
     public Feed(JSONObject jsonObject) {
         try {
             this.id = jsonObject.getString("ContentID");
@@ -26,18 +32,10 @@ public class Feed {
             this.link = jsonObject.getString("BaomoiUrl");
             this.image = jsonObject.getString("LandscapeAvatar");
             this.listId = jsonObject.getString("ListId");
+            this.sourceName = jsonObject.getString("SourceName");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    public Feed(String id, String listId, String title, String content, String link, String image) {
-        this.id = id;
-        this.listId = listId;
-        this.title = title;
-        this.content = content;
-        this.link = link;
-        this.image = image;
     }
 
     public String getContentHTML() {
@@ -67,16 +65,8 @@ public class Feed {
         return link;
     }
 
-    public void setLink(String link) {
-        this.link = link;
-    }
-
     public String getImage() {
         return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getContent() {

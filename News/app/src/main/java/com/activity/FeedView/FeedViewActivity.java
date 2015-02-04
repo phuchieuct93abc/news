@@ -1,11 +1,7 @@
 package com.activity.FeedView;
 
-import android.app.ActionBar;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBarActivity;
@@ -14,12 +10,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.SeekBar;
-import android.widget.TextView;
 
 import com.activity.Splash_;
 import com.config.Config_;
@@ -93,27 +85,6 @@ public class FeedViewActivity extends ActionBarActivity {
     }
 
 
-    private void getMoreDateFromPageFromEnd() {
-        getMoreDateFromPage(false);
-    }
-
-    private void getMoreDateFromPage(Boolean fromStart) {
-        String nextLink = FeedService.getLinkByPageNumber(linkCategory, page);
-        List<Feed> feeds = FeedService.getFeedFromUrl(nextLink);
-        if (fromStart) {
-            for (Feed feed : feeds) {
-                String feedLink = feed.getLink();
-                listFeedLink.add(0, feedLink);
-            }
-        }
-        for (Feed feed : feeds) {
-            String feedLink = feed.getLink();
-            listFeedLink.add(feedLink);
-        }
-
-        pagerAdapter.setListLink(listFeedLink);
-        updateAdapter();
-    }
 
     @UiThread
     public void updateAdapter() {
@@ -164,7 +135,7 @@ public class FeedViewActivity extends ActionBarActivity {
     private void setIsReadForFeed(int arg0) {
         Feed currentFeed = CategoryService_JSON.getListFeed().get(arg0);
         SharedPreferences sharedPreferences = Splash_.getContext().getSharedPreferences(Feed.isReadPreferences, MODE_PRIVATE);
-        sharedPreferences.edit().putBoolean(currentFeed.getId(), true).commit();
+        sharedPreferences.edit().putBoolean(currentFeed.getId(), true).apply();
     }
 
     @UiThread
@@ -219,47 +190,6 @@ public class FeedViewActivity extends ActionBarActivity {
     }
 
     private void showTextSizeDialog() {
-        final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
-        final SeekBar seek = new SeekBar(this);
-        final TextView textView = new TextView(this);
-        final int[] textSize = new int[1];
-        textView.setText("Text 123");
-        final LinearLayout[] layout = {new LinearLayout(this)};
-        layout[0].setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        layout[0].setOrientation(LinearLayout.VERTICAL);
-        layout[0].addView(seek);
-        layout[0].addView(textView);
-        seek.setMax(20);
-        popDialog.setTitle("Change Text Size");
-        popDialog.setView(layout[0]);
-        seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                textView.setTextSize(progress * 2);
-                textSize[0] = progress * 2;
-            }
 
-            public void onStartTrackingTouch(SeekBar arg0) {
-            }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-
-
-        // Button OK
-        popDialog.setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-                        for (int i = 0; i < fragments.size(); i++) {
-                            FeedViewFragment view = (FeedViewFragment) fragments.get(i);
-                        }
-                        config.edit().textSize().put(textSize[0]).apply();
-                        pagerAdapter.setTextSize(textSize[0]);
-                        dialog.dismiss();
-                    }
-                });
-        popDialog.create();
-        popDialog.show();
     }
 }
