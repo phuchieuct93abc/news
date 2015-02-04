@@ -8,7 +8,6 @@ import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
-import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -31,8 +30,6 @@ import java.util.List;
 @SuppressLint("SetJavaScriptEnabled")
 @EFragment(R.layout.view)
 public class FeedViewFragment extends Fragment {
-    String link;
-
     @ViewById
     WebView webView;
 
@@ -51,10 +48,6 @@ public class FeedViewFragment extends Fragment {
 
     public void setContext(Context context) {
         this.context = context;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
     }
 
     @Background
@@ -109,8 +102,7 @@ public class FeedViewFragment extends Fragment {
     }
 
     private void setTitle(String feedTitle) {
-        String tempString = feedTitle;
-        SpannableString spanString = new SpannableString(tempString);
+        SpannableString spanString = new SpannableString(feedTitle);
         spanString.setSpan(new UnderlineSpan(), 0, spanString.length(), 0);
         spanString.setSpan(new StyleSpan(Typeface.BOLD), 0, spanString.length(), 0);
         spanString.setSpan(new StyleSpan(Typeface.ITALIC), 0, spanString.length(), 0);
@@ -118,7 +110,6 @@ public class FeedViewFragment extends Fragment {
 
     private void addContent(Content content) {
         content.setTextSize(textSize);
-        View view = content.toView();
     }
 
     @AfterViews

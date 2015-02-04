@@ -109,43 +109,18 @@ public class FeedService {
         return doc;
     }
 
-    public static List<String> getListFeedLinkFromCaterogy(String category) {
+/*    public static List<String> getListFeedLinkFromCaterogy(String category) {
         List<Feed> feeds = getFeedFromUrl(category);
         List<String> result = new ArrayList<String>();
         for (Feed feed : feeds) {
             result.add(feed.getLink());
         }
         return result;
-    }
+    }*/
 
-    public static List<String> getCategoryBaseOnFeed(String category, String link) {
-        int page = 0;
-        List<String> result = new ArrayList<String>();
-        while (true) {
-            page++;
-            String categoryPage = getLinkByPageNumber(category, page);
-            if (getListFeedLinkFromCaterogy(categoryPage).indexOf(link) > -1) {
-                result.add(categoryPage);
-                result.add(page + "");
-                return result;
-            }
-        }
 
-    }
 
-    public static int getIndexCategoryBaseOnFeed(String category, String link) {
-        int page = 0;
-        while (true) {
-            page++;
-            String categoryPage = getLinkByPageNumber(category, page);
-            if (getListFeedLinkFromCaterogy(categoryPage).indexOf(link) > -1) {
-                return page;
 
-            }
-            ;
-        }
-
-    }
 
     //Get content from link of category
     private static List<Element> getFeed(String source) {
@@ -161,7 +136,7 @@ public class FeedService {
             return null;
         }
     }
-
+/*
     public static List<Feed> getFeedFromUrl(String source) {
         try {
             List<Feed> feeds = new ArrayList<Feed>();
@@ -184,7 +159,7 @@ public class FeedService {
             return new ArrayList<Feed>();
         }
 
-    }
+    }*/
 
     private static boolean checkAds(Element element) {
         return element.hasClass("advertorial");
@@ -210,64 +185,9 @@ public class FeedService {
 
     }
 
-    public static List<Content> parseContent(Document doc, Context context) {
-        List<Content> contentList = new ArrayList<Content>();
-        for (Element element : doc.children()) {
-            addContent(element, contentList, context);
-        }
-
-        return contentList;
-
-    }
-
-    private static void addContent(Element element, List<Content> contentList, Context context) {
-        if (element.ownText().length() > 0) {
-            contentList.add(new TextContent(element.ownText(), context));
-        }
-        if (element.select(">img").size() > 0) {
-            contentList.add(new ImageContent(
-                    element.select(">img").attr("src"), context));
-        }
-        if (element.select(">iframe").size() > 0) {
-            contentList.add(new Video(element.select(">iframe").outerHtml(),
-                    context));
-
-        }
-        if (element.children().size() != 0) {
-            for (Element childElement : element.children()) {
-                addContent(childElement, contentList, context);
-
-            }
-        }
-
-    }
 
 
-    public static String getLinkByPageNumber(String link, int index) {
-
-        int lastIndexOfP = link.lastIndexOf("/p/");
-        if (lastIndexOfP == -1) {
-            lastIndexOfP = link.lastIndexOf(".epi");
-        }
-        String linkCategory = link.substring(0, lastIndexOfP);
-        return linkCategory + "/p/" + index + ".epi";
-    }
 
 
-    public static List<String> getLinkCategoryFromPageOne(String link) {
-        int currentLink = 1;
-        int lastIndexOfP = link.lastIndexOf("/p/");
-        List<String> result = new ArrayList<String>();
-        if (lastIndexOfP != -1) {
-            int lastIndexOfEPI = link.lastIndexOf(".epi");
-            currentLink = Integer.parseInt(link.substring(lastIndexOfP + 3,
-                    lastIndexOfEPI));
-            for (int index = 1; index <= currentLink; index++) {
-                result.add(getLinkByPageNumber(link, index));
-            }
-        }
-
-        return result;
-    }
 
 }

@@ -23,13 +23,7 @@ class PagerAdapter extends FragmentStatePagerAdapter {
         super(fm);
     }
 
-    public List<Feed> getListFeed() {
-        return listFeed;
-    }
 
-    public void setListFeed(List<Feed> listFeed) {
-        this.listFeed = listFeed;
-    }
 
     public void loadMoredata() {
         listFeed = CategoryService_JSON.getListFeedFromCategory();
@@ -39,17 +33,12 @@ class PagerAdapter extends FragmentStatePagerAdapter {
         this.textSize = textSize;
     }
 
-    public List<String> getListLink() {
-        return listLink;
-    }
+
 
     public void setListLink(List<String> categoryLink) {
         this.listLink = categoryLink;
     }
 
-    public String getLink() {
-        return link;
-    }
 
     public void setLink(String link) {
         this.link = link;
@@ -80,6 +69,7 @@ class PagerAdapter extends FragmentStatePagerAdapter {
         String feedLink = getListLink().get(position);
         String title = FeedService.getFeedContent(feedLink).getTitle();
     */
-        return "NEWS " + position;
+
+        return listFeed.get(position).getSourceName();
     }
 }

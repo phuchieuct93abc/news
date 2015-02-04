@@ -10,8 +10,6 @@ import android.widget.ListView;
 import com.feed.Feed;
 import com.feed.FeedListAdapter;
 import com.phuchieu.news.R;
-import com.services.FeedService;
-import com.services.SearchService;
 
 import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.AfterViews;
@@ -28,7 +26,6 @@ import java.util.TimerTask;
 
 @EActivity(R.layout.search_screen)
 public class SearchScreen extends Activity {
-    private final long DELAY = 500;
     @ViewById
     Button button1;
     @ViewById
@@ -56,6 +53,7 @@ public class SearchScreen extends Activity {
 
         timer.cancel();
         timer = new Timer();
+        long DELAY = 500;
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -91,11 +89,7 @@ public class SearchScreen extends Activity {
     @Background
     void performSearch(String key) {
         try {
-            adapter.clear();
-            String link = SearchService.search(key);
-            List<Feed> feedFromUrl = FeedService.getFeedFromUrl(link);
-            adapter.setListData(feedFromUrl);
-            uIThread();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

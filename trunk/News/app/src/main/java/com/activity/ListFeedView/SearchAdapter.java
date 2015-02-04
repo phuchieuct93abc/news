@@ -7,9 +7,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.services.SearchService;
 
-/**
- * Created by phuchieuct on 15/01/2015.
- */
 class SearchAdapter extends FragmentStatePagerAdapter {
     String searchValue;
 
