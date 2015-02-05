@@ -33,13 +33,13 @@ public class FeedItemView extends RelativeLayout {
     }
 
     public void bindDataToView(Feed feed) {
-        if (feed.isRead()) {
+        if (!feed.isRead()) {
 //                isRead.setVisibility(View.VISIBLE);
-            title.setTextColor(Color.DKGRAY);
+            title.setTextColor(Color.BLACK);
 
         } else {
 //                isRead.setVisibility(View.GONE);
-            title.setTextColor(Color.RED);
+            title.setTextColor(Color.WHITE);
 
 
         }
@@ -50,6 +50,6 @@ public class FeedItemView extends RelativeLayout {
         description.setText(feed.getContent());
 
 //        Ion.with(imageView).load( feed.getImage());
-        UrlImageViewHelper.setUrlDrawable(imageView, feed.getImage(), null, UrlImageViewHelper.CACHE_DURATION_ONE_DAY);
+        UrlImageViewHelper.setUrlDrawable(imageView, feed.getImage(), R.drawable.news, UrlImageViewHelper.CACHE_DURATION_ONE_DAY);
     }
 }

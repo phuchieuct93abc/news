@@ -1,34 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/layer_card_background"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:weightSum="1">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:minHeight="50dp"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/placeHolder_image" />
+        android:contentDescription="@string/placeHolder_image"
+        android:layout_weight="10.23"
+        android:layout_alignParentTop="true" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView"
-        android:layout_alignParentStart="true"
         android:text="@string/app_name"
         android:textColor="#FF0000"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:background="@color/gray"
+
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:id="@+id/description"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_height="0dp"
         android:text="@string/app_name"
-        android:textSize="15dp" />
+        android:textSize="15dp"
+        android:layout_below="@+id/title"
+        android:layout_alignParentEnd="true" />
 
-</LinearLayout>
+</RelativeLayout>
