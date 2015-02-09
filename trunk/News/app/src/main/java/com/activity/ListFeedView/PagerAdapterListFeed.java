@@ -37,6 +37,6 @@ class PagerAdapterListFeed extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "ABC";
+        return position==1?"Chua doc":"Da doc";
     }
 }

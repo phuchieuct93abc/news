@@ -16,7 +16,7 @@ public class FeedContentService_JSON {
             JSONObject jObject = new JSONObject(responseCategory);
             String contentHTML = jObject.getJSONObject("article").getString("Body");
             feed.setContentHTML(contentHTML);
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             feed.setContentHTML("Cannot get content");
         }

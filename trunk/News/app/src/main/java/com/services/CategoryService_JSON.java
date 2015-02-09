@@ -10,34 +10,33 @@ import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryService_JSON {
     public static String ZONE_LIST_TYPE = "zone";
-    public static Categori KHCN = new Categori(ZONE_LIST_TYPE, 53);
-    public static Categori TINMOI = new Categori(ZONE_LIST_TYPE, 71);
-    public static Categori THEGIOI = new Categori(ZONE_LIST_TYPE, 119);
-    public static Categori KINHTE = new Categori(ZONE_LIST_TYPE, 45);
-    public static Categori PHAPLUAT = new Categori(ZONE_LIST_TYPE, 58);
-    public static Categori THETHAO = new Categori(ZONE_LIST_TYPE, 55);
-    public static Categori XAHOI = new Categori(ZONE_LIST_TYPE, 121);
-    public static Categori GIAITRI = new Categori(ZONE_LIST_TYPE, 52);
+    public static Category KHCN = new Category(ZONE_LIST_TYPE, 53);
+    public static Category TINMOI = new Category(ZONE_LIST_TYPE, 71);
+    public static Category THEGIOI = new Category(ZONE_LIST_TYPE, 119);
+    public static Category KINHTE = new Category(ZONE_LIST_TYPE, 45);
+    public static Category PHAPLUAT = new Category(ZONE_LIST_TYPE, 58);
+    public static Category THETHAO = new Category(ZONE_LIST_TYPE, 55);
+    public static Category XAHOI = new Category(ZONE_LIST_TYPE, 121);
+    public static Category GIAITRI = new Category(ZONE_LIST_TYPE, 52);
     public static String SPECIAL_LIST_TYPE = "specialzone";
-    public static Categori TINNONG = new Categori(SPECIAL_LIST_TYPE, 2);
-    public static Categori TINNANH = new Categori(SPECIAL_LIST_TYPE, 4);
+    public static Category TINNONG = new Category(SPECIAL_LIST_TYPE, 2);
+    public static Category TINNANH = new Category(SPECIAL_LIST_TYPE, 4);
     public static String ZINI_LIST_TYPE = "zini";
-    public static Categori ANHDEP = new Categori(ZINI_LIST_TYPE, 4);
-    public static Categori ANHVUI = new Categori(ZINI_LIST_TYPE, 3);
+    public static Category ANHDEP = new Category(ZINI_LIST_TYPE, 4);
+    public static Category ANHVUI = new Category(ZINI_LIST_TYPE, 3);
     public static String LINK_CATEGORY = "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType={LIST_TYPE}&listId={LIST_ID}&imageMinSize=300&mode=quickview";
     public static List<Feed> listFeed = new ArrayList<>();
     private static int startPage = -10;
     private static String currentLink;
 
-    public static void setListId(Categori categori) {
-        currentLink = LINK_CATEGORY.replace("{LIST_ID}", categori.getId() + "");
-        currentLink = currentLink.replace("{LIST_TYPE}", categori.getType());
+    public static void setListId(Category category) {
+        currentLink = LINK_CATEGORY.replace("{LIST_ID}", category.getId() + "");
+        currentLink = currentLink.replace("{LIST_TYPE}", category.getType());
         clearCacheList();
 
     }
@@ -56,14 +55,8 @@ public class CategoryService_JSON {
         startPage = -10;
     }
 
-    public static String readUrl(String urlString) {
-        Document doc = null;
-        try {
-            doc = Jsoup.connect(urlString).timeout(10000).get();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static String readUrl(String urlString) throws Exception {
+        Document doc = Jsoup.connect(urlString).timeout(10000).get();
         return doc.select("body").text();
     }
 

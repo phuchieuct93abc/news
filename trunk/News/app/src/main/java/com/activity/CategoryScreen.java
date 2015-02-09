@@ -3,7 +3,6 @@ package com.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,7 +16,7 @@ import android.widget.TableRow;
 import com.activity.ListFeedView.ListFeed_;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.phuchieu.news.R;
-import com.services.Categori;
+import com.services.Category;
 import com.services.CategoryService_JSON;
 import com.services.main_screen.Tile;
 import com.services.main_screen.TileService;
@@ -76,11 +75,11 @@ public class CategoryScreen extends Activity {
         button.addView(iconView);
     }
 
-    private OnClickListener initialOnClickListener(final Categori categori) {
+    private OnClickListener initialOnClickListener(final Category category) {
         return new OnClickListener() {
             @Override
             public void onClick(View v) {
-                CategoryService_JSON.setListId(categori);
+                CategoryService_JSON.setListId(category);
                 ListFeed_.intent(context).start();
 
             }
