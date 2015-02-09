@@ -1,10 +1,10 @@
 package com.services;
 
-public class Categori {
+public class Category {
     String type;
     int id;
 
-    Categori(String type, int id) {
+    Category(String type, int id) {
         this.type = type;
         this.id = id;
     }

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.services.Categori;
+import com.services.Category;
 
 
 public class Tile {
@@ -12,10 +12,10 @@ public class Tile {
     String title;
     String imgUrl;
     String icon;
-    Categori caterogi;
+    Category caterogi;
     OnClickListener onClick;
 
-    public Tile(String name, String title, String imgUrl, Categori caterogi, String icon) {
+    public Tile(String name, String title, String imgUrl, Category caterogi, String icon) {
         super();
         this.name = name;
         this.title = title;
@@ -24,7 +24,7 @@ public class Tile {
         this.caterogi = caterogi;
     }
 
-    public Categori getCaterogi() {
+    public Category getCaterogi() {
         return caterogi;
     }
 

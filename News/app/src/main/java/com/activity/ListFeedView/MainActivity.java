@@ -33,8 +33,8 @@ public class MainActivity extends Fragment {
     @Bean
     FeedListAdapter adapter;
     Context context;
-    //    @Extra
     String link;
+    Boolean isRead = true;
 
     @Override
     public void onResume() {
@@ -53,6 +53,8 @@ public class MainActivity extends Fragment {
 
     @AfterViews
     void afterView() {
+        FeedService.clearCache();
+        CategoryService_JSON.clearCacheList();
         background();
         setOnScrollListener();
     }
@@ -67,7 +69,6 @@ public class MainActivity extends Fragment {
                 background();
             }
         });
-
         listView.setupMoreListener(new OnMoreListener() {
             @Override
             public void onMoreAsked(int numberOfItems, int numberBeforeMore, int currentItemPos) {

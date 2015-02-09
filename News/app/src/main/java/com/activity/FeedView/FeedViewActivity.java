@@ -109,7 +109,7 @@ public class FeedViewActivity extends ActionBarActivity {
             public void onPageSelected(int arg0) {
                 // FeedService.setRead(listFeedLink.get(arg0));
                 indexOfFragment = arg0;
-                if (arg0 == CategoryService_JSON.getListFeed().size() - 2) {
+                if (arg0 >= CategoryService_JSON.getListFeed().size() - 2) {
                     loadMoreData();
                 }
                 setIsReadForFeed(arg0);
