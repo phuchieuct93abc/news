@@ -72,7 +72,12 @@ public class MainActivity extends Fragment {
         listView.setupMoreListener(new OnMoreListener() {
             @Override
             public void onMoreAsked(int numberOfItems, int numberBeforeMore, int currentItemPos) {
-                loadNextPage();
+                try {
+                    loadNextPage();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e("hieu",e.getMessage());
+                }
             }
 
         }, 1);

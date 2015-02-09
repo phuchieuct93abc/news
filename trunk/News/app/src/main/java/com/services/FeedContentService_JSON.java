@@ -2,7 +2,6 @@ package com.services;
 
 import com.feed.Feed;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FeedContentService_JSON {

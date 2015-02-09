@@ -5,11 +5,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
 
-import com.content.Content;
-import com.content.ImageContent;
-import com.content.TextContent;
-import com.content.Video;
-import com.feed.Feed;
 import com.feed.FeedContent;
 
 import org.androidannotations.annotations.EBean;
@@ -19,7 +14,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @EBean
