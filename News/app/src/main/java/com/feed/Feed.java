@@ -18,6 +18,12 @@ public class Feed {
     String listId;
     String contentHTML;
 
+    public String getContentUrl() {
+        return contentUrl;
+    }
+
+    String contentUrl;
+
     public String getSourceName() {
         return sourceName;
     }
@@ -33,6 +39,7 @@ public class Feed {
             this.image = jsonObject.getString("LandscapeAvatar");
             this.listId = jsonObject.getString("ListId");
             this.sourceName = jsonObject.getString("SourceName");
+            this.contentUrl =jsonObject.getString("ContentUrl");
         } catch (JSONException e) {
             e.printStackTrace();
         }
