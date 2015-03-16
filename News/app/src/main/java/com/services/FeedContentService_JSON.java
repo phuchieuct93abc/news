@@ -6,7 +6,6 @@ import org.json.JSONObject;
 
 public class FeedContentService_JSON {
     public static String LINK_FEED_CONTENT = "http://dataprovider.touch.baomoi.com/json/article.aspx?articleId={ID}";
-
     public static Feed getFeedContentFromFeed(Feed feed) {
         try {
             String id = feed.getId();
@@ -17,11 +16,8 @@ public class FeedContentService_JSON {
             feed.setContentHTML(contentHTML);
         } catch (Exception e) {
             e.printStackTrace();
-            feed.setContentHTML("Cannot get content");
+            feed.setContentHTML("Cannot get content <");
         }
         return feed;
-
     }
-
-
 }

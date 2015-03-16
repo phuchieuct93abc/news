@@ -64,8 +64,6 @@ public class CategoryService_JSON {
         try {
             startPage += 10;
             String link = currentLink.replace("{START_PAGE}", "" + startPage);
-            Log.i("hieu", link);
-
             String responseCategory = readUrl(link);
             JSONObject jObject = new JSONObject(responseCategory);
             JSONArray jArray = jObject.getJSONArray("articlelist");
@@ -84,7 +82,7 @@ public class CategoryService_JSON {
             return listFeed;
         } catch (Exception e) {
             e.printStackTrace();
-            return new ArrayList<>();
+            return listFeed;
         }
 
 
