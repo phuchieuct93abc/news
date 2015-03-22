@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class CategoryService_JSON {
     public static List<Feed> listFeed = new ArrayList<>();
     private static int startPage = -10;
     private static String currentLink;
+    private final static int timeout = 2000;
 
     public static void setListId(Category category) {
         currentLink = LINK_CATEGORY.replace("{LIST_ID}", category.getId() + "");
@@ -55,8 +57,19 @@ public class CategoryService_JSON {
         startPage = -10;
     }
 
-    public static String readUrl(String urlString) throws Exception {
-        Document doc = Jsoup.connect(urlString).timeout(10000).get();
+    public static String readUrl(String urlString) {
+        Document doc =null;
+        try {
+            doc = Jsoup.connect(urlString).timeout(timeout).get();
+        } catch (Exception e) {
+            try {
+                Log.e("hieu","that bat lan 1"+urlString);
+
+                doc = Jsoup.connect(urlString).timeout(timeout).get();
+            } catch (IOException e1) {
+                Log.e("hieu","that bat lan 1 "+urlString);
+            }
+        }
         return doc.select("body").text();
     }
 

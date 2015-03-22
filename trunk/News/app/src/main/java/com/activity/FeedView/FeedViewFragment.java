@@ -6,12 +6,11 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.LinearLayout;
+import android.webkit.WebViewClient;
 
 import com.feed.Feed;
-import com.feed.FeedContent;
-import com.gc.materialdesign.views.ScrollView;
 import com.phuchieu.news.R;
+import com.services.CategoryService_JSON;
 import com.services.FeedContentService_JSON;
 
 import org.androidannotations.annotations.AfterViews;
@@ -42,15 +41,29 @@ public class FeedViewFragment extends Fragment {
 
     @Background
     void runBackground() {
+        String contentHTML;
         try {
-            String contentHTML = FeedContentService_JSON.getFeedContentFromFeed(feed).getContentHTML();
+            contentHTML = FeedContentService_JSON.getFeedContentFromFeed(feed).getContentHTML();
             setContentToWebview(contentHTML);
+
         } catch (Exception e) {
-            Log.e("hieu", e.getMessage());
-            e.printStackTrace();
+            try {
 
-
+                setOriginalURLForWebview();
+            } catch (Exception e1) {
+                contentHTML = "Cannot get content";
+            }
         }
+    }
+    @UiThread
+    void setOriginalURLForWebview() {
+        WebSettings settings = webView.getSettings();
+        settings.setUseWideViewPort(false);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        settings.setDefaultTextEncodingName("utf-8");
+        settings.setDefaultFontSize(22);
+        webView.setWebViewClient(new WebViewClient());
+        webView.loadUrl(feed.getLink());
     }
 
     @UiThread

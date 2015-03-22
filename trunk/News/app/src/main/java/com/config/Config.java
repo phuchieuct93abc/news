@@ -7,4 +7,5 @@ import org.androidannotations.annotations.sharedpreferences.SharedPref;
 public interface Config {
     @DefaultInt(20)
     int textSize();
+    String contentHTML();
 }

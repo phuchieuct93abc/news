@@ -5,9 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.services.FeedService;
-
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
@@ -21,8 +18,7 @@ public class FeedListAdapter extends BaseAdapter {
 
     @RootContext
     Context context;
-    @Bean
-    FeedService feedService;
+
 
     public void setListDataMore(List<Feed> feeds) {
         this.feeds = feeds;
