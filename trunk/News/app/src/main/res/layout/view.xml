@@ -10,12 +10,11 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
+        android:id="@+id/groupButton"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:id="@+id/groupButton"
-        android:visibility="gone"
-        >
+        android:visibility="gone">
 
         <com.gc.materialdesign.views.ButtonRectangle
             android:layout_width="fill_parent"

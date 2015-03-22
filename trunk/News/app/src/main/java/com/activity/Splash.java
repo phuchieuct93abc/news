@@ -6,28 +6,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 
-import com.config.Config_;
 import com.phuchieu.news.R;
 import com.services.FeedService;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.sharedpreferences.Pref;
 
 @EActivity(R.layout.splash)
 public class Splash extends Activity {
-    @Pref
-    public static Config_ pref;
-
-
-
-
     private final static int SPLASH_DISPLAY_LENGTH = 1000;
     public static Context context;
 
     public static Context getContext() {
         return context;
-
     }
 
     @AfterViews
@@ -43,6 +34,4 @@ public class Splash extends Activity {
         }, SPLASH_DISPLAY_LENGTH);
 
     }
-
-
 }

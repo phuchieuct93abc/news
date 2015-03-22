@@ -85,7 +85,6 @@ public class FeedViewActivity extends ActionBarActivity {
     }
 
 
-
     @UiThread
     public void updateAdapter() {
         pagerAdapter.notifyDataSetChanged();
@@ -116,7 +115,7 @@ public class FeedViewActivity extends ActionBarActivity {
                     setIsReadForFeed(arg0);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("hieu",e.getMessage());
+                    Log.e("hieu", e.getMessage());
                 }
 
 

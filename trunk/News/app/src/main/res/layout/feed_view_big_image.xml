@@ -11,32 +11,32 @@
         android:id="@+id/imageView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:minHeight="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_weight="10.23"
         android:adjustViewBounds="true"
         android:contentDescription="@string/placeHolder_image"
-        android:layout_weight="10.23"
-        android:layout_alignParentTop="true" />
+        android:minHeight="50dp" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textColor="#FF0000"
-        android:textSize="20sp"
-        android:padding="10dp"
-        android:background="@color/gray"
-
         android:layout_alignBottom="@+id/imageView"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="@color/gray"
+        android:padding="10dp"
+        android:text="@string/app_name"
+
+        android:textColor="#FF0000"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/description"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:text="@string/app_name"
-        android:textSize="15dp"
+        android:layout_alignParentEnd="true"
         android:layout_below="@+id/title"
-        android:layout_alignParentEnd="true" />
+        android:text="@string/app_name"
+        android:textSize="15dp" />
 
 </RelativeLayout>

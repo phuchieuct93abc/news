@@ -113,9 +113,6 @@ public class FeedService {
     }*/
 
 
-
-
-
     //Get content from link of category
     private static List<Element> getFeed(String source) {
         try {
@@ -178,10 +175,6 @@ public class FeedService {
         return new FeedContent(title, summary, content);
 
     }
-
-
-
-
 
 
 }

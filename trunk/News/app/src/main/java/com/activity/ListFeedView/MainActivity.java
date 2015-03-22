@@ -76,7 +76,7 @@ public class MainActivity extends Fragment {
                     loadNextPage();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("hieu",e.getMessage());
+                    Log.e("hieu", e.getMessage());
                 }
             }
 
