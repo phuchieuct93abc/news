@@ -3,14 +3,12 @@ package com.activity.FeedView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.feed.Feed;
 import com.phuchieu.news.R;
-import com.services.CategoryService_JSON;
 import com.services.FeedContentService_JSON;
 
 import org.androidannotations.annotations.AfterViews;
@@ -55,6 +53,7 @@ public class FeedViewFragment extends Fragment {
             }
         }
     }
+
     @UiThread
     void setOriginalURLForWebview() {
         WebSettings settings = webView.getSettings();
@@ -71,8 +70,8 @@ public class FeedViewFragment extends Fragment {
         contentHTML = "<h3>{HEADER}</h3>".replace("{HEADER}", feed.getTitle()) + contentHTML;
         contentHTML = contentHTML.replaceAll("src=\"_\"", "style=\"width: 100%;height:auto\"");
         contentHTML = contentHTML.replaceAll("data-img-", "");
-        contentHTML  += "<style>body{background-color:#EEEEEE}p { text-indent: 50px;}img{margin-left:-50px}p:nth-last-child(2){text-indent: 0em;}</style>";
-        contentHTML +="<a href='{LINK}'>Source</a>".replace("{LINK}",feed.getContentUrl());
+        contentHTML += "<style>body{background-color:#EEEEEE}p { text-indent: 50px;}img{margin-left:-50px}p:nth-last-child(2){text-indent: 0em;}</style>";
+        contentHTML += "<a href='{LINK}'>Source</a>".replace("{LINK}", feed.getContentUrl());
         WebSettings settings = webView.getSettings();
         settings.setUseWideViewPort(false);
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
