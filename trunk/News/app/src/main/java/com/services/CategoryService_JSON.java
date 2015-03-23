@@ -61,6 +61,7 @@ public class CategoryService_JSON {
         Document doc = null;
         try {
             doc = Jsoup.connect(urlString).timeout(timeout).get();
+
         } catch (Exception e) {
             try {
                 Log.e("hieu", "that bat lan 1" + urlString);
