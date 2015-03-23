@@ -67,11 +67,6 @@ public class FeedViewFragment extends Fragment {
 
     @UiThread
     void setContentToWebview(String contentHTML) {
-        contentHTML = "<h3>{HEADER}</h3>".replace("{HEADER}", feed.getTitle()) + contentHTML;
-        contentHTML = contentHTML.replaceAll("src=\"_\"", "style=\"width: 100%;height:auto\"");
-        contentHTML = contentHTML.replaceAll("data-img-", "");
-        contentHTML += "<style>body{background-color:#EEEEEE}p { text-indent: 50px;}img{margin-left:-50px}p:nth-last-child(2){text-indent: 0em;}</style>";
-        contentHTML += "<a href='{LINK}'>Source</a>".replace("{LINK}", feed.getContentUrl());
         WebSettings settings = webView.getSettings();
         settings.setUseWideViewPort(false);
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
