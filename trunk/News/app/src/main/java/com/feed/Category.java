@@ -1,10 +1,10 @@
-package com.services;
+package com.feed;
 
 public class Category {
     String type;
     int id;
 
-    Category(String type, int id) {
+    public Category(String type, int id) {
         this.type = type;
         this.id = id;
     }

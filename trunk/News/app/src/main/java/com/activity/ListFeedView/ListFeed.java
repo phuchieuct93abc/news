@@ -28,22 +28,10 @@ public class ListFeed extends ActionBarActivity {
     ViewPager pagerListFeed;
     PagerAdapterListFeed caterogyListAdapter = new PagerAdapterListFeed(getSupportFragmentManager());
 
-    SearchAdapter searchAdapter = new SearchAdapter(getSupportFragmentManager());
     @ViewById
     SuperListview listView;
     private Timer timer = new Timer();
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //Log.i("hieu", "revice2");
-//        int index= data.getExtras().getInt("index");
-        //listView.setScrollY(100);
-        //listView.scro
-        //smoothScrollToPosition(int position)
-        //Toast.makeText(context, + "", Toast.LENGTH_LONG).show();
-        //getFragmentManager().findFragmentById()
-        // super.onActivityResult(requestCode, resultCode, data);
-    }
 
     @AfterViews
     void afterInjected() {
@@ -66,60 +54,21 @@ public class ListFeed extends ActionBarActivity {
 
     private void setFragment() {
         caterogyListAdapter.setContext(getApplicationContext());
-        searchAdapter.setContext(getApplicationContext());
         pagerListFeed.setAdapter(caterogyListAdapter);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_test, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(final String s) {
 
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(final String s) {
-                setSearchView(s);
-                return false;
-            }
-        });
         return super.onCreateOptionsMenu(menu);
     }
 
-    private void setSearchView(final String searchValue) {
-        timer.cancel();
-        timer = new Timer();
-        long DELAY = 500;
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                if (!searchValue.isEmpty()) {
-                    performSearch(searchValue);
-
-                } else {
-                    assignAdapter(caterogyListAdapter);
-
-                }
-
-            }
-
-        }, DELAY);
-    }
-
-    @Background
-    void performSearch(String searchValue) {
-        searchAdapter.setSearchValue(searchValue);
-        assignAdapter(searchAdapter);
 
 
-    }
+
+
 
     @UiThread
     void assignAdapter(FragmentStatePagerAdapter adapter) {

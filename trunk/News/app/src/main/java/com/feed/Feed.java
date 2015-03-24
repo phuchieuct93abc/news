@@ -73,8 +73,10 @@ public class Feed {
     public Boolean isRead() {
         SharedPreferences sharedPreferences = Splash_.getContext().getSharedPreferences(Feed.isReadPreferences, Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(this.id, false);
-
-
+    }
+    public void setIsRead(){
+        SharedPreferences sharedPreferences = Splash_.getContext().getSharedPreferences(Feed.isReadPreferences,Context.MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean(getId(), true).apply();
     }
 
     public String getLink() {

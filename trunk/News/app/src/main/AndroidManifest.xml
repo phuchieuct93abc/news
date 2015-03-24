@@ -41,9 +41,6 @@
             android:screenOrientation="portrait"
 
             />
-        <activity
-            android:name="com.activity.Test"
-            android:label="@string/title_activity_test"></activity>
     </application>
 
 </manifest>

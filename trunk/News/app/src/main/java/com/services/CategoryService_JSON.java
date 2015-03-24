@@ -2,6 +2,7 @@ package com.services;
 
 import android.util.Log;
 
+import com.feed.Category;
 import com.feed.Feed;
 
 import org.json.JSONArray;
@@ -74,7 +75,7 @@ public class CategoryService_JSON {
         return doc.select("body").text();
     }
 
-    public static List<Feed> getListFeedFromCategory() {
+    public static List<Feed> getListFeedAndLoadMore() {
         try {
             startPage += 10;
             String link = currentLink.replace("{START_PAGE}", "" + startPage);

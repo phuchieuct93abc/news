@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
 
-import com.feed.FeedContent;
-
 import org.androidannotations.annotations.EBean;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -103,14 +101,6 @@ public class FeedService {
         return doc;
     }
 
-/*    public static List<String> getListFeedLinkFromCaterogy(String category) {
-        List<Feed> feeds = getFeedFromUrl(category);
-        List<String> result = new ArrayList<String>();
-        for (Feed feed : feeds) {
-            result.add(feed.getLink());
-        }
-        return result;
-    }*/
 
 
     //Get content from link of category
@@ -127,54 +117,9 @@ public class FeedService {
             return null;
         }
     }
-/*
-    public static List<Feed> getFeedFromUrl(String source) {
-        try {
-            List<Feed> feeds = new ArrayList<Feed>();
-            List<Element> elements = getFeed(source);
-            for (Element element : elements) {
-                if (checkAds(element)) {
-                    continue;
-                }
-                String title = element.select(".title").text();
-                String content = element.select(".summary").text();
-                String link = element.select("a").attr("href");
-                String image = element.select("img").attr("src");
-                feeds.add(new Feed("id", "listid", title, content, link, image));
 
-            }
 
-            return feeds;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ArrayList<Feed>();
-        }
 
-    }*/
-
-    private static boolean checkAds(Element element) {
-        return element.hasClass("advertorial");
-    }
-
-    //get content fromlink of feed
-    public static FeedContent getFeedContent(String url) {
-/*        int firtIndex = url.lastIndexOf("/");
-        int lastIndex = url.lastIndexOf(".epi");
-        String articalId = url.substring(firtIndex+1,lastIndex);
-        String request=FeedContentWebservice.replace("{id}",articalId);
-        String content = FeedContentService.getFeedContent(request);
-        String title =Jsoup.parseBodyFragment(content).select("strong").get(0).text();
-        String summary = "summay";*/
-        Document doc = getHTMLFromURL(url);
-        Log.i("hieu", url);
-        doc.select("body");
-        String title = doc.select("h1").get(0).text();
-        String summary = doc.select(".summary").get(0).text();
-        String content = doc.select(".article").get(0).html();
-
-        return new FeedContent(title, summary, content);
-
-    }
 
 
 }

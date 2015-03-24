@@ -88,13 +88,9 @@ public class MainActivity extends Fragment {
     @Background
     void loadNextPage() {
         try {
-            // List<Feed> rssItems = FeedService.getFeedFromUrl(nextLink);
-            Log.i("hieu", "load more");
-            List<Feed> rssItems = CategoryService_JSON.getListFeedFromCategory();
-            Log.i("hieu", rssItems.size() + "");
+            List<Feed> rssItems = CategoryService_JSON.getListFeedAndLoadMore();
             adapter.setListDataMore(rssItems);
         } catch (Exception e) {
-            Log.e("hieu", "cannot get more ");
             e.printStackTrace();
         } finally {
             updateList();
@@ -117,12 +113,6 @@ public class MainActivity extends Fragment {
 
         startActivityForResult(i, 2);
 
-
-
-       /* FeedViewActivity_.intent(context)
-                .extra("selectedId", clickedItem.getId())
-                .extra("linkCategory", categoryId).flags(Intent.FLAG_ACTIVITY_NEW_TASK).startForResult(REQUEST_CODE);*/
-
     }
 
 
@@ -138,10 +128,8 @@ public class MainActivity extends Fragment {
     @Background
     void background() {
         try {
-//            List<Feed> rssItems = FeedService.getFeedFromUrl(categoryId);
 
-            List<Feed> rssItems = CategoryService_JSON.getListFeedFromCategory();
-
+            List<Feed> rssItems = CategoryService_JSON.getListFeedAndLoadMore();
             adapter.setListData(rssItems);
             run();
         } catch (Exception e) {
