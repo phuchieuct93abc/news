@@ -16,7 +16,7 @@ import android.widget.TableRow;
 import com.activity.ListFeedView.ListFeed_;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.phuchieu.news.R;
-import com.services.Category;
+import com.feed.Category;
 import com.services.CategoryService_JSON;
 import com.services.main_screen.Tile;
 import com.services.main_screen.TileService;
@@ -90,7 +90,6 @@ public class CategoryScreen extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_test, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

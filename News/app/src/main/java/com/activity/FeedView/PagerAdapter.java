@@ -25,7 +25,7 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 
 
     public void loadMoredata() {
-        listFeed = CategoryService_JSON.getListFeedFromCategory();
+        listFeed = CategoryService_JSON.getListFeedAndLoadMore();
     }
 
     public void setTextSize(int textSize) {
@@ -49,9 +49,6 @@ class PagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int i) {
         Fragment fragment = new FeedViewFragment_();
-       /* ((FeedViewFragment) fragment).setContext(this.context);
-        ((FeedViewFragment) fragment).setLink(getListLink().get(i));
-        ((FeedViewFragment) fragment).setTextSizePref(this.textSize);*/
         ((FeedViewFragment) fragment).setFeed(listFeed.get(i));
         return fragment;
     }
@@ -63,11 +60,6 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-    /*
-        String feedLink = getListLink().get(position);
-        String title = FeedService.getFeedContent(feedLink).getTitle();
-    */
-
         return listFeed.get(position).getSourceName();
     }
 }

@@ -36,44 +36,44 @@ public class FeedViewFragment extends Fragment {
     public void setContext(Context context) {
         this.context = context;
     }
+    @UiThread
+    void initializeSetting() {
+        WebSettings settings = webView.getSettings();
+        settings.setUseWideViewPort(false);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        settings.setDefaultTextEncodingName("utf-8");
+        settings.setDefaultFontSize(22);
+        settings.setAppCacheEnabled(true);
+//
+//        settings.setBuiltInZoomControls(true);
+//        settings.setDisplayZoomControls(false);
+        webView.setWebViewClient(new WebViewClient());
 
+    }
     @Background
     void runBackground() {
+        initializeSetting();
+
         String contentHTML;
         try {
             contentHTML = FeedContentService_JSON.getFeedContentFromFeed(feed).getContentHTML();
             setContentToWebview(contentHTML);
-
         } catch (Exception e) {
-            try {
-
-                setOriginalURLForWebview();
-            } catch (Exception e1) {
-                contentHTML = "Cannot get content";
-            }
+            setOriginalURLForWebview();
         }
     }
 
     @UiThread
     void setOriginalURLForWebview() {
-        WebSettings settings = webView.getSettings();
-        settings.setUseWideViewPort(false);
-        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
-        settings.setDefaultTextEncodingName("utf-8");
-        settings.setDefaultFontSize(22);
-        webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(feed.getLink());
     }
 
     @UiThread
     void setContentToWebview(String contentHTML) {
-        WebSettings settings = webView.getSettings();
-        settings.setUseWideViewPort(false);
-        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
-        settings.setDefaultTextEncodingName("utf-8");
-        settings.setDefaultFontSize(22);
         webView.loadDataWithBaseURL(null, contentHTML, "text/html", "UTF-8", null);
     }
+
+
 
     @AfterViews
     void bindLinkToView() {

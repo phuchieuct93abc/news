@@ -39,8 +39,6 @@ public class FeedViewActivity extends ActionBarActivity {
 
     @Extra("selectedId")
     String id;
-    @Extra("linkCategory")
-    String linkCategory;
     PagerAdapter pagerAdapter;
     @ViewById
     ViewPager pager;
@@ -53,20 +51,6 @@ public class FeedViewActivity extends ActionBarActivity {
 
     int indexOfFragment;
 
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent();
-        intent.putExtra("index", indexOfFragment);
-        setResult(2, intent);
-        finish();
-        super.onBackPressed();
-
-    }
-
-    @Background
-    void runBackground() {
-        runUI();
-    }
 
 
     @Background
@@ -81,14 +65,12 @@ public class FeedViewActivity extends ActionBarActivity {
             updateAdapter();
 
         }
-        //getMoreDateFromPageFromEnd();
     }
 
 
     @UiThread
     public void updateAdapter() {
         pagerAdapter.notifyDataSetChanged();
-
     }
 
     @UiThread
@@ -112,7 +94,7 @@ public class FeedViewActivity extends ActionBarActivity {
                     if (arg0 >= CategoryService_JSON.getListFeed().size() - 2) {
                         loadMoreData();
                     }
-                    setIsReadForFeed(arg0);
+                    CategoryService_JSON.getListFeed().get(arg0).setIsRead();
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e("hieu", e.getMessage());
@@ -136,12 +118,6 @@ public class FeedViewActivity extends ActionBarActivity {
         FeedService.setRead(id);
     }
 
-    private void setIsReadForFeed(int arg0) {
-        Feed currentFeed = CategoryService_JSON.getListFeed().get(arg0);
-        SharedPreferences sharedPreferences = Splash_.getContext().getSharedPreferences(Feed.isReadPreferences, MODE_PRIVATE);
-        sharedPreferences.edit().putBoolean(currentFeed.getId(), true).apply();
-    }
-
     @UiThread
     void setSelectedPage(int index) {
         pager.setCurrentItem(index);
@@ -149,51 +125,9 @@ public class FeedViewActivity extends ActionBarActivity {
 
     @AfterInject
     void run() {
-
-        runBackground();
-        setIsReadForFeed(0);
+        runUI();
+        int index = CategoryService_JSON.getIndexInCaterogyById(id);
+        CategoryService_JSON.getListFeed().get(index).setIsRead();
     }
 
-    @AfterViews
-    void afterView() {
-        setToolbar();
-
-    }
-
-    private void setToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-/*        getSupportActionBar().setIcon(R.drawable.ic_launcher_2);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);*/
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.view_feed_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            case R.id.textSize:
-                showTextSizeDialog();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private void showTextSizeDialog() {
-
-    }
 }
