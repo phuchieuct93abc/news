@@ -30,9 +30,7 @@
             android:screenOrientation="portrait"
 
             />
-        <activity
-            android:name="com.activity.SearchScreen_"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name="com.activity.ListFeedView.MainActivity_"
             android:screenOrientation="portrait" />
