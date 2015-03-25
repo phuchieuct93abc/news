@@ -14,6 +14,7 @@ import org.androidannotations.annotations.EActivity;
 
 @EActivity(R.layout.splash)
 public class Splash extends Activity {
+    //Test
     private final static int SPLASH_DISPLAY_LENGTH = 1000;
     public static Context context;
 
