@@ -1,26 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:id="@+id/parentView">
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
-
     <WebView
         android:id="@+id/webView"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonflat"/>
 
-    <LinearLayout
-        android:id="@+id/groupButton"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <com.gc.materialdesign.views.ButtonRectangle
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="ABCDEF" />
+    <com.gc.materialdesign.views.ButtonFlat
+        android:id="@+id/buttonflat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#1E88E5"
+        android:layout_marginBottom="10dp"
+        android:text="Source"
+        android:onClick="openSource"
+        android:layout_alignParentBottom="true" />
+    <com.gc.materialdesign.views.ButtonFloat
+        android:id="@+id/buttonFloat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="24dp"
+        android:background="#1E88E5"
+        materialdesign:animate="true"
+         />
 
     </LinearLayout>
 
-</LinearLayout>
+
+
+
+
+    </ScrollView>
+
+
+
+
+</RelativeLayout>
