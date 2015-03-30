@@ -21,7 +21,7 @@
     <com.gc.materialdesign.views.ButtonFlat
         android:id="@+id/buttonflat"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:background="#1E88E5"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
