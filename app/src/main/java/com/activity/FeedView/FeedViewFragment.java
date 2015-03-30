@@ -3,9 +3,12 @@ package com.activity.FeedView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.feed.Feed;
 import com.phuchieu.news.R;
@@ -40,13 +43,16 @@ public class FeedViewFragment extends Fragment {
     void initializeSetting() {
         WebSettings settings = webView.getSettings();
         settings.setUseWideViewPort(false);
-        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        //settings.setCacheMode(WebSettings.LOAD_DEFAULT);
         settings.setDefaultTextEncodingName("utf-8");
         settings.setDefaultFontSize(22);
         settings.setAppCacheEnabled(true);
 //
 //        settings.setBuiltInZoomControls(true);
 //        settings.setDisplayZoomControls(false);
+
+
+        //Open source in native browser
         webView.setWebViewClient(new WebViewClient());
 
     }
@@ -72,11 +78,9 @@ public class FeedViewFragment extends Fragment {
     void setContentToWebview(String contentHTML) {
         webView.loadDataWithBaseURL(null, contentHTML, "text/html", "UTF-8", null);
     }
-
-
-
     @AfterViews
     void bindLinkToView() {
         runBackground();
     }
+
 }

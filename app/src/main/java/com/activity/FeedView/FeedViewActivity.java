@@ -2,6 +2,7 @@ package com.activity.FeedView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBarActivity;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 
@@ -48,6 +50,8 @@ public class FeedViewActivity extends ActionBarActivity {
     int page = 1;
     @Pref
     Config_ config;
+
+    int currentIndexOfFeed;
 
     int indexOfFragment;
 
@@ -89,6 +93,7 @@ public class FeedViewActivity extends ActionBarActivity {
             @Override
             public void onPageSelected(int arg0) {
                 // FeedService.setRead(listFeedLink.get(arg0));
+                currentIndexOfFeed = arg0;
                 try {
                     indexOfFragment = arg0;
                     if (arg0 >= CategoryService_JSON.getListFeed().size() - 2) {
@@ -127,7 +132,16 @@ public class FeedViewActivity extends ActionBarActivity {
     void run() {
         runUI();
         int index = CategoryService_JSON.getIndexInCaterogyById(id);
+        currentIndexOfFeed =index;
         CategoryService_JSON.getListFeed().get(index).setIsRead();
+    }
+
+    public void openSource(View v){
+        Feed feed = CategoryService_JSON.getListFeed().get(currentIndexOfFeed);
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(feed.getContentUrl()));
+        startActivity(i);
+
     }
 
 }
