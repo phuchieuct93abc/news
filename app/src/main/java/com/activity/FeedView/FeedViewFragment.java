@@ -3,12 +3,9 @@ package com.activity.FeedView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 import com.feed.Feed;
 import com.phuchieu.news.R;
@@ -39,6 +36,7 @@ public class FeedViewFragment extends Fragment {
     public void setContext(Context context) {
         this.context = context;
     }
+
     @UiThread
     void initializeSetting() {
         WebSettings settings = webView.getSettings();
@@ -56,6 +54,7 @@ public class FeedViewFragment extends Fragment {
         webView.setWebViewClient(new WebViewClient());
 
     }
+
     @Background
     void runBackground() {
         initializeSetting();
@@ -78,6 +77,7 @@ public class FeedViewFragment extends Fragment {
     void setContentToWebview(String contentHTML) {
         webView.loadDataWithBaseURL(null, contentHTML, "text/html", "UTF-8", null);
     }
+
     @AfterViews
     void bindLinkToView() {
         runBackground();

@@ -7,7 +7,6 @@ import com.activity.Splash_;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.jsoup.Jsoup;
 
 public class Feed {
     public static String isReadPreferences = "ISREAD";
@@ -50,9 +49,9 @@ public class Feed {
         result = result.replaceAll("src=\"_\"", "style=\"width: 100%;height:auto\"");
         result = result.replaceAll("data-img-", "");
         result += "<style>body{background-color:#EEEEEE}p { text-indent: 50px;}img{margin-left:-50px}</style>";
-       // result += "<a href='{LINK}'>Source</a>".replace("{LINK}", getContentUrl());
+        // result += "<a href='{LINK}'>Source</a>".replace("{LINK}", getContentUrl());
 
-       //result.replaceAll("<a class=\"video\" href=\"http://www.youtube.com/watch?v=(\\s+)\"></a>","<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/$1\" frameborder=\"0\" allowfullscreen></iframe>");
+        //result.replaceAll("<a class=\"video\" href=\"http://www.youtube.com/watch?v=(\\s+)\"></a>","<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/$1\" frameborder=\"0\" allowfullscreen></iframe>");
 
 
         return result;
@@ -74,8 +73,9 @@ public class Feed {
         SharedPreferences sharedPreferences = Splash_.getContext().getSharedPreferences(Feed.isReadPreferences, Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(this.id, false);
     }
-    public void setIsRead(){
-        SharedPreferences sharedPreferences = Splash_.getContext().getSharedPreferences(Feed.isReadPreferences,Context.MODE_PRIVATE);
+
+    public void setIsRead() {
+        SharedPreferences sharedPreferences = Splash_.getContext().getSharedPreferences(Feed.isReadPreferences, Context.MODE_PRIVATE);
         sharedPreferences.edit().putBoolean(getId(), true).apply();
     }
 
