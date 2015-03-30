@@ -14,9 +14,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.activity.ListFeedView.ListFeed_;
+import com.feed.Category;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.phuchieu.news.R;
-import com.feed.Category;
 import com.services.CategoryService_JSON;
 import com.services.main_screen.Tile;
 import com.services.main_screen.TileService;

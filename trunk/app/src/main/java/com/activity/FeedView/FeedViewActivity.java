@@ -1,21 +1,15 @@
 package com.activity.FeedView;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 
-import com.activity.Splash_;
 import com.config.Config_;
 import com.feed.Feed;
 import com.phuchieu.news.R;
@@ -23,7 +17,6 @@ import com.services.CategoryService_JSON;
 import com.services.FeedService;
 
 import org.androidannotations.annotations.AfterInject;
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
@@ -54,7 +47,6 @@ public class FeedViewActivity extends ActionBarActivity {
     int currentIndexOfFeed;
 
     int indexOfFragment;
-
 
 
     @Background
@@ -132,11 +124,11 @@ public class FeedViewActivity extends ActionBarActivity {
     void run() {
         runUI();
         int index = CategoryService_JSON.getIndexInCaterogyById(id);
-        currentIndexOfFeed =index;
+        currentIndexOfFeed = index;
         CategoryService_JSON.getListFeed().get(index).setIsRead();
     }
 
-    public void openSource(View v){
+    public void openSource(View v) {
         Feed feed = CategoryService_JSON.getListFeed().get(currentIndexOfFeed);
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(feed.getContentUrl()));

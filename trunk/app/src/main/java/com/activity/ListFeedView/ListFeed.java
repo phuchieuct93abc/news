@@ -1,11 +1,8 @@
 package com.activity.ListFeedView;
 
-import android.content.Intent;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,13 +11,11 @@ import com.phuchieu.news.R;
 import com.quentindommerc.superlistview.SuperListview;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 @EActivity(R.layout.activity_list_feed)
 public class ListFeed extends ActionBarActivity {
@@ -64,10 +59,6 @@ public class ListFeed extends ActionBarActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
-
-
-
-
 
 
     @UiThread

@@ -15,7 +15,7 @@ public class FeedContentService_JSON {
         String id = feed.getId();
         String link_request = LINK_FEED_CONTENT.replace("{ID}", id);
         String responseCategory;
-        responseCategory = getContentFromCache( id, link_request);
+        responseCategory = getContentFromCache(id, link_request);
         JSONObject jObject = new JSONObject(responseCategory);
         String contentHTML = jObject.getJSONObject("article").getString("Body");
         feed.setContentHTML(contentHTML);
@@ -24,7 +24,7 @@ public class FeedContentService_JSON {
         return feed;
     }
 
-    private static String getContentFromCache( String id, String link_request) {
+    private static String getContentFromCache(String id, String link_request) {
         SharedPreferences prefs = Splash.getContext().getSharedPreferences("CONTENT_FEED", Context.MODE_PRIVATE);
 
         String responseCategory;
