@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/parentView"
+
+<ScrollView
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
-
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,18 +14,16 @@
                 android:id="@+id/webView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/buttonflat" />
+                 />
 
             <com.gc.materialdesign.views.ButtonFlat
                 android:id="@+id/buttonflat"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_alignParentBottom="true"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:background="#1E88E5"
                 android:onClick="openSource"
-                android:text="Open Source" />
+                android:text="@string/openSource" />
         </LinearLayout>
     </ScrollView>
-</RelativeLayout>

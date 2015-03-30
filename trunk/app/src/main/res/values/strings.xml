@@ -11,5 +11,6 @@
     <string name="is_read">Da doc</string>
     <string name="title_activity_list_feed">ListFeed</string>
     <string name="title_activity_test">Test</string>
+    <string name="openSource">Open Source</string>
 
 </resources>
