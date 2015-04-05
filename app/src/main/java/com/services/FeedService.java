@@ -42,9 +42,13 @@ public class FeedService {
     }
 
     public static void clearCache() {
-        SharedPreferences prefs = getContext().getSharedPreferences(
-                FeedService.sharedPreferencesCaterogy, Context.MODE_PRIVATE);
-        prefs.edit().clear().commit();
+        try {
+            SharedPreferences prefs = getContext().getSharedPreferences(
+                    FeedService.sharedPreferencesCaterogy, Context.MODE_PRIVATE);
+            prefs.edit().clear().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static Context getContext() {
