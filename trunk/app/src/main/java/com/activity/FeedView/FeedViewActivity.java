@@ -93,6 +93,7 @@ public class FeedViewActivity extends ActionBarActivity {
                     }
                     CategoryService_JSON.getListFeed().get(arg0).setIsRead();
                 } catch (Exception e) {
+                    updateAdapter();
                     e.printStackTrace();
                     Log.e("hieu", e.getMessage());
                 }

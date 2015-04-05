@@ -34,7 +34,6 @@ public class CategoryService_JSON {
     public static Category ANHVUI = new Category(ZINI_LIST_TYPE, 3);
     public static String LINK_CATEGORY = "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType={LIST_TYPE}&listId={LIST_ID}&imageMinSize=300&mode=quickview";
     public static List<Feed> listFeed = new ArrayList<>();
-    private static int startPage = -10;
     private static String currentLink;
 
     public static void setListId(Category category) {
@@ -50,48 +49,50 @@ public class CategoryService_JSON {
 
     public static void setListFeed(List<Feed> listFeed) {
         CategoryService_JSON.listFeed = listFeed;
-        startPage = -10;
     }
 
     public static void clearCacheList() {
         setListFeed(new ArrayList<Feed>());
-        startPage = -10;
     }
 
     public static String readUrl(String urlString) {
         Document doc = null;
         try {
             doc = Jsoup.connect(urlString).timeout(timeout).get();
+            return doc.select("body").text();
 
         } catch (Exception e) {
             try {
                 Log.e("hieu", "that bat lan 1" + urlString);
 
                 doc = Jsoup.connect(urlString).timeout(timeout).get();
+                return doc.select("body").text();
+
             } catch (IOException e1) {
                 Log.e("hieu", "that bat lan 1 " + urlString);
+                return null;
             }
         }
-        return doc.select("body").text();
     }
 
     public static List<Feed> getListFeedAndLoadMore() {
         try {
-            startPage += 10;
-            String link = currentLink.replace("{START_PAGE}", "" + startPage);
+            String link = currentLink.replace("{START_PAGE}", "" + listFeed.size());
             String responseCategory = readUrl(link);
-            JSONObject jObject = new JSONObject(responseCategory);
-            JSONArray jArray = jObject.getJSONArray("articlelist");
-            for (int i = 0; i < jArray.length(); i++) {
-                try {
-                    JSONObject oneObject = jArray.getJSONObject(i);
-                    // Pulling items from the array
-                    Feed feed = new Feed(oneObject);
-                    if (getIndexInCaterogyById(feed.getId()) == -1) {
-                        listFeed.add(feed);
+            if(responseCategory != null){
+                JSONObject jObject = new JSONObject(responseCategory);
+                JSONArray jArray = jObject.getJSONArray("articlelist");
+                for (int i = 0; i < jArray.length(); i++) {
+                    try {
+                        JSONObject oneObject = jArray.getJSONObject(i);
+                        // Pulling items from the array
+                        Feed feed = new Feed(oneObject);
+                        if (getIndexInCaterogyById(feed.getId()) == -1) {
+                            listFeed.add(feed);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
             }
             return listFeed;

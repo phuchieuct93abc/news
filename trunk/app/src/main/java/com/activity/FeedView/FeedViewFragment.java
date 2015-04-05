@@ -41,10 +41,10 @@ public class FeedViewFragment extends Fragment {
     void initializeSetting() {
         WebSettings settings = webView.getSettings();
         settings.setUseWideViewPort(false);
-        //settings.setCacheMode(WebSettings.LOAD_DEFAULT);
         settings.setDefaultTextEncodingName("utf-8");
         settings.setDefaultFontSize(22);
         settings.setAppCacheEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 //
 //        settings.setBuiltInZoomControls(true);
 //        settings.setDisplayZoomControls(false);
