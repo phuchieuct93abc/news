@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
@@ -56,7 +55,6 @@ public class FeedViewActivity extends ActionBarActivity {
             pagerAdapter.loadMoredata();
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("hieu", e.getMessage());
         } finally {
             updateAdapter();
 
@@ -77,7 +75,6 @@ public class FeedViewActivity extends ActionBarActivity {
         pagerAdapter.setLink(id);
         pagerAdapter.setListLink(listFeedLink);
         pagerAdapter.setTextSize(config.textSize().get());
-        Log.i("hieu", "adapter");
         pager.setAdapter(pagerAdapter);
 
         OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
@@ -95,7 +92,6 @@ public class FeedViewActivity extends ActionBarActivity {
                 } catch (Exception e) {
                     updateAdapter();
                     e.printStackTrace();
-                    Log.e("hieu", e.getMessage());
                 }
 
 
