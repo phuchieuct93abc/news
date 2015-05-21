@@ -12,7 +12,7 @@ import java.util.List;
 
 class PagerAdapter extends FragmentStatePagerAdapter {
 
-    String link;
+    Feed item;
     List<String> listLink;
     Context context;
     int textSize;
@@ -38,8 +38,8 @@ class PagerAdapter extends FragmentStatePagerAdapter {
     }
 
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setItem(Feed item) {
+        this.item = item;
     }
 
     public void setContext(Context context) {

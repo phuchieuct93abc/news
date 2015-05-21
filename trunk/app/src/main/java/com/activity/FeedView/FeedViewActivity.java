@@ -32,7 +32,7 @@ import java.util.List;
 public class FeedViewActivity extends ActionBarActivity {
 
     @Extra("selectedId")
-    String id;
+    Feed selectedId;
     PagerAdapter pagerAdapter;
     @ViewById
     ViewPager pager;
@@ -53,10 +53,10 @@ public class FeedViewActivity extends ActionBarActivity {
         try {
             page++;
             pagerAdapter.loadMoredata();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
             updateAdapter();
+        } catch (Exception e) {
+            updateAdapter();
+            e.printStackTrace();
 
         }
     }
@@ -72,7 +72,7 @@ public class FeedViewActivity extends ActionBarActivity {
         pagerAdapter = new PagerAdapter(
                 getSupportFragmentManager());
         pagerAdapter.setContext(this);
-        pagerAdapter.setLink(id);
+        pagerAdapter.setItem(selectedId);
         pagerAdapter.setListLink(listFeedLink);
         pagerAdapter.setTextSize(config.textSize().get());
         pager.setAdapter(pagerAdapter);
@@ -81,14 +81,15 @@ public class FeedViewActivity extends ActionBarActivity {
 
             @Override
             public void onPageSelected(int arg0) {
-                // FeedService.setRead(listFeedLink.get(arg0));
                 currentIndexOfFeed = arg0;
+                updateAdapter();
                 try {
                     indexOfFragment = arg0;
                     if (arg0 >= CategoryService_JSON.getListFeed().size() - 2) {
                         loadMoreData();
                     }
                     CategoryService_JSON.getListFeed().get(arg0).setIsRead();
+                    updateAdapter();
                 } catch (Exception e) {
                     updateAdapter();
                     e.printStackTrace();
@@ -99,6 +100,7 @@ public class FeedViewActivity extends ActionBarActivity {
 
             @Override
             public void onPageScrolled(int arg0, float arg1, int arg2) {
+                updateAdapter();
 
             }
 
@@ -108,8 +110,8 @@ public class FeedViewActivity extends ActionBarActivity {
             }
         };
         pager.setOnPageChangeListener(onPageChangeListener);
-        setSelectedPage(CategoryService_JSON.getIndexInCaterogyById(id));
-        FeedService.setRead(id);
+        setSelectedPage(CategoryService_JSON.getIndexInCaterogyById(selectedId));
+        FeedService.setRead(selectedId.getId());
     }
 
     @UiThread
@@ -120,7 +122,7 @@ public class FeedViewActivity extends ActionBarActivity {
     @AfterInject
     void run() {
         runUI();
-        int index = CategoryService_JSON.getIndexInCaterogyById(id);
+        int index = CategoryService_JSON.getIndexInCaterogyById(selectedId);
         currentIndexOfFeed = index;
         CategoryService_JSON.getListFeed().get(index).setIsRead();
     }
