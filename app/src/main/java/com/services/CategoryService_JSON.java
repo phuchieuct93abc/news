@@ -79,7 +79,7 @@ public class CategoryService_JSON {
         try {
             String link = currentLink.replace("{START_PAGE}", "" + listFeed.size());
             String responseCategory = readUrl(link);
-            if(responseCategory != null){
+            if (responseCategory != null) {
                 JSONObject jObject = new JSONObject(responseCategory);
                 JSONArray jArray = jObject.getJSONArray("articlelist");
                 for (int i = 0; i < jArray.length(); i++) {
@@ -87,7 +87,7 @@ public class CategoryService_JSON {
                         JSONObject oneObject = jArray.getJSONObject(i);
                         // Pulling items from the array
                         Feed feed = new Feed(oneObject);
-                        if (getIndexInCaterogyById(feed.getId()) == -1) {
+                        if (getIndexInCaterogyById(feed) == -1) {
                             listFeed.add(feed);
                         }
                     } catch (JSONException e) {
@@ -104,9 +104,9 @@ public class CategoryService_JSON {
 
     }
 
-    public static int getIndexInCaterogyById(String id) {
+    public static int getIndexInCaterogyById(Feed item) {
         for (Feed d : listFeed) {
-            if (d.getId().equals(id)) {
+            if (d.getId().equals(item.getId())) {
                 return listFeed.indexOf(d);
             }
         }

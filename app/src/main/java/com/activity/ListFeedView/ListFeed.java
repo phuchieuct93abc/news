@@ -1,82 +1,142 @@
 package com.activity.ListFeedView;
 
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 
+import com.activity.FeedView.FeedViewActivity_;
+import com.feed.Feed;
+import com.feed.FeedListAdapter;
 import com.phuchieu.news.R;
+import com.quentindommerc.superlistview.OnMoreListener;
 import com.quentindommerc.superlistview.SuperListview;
+import com.services.CategoryService_JSON;
+import com.services.FeedService;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.Timer;
+import java.util.List;
 
-@EActivity(R.layout.activity_list_feed)
-public class ListFeed extends ActionBarActivity {
-    @ViewById
-    ViewPager pagerListFeed;
-    PagerAdapterListFeed caterogyListAdapter = new PagerAdapterListFeed(getSupportFragmentManager());
+@EActivity(R.layout.activity_main)
+public class ListFeed extends Activity {
+
 
     @ViewById
     SuperListview listView;
-    private Timer timer = new Timer();
+    @Bean
+    FeedListAdapter adapter;
+    Context context;
+    String link;
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateAdapter();
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public void updateAdapter() {
+        adapter.notifyDataSetChanged();
+
+    }
 
     @AfterViews
-    void afterInjected() {
-        setFragment();
-        setToolbar();
+    void afterView() {
+        FeedService.clearCache();
+        CategoryService_JSON.clearCacheList();
+        background();
+        setOnScrollListener();
+    }
+
+    private void setOnScrollListener() {
+
+        listView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                FeedService.clearCache();
+                CategoryService_JSON.clearCacheList();
+                background();
+            }
+        });
+        listView.setupMoreListener(new OnMoreListener() {
+            @Override
+            public void onMoreAsked(int numberOfItems, int numberBeforeMore, int currentItemPos) {
+                try {
+                    loadNextPage();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e("hieu", e.getMessage());
+                }
+            }
+
+        }, 1);
 
 
     }
 
-    private void setToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    @Background
+    void loadNextPage() {
+        try {
+            List<Feed> rssItems = CategoryService_JSON.getListFeedAndLoadMore();
+            adapter.setListDataMore(rssItems);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            updateList();
 
-/*        getSupportActionBar().setIcon(R.drawable.ic_launcher_2);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);*/
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+
     }
-
-    private void setFragment() {
-        caterogyListAdapter.setContext(getApplicationContext());
-        pagerListFeed.setAdapter(caterogyListAdapter);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
 
     @UiThread
-    void assignAdapter(FragmentStatePagerAdapter adapter) {
+    void updateList() {
         adapter.notifyDataSetChanged();
-        pagerListFeed.setAdapter(adapter);
+        listView.hideMoreProgress();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+    @ItemClick
+    public void listViewItemClicked(Feed clickedItem) {
+        Intent i = new Intent(getApplicationContext(), FeedViewActivity_.class);
+        i.putExtra("selectedId", (java.io.Serializable) clickedItem);
+
+        startActivity(i);
+//         FeedViewActivity_.intent(context).selectedId(clickedItem).start();
+
+
+    }
+
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    @UiThread
+    void run() {
+        listView.setAdapter(adapter);
+    }
+
+    @Background
+    void background() {
+        try {
+
+            List<Feed> rssItems = CategoryService_JSON.getListFeedAndLoadMore();
+            adapter.setListData(rssItems);
+            run();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
 

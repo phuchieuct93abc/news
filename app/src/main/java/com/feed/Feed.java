@@ -8,7 +8,9 @@ import com.activity.Splash_;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Feed {
+import java.io.Serializable;
+
+public class Feed implements Serializable {
     public static String isReadPreferences = "ISREAD";
     String id;
     String title;
