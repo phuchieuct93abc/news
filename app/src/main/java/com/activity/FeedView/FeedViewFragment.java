@@ -45,12 +45,6 @@ public class FeedViewFragment extends Fragment {
         settings.setDefaultFontSize(22);
         settings.setAppCacheEnabled(true);
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-//
-//        settings.setBuiltInZoomControls(true);
-//        settings.setDisplayZoomControls(false);
-
-
-        //Open source in native browser
         webView.setWebViewClient(new WebViewClient());
 
     }
