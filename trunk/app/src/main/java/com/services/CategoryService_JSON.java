@@ -77,6 +77,7 @@ public class CategoryService_JSON {
 
     public static List<Feed> getListFeedAndLoadMore() {
         try {
+            int beforeUpdateLength = listFeed.size();
             String link = currentLink.replace("{START_PAGE}", "" + listFeed.size());
             String responseCategory = readUrl(link);
             if (responseCategory != null) {
@@ -95,7 +96,11 @@ public class CategoryService_JSON {
                     }
                 }
             }
-            return listFeed;
+            if(listFeed.size()-5<beforeUpdateLength){
+                return getListFeedAndLoadMore();
+            }else{
+                return listFeed;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return listFeed;

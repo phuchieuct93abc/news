@@ -16,6 +16,7 @@ import com.services.CategoryService_JSON;
 import com.services.FeedService;
 
 import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
@@ -57,7 +58,6 @@ public class FeedViewActivity extends ActionBarActivity {
         } catch (Exception e) {
             updateAdapter();
             e.printStackTrace();
-
         }
     }
 
@@ -84,12 +84,11 @@ public class FeedViewActivity extends ActionBarActivity {
                 currentIndexOfFeed = arg0;
                 updateAdapter();
                 try {
+                    CategoryService_JSON.getListFeed().get(arg0).setIsRead();
                     indexOfFragment = arg0;
-                    if (arg0 >= CategoryService_JSON.getListFeed().size() - 2) {
+                    if (arg0 >= CategoryService_JSON.getListFeed().size() -5) {
                         loadMoreData();
                     }
-                    CategoryService_JSON.getListFeed().get(arg0).setIsRead();
-                    updateAdapter();
                 } catch (Exception e) {
                     updateAdapter();
                     e.printStackTrace();
@@ -100,7 +99,7 @@ public class FeedViewActivity extends ActionBarActivity {
 
             @Override
             public void onPageScrolled(int arg0, float arg1, int arg2) {
-                updateAdapter();
+
 
             }
 
@@ -119,12 +118,13 @@ public class FeedViewActivity extends ActionBarActivity {
         pager.setCurrentItem(index);
     }
 
-    @AfterInject
+    @AfterViews
     void run() {
         runUI();
         int index = CategoryService_JSON.getIndexInCaterogyById(selectedId);
         currentIndexOfFeed = index;
         CategoryService_JSON.getListFeed().get(index).setIsRead();
+        updateAdapter();
     }
 
     public void openSource(View v) {
