@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 
-import com.config.Config_;
+import com.config.SharePreference;
 import com.feed.Feed;
 import com.phuchieu.news.R;
 import com.services.CategoryService_JSON;
@@ -22,7 +22,6 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.WindowFeature;
-import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +39,18 @@ public class FeedViewActivity extends ActionBarActivity {
     RelativeLayout viewSwipe;
     List<String> listFeedLink = new ArrayList<>();
     int page = 1;
-    @Pref
-    Config_ config;
-
     int currentIndexOfFeed;
 
     int indexOfFragment;
+    private static SharePreference sharePreference;
+
+    public static SharePreference getSharePreference() {
+        return sharePreference;
+    }
+
+    public static void setSharePreference(SharePreference sharePreference) {
+        FeedViewActivity.sharePreference = sharePreference;
+    }
 
 
     @Background
@@ -73,7 +78,7 @@ public class FeedViewActivity extends ActionBarActivity {
         pagerAdapter.setContext(this);
         pagerAdapter.setItem(selectedId);
         pagerAdapter.setListLink(listFeedLink);
-        pagerAdapter.setTextSize(config.textSize().get());
+       // pagerAdapter.setTextSize(getConfig().textSize().get());
         pager.setAdapter(pagerAdapter);
 
         OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
@@ -119,6 +124,8 @@ public class FeedViewActivity extends ActionBarActivity {
 
     @AfterViews
     void run() {
+        setSharePreference(new SharePreference(this));
+
         runUI();
         int index = CategoryService_JSON.getIndexInCaterogyById(selectedId);
         currentIndexOfFeed = index;
@@ -132,6 +139,8 @@ public class FeedViewActivity extends ActionBarActivity {
         i.setData(Uri.parse(feed.getContentUrl()));
         startActivity(i);
 
+
     }
+
 
 }
