@@ -17,6 +17,10 @@ public class TileService {
         tiles.add(new Tile("KT", "Kinh tế", "news.jpeg", CategoryService_JSON.KINHTE, "fa-usd"));
         tiles.add(new Tile("TT", "Thể thao", "news.jpeg", CategoryService_JSON.THETHAO, "fa-futbol-o"));
         tiles.add(new Tile("GT", "Giải trí", "news.jpeg", CategoryService_JSON.GIAITRI, "fa-music"));
+        tiles.add(new Tile("TNhanh", "Tin ảnh", "news.jpeg", CategoryService_JSON.TINNANH, "fa-music"));
+        tiles.add(new Tile("AD", "Ảnh đẹp", "news.jpeg", CategoryService_JSON.ANHDEP, "fa-music"));
+
+
         return tiles;
     }
 

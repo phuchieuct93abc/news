@@ -96,9 +96,9 @@ public class CategoryService_JSON {
                     }
                 }
             }
-            if(listFeed.size()-5<beforeUpdateLength){
+            if (listFeed.size() - 5 < beforeUpdateLength) {
                 return getListFeedAndLoadMore();
-            }else{
+            } else {
                 return listFeed;
             }
         } catch (Exception e) {
