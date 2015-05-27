@@ -93,17 +93,5 @@ public class CategoryScreen extends Activity {
         return super.onCreateOptionsMenu(menu);
     }
 
-	/*@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle presses on the action bar items
-		switch (item.getItemId()) {
-		case R.id.action_search:
-			SearchScreen_.intent(context).start();
-			return true;
-		case R.id.action_compose:
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}*/
+
 }

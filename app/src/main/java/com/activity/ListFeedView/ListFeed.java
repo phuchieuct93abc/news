@@ -26,7 +26,7 @@ import org.androidannotations.annotations.ViewById;
 import java.util.List;
 
 @EActivity(R.layout.activity_main)
-public class ListFeed extends Activity  {
+public class ListFeed extends Activity {
 
 
     @ViewById
@@ -107,17 +107,12 @@ public class ListFeed extends Activity  {
     @ItemClick
     public void listViewItemClicked(Feed clickedItem) {
         Intent i = new Intent(getApplicationContext(), FeedViewActivity_.class);
-        i.putExtra("selectedId", (java.io.Serializable) clickedItem);
+        i.putExtra("selectedId", clickedItem);
 
         startActivity(i);
 //         FeedViewActivity_.intent(context).selectedId(clickedItem).start();
 
 
-    }
-
-
-    public void setLink(String link) {
-        this.link = link;
     }
 
     @UiThread
