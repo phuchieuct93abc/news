@@ -26,7 +26,7 @@ import org.androidannotations.annotations.ViewById;
 import java.util.List;
 
 @EActivity(R.layout.activity_main)
-public class ListFeed extends Activity {
+public class ListFeed extends Activity  {
 
 
     @ViewById
@@ -80,7 +80,7 @@ public class ListFeed extends Activity {
                 }
             }
 
-        }, 1);
+        }, 5);
 
 
     }
@@ -94,7 +94,6 @@ public class ListFeed extends Activity {
             e.printStackTrace();
         } finally {
             updateList();
-
         }
 
     }
