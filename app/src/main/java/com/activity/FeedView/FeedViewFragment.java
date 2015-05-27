@@ -3,10 +3,13 @@ package com.activity.FeedView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
+import com.config.SharePreference;
 import com.feed.Feed;
 import com.phuchieu.news.R;
 import com.services.FeedContentService_JSON;
@@ -24,6 +27,7 @@ public class FeedViewFragment extends Fragment {
     WebView webView;
     Context context;
     Feed feed;
+    Boolean darkBackground;
 
     public Feed getFeed() {
         return feed;
@@ -43,7 +47,7 @@ public class FeedViewFragment extends Fragment {
         settings.setUseWideViewPort(false);
         settings.setDefaultTextEncodingName("utf-8");
         settings.setDefaultFontSize(22);
-        settings.setAppCacheEnabled(true);
+        settings.setAppCacheEnabled(false);
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         webView.setWebViewClient(new WebViewClient());
 
@@ -69,12 +73,16 @@ public class FeedViewFragment extends Fragment {
 
     @UiThread
     void setContentToWebview(String contentHTML) {
+        if(darkBackground)contentHTML+="<style>body{background-color:black;color:white}<style>";
+
         webView.loadDataWithBaseURL(null, contentHTML, "text/html", "UTF-8", null);
     }
 
     @AfterViews
     void bindLinkToView() {
+        darkBackground = FeedViewActivity.getSharePreference().getBooleanValue(SharePreference.DARK_BACKGROUND);
         runBackground();
+
     }
 
 }

@@ -9,13 +9,17 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.IconTextView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.activity.ListFeedView.ListFeed_;
+import com.config.Config_;
+import com.config.SharePreference;
 import com.feed.Category;
 import com.gc.materialdesign.views.ButtonRectangle;
+import com.gc.materialdesign.views.CheckBox;
 import com.phuchieu.news.R;
 import com.services.CategoryService_JSON;
 import com.services.main_screen.Tile;
@@ -23,8 +27,10 @@ import com.services.main_screen.TileService;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.List;
 
@@ -33,11 +39,19 @@ public class CategoryScreen extends Activity {
     Context context = this;
     @ViewById
     TableLayout table;
+
+    @ViewById(R.id.darkBackground)
+    android.widget.CheckBox darkBackground;
+
     List<Tile> tiles;
+
+   SharePreference sharePreference;
 
     @AfterViews
     void afterView() {
         setClickListenerForButton();
+        sharePreference = new SharePreference(context);
+        darkBackground.setChecked(sharePreference.getBooleanValue(SharePreference.DARK_BACKGROUND));
     }
 
     @AfterInject
@@ -93,5 +107,9 @@ public class CategoryScreen extends Activity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @CheckedChange(R.id.darkBackground)
+    void checkedChangeOnHelloCheckBox(CompoundButton hello, boolean isChecked) {
+        sharePreference.setBoleanValue(SharePreference.DARK_BACKGROUND,isChecked);
+    }
 
 }
