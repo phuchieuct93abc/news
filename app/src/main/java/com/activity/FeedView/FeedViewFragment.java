@@ -13,6 +13,7 @@ import com.config.SharePreference;
 import com.feed.Feed;
 import com.phuchieu.news.R;
 import com.services.FeedContentService_JSON;
+import com.styles.CssStyles;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -73,7 +74,7 @@ public class FeedViewFragment extends Fragment {
 
     @UiThread
     void setContentToWebview(String contentHTML) {
-        if(darkBackground)contentHTML+="<style>body{background-color:black;color:white}<style>";
+        if(darkBackground)contentHTML+= CssStyles.DARK_BACKGROUND;
 
         webView.loadDataWithBaseURL(null, contentHTML, "text/html", "UTF-8", null);
     }
