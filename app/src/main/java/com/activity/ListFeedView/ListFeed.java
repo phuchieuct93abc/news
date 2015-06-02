@@ -23,6 +23,7 @@ import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @EActivity(R.layout.activity_main)
@@ -91,12 +92,14 @@ public class ListFeed extends Activity {
 
     @Background
     void loadNextPage() {
+        List<Feed> rssItems = new ArrayList<>();
         try {
-            List<Feed> rssItems = CategoryService_JSON.getListFeedAndLoadMore();
-            adapter.setListDataMore(rssItems);
+           rssItems = CategoryService_JSON.getListFeedAndLoadMore();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            adapter.setListDataMore(rssItems);
+
             updateList();
         }
 
