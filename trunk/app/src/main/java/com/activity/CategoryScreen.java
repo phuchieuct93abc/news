@@ -15,11 +15,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.activity.ListFeedView.ListFeed_;
-import com.config.Config_;
 import com.config.SharePreference;
 import com.feed.Category;
 import com.gc.materialdesign.views.ButtonRectangle;
-import com.gc.materialdesign.views.CheckBox;
 import com.phuchieu.news.R;
 import com.services.CategoryService_JSON;
 import com.services.main_screen.Tile;
@@ -30,7 +28,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.List;
 
@@ -45,7 +42,7 @@ public class CategoryScreen extends Activity {
 
     List<Tile> tiles;
 
-   SharePreference sharePreference;
+    SharePreference sharePreference;
 
     @AfterViews
     void afterView() {
@@ -109,7 +106,7 @@ public class CategoryScreen extends Activity {
 
     @CheckedChange(R.id.darkBackground)
     void checkedChangeOnHelloCheckBox(CompoundButton hello, boolean isChecked) {
-        sharePreference.setBoleanValue(SharePreference.DARK_BACKGROUND,isChecked);
+        sharePreference.setBoleanValue(SharePreference.DARK_BACKGROUND, isChecked);
     }
 
 }

@@ -39,6 +39,8 @@ public class ListFeed extends Activity {
     @Override
     public void onResume() {
         super.onResume();
+        List<Feed> refreshData = CategoryService_JSON.getListFeed();
+        adapter.setListDataMore(refreshData);
         updateAdapter();
     }
 
@@ -74,6 +76,8 @@ public class ListFeed extends Activity {
             public void onMoreAsked(int numberOfItems, int numberBeforeMore, int currentItemPos) {
                 try {
                     loadNextPage();
+                    listView.hideMoreProgress();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e("hieu", e.getMessage());

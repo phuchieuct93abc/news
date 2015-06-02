@@ -3,11 +3,9 @@ package com.activity.FeedView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 import com.config.SharePreference;
 import com.feed.Feed;
@@ -74,7 +72,7 @@ public class FeedViewFragment extends Fragment {
 
     @UiThread
     void setContentToWebview(String contentHTML) {
-        if(darkBackground)contentHTML+= CssStyles.DARK_BACKGROUND;
+        if (darkBackground) contentHTML += CssStyles.DARK_BACKGROUND;
 
         webView.loadDataWithBaseURL(null, contentHTML, "text/html", "UTF-8", null);
     }
