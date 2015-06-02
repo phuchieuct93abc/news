@@ -1,6 +1,7 @@
 package com.activity.FeedView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -30,6 +31,7 @@ import java.util.List;
 @WindowFeature(Window.FEATURE_NO_TITLE)
 public class FeedViewActivity extends ActionBarActivity {
 
+    private static SharePreference sharePreference;
     @Extra("selectedId")
     Feed selectedId;
     PagerAdapter pagerAdapter;
@@ -40,9 +42,7 @@ public class FeedViewActivity extends ActionBarActivity {
     List<String> listFeedLink = new ArrayList<>();
     int page = 1;
     int currentIndexOfFeed;
-
     int indexOfFragment;
-    private static SharePreference sharePreference;
 
     public static SharePreference getSharePreference() {
         return sharePreference;
@@ -78,7 +78,7 @@ public class FeedViewActivity extends ActionBarActivity {
         pagerAdapter.setContext(this);
         pagerAdapter.setItem(selectedId);
         pagerAdapter.setListLink(listFeedLink);
-       // pagerAdapter.setTextSize(getConfig().textSize().get());
+        // pagerAdapter.setTextSize(getConfig().textSize().get());
         pager.setAdapter(pagerAdapter);
 
         OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
@@ -131,6 +131,16 @@ public class FeedViewActivity extends ActionBarActivity {
         currentIndexOfFeed = index;
         CategoryService_JSON.getListFeed().get(index).setIsRead();
         updateAdapter();
+
+        setBackgroundColor();
+    }
+
+    private void setBackgroundColor() {
+        Boolean darkBackground = FeedViewActivity.getSharePreference().getBooleanValue(SharePreference.DARK_BACKGROUND);
+        if (darkBackground) {
+            viewSwipe.setBackgroundColor(Color.parseColor("#23282A"));
+
+        }
     }
 
     public void openSource(View v) {
@@ -138,7 +148,6 @@ public class FeedViewActivity extends ActionBarActivity {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(feed.getContentUrl()));
         startActivity(i);
-
 
     }
 
