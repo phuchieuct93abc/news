@@ -28,11 +28,6 @@ class PagerAdapter extends FragmentStatePagerAdapter {
         listFeed = CategoryService_JSON.getListFeedAndLoadMore(context);
     }
 
-    public void setTextSize(int textSize) {
-        this.textSize = textSize;
-    }
-
-
     public void setListLink(List<String> categoryLink) {
         this.listLink = categoryLink;
     }
