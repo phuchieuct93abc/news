@@ -10,7 +10,6 @@ import com.koushikdutta.ion.Ion;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;
 import java.util.List;

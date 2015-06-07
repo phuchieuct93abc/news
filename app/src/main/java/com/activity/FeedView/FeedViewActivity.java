@@ -87,7 +87,7 @@ public class FeedViewActivity extends ActionBarActivity {
                 try {
                     CategoryService_JSON.getListFeed().get(arg0).setIsRead();
                     indexOfFragment = arg0;
-                    if (arg0 >= CategoryService_JSON.getListFeed().size() - 5) {
+                    if (arg0 >= pagerAdapter.getCount() - 5) {
                         loadMoreData();
                     }
                 } catch (Exception e) {
