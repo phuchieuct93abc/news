@@ -28,10 +28,6 @@ public class FeedListAdapter extends BaseAdapter {
         }*/
     }
 
-    public void setDataFromSearch(Feed feed) {
-        feeds.add(feed);
-
-    }
 
     public void setListData(List<Feed> feeds) {
         clear();

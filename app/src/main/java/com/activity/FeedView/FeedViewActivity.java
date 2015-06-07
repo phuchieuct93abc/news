@@ -73,12 +73,10 @@ public class FeedViewActivity extends ActionBarActivity {
 
     @UiThread
     void runUI() {
-        pagerAdapter = new PagerAdapter(
-                getSupportFragmentManager());
+        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         pagerAdapter.setContext(this);
         pagerAdapter.setItem(selectedId);
         pagerAdapter.setListLink(listFeedLink);
-        // pagerAdapter.setTextSize(getConfig().textSize().get());
         pager.setAdapter(pagerAdapter);
 
         OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
@@ -86,7 +84,6 @@ public class FeedViewActivity extends ActionBarActivity {
             @Override
             public void onPageSelected(int arg0) {
                 currentIndexOfFeed = arg0;
-                updateAdapter();
                 try {
                     CategoryService_JSON.getListFeed().get(arg0).setIsRead();
                     indexOfFragment = arg0;
@@ -94,7 +91,6 @@ public class FeedViewActivity extends ActionBarActivity {
                         loadMoreData();
                     }
                 } catch (Exception e) {
-                    updateAdapter();
                     e.printStackTrace();
                 }
 
