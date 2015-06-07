@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 
-import com.feed.FeedItemView;
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 import com.phuchieu.news.R;
 import com.services.FeedService;

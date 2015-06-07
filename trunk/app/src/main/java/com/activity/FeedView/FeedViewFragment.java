@@ -58,7 +58,7 @@ public class FeedViewFragment extends Fragment {
 
         String contentHTML;
         try {
-            contentHTML = FeedContentService_JSON.getFeedContentFromFeed(feed).getContentHTML();
+            contentHTML = FeedContentService_JSON.getFeedContentFromFeed(feed, context).getContentHTML();
             setContentToWebview(contentHTML);
         } catch (Exception e) {
             setOriginalURLForWebview();

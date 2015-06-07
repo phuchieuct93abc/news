@@ -11,11 +11,11 @@ import org.json.JSONObject;
 public class FeedContentService_JSON {
     public static String LINK_FEED_CONTENT = "http://dataprovider.touch.baomoi.com/json/article.aspx?articleId={ID}";
 
-    public static Feed getFeedContentFromFeed(Feed feed) throws Exception {
+    public static Feed getFeedContentFromFeed(Feed feed, Context context) throws Exception {
         String id = feed.getId();
         String link_request = LINK_FEED_CONTENT.replace("{ID}", id);
         String responseCategory;
-        responseCategory = getContentFromCache(id, link_request);
+        responseCategory = getContentFromCache(id, link_request, context);
         JSONObject jObject = new JSONObject(responseCategory);
         String contentHTML = jObject.getJSONObject("article").getString("Body");
         feed.setContentHTML(contentHTML);
@@ -24,12 +24,12 @@ public class FeedContentService_JSON {
         return feed;
     }
 
-    private static String getContentFromCache(String id, String link_request) {
+    private static String getContentFromCache(String id, String link_request, Context context) {
         SharedPreferences prefs = Splash.getContext().getSharedPreferences("CONTENT_FEED", Context.MODE_PRIVATE);
 
         String responseCategory;
         if (prefs.getString(id, null) == null) {
-            responseCategory = CategoryService_JSON.readUrl(link_request);
+            responseCategory = CategoryService_JSON.readUrl(link_request, context);
             prefs.edit().putString(id, responseCategory).apply();
         } else {
             responseCategory = prefs.getString(id, null);

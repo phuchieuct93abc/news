@@ -84,8 +84,12 @@ public class Feed implements Serializable {
     }
 
     public void setIsRead() {
-        SharedPreferences sharedPreferences = Splash_.getContext().getSharedPreferences(Feed.isReadPreferences, Context.MODE_PRIVATE);
-        sharedPreferences.edit().putBoolean(getId(), true).apply();
+        try {
+            SharedPreferences sharedPreferences = Splash_.getContext().getSharedPreferences(Feed.isReadPreferences, Context.MODE_PRIVATE);
+            sharedPreferences.edit().putBoolean(getId(), true).apply();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public String getLink() {

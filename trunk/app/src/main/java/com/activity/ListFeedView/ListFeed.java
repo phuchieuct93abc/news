@@ -1,7 +1,6 @@
 package com.activity.ListFeedView;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -34,8 +33,6 @@ public class ListFeed extends Activity {
     SuperListview listView;
     @Bean
     FeedListAdapter adapter;
-    Context context;
-    String link;
 
     @Override
     public void onResume() {
@@ -43,10 +40,6 @@ public class ListFeed extends Activity {
         List<Feed> refreshData = CategoryService_JSON.getListFeed();
         adapter.setListDataMore(refreshData);
         updateAdapter();
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
     }
 
     public void updateAdapter() {
@@ -77,7 +70,6 @@ public class ListFeed extends Activity {
             public void onMoreAsked(int numberOfItems, int numberBeforeMore, int currentItemPos) {
                 try {
                     loadNextPage();
-                    listView.hideMoreProgress();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -85,7 +77,7 @@ public class ListFeed extends Activity {
                 }
             }
 
-        }, 5);
+        }, 1);
 
 
     }
@@ -94,7 +86,7 @@ public class ListFeed extends Activity {
     void loadNextPage() {
         List<Feed> rssItems = new ArrayList<>();
         try {
-           rssItems = CategoryService_JSON.getListFeedAndLoadMore();
+            rssItems = CategoryService_JSON.getListFeedAndLoadMore(getApplicationContext());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -115,11 +107,7 @@ public class ListFeed extends Activity {
     public void listViewItemClicked(Feed clickedItem) {
         Intent i = new Intent(getApplicationContext(), FeedViewActivity_.class);
         i.putExtra("selectedId", clickedItem);
-
         startActivity(i);
-//         FeedViewActivity_.intent(context).selectedId(clickedItem).start();
-
-
     }
 
     @UiThread
@@ -131,7 +119,7 @@ public class ListFeed extends Activity {
     void background() {
         try {
 
-            List<Feed> rssItems = CategoryService_JSON.getListFeedAndLoadMore();
+            List<Feed> rssItems = CategoryService_JSON.getListFeedAndLoadMore(getApplicationContext());
             adapter.setListData(rssItems);
             run();
         } catch (Exception e) {

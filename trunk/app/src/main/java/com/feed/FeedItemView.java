@@ -3,13 +3,13 @@ package com.feed;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
-import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 import com.phuchieu.news.R;
+import com.squareup.picasso.Picasso;
+import com.styles.Animate;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
@@ -45,12 +45,19 @@ public class FeedItemView extends RelativeLayout {
         description.setEllipsize(TextUtils.TruncateAt.END);
         description.setMaxLines(2);
         description.setText(feed.getContent());
-//        Ion.with(getContext())
-//                .load(feed.getImage())
-//                .withBitmap().smartSize(true)
-//                .placeholder(R.drawable.news)
-//                .intoImageView(imageView);
-        //Ion.getDefault(getContext()).with(imageView).smartSize(true).placeholder(R.drawable.news).load(feed.getImage());
-        UrlImageViewHelper.setUrlDrawable(imageView, feed.getImage(), R.drawable.news, cacheTime);
+
+        try {
+            Animate animate = new Animate();
+            Picasso.with(getContext())
+                    .load(feed.getImage())
+                    .placeholder(R.drawable.news).fit()
+                    .into(imageView);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+//        Ion.getDefault(getContext()).with(imageView).smartSize(true).placeholder(R.drawable.news).load(feed.getImage());
+//        UrlImageViewHelper.setUrlDrawable(imageView, feed.getImage(), R.drawable.news, cacheTime);
     }
 }

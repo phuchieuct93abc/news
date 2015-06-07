@@ -1,17 +1,17 @@
 package com.services;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.feed.Category;
 import com.feed.Feed;
+import com.koushikdutta.ion.Ion;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,31 +55,30 @@ public class CategoryService_JSON {
         setListFeed(new ArrayList<Feed>());
     }
 
-    public static String readUrl(String urlString) {
-        Document doc = null;
+    public static String readUrl(String urlString, Context context) {
         try {
-            doc = Jsoup.connect(urlString).timeout(timeout).get();
-            return doc.select("body").text();
+            return Ion.with(context).load(urlString).setTimeout(timeout).asJsonObject().get().toString();
+
 
         } catch (Exception e) {
             try {
-                Log.e("hieu", "that bat lan 1" + urlString);
-
-                doc = Jsoup.connect(urlString).timeout(timeout).get();
-                return doc.select("body").text();
-
-            } catch (IOException e1) {
                 Log.e("hieu", "that bat lan 1 " + urlString);
+
+                return Ion.with(context).load(urlString).setTimeout(timeout).asJsonObject().get().toString();
+
+
+            } catch (Exception e1) {
+                Log.e("hieu", "that bat lan 2 " + urlString);
                 return null;
             }
         }
     }
 
-    public static List<Feed> getListFeedAndLoadMore() {
+    public static List<Feed> getListFeedAndLoadMore(Context context) {
         try {
             int beforeUpdateLength = listFeed.size();
             String link = currentLink.replace("{START_PAGE}", "" + listFeed.size());
-            String responseCategory = readUrl(link);
+            String responseCategory = readUrl(link, context);
             if (responseCategory != null) {
                 JSONObject jObject = new JSONObject(responseCategory);
                 JSONArray jArray = jObject.getJSONArray("articlelist");
@@ -97,7 +96,7 @@ public class CategoryService_JSON {
                 }
             }
             if (listFeed.size() - 5 < beforeUpdateLength) {
-                return getListFeedAndLoadMore();
+                return getListFeedAndLoadMore(context);
             } else {
                 return listFeed;
             }
