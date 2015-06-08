@@ -57,7 +57,7 @@ public class FeedViewActivity extends ActionBarActivity {
     public void loadMoreData() {
         try {
             page++;
-            pagerAdapter.loadMoredata();
+            pagerAdapter.loadMoredata(getApplicationContext());
             updateAdapter();
         } catch (Exception e) {
             updateAdapter();
@@ -74,7 +74,6 @@ public class FeedViewActivity extends ActionBarActivity {
     @UiThread
     void runUI() {
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());
-        pagerAdapter.setContext(this);
         pagerAdapter.setItem(selectedId);
         pagerAdapter.setListLink(listFeedLink);
         pager.setAdapter(pagerAdapter);

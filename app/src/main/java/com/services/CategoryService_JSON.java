@@ -61,8 +61,7 @@ public class CategoryService_JSON {
 
         } catch (Exception e) {
             try {
-                Log.e("hieu", "that bat lan 1 " + urlString);
-
+Log.e("hieu",e.toString());
                 return Ion.with(context).load(urlString).setTimeout(timeout).asJsonObject().get().toString();
 
 
