@@ -39,12 +39,6 @@ public class ListFeed extends Activity {
         super.onResume();
         List<Feed> refreshData = CategoryService_JSON.getListFeed();
         adapter.setListDataMore(refreshData);
-        updateAdapter();
-    }
-
-    public void updateAdapter() {
-        adapter.notifyDataSetChanged();
-
     }
 
     @AfterViews
@@ -56,7 +50,6 @@ public class ListFeed extends Activity {
     }
 
     private void setOnScrollListener() {
-
         listView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -69,7 +62,9 @@ public class ListFeed extends Activity {
             @Override
             public void onMoreAsked(int numberOfItems, int numberBeforeMore, int currentItemPos) {
                 try {
-                    loadNextPage();
+
+                        loadNextPage();
+
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -84,16 +79,17 @@ public class ListFeed extends Activity {
 
     @Background
     void loadNextPage() {
-        List<Feed> rssItems = new ArrayList<>();
-        try {
+        List<Feed> rssItems;
+
             rssItems = CategoryService_JSON.getListFeedAndLoadMore(getApplicationContext());
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
             adapter.setListDataMore(rssItems);
 
-            updateList();
-        }
+
+        updateList();
+
+
+
+
 
     }
 

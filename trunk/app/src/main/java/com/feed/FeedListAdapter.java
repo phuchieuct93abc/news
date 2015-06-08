@@ -22,10 +22,6 @@ public class FeedListAdapter extends BaseAdapter {
 
     public void setListDataMore(List<Feed> feeds) {
         this.feeds = feeds;
-        /*for (Feed feed : feeds) {
-
-            this.feeds.add(feed);
-        }*/
     }
 
 
@@ -36,10 +32,12 @@ public class FeedListAdapter extends BaseAdapter {
 
             this.feeds.add(feed);
         }
+        this.notifyDataSetChanged();
     }
 
     public void clear() {
-        feeds = new ArrayList<Feed>();
+        feeds = new ArrayList<>();
+        this.notifyDataSetChanged();
     }
 
     @Override

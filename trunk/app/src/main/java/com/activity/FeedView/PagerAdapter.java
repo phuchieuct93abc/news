@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 import com.feed.Feed;
 import com.services.CategoryService_JSON;
@@ -14,7 +15,6 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 
     Feed item;
     List<String> listLink;
-    int textSize;
     List<Feed> listFeed = CategoryService_JSON.getListFeed();
 
 
@@ -25,6 +25,7 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 
     public void loadMoredata(Context context) {
         listFeed = CategoryService_JSON.getListFeedAndLoadMore(context);
+        this.notifyDataSetChanged();
     }
 
     public void setListLink(List<String> categoryLink) {
