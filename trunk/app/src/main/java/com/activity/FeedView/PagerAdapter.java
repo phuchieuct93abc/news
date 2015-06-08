@@ -14,7 +14,6 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 
     Feed item;
     List<String> listLink;
-    Context context;
     int textSize;
     List<Feed> listFeed = CategoryService_JSON.getListFeed();
 
@@ -24,7 +23,7 @@ class PagerAdapter extends FragmentStatePagerAdapter {
     }
 
 
-    public void loadMoredata() {
+    public void loadMoredata(Context context) {
         listFeed = CategoryService_JSON.getListFeedAndLoadMore(context);
     }
 
@@ -35,10 +34,6 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 
     public void setItem(Feed item) {
         this.item = item;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
     }
 
     @Override

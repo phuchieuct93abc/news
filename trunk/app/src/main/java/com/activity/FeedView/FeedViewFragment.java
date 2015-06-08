@@ -24,7 +24,6 @@ import org.androidannotations.annotations.ViewById;
 public class FeedViewFragment extends Fragment {
     @ViewById
     WebView webView;
-    Context context;
     Feed feed;
     Boolean darkBackground;
 
@@ -36,9 +35,6 @@ public class FeedViewFragment extends Fragment {
         this.feed = feed;
     }
 
-    public void setContext(Context context) {
-        this.context = context;
-    }
 
     @UiThread
     void initializeSetting() {
@@ -53,7 +49,7 @@ public class FeedViewFragment extends Fragment {
     }
 
     @Background
-    void runBackground() {
+    void runBackground(Context context) {
         initializeSetting();
 
         String contentHTML;
@@ -80,7 +76,8 @@ public class FeedViewFragment extends Fragment {
     @AfterViews
     void bindLinkToView() {
         darkBackground = FeedViewActivity.getSharePreference().getBooleanValue(SharePreference.DARK_BACKGROUND);
-        runBackground();
+
+        runBackground(getActivity().getApplicationContext());
 
     }
 
