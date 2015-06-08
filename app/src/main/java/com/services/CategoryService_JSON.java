@@ -56,15 +56,13 @@ public class CategoryService_JSON {
 
     public static String readUrl(String urlString, Context context) {
         try {
-            return Ion.with(context).load(urlString).setTimeout(timeout).asJsonObject().get().toString();
+            Log.e("hieu", urlString);
+            return Ion.with(context).load(urlString).noCache().setTimeout(timeout).asJsonObject().get().toString();
 
 
         } catch (Exception e) {
             try {
-Log.e("hieu",e.toString());
-                return Ion.with(context).load(urlString).setTimeout(timeout).asJsonObject().get().toString();
-
-
+                return Ion.with(context).load(urlString).noCache().setTimeout(timeout).asJsonObject().get().toString();
             } catch (Exception e1) {
                 Log.e("hieu", "that bat lan 2 " + urlString);
                 return null;
@@ -75,6 +73,7 @@ Log.e("hieu",e.toString());
     public static List<Feed> getListFeedAndLoadMore(Context context) {
         try {
             int beforeUpdateLength = listFeed.size();
+            if (beforeUpdateLength >= 190) return listFeed;
             String link = currentLink.replace("{START_PAGE}", "" + listFeed.size());
             String responseCategory = readUrl(link, context);
             if (responseCategory != null) {
@@ -99,7 +98,7 @@ Log.e("hieu",e.toString());
                 return listFeed;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("hieu", e.toString());
             return listFeed;
         }
 
