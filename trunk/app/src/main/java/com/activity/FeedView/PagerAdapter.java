@@ -15,16 +15,20 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 
     Feed item;
     List<String> listLink;
-    List<Feed> listFeed = CategoryService_JSON.getListFeed();
+    List<Feed> listFeed;
+    int count = 0;
 
 
     public PagerAdapter(FragmentManager fm) {
         super(fm);
+        listFeed = CategoryService_JSON.getListFeed();
+        count = 10;
     }
 
 
     public void loadMoredata(Context context) {
         listFeed = CategoryService_JSON.getListFeedAndLoadMore(context);
+        count = listFeed.size();
         this.notifyDataSetChanged();
     }
 
@@ -46,7 +50,7 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return listFeed.size();
+        return count;
     }
 
     @Override

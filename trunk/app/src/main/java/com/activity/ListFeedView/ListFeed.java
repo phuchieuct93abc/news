@@ -38,7 +38,7 @@ public class ListFeed extends Activity {
     public void onResume() {
         super.onResume();
         List<Feed> refreshData = CategoryService_JSON.getListFeed();
-        adapter.setListDataMore(refreshData);
+        adapter.setListData(refreshData);
     }
 
     @AfterViews
@@ -55,6 +55,8 @@ public class ListFeed extends Activity {
             public void onRefresh() {
                 FeedService.clearCache();
                 CategoryService_JSON.clearCacheList();
+                adapter.setListData(new ArrayList<Feed>());
+                adapter.notifyDataSetChanged();
                 background();
             }
         });
@@ -82,7 +84,7 @@ public class ListFeed extends Activity {
         List<Feed> rssItems;
 
             rssItems = CategoryService_JSON.getListFeedAndLoadMore(getApplicationContext());
-            adapter.setListDataMore(rssItems);
+            adapter.setListData(rssItems);
 
 
         updateList();
@@ -109,6 +111,7 @@ public class ListFeed extends Activity {
     @UiThread
     void run() {
         listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     @Background
