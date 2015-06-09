@@ -76,6 +76,7 @@ public class FeedViewActivity extends ActionBarActivity {
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         pagerAdapter.setItem(selectedId);
         pagerAdapter.setListLink(listFeedLink);
+
         pager.setAdapter(pagerAdapter);
 
         OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
@@ -86,7 +87,7 @@ public class FeedViewActivity extends ActionBarActivity {
                 try {
                     CategoryService_JSON.getListFeed().get(arg0).setIsRead();
                     indexOfFragment = arg0;
-                    if (arg0 >= pagerAdapter.getCount() - 5) {
+                    if (arg0 == pagerAdapter.getCount()-1) {
                         loadMoreData();
                     }
                 } catch (Exception e) {

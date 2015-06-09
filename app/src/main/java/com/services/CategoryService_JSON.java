@@ -34,6 +34,7 @@ public class CategoryService_JSON {
     public static String LINK_CATEGORY = "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType={LIST_TYPE}&listId={LIST_ID}&imageMinSize=300&mode=quickview";
     public static List<Feed> listFeed = new ArrayList<>();
     private static String currentLink;
+    private static int duplicateCount = 0;
 
     public static void setListId(Category category) {
         currentLink = LINK_CATEGORY.replace("{LIST_ID}", category.getId() + "");
@@ -46,11 +47,12 @@ public class CategoryService_JSON {
         return listFeed;
     }
 
-    public static void setListFeed(List<Feed> listFeed) {
+    private static void setListFeed(List<Feed> listFeed) {
         CategoryService_JSON.listFeed = listFeed;
     }
 
     public static void clearCacheList() {
+        duplicateCount=0;
         setListFeed(new ArrayList<Feed>());
     }
 
@@ -74,7 +76,7 @@ public class CategoryService_JSON {
         try {
             int beforeUpdateLength = listFeed.size();
             if (beforeUpdateLength >= 190) return listFeed;
-            String link = currentLink.replace("{START_PAGE}", "" + listFeed.size());
+            String link = currentLink.replace("{START_PAGE}", "" + (listFeed.size()+duplicateCount));
             String responseCategory = readUrl(link, context);
             if (responseCategory != null) {
                 JSONObject jObject = new JSONObject(responseCategory);
@@ -86,6 +88,8 @@ public class CategoryService_JSON {
                         Feed feed = new Feed(oneObject);
                         if (getIndexInCaterogyById(feed) == -1) {
                             listFeed.add(feed);
+                        }else{
+                            duplicateCount++;
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
