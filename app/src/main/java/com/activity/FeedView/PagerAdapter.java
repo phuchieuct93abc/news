@@ -22,7 +22,7 @@ class PagerAdapter extends FragmentStatePagerAdapter {
     public PagerAdapter(FragmentManager fm) {
         super(fm);
         listFeed = CategoryService_JSON.getListFeed();
-        count = 10;
+        count = listFeed.size();
     }
 
 

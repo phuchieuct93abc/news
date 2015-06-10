@@ -112,7 +112,8 @@ public class CategoryService_JSON {
     public static int getIndexInCaterogyById(Feed item) {
         for (Feed d : listFeed) {
             if (d.getId().equals(item.getId())) {
-                return listFeed.indexOf(d);
+                int index = listFeed.indexOf(d);
+                return index;
             }
         }
         return -1;
