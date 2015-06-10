@@ -3,13 +3,13 @@ package com.feed;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.phuchieu.news.R;
 import com.squareup.picasso.Picasso;
-import com.styles.Animate;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
@@ -47,13 +47,13 @@ public class FeedItemView extends RelativeLayout {
         description.setText(feed.getContent());
 
         try {
-            Animate animate = new Animate();
             Picasso.with(getContext())
                     .load(feed.getImage())
-                    .placeholder(R.drawable.news).fit()
+                    .placeholder(R.drawable.news)
+                    .error(R.drawable.news)
                     .into(imageView);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("hieu", e.toString());
         }
 
 
