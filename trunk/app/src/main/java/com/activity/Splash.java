@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 
-import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 import com.phuchieu.news.R;
 import com.services.FeedService;
 
@@ -26,7 +25,6 @@ public class Splash extends Activity {
     void afterView() {
         context = getApplicationContext();
         FeedService.setContext(getBaseContext());
-        UrlImageViewHelper.cleanup(this, 1);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

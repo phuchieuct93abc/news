@@ -25,8 +25,6 @@ public class FeedListAdapter extends BaseAdapter {
     }
 
 
-
-
     private void clear() {
         feeds = new ArrayList<>();
     }

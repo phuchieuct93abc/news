@@ -4,6 +4,8 @@ def AAVersion = '3.2'
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
+
     }
     dependencies {
         // replace with the current version of the Android plugin
@@ -61,7 +63,6 @@ dependencies {
     compile 'org.androidannotations:androidannotations-api:3.2'
     apt 'org.androidannotations:androidannotations:3.2'
     compile project(':materialDesignLib')
-    compile 'com.koushikdutta.urlimageviewhelper:urlimageviewhelper:1.0.4'
     compile 'com.quentindommerc.superlistview:library:1.5.2'
     compile('com.koushikdutta.ion:ion:2.1.4')
     compile 'com.squareup.picasso:picasso:2.5.2'

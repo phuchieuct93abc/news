@@ -65,7 +65,7 @@ public class ListFeed extends Activity {
             public void onMoreAsked(int numberOfItems, int numberBeforeMore, int currentItemPos) {
                 try {
 
-                        loadNextPage();
+                    loadNextPage();
 
 
                 } catch (Exception e) {
@@ -83,14 +83,11 @@ public class ListFeed extends Activity {
     void loadNextPage() {
         List<Feed> rssItems;
 
-            rssItems = CategoryService_JSON.getListFeedAndLoadMore(getApplicationContext());
-            adapter.setListData(rssItems);
+        rssItems = CategoryService_JSON.getListFeedAndLoadMore(getApplicationContext());
+        adapter.setListData(rssItems);
 
 
         updateList();
-
-
-
 
 
     }
