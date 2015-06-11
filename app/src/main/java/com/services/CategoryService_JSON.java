@@ -52,7 +52,7 @@ public class CategoryService_JSON {
     }
 
     public static void clearCacheList() {
-        duplicateCount=0;
+        duplicateCount = 0;
         setListFeed(new ArrayList<Feed>());
     }
 
@@ -76,7 +76,7 @@ public class CategoryService_JSON {
         try {
             int beforeUpdateLength = listFeed.size();
             if (beforeUpdateLength >= 190) return listFeed;
-            String link = currentLink.replace("{START_PAGE}", "" + (listFeed.size()+duplicateCount));
+            String link = currentLink.replace("{START_PAGE}", "" + (listFeed.size() + duplicateCount));
             String responseCategory = readUrl(link, context);
             if (responseCategory != null) {
                 JSONObject jObject = new JSONObject(responseCategory);
@@ -88,7 +88,7 @@ public class CategoryService_JSON {
                         Feed feed = new Feed(oneObject);
                         if (getIndexInCaterogyById(feed) == -1) {
                             listFeed.add(feed);
-                        }else{
+                        } else {
                             duplicateCount++;
                         }
                     } catch (JSONException e) {
