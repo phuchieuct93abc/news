@@ -45,37 +45,35 @@ public class FeedViewActivity extends ActionBarActivity {
     ViewPager pager;
     @ViewById
     RelativeLayout viewSwipe;
-    int page = 1;
     int currentIndexOfFeed;
     int indexOfFragment;
     final Context context = this;
 
 
-    public static SharePreference getSharePreference() {
-        return sharePreference;
-    }
-
-    public static void setSharePreference(SharePreference sharePreference) {
-        FeedViewActivity.sharePreference = sharePreference;
-    }
-
 
     @Background
     public void loadMoreData() {
         try {
-            page++;
-            pagerAdapter.setData(categoryService.getListFeedAndLoadMore(context));
-            updateAdapter();
+            List<Feed> moreData = categoryService.getMoreFeed();
+            setMoreDataList(moreData);
         } catch (Exception e) {
-            updateAdapter();
             e.printStackTrace();
         }
     }
 
 
     @UiThread
-    public void updateAdapter() {
-        pagerAdapter.notifyDataSetChanged();
+      public void setDataList(List<Feed> feeds)
+
+    {
+        pagerAdapter.setData(feeds);
+    }
+
+    @UiThread
+    public void setMoreDataList(List<Feed> feeds)
+
+    {
+        pagerAdapter.setMoreData(feeds);
     }
 
     @UiThread
@@ -128,19 +126,18 @@ public class FeedViewActivity extends ActionBarActivity {
 
     @AfterViews
     void run() {
-        setSharePreference(new SharePreference(this));
 
         runUI();
         int index = categoryService.getIndexInCaterogyById(selectedId);
         currentIndexOfFeed = index;
         categoryService.getListFeed().get(index).setIsRead(context);
-        updateAdapter();
+        setDataList( categoryService.getListFeed());
 
         setBackgroundColor();
     }
 
     private void setBackgroundColor() {
-        Boolean darkBackground = FeedViewActivity.getSharePreference().getBooleanValue(SharePreference.DARK_BACKGROUND);
+        Boolean darkBackground = new SharePreference(context).getBooleanValue(SharePreference.DARK_BACKGROUND);
         if (darkBackground) {
             viewSwipe.setBackgroundColor(Color.parseColor("#23282A"));
 

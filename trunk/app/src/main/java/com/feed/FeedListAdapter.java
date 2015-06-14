@@ -20,16 +20,17 @@ public class FeedListAdapter extends BaseAdapter {
     Context context;
 
 
-    public void setListData(List<Feed> feeds) {
+    public void setDataList(List<Feed> feeds) {
         this.feeds = feeds;
+        this.notifyDataSetChanged();
     }
 
-
-    private void clear() {
-        feeds = new ArrayList<>();
+    public void setMoreDataList(List<Feed> feeds) {
+        this.feeds.addAll( feeds);
+        this.notifyDataSetChanged();
     }
 
-    @Override
+   @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         FeedItemView FeedItemView;

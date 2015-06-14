@@ -11,11 +11,12 @@ import com.services.CategoryService;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
+import java.util.ArrayList;
 import java.util.List;
 class PagerAdapter extends FragmentStatePagerAdapter {
 
     Feed item;
-    List<Feed> listFeed;
+    List<Feed> listFeed = new ArrayList<>();
     int count = 0;
     public PagerAdapter(FragmentManager fm) {
         super(fm);
@@ -24,6 +25,12 @@ class PagerAdapter extends FragmentStatePagerAdapter {
 
         listFeed = data;
         count = data.size();
+        this.notifyDataSetChanged();
+    }
+    public void setMoreData(List<Feed> data){
+
+        listFeed.addAll(data);
+        count = listFeed.size();
         this.notifyDataSetChanged();
     }
 

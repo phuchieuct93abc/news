@@ -9,6 +9,7 @@ import com.koushikdutta.ion.Ion;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +21,8 @@ import java.util.List;
 public class CategoryService {
     @Bean
     HttpService httpService;
+    @RootContext
+    Context context;
 
     public static String ZONE_LIST_TYPE = "zone";
     public static Category KHCN = new Category(ZONE_LIST_TYPE, 53);
@@ -63,8 +66,14 @@ public class CategoryService {
 
 
 
-    public  List<Feed> getListFeedAndLoadMore(Context context) {
+
+    public  List<Feed> getMoreFeed() {
+        List<Feed> result = new ArrayList<>();
+
         try {
+
+
+
             int beforeUpdateLength = listFeed.size();
             if (beforeUpdateLength >= 190) return listFeed;
             String link = currentLink.replace("{START_PAGE}", "" + (listFeed.size() + duplicateCount));
@@ -78,7 +87,8 @@ public class CategoryService {
                         // Pulling items from the array
                         Feed feed = new Feed(oneObject);
                         if (getIndexInCaterogyById(feed) == -1) {
-                            listFeed.add(feed);
+
+                            result.add(feed);
                         } else {
                             duplicateCount++;
                         }
@@ -86,18 +96,24 @@ public class CategoryService {
                         e.printStackTrace();
                     }
                 }
+                addDataToList(result);
             }
-            if (listFeed.size() - 5 < beforeUpdateLength) {
-                return getListFeedAndLoadMore(context);
+            if (result.size() <5) {
+                return getMoreFeed();
             } else {
-                return listFeed;
+                return result;
             }
         } catch (Exception e) {
             Log.e("hieu", e.toString());
-            return listFeed;
+            return new ArrayList<>();
         }
 
 
+    }
+
+    private void addDataToList(List<Feed> addedData){
+
+        listFeed.addAll(addedData);
     }
 
     public  int getIndexInCaterogyById(Feed item) {
