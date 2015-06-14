@@ -7,12 +7,13 @@ import android.util.Log;
 
 import com.activity.FeedView.FeedViewActivity_;
 import com.feed.Feed;
+import com.feed.FeedContent;
 import com.feed.FeedListAdapter;
 import com.phuchieu.news.R;
 import com.quentindommerc.superlistview.OnMoreListener;
 import com.quentindommerc.superlistview.SuperListview;
 import com.services.CategoryService_JSON;
-import com.services.FeedService;
+import com.services.FeedContentService_JSON;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -33,17 +34,20 @@ public class ListFeed extends Activity {
     SuperListview listView;
     @Bean
     FeedListAdapter adapter;
+    @Bean
+    FeedContentService_JSON feedService;
 
     @Override
     public void onResume() {
         super.onResume();
         List<Feed> refreshData = CategoryService_JSON.getListFeed();
         adapter.setListData(refreshData);
+        adapter.notifyDataSetChanged();
     }
 
     @AfterViews
     void afterView() {
-        FeedService.clearCache();
+        feedService.clearCache();
         CategoryService_JSON.clearCacheList();
         background();
         setOnScrollListener();
@@ -53,7 +57,7 @@ public class ListFeed extends Activity {
         listView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                FeedService.clearCache();
+                feedService.clearCache();
                 CategoryService_JSON.clearCacheList();
                 adapter.setListData(new ArrayList<Feed>());
                 adapter.notifyDataSetChanged();
