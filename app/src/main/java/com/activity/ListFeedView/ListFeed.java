@@ -43,6 +43,7 @@ public class ListFeed extends Activity {
         super.onResume();
         List<Feed> refreshData = categoryService.getListFeed();
         adapter.setDataList(refreshData);
+        Log.e("hieu","init"+adapter.getCount());
     }
 
     @AfterViews
@@ -83,18 +84,22 @@ public class ListFeed extends Activity {
     @Background
     void loadNextPage() {
         List<Feed> moreData= categoryService.getMoreFeed();
+        Log.e("hieu","load more"+moreData);
         setMoreDataList(moreData);
     }
 
     @UiThread
     void setDataList( List<Feed> rssItems) {
+        Log.e("hieu","set data"+adapter.getCount());
         adapter.setDataList(rssItems);
     }
 
     @UiThread
     void setMoreDataList( List<Feed> rssItems) {
+        Log.e("hieu","more data"+adapter.getCount());
+
         adapter.setMoreDataList(rssItems);
-        Log.e("hieu",adapter.getCount()+"");
+        Log.e("hieu","more data"+adapter.getCount());
     }
     @ItemClick
     public void listViewItemClicked(Feed clickedItem) {
@@ -111,9 +116,12 @@ public class ListFeed extends Activity {
     @Background
     void background() {
         try {
+            Log.e("hieu","init 1 data"+adapter.getCount());
 
             List<Feed> moreData = categoryService.getMoreFeed();
             setMoreDataList(moreData);
+            Log.e("hieu", "init 2 data" + adapter.getCount());
+
         } catch (Exception e) {
             e.printStackTrace();
         }

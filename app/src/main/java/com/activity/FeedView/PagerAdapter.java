@@ -22,9 +22,9 @@ class PagerAdapter extends FragmentStatePagerAdapter {
         super(fm);
     }
     public void setData(List<Feed> data){
-
-        listFeed = data;
-        count = data.size();
+        listFeed = new ArrayList<>();
+        listFeed.addAll(data);
+        count = listFeed.size();
         this.notifyDataSetChanged();
     }
     public void setMoreData(List<Feed> data){
