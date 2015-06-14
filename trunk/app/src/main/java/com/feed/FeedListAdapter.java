@@ -21,7 +21,8 @@ public class FeedListAdapter extends BaseAdapter {
 
 
     public void setDataList(List<Feed> feeds) {
-        this.feeds = feeds;
+        this.feeds = new ArrayList<>();
+        this.feeds.addAll(feeds);
         this.notifyDataSetChanged();
     }
 

@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.feed.Category;
 import com.feed.Feed;
-import com.koushikdutta.ion.Ion;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
@@ -42,36 +41,33 @@ public class CategoryService {
     public static String LINK_CATEGORY = "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType={LIST_TYPE}&listId={LIST_ID}&imageMinSize=300&mode=quickview";
     public static List<Feed> listFeed = new ArrayList<>();
     private static String currentLink;
-    private static int duplicateCount = 0;
+    private int duplicateCount = 0;
 
-    public  void setListId(Category category) {
+    public void setListId(Category category) {
         currentLink = LINK_CATEGORY.replace("{LIST_ID}", category.getId() + "");
         currentLink = currentLink.replace("{LIST_TYPE}", category.getType());
         clearCacheList();
 
     }
 
-    public  List<Feed> getListFeed() {
+    public List<Feed> getListFeed() {
         return listFeed;
     }
 
-    private  void setListFeed(List<Feed> listFeed) {
+    private void setListFeed(List<Feed> listFeed) {
         CategoryService.listFeed = listFeed;
     }
 
-    public  void clearCacheList() {
+    public void clearCacheList() {
         duplicateCount = 0;
         setListFeed(new ArrayList<Feed>());
     }
 
 
-
-
-    public  List<Feed> getMoreFeed() {
+    public List<Feed> getMoreFeed() {
         List<Feed> result = new ArrayList<>();
 
         try {
-
 
 
             int beforeUpdateLength = listFeed.size();
@@ -98,11 +94,9 @@ public class CategoryService {
                 }
                 addDataToList(result);
             }
-            if (result.size() <5) {
-                return getMoreFeed();
-            } else {
-                return result;
-            }
+
+            return result;
+
         } catch (Exception e) {
             Log.e("hieu", e.toString());
             return new ArrayList<>();
@@ -111,12 +105,13 @@ public class CategoryService {
 
     }
 
-    private void addDataToList(List<Feed> addedData){
+    private void addDataToList(List<Feed> addedData) {
 
         listFeed.addAll(addedData);
+        Log.e("hieu", "size" + listFeed.size() + "");
     }
 
-    public  int getIndexInCaterogyById(Feed item) {
+    public int getIndexInCaterogyById(Feed item) {
         for (Feed d : listFeed) {
             if (d.getId().equals(item.getId())) {
                 int index = listFeed.indexOf(d);
