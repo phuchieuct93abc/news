@@ -7,13 +7,12 @@ import android.util.Log;
 
 import com.activity.FeedView.FeedViewActivity_;
 import com.feed.Feed;
-import com.feed.FeedContent;
 import com.feed.FeedListAdapter;
 import com.phuchieu.news.R;
 import com.quentindommerc.superlistview.OnMoreListener;
 import com.quentindommerc.superlistview.SuperListview;
-import com.services.CategoryService_JSON;
-import com.services.FeedContentService_JSON;
+import com.services.CategoryService;
+import com.services.FeedService;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -35,12 +34,14 @@ public class ListFeed extends Activity {
     @Bean
     FeedListAdapter adapter;
     @Bean
-    FeedContentService_JSON feedService;
+    FeedService feedService;
+    @Bean
+    CategoryService categoryService;
 
     @Override
     public void onResume() {
         super.onResume();
-        List<Feed> refreshData = CategoryService_JSON.getListFeed();
+        List<Feed> refreshData = categoryService.getListFeed();
         adapter.setListData(refreshData);
         adapter.notifyDataSetChanged();
     }
@@ -48,7 +49,7 @@ public class ListFeed extends Activity {
     @AfterViews
     void afterView() {
         feedService.clearCache();
-        CategoryService_JSON.clearCacheList();
+        categoryService.clearCacheList();
         background();
         setOnScrollListener();
     }
@@ -58,7 +59,7 @@ public class ListFeed extends Activity {
             @Override
             public void onRefresh() {
                 feedService.clearCache();
-                CategoryService_JSON.clearCacheList();
+                categoryService.clearCacheList();
                 adapter.setListData(new ArrayList<Feed>());
                 adapter.notifyDataSetChanged();
                 background();
@@ -87,7 +88,7 @@ public class ListFeed extends Activity {
     void loadNextPage() {
         List<Feed> rssItems;
 
-        rssItems = CategoryService_JSON.getListFeedAndLoadMore(getApplicationContext());
+        rssItems = categoryService.getListFeedAndLoadMore(getApplicationContext());
         adapter.setListData(rssItems);
 
 
@@ -119,7 +120,7 @@ public class ListFeed extends Activity {
     void background() {
         try {
 
-            List<Feed> rssItems = CategoryService_JSON.getListFeedAndLoadMore(getApplicationContext());
+            List<Feed> rssItems = categoryService.getListFeedAndLoadMore(getApplicationContext());
             adapter.setListData(rssItems);
             run();
         } catch (Exception e) {

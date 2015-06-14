@@ -7,6 +7,8 @@ import com.feed.Category;
 import com.feed.Feed;
 import com.koushikdutta.ion.Ion;
 
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,8 +16,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryService_JSON {
-    private final static int timeout = 2000;
+@EBean(scope = EBean.Scope.Singleton)
+public class CategoryService {
+    @Bean
+    HttpService httpService;
+
     public static String ZONE_LIST_TYPE = "zone";
     public static Category KHCN = new Category(ZONE_LIST_TYPE, 53);
     public static Category TINMOI = new Category(ZONE_LIST_TYPE, 71);
@@ -36,48 +41,34 @@ public class CategoryService_JSON {
     private static String currentLink;
     private static int duplicateCount = 0;
 
-    public static void setListId(Category category) {
+    public  void setListId(Category category) {
         currentLink = LINK_CATEGORY.replace("{LIST_ID}", category.getId() + "");
         currentLink = currentLink.replace("{LIST_TYPE}", category.getType());
         clearCacheList();
 
     }
 
-    public static List<Feed> getListFeed() {
+    public  List<Feed> getListFeed() {
         return listFeed;
     }
 
-    private static void setListFeed(List<Feed> listFeed) {
-        CategoryService_JSON.listFeed = listFeed;
+    private  void setListFeed(List<Feed> listFeed) {
+        CategoryService.listFeed = listFeed;
     }
 
-    public static void clearCacheList() {
+    public  void clearCacheList() {
         duplicateCount = 0;
         setListFeed(new ArrayList<Feed>());
     }
 
-    public static String readUrl(String urlString, Context context) {
-        try {
-            Log.e("hieu", urlString);
-            return Ion.with(context).load(urlString).noCache().setTimeout(timeout).asJsonObject().get().toString();
 
 
-        } catch (Exception e) {
-            try {
-                return Ion.with(context).load(urlString).noCache().setTimeout(timeout).asJsonObject().get().toString();
-            } catch (Exception e1) {
-                Log.e("hieu", "that bat lan 2 " + urlString);
-                return null;
-            }
-        }
-    }
-
-    public static List<Feed> getListFeedAndLoadMore(Context context) {
+    public  List<Feed> getListFeedAndLoadMore(Context context) {
         try {
             int beforeUpdateLength = listFeed.size();
             if (beforeUpdateLength >= 190) return listFeed;
             String link = currentLink.replace("{START_PAGE}", "" + (listFeed.size() + duplicateCount));
-            String responseCategory = readUrl(link, context);
+            String responseCategory = httpService.readUrl(link, context);
             if (responseCategory != null) {
                 JSONObject jObject = new JSONObject(responseCategory);
                 JSONArray jArray = jObject.getJSONArray("articlelist");
@@ -109,7 +100,7 @@ public class CategoryService_JSON {
 
     }
 
-    public static int getIndexInCaterogyById(Feed item) {
+    public  int getIndexInCaterogyById(Feed item) {
         for (Feed d : listFeed) {
             if (d.getId().equals(item.getId())) {
                 int index = listFeed.indexOf(d);

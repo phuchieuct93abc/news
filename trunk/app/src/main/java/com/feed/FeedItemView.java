@@ -3,7 +3,6 @@ package com.feed;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -12,12 +11,12 @@ import com.phuchieu.news.R;
 import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.EViewGroup;
+import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.ViewById;
 
 @EViewGroup(R.layout.feed_view_big_image)
 public class FeedItemView extends RelativeLayout {
 
-    public static int cacheTime = 60 * 60;
     @ViewById
     TextView title;
     @ViewById
@@ -27,33 +26,33 @@ public class FeedItemView extends RelativeLayout {
     @ViewById
     ImageView imageView;
 
+
     public FeedItemView(Context context) {
         super(context);
     }
 
-    public void bindDataToView(Feed feed,Context context) {
+    public void bindDataToView(Feed feed) {
+        Context context = getContext();
         if (!feed.isRead(context)) {
             title.setTextColor(Color.BLACK);
-
         } else {
             title.setTextColor(Color.WHITE);
-
-
         }
-
         title.setText(feed.getTitle());
         description.setEllipsize(TextUtils.TruncateAt.END);
         description.setMaxLines(2);
         description.setText(feed.getContent());
 
         try {
-            Picasso.with(getContext())
+            if(feed.getImage() == null || feed.getImage().trim().length()==0)throw new Exception();
+            Picasso.with(context)
                     .load(feed.getImage())
                     .placeholder(R.drawable.news)
                     .error(R.drawable.news)
                     .into(imageView);
         } catch (Exception e) {
-            Log.e("hieu", e.toString());
+            Picasso.with(context).load(R.drawable.news).into(imageView);
+
         }
 
 

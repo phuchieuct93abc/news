@@ -10,7 +10,7 @@ import android.webkit.WebViewClient;
 import com.config.SharePreference;
 import com.feed.Feed;
 import com.phuchieu.news.R;
-import com.services.FeedContentService_JSON;
+import com.services.FeedService;
 import com.styles.CssStyles;
 
 import org.androidannotations.annotations.AfterViews;
@@ -28,7 +28,7 @@ public class FeedViewFragment extends Fragment {
     Feed feed;
     Boolean darkBackground;
     @Bean
-    FeedContentService_JSON feedService;
+    FeedService feedService;
 
     public Feed getFeed() {
         return feed;
