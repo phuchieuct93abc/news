@@ -14,8 +14,8 @@ import android.widget.RelativeLayout;
 import com.config.SharePreference;
 import com.feed.Feed;
 import com.phuchieu.news.R;
-import com.services.CategoryService_JSON;
-import com.services.FeedContentService_JSON;
+import com.services.CategoryService;
+import com.services.FeedService;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -35,7 +35,9 @@ public class FeedViewActivity extends ActionBarActivity {
 
     private static SharePreference sharePreference;
     @Bean
-    FeedContentService_JSON feedService;
+    FeedService feedService;
+    @Bean
+    CategoryService categoryService;
     @Extra("selectedId")
     Feed selectedId;
     PagerAdapter pagerAdapter;
@@ -43,7 +45,6 @@ public class FeedViewActivity extends ActionBarActivity {
     ViewPager pager;
     @ViewById
     RelativeLayout viewSwipe;
-    List<String> listFeedLink = new ArrayList<>();
     int page = 1;
     int currentIndexOfFeed;
     int indexOfFragment;
@@ -63,7 +64,7 @@ public class FeedViewActivity extends ActionBarActivity {
     public void loadMoreData() {
         try {
             page++;
-            pagerAdapter.loadMoredata(getApplicationContext());
+            pagerAdapter.setData(categoryService.getListFeedAndLoadMore(context));
             updateAdapter();
         } catch (Exception e) {
             updateAdapter();
@@ -79,10 +80,11 @@ public class FeedViewActivity extends ActionBarActivity {
 
     @UiThread
     void runUI() {
-        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
-        pagerAdapter.setItem(selectedId);
-        pagerAdapter.setListLink(listFeedLink);
 
+        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+
+        pagerAdapter.setData(categoryService.getListFeed());
+        pagerAdapter.setItem(selectedId);
         pager.setAdapter(pagerAdapter);
 
         OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
@@ -91,7 +93,7 @@ public class FeedViewActivity extends ActionBarActivity {
             public void onPageSelected(int arg0) {
                 currentIndexOfFeed = arg0;
                 try {
-                    CategoryService_JSON.getListFeed().get(arg0).setIsRead(context);
+                    categoryService.getListFeed().get(arg0).setIsRead(context);
                     indexOfFragment = arg0;
                     if (arg0 == pagerAdapter.getCount() - 1) {
                         loadMoreData();
@@ -115,7 +117,7 @@ public class FeedViewActivity extends ActionBarActivity {
             }
         };
         pager.setOnPageChangeListener(onPageChangeListener);
-        setSelectedPage(CategoryService_JSON.getIndexInCaterogyById(selectedId));
+        setSelectedPage(categoryService.getIndexInCaterogyById(selectedId));
         feedService.setRead(selectedId.getId());
     }
 
@@ -129,9 +131,9 @@ public class FeedViewActivity extends ActionBarActivity {
         setSharePreference(new SharePreference(this));
 
         runUI();
-        int index = CategoryService_JSON.getIndexInCaterogyById(selectedId);
+        int index = categoryService.getIndexInCaterogyById(selectedId);
         currentIndexOfFeed = index;
-        CategoryService_JSON.getListFeed().get(index).setIsRead(context);
+        categoryService.getListFeed().get(index).setIsRead(context);
         updateAdapter();
 
         setBackgroundColor();
@@ -146,7 +148,7 @@ public class FeedViewActivity extends ActionBarActivity {
     }
 
     public void openSource(View v) {
-        Feed feed = CategoryService_JSON.getListFeed().get(currentIndexOfFeed);
+        Feed feed = categoryService.getListFeed().get(currentIndexOfFeed);
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(feed.getContentUrl()));
         startActivity(i);

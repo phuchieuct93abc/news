@@ -39,7 +39,7 @@ public class FeedListAdapter extends BaseAdapter {
             FeedItemView = (FeedItemView) convertView;
         }
 
-        FeedItemView.bindDataToView(getItem(position),context);
+        FeedItemView.bindDataToView(getItem(position));
 
         return FeedItemView;
     }

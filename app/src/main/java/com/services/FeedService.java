@@ -3,17 +3,19 @@ package com.services;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.activity.Splash;
 import com.feed.Feed;
 
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.json.JSONObject;
 @EBean
-public class FeedContentService_JSON {
+public class FeedService {
     public static String LINK_FEED_CONTENT = "http://dataprovider.touch.baomoi.com/json/article.aspx?articleId={ID}";
     @RootContext
     Context context;
+    @Bean
+    HttpService httpService;
     static String sharedPreferencesCaterogy = "CATEROGY_CACHE";
     static String sharedPreferencesReadFeed = "READ_FEED_CACHE";
 
@@ -35,7 +37,7 @@ public class FeedContentService_JSON {
 
         String responseCategory;
         if (prefs.getString(id, null) == null) {
-            responseCategory = CategoryService_JSON.readUrl(link_request, context);
+            responseCategory = httpService.readUrl(link_request, context);
             prefs.edit().putString(id, responseCategory).apply();
         } else {
             responseCategory = prefs.getString(id, null);
@@ -46,7 +48,7 @@ public class FeedContentService_JSON {
 
     public void setRead(String feedLink) {
         SharedPreferences prefs = context.getSharedPreferences(
-                FeedContentService_JSON.sharedPreferencesReadFeed, Context.MODE_PRIVATE);
+                FeedService.sharedPreferencesReadFeed, Context.MODE_PRIVATE);
         prefs.edit().putBoolean(feedLink, true).commit();
 
 
@@ -55,7 +57,7 @@ public class FeedContentService_JSON {
     public void clearCache() {
         try {
             SharedPreferences prefs = context.getSharedPreferences(
-                    FeedContentService_JSON.sharedPreferencesCaterogy, Context.MODE_PRIVATE);
+                    FeedService.sharedPreferencesCaterogy, Context.MODE_PRIVATE);
             prefs.edit().clear().commit();
         } catch (Exception e) {
             e.printStackTrace();
