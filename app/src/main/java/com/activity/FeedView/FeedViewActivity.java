@@ -1,5 +1,6 @@
 package com.activity.FeedView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -14,10 +15,11 @@ import com.config.SharePreference;
 import com.feed.Feed;
 import com.phuchieu.news.R;
 import com.services.CategoryService_JSON;
-import com.services.FeedService;
+import com.services.FeedContentService_JSON;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.UiThread;
@@ -32,6 +34,8 @@ import java.util.List;
 public class FeedViewActivity extends ActionBarActivity {
 
     private static SharePreference sharePreference;
+    @Bean
+    FeedContentService_JSON feedService;
     @Extra("selectedId")
     Feed selectedId;
     PagerAdapter pagerAdapter;
@@ -43,6 +47,8 @@ public class FeedViewActivity extends ActionBarActivity {
     int page = 1;
     int currentIndexOfFeed;
     int indexOfFragment;
+    final Context context = this;
+
 
     public static SharePreference getSharePreference() {
         return sharePreference;
@@ -85,7 +91,7 @@ public class FeedViewActivity extends ActionBarActivity {
             public void onPageSelected(int arg0) {
                 currentIndexOfFeed = arg0;
                 try {
-                    CategoryService_JSON.getListFeed().get(arg0).setIsRead();
+                    CategoryService_JSON.getListFeed().get(arg0).setIsRead(context);
                     indexOfFragment = arg0;
                     if (arg0 == pagerAdapter.getCount() - 1) {
                         loadMoreData();
@@ -110,7 +116,7 @@ public class FeedViewActivity extends ActionBarActivity {
         };
         pager.setOnPageChangeListener(onPageChangeListener);
         setSelectedPage(CategoryService_JSON.getIndexInCaterogyById(selectedId));
-        FeedService.setRead(selectedId.getId());
+        feedService.setRead(selectedId.getId());
     }
 
     @UiThread
@@ -125,7 +131,7 @@ public class FeedViewActivity extends ActionBarActivity {
         runUI();
         int index = CategoryService_JSON.getIndexInCaterogyById(selectedId);
         currentIndexOfFeed = index;
-        CategoryService_JSON.getListFeed().get(index).setIsRead();
+        CategoryService_JSON.getListFeed().get(index).setIsRead(context);
         updateAdapter();
 
         setBackgroundColor();

@@ -31,8 +31,8 @@ public class FeedItemView extends RelativeLayout {
         super(context);
     }
 
-    public void bindDataToView(Feed feed) {
-        if (!feed.isRead()) {
+    public void bindDataToView(Feed feed,Context context) {
+        if (!feed.isRead(context)) {
             title.setTextColor(Color.BLACK);
 
         } else {
