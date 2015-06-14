@@ -42,14 +42,14 @@ public class ListFeed extends Activity {
     public void onResume() {
         super.onResume();
         List<Feed> refreshData = categoryService.getListFeed();
-        adapter.setListData(refreshData);
-        adapter.notifyDataSetChanged();
+        adapter.setDataList(refreshData);
     }
 
     @AfterViews
     void afterView() {
         feedService.clearCache();
         categoryService.clearCacheList();
+        listView.setAdapter(adapter);
         background();
         setOnScrollListener();
     }
@@ -60,49 +60,42 @@ public class ListFeed extends Activity {
             public void onRefresh() {
                 feedService.clearCache();
                 categoryService.clearCacheList();
-                adapter.setListData(new ArrayList<Feed>());
-                adapter.notifyDataSetChanged();
+                adapter.setDataList(new ArrayList<Feed>());
                 background();
             }
         });
         listView.setupMoreListener(new OnMoreListener() {
             @Override
             public void onMoreAsked(int numberOfItems, int numberBeforeMore, int currentItemPos) {
-                try {
-
-                    loadNextPage();
 
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e("hieu", e.getMessage());
-                }
+                loadNextPage();
+                listView.hideMoreProgress();
+
+
             }
 
-        }, 1);
+        }, 3);
 
 
     }
 
     @Background
     void loadNextPage() {
-        List<Feed> rssItems;
-
-        rssItems = categoryService.getListFeedAndLoadMore(getApplicationContext());
-        adapter.setListData(rssItems);
-
-
-        updateList();
-
-
+        List<Feed> moreData= categoryService.getMoreFeed();
+        setMoreDataList(moreData);
     }
 
     @UiThread
-    void updateList() {
-        adapter.notifyDataSetChanged();
-        listView.hideMoreProgress();
+    void setDataList( List<Feed> rssItems) {
+        adapter.setDataList(rssItems);
     }
 
+    @UiThread
+    void setMoreDataList( List<Feed> rssItems) {
+        adapter.setMoreDataList(rssItems);
+        Log.e("hieu",adapter.getCount()+"");
+    }
     @ItemClick
     public void listViewItemClicked(Feed clickedItem) {
         Intent i = new Intent(getApplicationContext(), FeedViewActivity_.class);
@@ -112,7 +105,6 @@ public class ListFeed extends Activity {
 
     @UiThread
     void run() {
-        listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
@@ -120,9 +112,8 @@ public class ListFeed extends Activity {
     void background() {
         try {
 
-            List<Feed> rssItems = categoryService.getListFeedAndLoadMore(getApplicationContext());
-            adapter.setListData(rssItems);
-            run();
+            List<Feed> moreData = categoryService.getMoreFeed();
+            setMoreDataList(moreData);
         } catch (Exception e) {
             e.printStackTrace();
         }

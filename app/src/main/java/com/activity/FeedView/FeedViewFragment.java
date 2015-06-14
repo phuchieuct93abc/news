@@ -16,7 +16,9 @@ import com.styles.CssStyles;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
@@ -29,7 +31,6 @@ public class FeedViewFragment extends Fragment {
     Boolean darkBackground;
     @Bean
     FeedService feedService;
-
     public Feed getFeed() {
         return feed;
     }
@@ -45,16 +46,13 @@ public class FeedViewFragment extends Fragment {
         settings.setUseWideViewPort(false);
         settings.setDefaultTextEncodingName("utf-8");
         settings.setDefaultFontSize(22);
-        settings.setAppCacheEnabled(false);
-        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        settings.setAppCacheEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         webView.setWebViewClient(new WebViewClient());
-
     }
 
     @Background
-    void runBackground(Context context) {
-        initializeSetting();
-
+    void runBackground() {
         String contentHTML;
         try {
             contentHTML = feedService.getFeedContentFromFeed(feed).getContentHTML();
@@ -78,9 +76,10 @@ public class FeedViewFragment extends Fragment {
 
     @AfterViews
     void bindLinkToView() {
-        darkBackground = FeedViewActivity.getSharePreference().getBooleanValue(SharePreference.DARK_BACKGROUND);
-
-        runBackground(getActivity().getApplicationContext());
+        Context context = getActivity().getApplicationContext();
+        darkBackground = new SharePreference(context).getBooleanValue(SharePreference.DARK_BACKGROUND);
+        initializeSetting();
+        runBackground();
 
     }
 
