@@ -7,8 +7,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.koushikdutta.ion.Ion;
+import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 import com.phuchieu.news.R;
-import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.RootContext;
@@ -45,13 +46,11 @@ public class FeedItemView extends RelativeLayout {
 
         try {
             if(feed.getImage() == null || feed.getImage().trim().length()==0)throw new Exception();
-            Picasso.with(context)
-                    .load(feed.getImage())
-                    .placeholder(R.drawable.news)
-                    .error(R.drawable.news)
-                    .into(imageView);
+
+            UrlImageViewHelper.setUrlDrawable(imageView, feed.getImage(), R.drawable.news);
+
         } catch (Exception e) {
-            Picasso.with(context).load(R.drawable.news).into(imageView);
+          //  UrlImageViewHelper.set(imageView,  R.drawable.news, R.drawable.news);
 
         }
 

@@ -43,15 +43,14 @@ public class ListFeed extends Activity {
         super.onResume();
         List<Feed> refreshData = categoryService.getListFeed();
         adapter.setDataList(refreshData);
-        Log.e("hieu","init"+adapter.getCount());
     }
 
     @AfterViews
     void afterView() {
         feedService.clearCache();
         categoryService.clearCacheList();
-        listView.setAdapter(adapter);
         background();
+
         setOnScrollListener();
     }
 
@@ -71,7 +70,6 @@ public class ListFeed extends Activity {
 
 
                 loadNextPage();
-                listView.hideMoreProgress();
 
 
             }
@@ -83,24 +81,26 @@ public class ListFeed extends Activity {
 
     @Background
     void loadNextPage() {
-        List<Feed> moreData= categoryService.getMoreFeed();
-        Log.e("hieu","load more"+moreData);
+        List<Feed> moreData = categoryService.getMoreFeed();
         setMoreDataList(moreData);
+
     }
 
     @UiThread
-    void setDataList( List<Feed> rssItems) {
-        Log.e("hieu","set data"+adapter.getCount());
+    void setDataList(List<Feed> rssItems) {
         adapter.setDataList(rssItems);
     }
 
     @UiThread
-    void setMoreDataList( List<Feed> rssItems) {
-        Log.e("hieu","more data"+adapter.getCount());
+    void setMoreDataList(List<Feed> rssItems) {
 
         adapter.setMoreDataList(rssItems);
-        Log.e("hieu","more data"+adapter.getCount());
+        if(listView.getAdapter()==null)listView.setAdapter(adapter);
+
+        listView.hideMoreProgress();
+
     }
+
     @ItemClick
     public void listViewItemClicked(Feed clickedItem) {
         Intent i = new Intent(getApplicationContext(), FeedViewActivity_.class);
@@ -116,11 +116,10 @@ public class ListFeed extends Activity {
     @Background
     void background() {
         try {
-            Log.e("hieu","init 1 data"+adapter.getCount());
 
             List<Feed> moreData = categoryService.getMoreFeed();
             setMoreDataList(moreData);
-            Log.e("hieu", "init 2 data" + adapter.getCount());
+
 
         } catch (Exception e) {
             e.printStackTrace();
