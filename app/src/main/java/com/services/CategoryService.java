@@ -2,17 +2,14 @@ package com.services;
 
 import android.content.Context;
 import android.util.Log;
-
 import com.feed.Category;
 import com.feed.Feed;
-
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +44,6 @@ public class CategoryService {
         currentLink = LINK_CATEGORY.replace("{LIST_ID}", category.getId() + "");
         currentLink = currentLink.replace("{LIST_TYPE}", category.getType());
         clearCacheList();
-
     }
 
     public List<Feed> getListFeed() {
@@ -66,10 +62,7 @@ public class CategoryService {
 
     public List<Feed> getMoreFeed() {
         List<Feed> result = new ArrayList<>();
-
         try {
-
-
             int beforeUpdateLength = listFeed.size();
             if (beforeUpdateLength >= 190) return listFeed;
             String link = currentLink.replace("{START_PAGE}", "" + (listFeed.size() + duplicateCount));
@@ -83,7 +76,6 @@ public class CategoryService {
                         // Pulling items from the array
                         Feed feed = new Feed(oneObject);
                         if (getIndexInCaterogyById(feed) == -1) {
-
                             result.add(feed);
                         } else {
                             duplicateCount++;

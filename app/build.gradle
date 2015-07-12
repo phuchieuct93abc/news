@@ -64,7 +64,7 @@ dependencies {
     apt 'org.androidannotations:androidannotations:3.2'
     compile project(':materialDesignLib')
     compile 'com.quentindommerc.superlistview:library:1.5.2'
-    compile('com.koushikdutta.ion:ion:2.1.4')
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.koushikdutta.ion:ion:2.1.4'
     compile 'com.joanzapata.android:android-iconify:1.0.9'
+    compile 'com.koushikdutta.urlimageviewhelper:urlimageviewhelper:1.0.4'
 }
