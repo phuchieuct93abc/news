@@ -33,23 +33,16 @@ public class FeedService {
     }
 
     private String getContentFromCache(String id, String link_request, Context context) {
-        SharedPreferences prefs = context.getSharedPreferences("CONTENT_FEED", Context.MODE_PRIVATE);
 
-        String responseCategory;
-        if (prefs.getString(id, null) == null) {
-            responseCategory = httpService.readUrl(link_request, context);
-            prefs.edit().putString(id, responseCategory).apply();
-        } else {
-            responseCategory = prefs.getString(id, null);
-        }
-        return responseCategory;
+
+        return httpService.readUrl(link_request, context,true);
     }
 
 
     public void setRead(String feedLink) {
         SharedPreferences prefs = context.getSharedPreferences(
                 FeedService.sharedPreferencesReadFeed, Context.MODE_PRIVATE);
-        prefs.edit().putBoolean(feedLink, true).commit();
+        prefs.edit().putBoolean(feedLink, true).apply();
 
 
     }
@@ -58,7 +51,7 @@ public class FeedService {
         try {
             SharedPreferences prefs = context.getSharedPreferences(
                     FeedService.sharedPreferencesCaterogy, Context.MODE_PRIVATE);
-            prefs.edit().clear().commit();
+            prefs.edit().clear().apply();
         } catch (Exception e) {
             e.printStackTrace();
         }
