@@ -3,8 +3,6 @@ package com.feed;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.activity.Splash_;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,6 +19,8 @@ public class Feed implements Serializable {
     String contentHTML;
     String contentUrl;
     String sourceName;
+    private int width;
+    private int height;
 
     public Feed(JSONObject jsonObject) {
         try {
@@ -32,6 +32,8 @@ public class Feed implements Serializable {
             this.listId = jsonObject.getString("ListId");
             this.sourceName = jsonObject.getString("SourceName");
             this.contentUrl = jsonObject.getString("ContentUrl");
+            this.setHeight(jsonObject.getInt("LandscapeAvatarHeight"));
+            this.setWidth(jsonObject.getInt("LandscapeAvatarWidth"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -116,4 +118,19 @@ public class Feed implements Serializable {
         this.title = title;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
 }

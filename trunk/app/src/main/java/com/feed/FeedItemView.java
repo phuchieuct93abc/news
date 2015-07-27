@@ -3,14 +3,18 @@ package com.feed;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 import com.phuchieu.news.R;
+import com.services.HttpService;
 
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.ViewById;
@@ -26,6 +30,9 @@ public class FeedItemView extends RelativeLayout {
     TextView isRead;
     @ViewById
     ImageView imageView;
+    @Bean
+    HttpService httpService;
+    private static int cacheDuration = 1000*60*3;
 
 
     public FeedItemView(Context context) {
@@ -44,18 +51,24 @@ public class FeedItemView extends RelativeLayout {
         description.setMaxLines(2);
         description.setText(feed.getContent());
 
-        try {
-            if(feed.getImage() == null || feed.getImage().trim().length()==0)throw new Exception();
+        Log.d("width image", imageView.getWidth() + "");
 
-            UrlImageViewHelper.setUrlDrawable(imageView, feed.getImage(), R.drawable.news);
+        int width = feed.getWidth();
+        int height = feed.getHeight();
+        try{
+       if(height/width*1020 >0) {
+           RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(1020, height / width * 1020);
+                  imageView.setLayoutParams(parms);}
 
-        } catch (Exception e) {
-          //  UrlImageViewHelper.set(imageView,  R.drawable.news, R.drawable.news);
+       }catch(Exception e){
+    Log.d("hieu",height+" "+width);
 
         }
+        httpService.loadImage(feed,imageView);
 
 
-//        Ion.getDefault(getContext()).with(imageView).smartSize(true).placeholder(R.drawable.news).load(feed.getImage());
 //        UrlImageViewHelper.setUrlDrawable(imageView, feed.getImage(), R.drawable.news, cacheTime);
     }
+
+
 }
