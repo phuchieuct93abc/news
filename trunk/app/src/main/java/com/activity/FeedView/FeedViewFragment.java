@@ -3,6 +3,7 @@ package com.activity.FeedView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -48,6 +49,15 @@ public class FeedViewFragment extends Fragment {
         settings.setDefaultFontSize(22);
         settings.setAppCacheEnabled(true);
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        webView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
+        webView.setLongClickable(false);
+        webView.setHapticFeedbackEnabled(false);
+
         webView.setWebViewClient(new WebViewClient());
     }
 
