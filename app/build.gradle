@@ -62,7 +62,6 @@ dependencies {
     compile 'com.neenbedankt.gradle.plugins:android-apt:1.4'
     compile 'org.androidannotations:androidannotations-api:3.2'
     apt 'org.androidannotations:androidannotations:3.2'
-    compile project(':materialDesignLib')
     compile 'com.quentindommerc.superlistview:library:1.5.2'
     compile 'com.koushikdutta.ion:ion:2.1.4'
     compile 'com.joanzapata.android:android-iconify:1.0.9'
