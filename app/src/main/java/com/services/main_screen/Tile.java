@@ -14,14 +14,16 @@ public class Tile {
     String icon;
     Category caterogi;
     OnClickListener onClick;
+    private String type;
 
-    public Tile(String name, String title, String imgUrl, Category caterogi, String icon) {
+    public Tile(String name, String title, String imgUrl, Category caterogi, String icon,String type) {
         super();
         this.name = name;
         this.title = title;
         this.imgUrl = imgUrl;
         this.icon = icon;
         this.caterogi = caterogi;
+        this.type = type;
     }
 
     public Category getCaterogi() {
@@ -73,5 +75,13 @@ public class Tile {
         TileView tileView = new TileView(context);
         tileView.setTile(this);
         return tileView;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

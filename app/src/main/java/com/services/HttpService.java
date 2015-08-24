@@ -11,6 +11,10 @@ import com.koushikdutta.ion.builder.LoadBuilder;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Random;
 
 @EBean
 public class HttpService{
@@ -18,8 +22,9 @@ public class HttpService{
     Context context;
     LoadBuilder<Builders.Any.B> ionLoadUrl;
     Ion ionLoadImage;
+    private static String RANDOM_IMAGE = "http://www.bing.com/HPImageArchive.aspx?format=js&idx=random&n=1&mkt=en-US";
 
-public String readUrl(String path,Context context){
+public String readUrl(String path ){
 
     try {
         initIonLoadUrl(context);
@@ -45,6 +50,22 @@ public String readUrl(String path,Context context){
 
     private void initIonLoadImage() {
         if(ionLoadImage==null) ionLoadImage = Ion.getDefault(context);
+    }
+    public void setRandomImage(ImageView imageView){
+        try {
+            Random r = new Random();
+            int i1 = r.nextInt(18 - 1) + 1;
+
+        String response = readUrl(RANDOM_IMAGE.replaceAll("random",i1+""));
+        JSONObject jObject = new JSONObject(response);
+            JSONObject a = jObject.getJSONArray("images").getJSONObject(0);
+        String url ="http://www.bing.com"+a.getString("url");
+            Ion.getDefault(context).build(imageView).smartSize(true).centerInside().load(url);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 }
