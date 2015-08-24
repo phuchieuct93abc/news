@@ -15,6 +15,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.activity.ListFeedView.ListFeed_;
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.config.SharePreference;
 import com.feed.Category;
 import com.koushikdutta.ion.Ion;
@@ -77,8 +78,9 @@ public class CaterogyLivetile  extends Activity {
         animation.setRepeatCount(5);  // animation repeat count
         animation.setRepeatMode(2);   // repeat animation (left to right, right to left )
         //animation.setFillAfter(true);
-
-        Ion.getDefault(context).build(background).centerCrop().load("http://www.bing.com/az/hprichbg/rb/SpectacledBear_EN-US11718932626_1920x1080.jpg");
+        httpService.setRandomImage(background);
+        background.setAnimation(animation);
+//        Ion.getDefault(context).build().centerCrop().load("http://www.bing.com/az/hprichbg/rb/SpectacledBear_EN-US11718932626_1920x1080.jpg");
         linearLayout.bringToFront();
         background.startAnimation(animation);  // start animation
 
@@ -87,14 +89,12 @@ public class CaterogyLivetile  extends Activity {
         for (int x = 0; x < table.getChildCount(); x++) {
             TableRow row = (TableRow) table.getChildAt(x);
             for (int y = 0; y < row.getChildCount(); y++) {
-
-
-                Button button = (Button) row.getChildAt(y);
+                BootstrapButton button = (BootstrapButton) row.getChildAt(y);
                 int index = 2 * x + y;
                 Tile tile = tiles.get(index);
-                button.setText("{" + tile.getIcon() + "}  " + tile.getTitle());
-                button.setPaddingRelative(10, 0, 0, 0);
-                button.setGravity(Gravity.CENTER);
+                button.setText(tile.getTitle());
+                button.setLeftIcon(tile.getIcon());
+                button.setBootstrapType(tile.getType());
                 View.OnClickListener initialOnClickListener = initialOnClickListener(tile.getCaterogi());
                 button.setOnClickListener(initialOnClickListener);
 

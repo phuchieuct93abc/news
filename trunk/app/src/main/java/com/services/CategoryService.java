@@ -66,7 +66,7 @@ public class CategoryService {
             int beforeUpdateLength = listFeed.size();
             if (beforeUpdateLength >= 190) return listFeed;
             String link = currentLink.replace("{START_PAGE}", "" + (listFeed.size() + duplicateCount));
-            String responseCategory = httpService.readUrl(link, context);
+            String responseCategory = httpService.readUrl(link);
             if (responseCategory != null) {
                 JSONObject jObject = new JSONObject(responseCategory);
                 JSONArray jArray = jObject.getJSONArray("articlelist");

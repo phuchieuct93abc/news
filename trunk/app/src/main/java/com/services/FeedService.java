@@ -35,7 +35,7 @@ public class FeedService {
     private String getContentFromCache(String id, String link_request, Context context) {
 
 
-        return httpService.readUrl(link_request, context);
+        return httpService.readUrl(link_request);
     }
 
 
