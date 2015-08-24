@@ -12,5 +12,7 @@
     <string name="title_activity_list_feed">ListFeed</string>
     <string name="title_activity_test">Test</string>
     <string name="openSource">Open Source</string>
+    <string name="background">background</string>
+    <string name="dark_background">Dark background</string>
 
 </resources>

@@ -7,8 +7,8 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-
-        android:id="@+id/background" />
+        android:id="@+id/background"
+        android:contentDescription="@string/background" />
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,12 +31,14 @@
                     android:layout_height="@dimen/button_height"
                     android:layout_margin="@dimen/margin_button"
                     android:layout_weight="1"
+                    bootstrap:bb_icon_left="fa-heart"
                     android:text="@string/hello_world" />
 
                 <com.beardedhen.androidbootstrap.BootstrapButton
                     android:id="@+id/button2"
                     android:layout_height="@dimen/button_height"
                     android:layout_margin="@dimen/margin_button"
+                    bootstrap:bb_icon_left="fa-heart"
                     android:layout_weight="1"
                     android:text="@string/hello_world" />
             </TableRow>
@@ -58,6 +60,8 @@
                 android:id="@+id/button4"
                     android:layout_height="@dimen/button_height"
                     android:layout_margin="@dimen/margin_button"
+                    bootstrap:bb_icon_left="fa-heart"
+
                     android:layout_weight="1"
                     android:text="@string/hello_world" />
             </TableRow>
@@ -71,6 +75,8 @@
                     android:id="@+id/button5"
                     android:layout_height="@dimen/button_height"
                     android:layout_margin="@dimen/margin_button"
+                    bootstrap:bb_icon_left="fa-heart"
+
                     android:layout_weight="1"
                     android:text="@string/hello_world" />
 
@@ -78,6 +84,8 @@
                     android:id="@+id/button6"
                     android:layout_height="@dimen/button_height"
                     android:layout_margin="@dimen/margin_button"
+                    bootstrap:bb_icon_left="fa-heart"
+
                     android:layout_weight="1"
                     android:text="@string/hello_world" />
             </TableRow>
@@ -91,6 +99,8 @@
                     android:id="@+id/button7"
                     android:layout_height="@dimen/button_height"
                     android:layout_margin="@dimen/margin_button"
+                    bootstrap:bb_icon_left="fa-heart"
+
                     android:layout_weight="1"
                     android:text="@string/hello_world" />
 
@@ -98,6 +108,8 @@
                     android:id="@+id/button8"
                     android:layout_height="@dimen/button_height"
                     android:layout_margin="@dimen/margin_button"
+                    bootstrap:bb_icon_left="fa-heart"
+
                     android:layout_weight="1"
                     android:text="@string/hello_world" />
             </TableRow>
@@ -108,12 +120,13 @@
             android:id="@+id/darkBackground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dark background" />
+            android:text="@string/dark_background" />
 
         <ImageView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/imageView2" />
+            android:id="@+id/imageView2"
+            android:contentDescription="" />
 
 
     </LinearLayout>
