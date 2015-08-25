@@ -26,4 +26,7 @@
         <item>@color/gray</item>
     </integer-array>
 
+    <color name="PrimaryColor">#2196F3</color>
+    <color name="PrimaryDarkColor">#1976D2</color>
+
 </resources> 

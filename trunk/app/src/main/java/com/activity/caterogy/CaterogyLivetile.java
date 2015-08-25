@@ -2,6 +2,9 @@ package com.activity.caterogy;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,9 +30,11 @@ import com.services.main_screen.TileService;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
@@ -38,7 +43,7 @@ import java.util.List;
  * Created by phuchieuct on 8/23/2015.
  */
 @EActivity(R.layout.caterogy_grid)
-public class CaterogyLivetile  extends Activity {
+public class CaterogyLivetile  extends AppCompatActivity {
     Context context = this;
     @ViewById
     TableLayout table;
@@ -58,34 +63,36 @@ public class CaterogyLivetile  extends Activity {
     ImageView background;
     @Bean
     HttpService httpService;
+    @ViewById
+    NavigationView navigation_view;
+    @ViewById
+    DrawerLayout drawer;
 
     @AfterViews
     void afterView() {
+        randomImage();
         setClickListenerForButton();
+
         sharePreference = new SharePreference(context);
         darkBackground.setChecked(sharePreference.getBooleanValue(SharePreference.DARK_BACKGROUND));
+
     }
 
     @AfterInject
     void afterInject() {
         tiles = TileService.getList();
     }
+    @Background
+    void randomImage(){
+        randonImageUIThread();
+    }
+    @UiThread
+    void randonImageUIThread(){
+        httpService.setRandomImage(background);
+
+    }
 
     private void setClickListenerForButton() {
-        TranslateAnimation animation = new TranslateAnimation(0.0f, 400.0f,
-                0.0f, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
-        animation.setDuration(5000);  // animation duration
-        animation.setRepeatCount(5);  // animation repeat count
-        animation.setRepeatMode(2);   // repeat animation (left to right, right to left )
-        //animation.setFillAfter(true);
-        httpService.setRandomImage(background);
-        background.setAnimation(animation);
-//        Ion.getDefault(context).build().centerCrop().load("http://www.bing.com/az/hprichbg/rb/SpectacledBear_EN-US11718932626_1920x1080.jpg");
-        linearLayout.bringToFront();
-        background.startAnimation(animation);  // start animation
-
-
-
         for (int x = 0; x < table.getChildCount(); x++) {
             TableRow row = (TableRow) table.getChildAt(x);
             for (int y = 0; y < row.getChildCount(); y++) {
