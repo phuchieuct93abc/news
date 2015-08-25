@@ -2,102 +2,102 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\phuchieuct\.gradle\caches\modules-2\files-2.1\com.koushikdutta.async\androidasync\2.1.4\44504f462f292532739c35a624004bd1b0a4385b\androidasync-2.1.4.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="44504f462f292532739c35a624004bd1b0a4385b">
-        <dex dex="D:\NEWS\trunk\app\build\intermediates\pre-dexed\debug\androidasync-2.1.4-d642ab459ad621869d50c55a1fe50682add597a8.jar" />
-    </item>
-    <item
-        jar="C:\Users\phuchieuct\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
-        <dex dex="D:\NEWS\trunk\app\build\intermediates\pre-dexed\debug\picasso-2.5.2-434bfa7b0c2dbd113cd782c98490fc6f0f819755.jar" />
-    </item>
-    <item
-        jar="C:\Users\phuchieuct\.gradle\caches\modules-2\files-2.1\com.koushikdutta.urlimageviewhelper\urlimageviewhelper\1.0.4\67125d743e0035a1b157ba8210c2abf1ff374e10\urlimageviewhelper-1.0.4.jar"
+        jar="C:\Users\lphieu\.gradle\caches\modules-2\files-2.1\com.koushikdutta.urlimageviewhelper\urlimageviewhelper\1.0.4\67125d743e0035a1b157ba8210c2abf1ff374e10\urlimageviewhelper-1.0.4.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="67125d743e0035a1b157ba8210c2abf1ff374e10">
-        <dex dex="D:\NEWS\trunk\app\build\intermediates\pre-dexed\debug\urlimageviewhelper-1.0.4-f2405b8fac3622f116b9f8341e7a6012b2d04d74.jar" />
+        <dex dex="E:\android project\NEWS\app\build\intermediates\pre-dexed\debug\urlimageviewhelper-1.0.4-23a701812868b9729537ec9532b18fe61a58ad6d.jar" />
     </item>
     <item
-        jar="D:\NEWS\trunk\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\jars\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="D:\NEWS\trunk\app\build\intermediates\pre-dexed\debug\classes-904b27047e862648d63f3660144f86e95f0a3f56.jar" />
-    </item>
-    <item
-        jar="D:\NEWS\trunk\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="f8efd0096475e0daf054267b61544e10dc776503">
-        <dex dex="D:\NEWS\trunk\app\build\intermediates\pre-dexed\debug\classes-418a95d58114e0934a92ec5b0ac784dee6057c85.jar" />
-    </item>
-    <item
-        jar="D:\NEWS\trunk\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
-        <dex dex="D:\NEWS\trunk\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.1-9c2db26a8f40b511fd07c883ab4812fba3dacc1d.jar" />
-    </item>
-    <item
-        jar="C:\Users\phuchieuct\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3\5fc52c41ef0239d1093a1eb7c3697036183677ce\gson-2.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="5fc52c41ef0239d1093a1eb7c3697036183677ce">
-        <dex dex="D:\NEWS\trunk\app\build\intermediates\pre-dexed\debug\gson-2.3-c67cdfef8ecf5ed8a09161416f45b7c9a6062473.jar" />
-    </item>
-    <item
-        jar="C:\Users\phuchieuct\.gradle\caches\modules-2\files-2.1\com.koushikdutta.ion\ion\2.1.4\512ec0f8e4ef42178afaa25e3e78c4b990be9b61\ion-2.1.4.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="512ec0f8e4ef42178afaa25e3e78c4b990be9b61">
-        <dex dex="D:\NEWS\trunk\app\build\intermediates\pre-dexed\debug\ion-2.1.4-844019bf8f456245a195b1558ee452ced7356794.jar" />
-    </item>
-    <item
-        jar="C:\Users\phuchieuct\.gradle\caches\modules-2\files-2.1\com.neenbedankt.gradle.plugins\android-apt\1.4\2ee9dad8e86284f7518ae3818c4d269556567e92\android-apt-1.4.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="2ee9dad8e86284f7518ae3818c4d269556567e92">
-        <dex dex="D:\NEWS\trunk\app\build\intermediates\pre-dexed\debug\android-apt-1.4-6e630b0146e2d630ae5e96fbcf799490ef6d36c1.jar" />
-    </item>
-    <item
-        jar="C:\Users\phuchieuct\.gradle\caches\modules-2\files-2.1\com.joanzapata.android\android-iconify\1.0.9\27817b0ae26d4fa788711f1f75aaa45d76901722\android-iconify-1.0.9.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="27817b0ae26d4fa788711f1f75aaa45d76901722">
-        <dex dex="D:\NEWS\trunk\app\build\intermediates\pre-dexed\debug\android-iconify-1.0.9-1225b24429f8a06556d16291ef8929a1b3d358b3.jar" />
-    </item>
-    <item
-        jar="D:\NEWS\trunk\app\build\intermediates\exploded-aar\com.quentindommerc.superlistview\library\1.5.2\jars\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="283c59b1230f6d6ecc48780ae775628b0ab65aea">
-        <dex dex="D:\NEWS\trunk\app\build\intermediates\pre-dexed\debug\classes-83a709cfc887c7554bc2aa4c1b83f8a58a1390e3.jar" />
-    </item>
-    <item
-        jar="C:\Users\phuchieuct\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
-        <dex dex="D:\NEWS\trunk\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.1-3d454c707195b5349262457d328ab0d67bf45a0c.jar" />
-    </item>
-    <item
-        jar="C:\Users\phuchieuct\.gradle\caches\modules-2\files-2.1\org.androidannotations\androidannotations-api\3.2\89b33bb1e996eb2c4089f79d1b8651c71fe8e2d1\androidannotations-api-3.2.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="89b33bb1e996eb2c4089f79d1b8651c71fe8e2d1">
-        <dex dex="D:\NEWS\trunk\app\build\intermediates\pre-dexed\debug\androidannotations-api-3.2-fec75fc23a361f5e1b73c7ada895e9601bc1f5a6.jar" />
-    </item>
-    <item
-        jar="D:\NEWS\trunk\app\build\intermediates\exploded-aar\com.beardedhen\androidbootstrap\1.2.3\jars\classes.jar"
+        jar="E:\android project\NEWS\app\build\intermediates\exploded-aar\com.beardedhen\androidbootstrap\1.2.3\jars\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="11cd8b9af3b27673eceda7335192cd01b423ef26">
-        <dex dex="D:\NEWS\trunk\app\build\intermediates\pre-dexed\debug\classes-68fea3ba64b08ab41ec4c577938bbb97cdb2ec8c.jar" />
+        <dex dex="E:\android project\NEWS\app\build\intermediates\pre-dexed\debug\classes-56e38965ffccc991ca992463ed5ac7606caeef38.jar" />
+    </item>
+    <item
+        jar="C:\Users\lphieu\.gradle\caches\modules-2\files-2.1\com.joanzapata.android\android-iconify\1.0.9\27817b0ae26d4fa788711f1f75aaa45d76901722\android-iconify-1.0.9.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="27817b0ae26d4fa788711f1f75aaa45d76901722">
+        <dex dex="E:\android project\NEWS\app\build\intermediates\pre-dexed\debug\android-iconify-1.0.9-fba4659dbb4775d16302b1e572ca8e71b9e12a7c.jar" />
+    </item>
+    <item
+        jar="E:\android project\NEWS\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.0\jars\libs\internal_impl-23.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="8bd336eeae661e8311330284897ee07f8ebaa297">
+        <dex dex="E:\android project\NEWS\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.0-4bfb0cf36cf585858b83a0571843fd40b4104021.jar" />
+    </item>
+    <item
+        jar="C:\Users\lphieu\.gradle\caches\modules-2\files-2.1\com.koushikdutta.ion\ion\2.1.4\512ec0f8e4ef42178afaa25e3e78c4b990be9b61\ion-2.1.4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="512ec0f8e4ef42178afaa25e3e78c4b990be9b61">
+        <dex dex="E:\android project\NEWS\app\build\intermediates\pre-dexed\debug\ion-2.1.4-0d12eb6618f1d77f43ac42c3f1037e58a20d502d.jar" />
+    </item>
+    <item
+        jar="C:\Users\lphieu\.gradle\caches\modules-2\files-2.1\com.koushikdutta.async\androidasync\2.1.4\44504f462f292532739c35a624004bd1b0a4385b\androidasync-2.1.4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="44504f462f292532739c35a624004bd1b0a4385b">
+        <dex dex="E:\android project\NEWS\app\build\intermediates\pre-dexed\debug\androidasync-2.1.4-c254277944aadc469d6036c86498d1f9db46cd5d.jar" />
+    </item>
+    <item
+        jar="E:\android project\NEWS\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="E:\android project\NEWS\app\build\intermediates\pre-dexed\debug\classes-33fadfee12e32bed54b21a2ba287742fe8fed4ee.jar" />
+    </item>
+    <item
+        jar="C:\Users\lphieu\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.0\support-annotations-23.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="990e7f98a7bad86a40b1f0bcfeb039023afd0839">
+        <dex dex="E:\android project\NEWS\app\build\intermediates\pre-dexed\debug\support-annotations-23.0.0-58d5c1b6bced5353720de1123a11c29c28700b08.jar" />
+    </item>
+    <item
+        jar="C:\Users\lphieu\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="E:\android project\NEWS\app\build\intermediates\pre-dexed\debug\picasso-2.5.2-5833de62996c138939c74d233662ee7d917ce3ce.jar" />
+    </item>
+    <item
+        jar="E:\android project\NEWS\app\build\intermediates\exploded-aar\com.quentindommerc.superlistview\library\1.5.2\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="283c59b1230f6d6ecc48780ae775628b0ab65aea">
+        <dex dex="E:\android project\NEWS\app\build\intermediates\pre-dexed\debug\classes-3a565c5b7e578eb0d440d1b8465299925c425ecf.jar" />
+    </item>
+    <item
+        jar="E:\android project\NEWS\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="8413c27b45b7fe61dca4a98159f65e2cee215f5a">
+        <dex dex="E:\android project\NEWS\app\build\intermediates\pre-dexed\debug\classes-2d33ec9be6b5ccba2c2e7f5817458e121101306c.jar" />
+    </item>
+    <item
+        jar="C:\Users\lphieu\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3\5fc52c41ef0239d1093a1eb7c3697036183677ce\gson-2.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5fc52c41ef0239d1093a1eb7c3697036183677ce">
+        <dex dex="E:\android project\NEWS\app\build\intermediates\pre-dexed\debug\gson-2.3-01dc12741cd2e7de4c172ab234c4e9c54c4dbfd0.jar" />
+    </item>
+    <item
+        jar="C:\Users\lphieu\.gradle\caches\modules-2\files-2.1\com.neenbedankt.gradle.plugins\android-apt\1.4\2ee9dad8e86284f7518ae3818c4d269556567e92\android-apt-1.4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2ee9dad8e86284f7518ae3818c4d269556567e92">
+        <dex dex="E:\android project\NEWS\app\build\intermediates\pre-dexed\debug\android-apt-1.4-14709cb0c883e8927f91b3eff949b2bc3b490d88.jar" />
+    </item>
+    <item
+        jar="C:\Users\lphieu\.gradle\caches\modules-2\files-2.1\org.androidannotations\androidannotations-api\3.2\89b33bb1e996eb2c4089f79d1b8651c71fe8e2d1\androidannotations-api-3.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="89b33bb1e996eb2c4089f79d1b8651c71fe8e2d1">
+        <dex dex="E:\android project\NEWS\app\build\intermediates\pre-dexed\debug\androidannotations-api-3.2-1d46c07ff9a270965e509a7c2797dd3c87cdaae7.jar" />
     </item>
 
 </items>

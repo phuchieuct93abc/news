@@ -67,6 +67,6 @@ dependencies {
     compile 'com.joanzapata.android:android-iconify:1.0.9'
     compile 'com.koushikdutta.urlimageviewhelper:urlimageviewhelper:1.0.4'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    //    compile 'com.android.support:design:22.2.0'
+    compile 'com.android.support:design:22.2.0'
     compile 'com.beardedhen:androidbootstrap:1.2.3'
 }

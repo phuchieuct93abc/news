@@ -60,7 +60,7 @@ public String readUrl(String path ){
         JSONObject jObject = new JSONObject(response);
             JSONObject a = jObject.getJSONArray("images").getJSONObject(0);
         String url ="http://www.bing.com"+a.getString("url");
-            Ion.getDefault(context).build(imageView).smartSize(true).centerInside().load(url);
+            Ion.getDefault(context).build(imageView).centerCrop().load(url);
         } catch (JSONException e) {
             e.printStackTrace();
         }
