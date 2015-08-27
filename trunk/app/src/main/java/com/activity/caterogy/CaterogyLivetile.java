@@ -1,7 +1,11 @@
 package com.activity.caterogy;
 
 import android.content.Context;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -43,6 +47,9 @@ public class CaterogyLivetile extends AppCompatActivity {
     @Bean
     CategoryService categoryService;
 
+    @ViewById
+    DrawerLayout drawer;
+
 
     List<Tile> tiles;
 
@@ -51,6 +58,8 @@ public class CaterogyLivetile extends AppCompatActivity {
     ImageView background;
     @Bean
     HttpService httpService;
+    @ViewById
+    android.support.v7.widget.Toolbar tool_bar;
 
 
     @AfterViews
@@ -60,6 +69,16 @@ public class CaterogyLivetile extends AppCompatActivity {
 
         sharePreference = new SharePreference(context);
         darkBackground.setChecked(sharePreference.getBooleanValue(SharePreference.DARK_BACKGROUND));
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(tool_bar);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawer,toolbar,R.string.openSource,R.string.openSource);
+
+        //Setting the actionbarToggle to drawer layout
+        drawer.setDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+
+
     }
 
     @AfterInject
@@ -113,5 +132,10 @@ public class CaterogyLivetile extends AppCompatActivity {
     void checkedChangeOnHelloCheckBox(CompoundButton hello, boolean isChecked) {
         sharePreference.setBoleanValue(SharePreference.DARK_BACKGROUND, isChecked);
     }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
 
 }
