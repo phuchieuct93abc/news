@@ -127,13 +127,17 @@ public class FeedViewActivity extends ActionBarActivity {
     @AfterViews
     void run() {
 
-        runUI();
-        int index = categoryService.getIndexInCaterogyById(selectedId);
-        currentIndexOfFeed = index;
-        categoryService.getListFeed().get(index).setIsRead(context);
-        setDataList( categoryService.getListFeed());
+        try {
+            runUI();
+            int index = categoryService.getIndexInCaterogyById(selectedId);
+            currentIndexOfFeed = index;
+            categoryService.getListFeed().get(index).setIsRead(context);
+            setDataList( categoryService.getListFeed());
 
-        setBackgroundColor();
+            setBackgroundColor();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void setBackgroundColor() {
