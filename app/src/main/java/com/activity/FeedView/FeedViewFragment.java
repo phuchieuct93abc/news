@@ -3,6 +3,7 @@ package com.activity.FeedView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -68,7 +69,11 @@ public class FeedViewFragment extends Fragment {
             contentHTML = feedService.getFeedContentFromFeed(feed).getContentHTML();
             setContentToWebview(contentHTML);
         } catch (Exception e) {
-            setOriginalURLForWebview();
+            try{
+                setOriginalURLForWebview();
+
+            }catch(Exception ex){
+                Log.d("set url for webview",ex.getMessage());}
         }
     }
 

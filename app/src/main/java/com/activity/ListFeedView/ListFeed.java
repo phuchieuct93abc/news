@@ -3,10 +3,8 @@ package com.activity.ListFeedView;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 
 import com.activity.FeedView.FeedViewActivity_;
 import com.feed.Feed;
@@ -30,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @EActivity(R.layout.activity_main)
-public class ListFeed extends AppCompatActivity {
+public class ListFeed extends Activity {
 
 
     @ViewById
@@ -44,7 +42,8 @@ public class ListFeed extends AppCompatActivity {
     @ViewById
     Toolbar tool_bar;
     @Extra
-    String categoryName;
+
+String categoryName;
 
     @Override
     public void onResume() {
@@ -57,11 +56,6 @@ public class ListFeed extends AppCompatActivity {
     void afterView() {
 
         tool_bar.setTitle(categoryName);
-        setSupportActionBar(tool_bar);
-
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         feedService.clearCache();
         categoryService.clearCacheList();
         background();
@@ -110,7 +104,7 @@ public class ListFeed extends AppCompatActivity {
     void setMoreDataList(List<Feed> rssItems) {
 
         adapter.setMoreDataList(rssItems);
-        if (listView.getAdapter() == null) listView.setAdapter(adapter);
+        if(listView.getAdapter()==null)listView.setAdapter(adapter);
 
         listView.hideMoreProgress();
 
@@ -140,17 +134,6 @@ public class ListFeed extends AppCompatActivity {
             e.printStackTrace();
         }
 
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
 
