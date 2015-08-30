@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,6 +30,7 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
@@ -60,6 +62,7 @@ public class CaterogyLivetile extends AppCompatActivity {
     HttpService httpService;
     @ViewById
     android.support.v7.widget.Toolbar tool_bar;
+
 
 
     @AfterViews
@@ -121,7 +124,8 @@ public class CaterogyLivetile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 categoryService.setListId(category);
-                ListFeed_.intent(context).start();
+
+                ListFeed_.intent(context).categoryName(((BootstrapButton) v).getText().toString()).start();
 
             }
         };
@@ -132,10 +136,6 @@ public class CaterogyLivetile extends AppCompatActivity {
     void checkedChangeOnHelloCheckBox(CompoundButton hello, boolean isChecked) {
         sharePreference.setBoleanValue(SharePreference.DARK_BACKGROUND, isChecked);
     }
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
+
 
 }

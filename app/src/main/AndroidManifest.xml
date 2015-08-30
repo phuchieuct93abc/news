@@ -25,9 +25,7 @@
         </activity>
         <activity
             android:name="com.activity.caterogy.CaterogyLivetile_"
-            android:screenOrientation="portrait" />     <activity
-        android:name="com.activity.CategoryScreen_"
-        android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.activity.FeedView.FeedViewActivity_"
             android:screenOrientation="portrait" />
