@@ -7,7 +7,14 @@
     android:paddingRight="0dp"
     android:paddingTop="0dp"
     tools:context="com.activity.ListFeedView.MainActivity">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tool_bar"
+        android:background="#33b5e5"
 
+
+        ></android.support.v7.widget.Toolbar>
     <com.quentindommerc.superlistview.SuperListview xmlns:superlistview="http://schemas.android.com/apk/res-auto"
         android:id="@+id/listView"
         android:layout_width="match_parent"
@@ -17,7 +24,8 @@
         superlistview:superlv__listDivider="@android:color/transparent"
         superlistview:superlv__listDividerHeight="10dp"
         superlistview:superlv__listPadding="0dp"
-        superlistview:superlv__scrollbarStyle="outsideOverlay"></com.quentindommerc.superlistview.SuperListview>
+        superlistview:superlv__scrollbarStyle="outsideOverlay"
+        android:layout_below="@+id/tool_bar"></com.quentindommerc.superlistview.SuperListview>
 
 
 </RelativeLayout>

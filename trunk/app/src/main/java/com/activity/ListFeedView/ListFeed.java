@@ -3,7 +3,10 @@ package com.activity.ListFeedView;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.activity.FeedView.FeedViewActivity_;
 import com.feed.Feed;
@@ -18,6 +21,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -26,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @EActivity(R.layout.activity_main)
-public class ListFeed extends Activity {
+public class ListFeed extends AppCompatActivity {
 
 
     @ViewById
@@ -37,6 +41,10 @@ public class ListFeed extends Activity {
     FeedService feedService;
     @Bean
     CategoryService categoryService;
+    @ViewById
+    Toolbar tool_bar;
+    @Extra
+    String categoryName;
 
     @Override
     public void onResume() {
@@ -47,6 +55,13 @@ public class ListFeed extends Activity {
 
     @AfterViews
     void afterView() {
+
+        tool_bar.setTitle(categoryName);
+        setSupportActionBar(tool_bar);
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         feedService.clearCache();
         categoryService.clearCacheList();
         background();
@@ -95,7 +110,7 @@ public class ListFeed extends Activity {
     void setMoreDataList(List<Feed> rssItems) {
 
         adapter.setMoreDataList(rssItems);
-        if(listView.getAdapter()==null)listView.setAdapter(adapter);
+        if (listView.getAdapter() == null) listView.setAdapter(adapter);
 
         listView.hideMoreProgress();
 
@@ -125,6 +140,17 @@ public class ListFeed extends Activity {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 
