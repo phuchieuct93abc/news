@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
@@ -31,7 +32,7 @@ import java.util.List;
 
 @EActivity(R.layout.view_swipe)
 @WindowFeature(Window.FEATURE_NO_TITLE)
-public class FeedViewActivity extends ActionBarActivity {
+public class FeedViewActivity extends AppCompatActivity {
 
     private static SharePreference sharePreference;
     @Bean

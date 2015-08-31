@@ -18,7 +18,6 @@ import com.services.HttpService;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.RootContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,14 +25,14 @@ import java.util.List;
 @EBean
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.PersonViewHolder> {
 
-    List<Feed> feeds = new ArrayList<Feed>();
-
-
-    RecycleViewAdapter(List<Feed> feeds) {
-        this.feeds = feeds;
-    }
-    @RootContext
+    private List<Feed> feeds = new ArrayList<Feed>();
     Context context;
+    private PersonViewHolder.OnClickListener onClickListener;
+
+    RecycleViewAdapter(Context context) {
+        this.context = context;
+    }
+
     @Bean
     HttpService httpService;
     @Override
@@ -45,7 +44,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     @Override
     public void onBindViewHolder(PersonViewHolder holder, int position) {
-        Feed item = feeds.get(position);
+
+        Feed item = getFeeds().get(position);
+        holder.feed =item;
         TextView title = holder.title;
         TextView description = holder.description;
         ImageView imageView = holder.imageView;
@@ -72,7 +73,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             Log.d("hieu", height + " " + width);
 
         }
+    holder.onClickListener = this.onClickListener;
         httpService.loadImage(item, imageView);
+
     }
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
@@ -81,30 +84,56 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     @Override
     public int getItemCount() {
-        return feeds.size();
+        return getFeeds().size();
     }
     public void setDataList(List<Feed> feeds) {
-        this.feeds = new ArrayList<>();
-        this.feeds.addAll(feeds);
+        this.feeds =new ArrayList<>();
+        this.getFeeds().addAll(feeds);
         this.notifyDataSetChanged();
     }
 
     public void setMoreDataList(List<Feed> feeds) {
-        this.feeds.addAll( feeds);
+        this.getFeeds().addAll(feeds);
         this.notifyDataSetChanged();
     }
 
-    public static class PersonViewHolder extends RecyclerView.ViewHolder {
+    public List<Feed> getFeeds() {
+        return feeds;
+    }
+
+    public void setFeeds(List<Feed> feeds) {
+        this.feeds = feeds;
+    }
+
+    public PersonViewHolder.OnClickListener getOnClickListener() {
+        return onClickListener;
+    }
+
+    public void setOnClickListener(PersonViewHolder.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    public static class PersonViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title;
         TextView description;
         ImageView imageView;
-
+        Feed feed;
+        OnClickListener onClickListener;
         PersonViewHolder(View itemView) {
             super(itemView);
             title = (TextView)itemView.findViewById(R.id.title);
             description = (TextView)itemView.findViewById(R.id.description);
             imageView = (ImageView)itemView.findViewById((R.id.imageView));
+            itemView.setOnClickListener(this);
 
+        }
+
+        @Override
+        public void onClick(View view) {
+            onClickListener.onClick(feed);
+        }
+        public static interface OnClickListener {
+            public void onClick(Feed feed);
         }
     }
 

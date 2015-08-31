@@ -15,17 +15,11 @@
 
 
         ></android.support.v7.widget.Toolbar>
-    <com.quentindommerc.superlistview.SuperListview xmlns:superlistview="http://schemas.android.com/apk/res-auto"
+    <com.marshalchen.ultimaterecyclerview.UltimateRecyclerView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
-        superlistview:superlv__listClipToPadding="false"
-        superlistview:superlv__listDivider="@android:color/transparent"
-        superlistview:superlv__listDividerHeight="10dp"
-        superlistview:superlv__listPadding="0dp"
-        superlistview:superlv__scrollbarStyle="outsideOverlay"
-        android:layout_below="@+id/tool_bar"></com.quentindommerc.superlistview.SuperListview>
-
+        android:layout_below="@+id/tool_bar"/>
 
 </RelativeLayout>
