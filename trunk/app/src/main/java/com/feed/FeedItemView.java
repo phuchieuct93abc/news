@@ -51,7 +51,6 @@ public class FeedItemView extends RelativeLayout {
         description.setMaxLines(2);
         description.setText(feed.getContent());
 
-        Log.d("width image", imageView.getWidth() + "");
 
         int width = feed.getWidth();
         int height = feed.getHeight();
