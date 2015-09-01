@@ -3,10 +3,12 @@ package com.activity.ListFeedView;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,7 +17,11 @@ import android.widget.Toast;
 import com.activity.FeedView.FeedViewActivity_;
 import com.feed.Feed;
 import com.feed.FeedListAdapter;
+import com.marshalchen.ultimaterecyclerview.CustomUltimateRecyclerview;
+import com.marshalchen.ultimaterecyclerview.ObservableScrollState;
+import com.marshalchen.ultimaterecyclerview.ObservableScrollViewCallbacks;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
+import com.marshalchen.ultimaterecyclerview.animators.SlideInLeftAnimator;
 import com.phuchieu.news.R;
 import com.quentindommerc.superlistview.OnMoreListener;
 import com.quentindommerc.superlistview.SuperListview;
@@ -91,13 +97,48 @@ String categoryName;
             }
         });
 
+
+        listView.setDefaultOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                feedService.clearCache();
+                categoryService.clearCacheList();
+                adapter.setDataList(new ArrayList<Feed>());
+                background();
+
+            }
+        });
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        final int height = displaymetrics.heightPixels;
+        listView.setScrollViewCallbacks(new ObservableScrollViewCallbacks() {
+            @Override
+            public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+            }
+
+            @Override
+            public void onDownMotionEvent() {
+            }
+
+            @Override
+            public void onUpOrCancelMotionEvent(ObservableScrollState observableScrollState) {
+                if (observableScrollState == ObservableScrollState.DOWN) {
+                    listView.showToolbar(tool_bar, listView, height);
+                } else if (observableScrollState == ObservableScrollState.UP) {
+                    listView.hideToolbar(tool_bar, listView, height);
+                } else if (observableScrollState == ObservableScrollState.STOP) {
+                }
+            }
+        });
+
+        //    listView.setItemAnimator(Type.values()[position].getAnimator());
+       // listView.getItemAnimator().setAddDuration(300);
+       // listView.getItemAnimator().setRemoveDuration(300);
 //        listView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //            @Override
 //            public void onRefresh() {
-//                feedService.clearCache();
-//                categoryService.clearCacheList();
-//                adapter.setDataList(new ArrayList<Feed>());
-//                background();
+//
 //            }
 //        });
 //        listView.setupMoreListener(new OnMoreListener() {
