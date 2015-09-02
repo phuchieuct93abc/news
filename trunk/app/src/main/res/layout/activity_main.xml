@@ -1,28 +1,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="0dp"
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
-    tools:context="com.activity.ListFeedView.MainActivity"
-    android:orientation="vertical">
+    tools:context="com.activity.ListFeedView.MainActivity">
+
     <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tool_bar"
         android:background="#33b5e5"
+        />
 
-
-        ></android.support.v7.widget.Toolbar>
     <com.marshalchen.ultimaterecyclerview.UltimateRecyclerView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:layout_below="@+id/tool_bar"
-        app:recyclerviewScrollbars="vertical"/>
+        app:recyclerviewScrollbars="vertical" />
 
 </LinearLayout>

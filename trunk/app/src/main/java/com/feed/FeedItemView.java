@@ -5,18 +5,14 @@ import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.koushikdutta.ion.Ion;
-import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 import com.phuchieu.news.R;
 import com.services.HttpService;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EViewGroup;
-import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.ViewById;
 
 @EViewGroup(R.layout.feed_view_big_image)
@@ -51,18 +47,18 @@ public class FeedItemView extends RelativeLayout {
         description.setMaxLines(2);
         description.setText(feed.getContent());
 
-
-        int width = feed.getWidth();
-        int height = feed.getHeight();
-        try{
-       if(height/width*1020 >0) {
-           RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(1020, height / width * 1020);
-                  imageView.setLayoutParams(parms);}
-
-       }catch(Exception e){
-    Log.d("hieu",height+" "+width);
-
-        }
+//
+//        int width = feed.getWidth();
+//        int height = feed.getHeight();
+//        try{
+//       if(height/width*1020 >0) {
+//           RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(1020, height / width * 1020);
+//                  imageView.setLayoutParams(parms);}
+//
+//       }catch(Exception e){
+//    Log.d("hieu",height+" "+width);
+//
+//        }
         httpService.loadImage(feed,imageView);
 
 

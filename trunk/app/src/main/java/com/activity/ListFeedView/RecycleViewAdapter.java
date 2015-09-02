@@ -62,17 +62,17 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         description.setText(item.getContent());
 
 
-        int width = title.getWidth();
-        int height = title.getHeight();
-        try{
-            if(height/width*1020 >0) {
-                RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(1020, height / width * 1020);
-                imageView.setLayoutParams(parms);}
-
-        }catch(Exception e){
-            Log.d("hieu", height + " " + width);
-
-        }
+//        int width = title.getWidth();
+//        int height = title.getHeight();
+//        try{
+//            if(height/width*1020 >0) {
+//                RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(1020, height / width * 1020);
+//                imageView.setLayoutParams(parms);}
+//
+//        }catch(Exception e){
+//            Log.d("hieu", height + " " + width);
+//
+//        }
     holder.onClickListener = this.onClickListener;
         httpService.loadImage(item, imageView);
 
