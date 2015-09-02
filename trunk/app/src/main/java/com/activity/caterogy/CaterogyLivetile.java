@@ -5,9 +5,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,7 +28,6 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
@@ -64,7 +61,6 @@ public class CaterogyLivetile extends AppCompatActivity {
     android.support.v7.widget.Toolbar tool_bar;
 
 
-
     @AfterViews
     void afterView() {
         randomImage();
@@ -74,12 +70,11 @@ public class CaterogyLivetile extends AppCompatActivity {
         darkBackground.setChecked(sharePreference.getBooleanValue(SharePreference.DARK_BACKGROUND));
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(tool_bar);
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawer,toolbar,R.string.openSource,R.string.openSource);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openSource, R.string.openSource);
 
         //Setting the actionbarToggle to drawer layout
         drawer.setDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-
 
 
     }
@@ -116,7 +111,6 @@ public class CaterogyLivetile extends AppCompatActivity {
             }
         }
     }
-
 
 
     private View.OnClickListener initialOnClickListener(final Category category) {

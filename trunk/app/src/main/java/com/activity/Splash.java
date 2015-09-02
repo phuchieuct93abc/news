@@ -14,6 +14,7 @@ import org.androidannotations.annotations.EActivity;
 @EActivity(R.layout.splash)
 public class Splash extends Activity {
     private final static int SPLASH_DISPLAY_LENGTH = 1000;
+
     @AfterViews
     void afterView() {
         new Handler().postDelayed(new Runnable() {

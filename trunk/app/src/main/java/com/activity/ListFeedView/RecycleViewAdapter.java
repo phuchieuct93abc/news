@@ -4,12 +4,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.feed.Feed;
@@ -35,6 +33,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     @Bean
     HttpService httpService;
+
     @Override
     public PersonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.feed_view_big_image, parent, false);
@@ -46,7 +45,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     public void onBindViewHolder(PersonViewHolder holder, int position) {
 
         Feed item = getFeeds().get(position);
-        holder.feed =item;
+        holder.feed = item;
         TextView title = holder.title;
         TextView description = holder.description;
         ImageView imageView = holder.imageView;
@@ -73,10 +72,11 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 //            Log.d("hieu", height + " " + width);
 //
 //        }
-    holder.onClickListener = this.onClickListener;
+        holder.onClickListener = this.onClickListener;
         httpService.loadImage(item, imageView);
 
     }
+
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
@@ -86,8 +86,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     public int getItemCount() {
         return getFeeds().size();
     }
+
     public void setDataList(List<Feed> feeds) {
-        this.feeds =new ArrayList<>();
+        this.feeds = new ArrayList<>();
         this.getFeeds().addAll(feeds);
         this.notifyDataSetChanged();
     }
@@ -119,11 +120,12 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         ImageView imageView;
         Feed feed;
         OnClickListener onClickListener;
+
         PersonViewHolder(View itemView) {
             super(itemView);
-            title = (TextView)itemView.findViewById(R.id.title);
-            description = (TextView)itemView.findViewById(R.id.description);
-            imageView = (ImageView)itemView.findViewById((R.id.imageView));
+            title = (TextView) itemView.findViewById(R.id.title);
+            description = (TextView) itemView.findViewById(R.id.description);
+            imageView = (ImageView) itemView.findViewById((R.id.imageView));
             itemView.setOnClickListener(this);
 
         }
@@ -132,6 +134,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         public void onClick(View view) {
             onClickListener.onClick(feed);
         }
+
         public static interface OnClickListener {
             public void onClick(Feed feed);
         }

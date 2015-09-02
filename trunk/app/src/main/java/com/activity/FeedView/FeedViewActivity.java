@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -27,7 +26,6 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.WindowFeature;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @EActivity(R.layout.view_swipe)
@@ -51,7 +49,6 @@ public class FeedViewActivity extends AppCompatActivity {
     final Context context = this;
 
 
-
     @Background
     public void loadMoreData() {
         try {
@@ -64,7 +61,7 @@ public class FeedViewActivity extends AppCompatActivity {
 
 
     @UiThread
-      public void setDataList(List<Feed> feeds)
+    public void setDataList(List<Feed> feeds)
 
     {
         pagerAdapter.setData(feeds);
@@ -133,7 +130,7 @@ public class FeedViewActivity extends AppCompatActivity {
             int index = categoryService.getIndexInCaterogyById(selectedId);
             currentIndexOfFeed = index;
             categoryService.getListFeed().get(index).setIsRead(context);
-            setDataList( categoryService.getListFeed());
+            setDataList(categoryService.getListFeed());
 
             setBackgroundColor();
         } catch (Exception e) {
