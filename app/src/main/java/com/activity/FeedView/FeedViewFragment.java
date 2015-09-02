@@ -18,9 +18,7 @@ import com.styles.CssStyles;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
@@ -33,6 +31,7 @@ public class FeedViewFragment extends Fragment {
     Boolean darkBackground;
     @Bean
     FeedService feedService;
+
     public Feed getFeed() {
         return feed;
     }
@@ -69,11 +68,12 @@ public class FeedViewFragment extends Fragment {
             contentHTML = feedService.getFeedContentFromFeed(feed).getContentHTML();
             setContentToWebview(contentHTML);
         } catch (Exception e) {
-            try{
+            try {
                 setOriginalURLForWebview();
 
-            }catch(Exception ex){
-                Log.d("set url for webview",ex.getMessage());}
+            } catch (Exception ex) {
+                Log.d("set url for webview", ex.getMessage());
+            }
         }
     }
 

@@ -3,7 +3,6 @@ package com.feed;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,7 +27,7 @@ public class FeedItemView extends RelativeLayout {
     ImageView imageView;
     @Bean
     HttpService httpService;
-    private static int cacheDuration = 1000*60*3;
+    private static int cacheDuration = 1000 * 60 * 3;
 
 
     public FeedItemView(Context context) {
@@ -59,7 +58,7 @@ public class FeedItemView extends RelativeLayout {
 //    Log.d("hieu",height+" "+width);
 //
 //        }
-        httpService.loadImage(feed,imageView);
+        httpService.loadImage(feed, imageView);
 
 
 //        UrlImageViewHelper.setUrlDrawable(imageView, feed.getImage(), R.drawable.news, cacheTime);

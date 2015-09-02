@@ -8,7 +8,6 @@ import com.feed.Feed;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.builder.Builders;
 import com.koushikdutta.ion.builder.LoadBuilder;
-import com.phuchieu.news.R;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;

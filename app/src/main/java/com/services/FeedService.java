@@ -9,6 +9,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.json.JSONObject;
+
 @EBean
 public class FeedService {
     public static String LINK_FEED_CONTENT = "http://dataprovider.touch.baomoi.com/json/article.aspx?articleId={ID}";
@@ -55,4 +56,5 @@ public class FeedService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }}
+    }
+}

@@ -23,7 +23,6 @@
             android:text="@string/openSource"
             bootstrap:bb_icon_left="fa-external-link"
             android:onClick="openSource"
-            bootstrap:bb_type="success"
-            />
+            bootstrap:bb_type="success" />
     </LinearLayout>
 </ScrollView>

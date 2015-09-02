@@ -3,14 +3,10 @@ package com.activity.ListFeedView;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.TextView;
 
 import com.activity.FeedView.FeedViewActivity_;
 import com.feed.Feed;
@@ -90,8 +86,6 @@ public class ListFeed extends Activity {
         });
 
 
-
-
         listView.setDefaultOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -126,26 +120,6 @@ public class ListFeed extends Activity {
             }
         });
 
-        //    listView.setItemAnimator(Type.values()[position].getAnimator());
-        // listView.getItemAnimator().setAddDuration(300);
-        // listView.getItemAnimator().setRemoveDuration(300);
-//        listView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//
-//            }
-//        });
-//        listView.setupMoreListener(new OnMoreListener() {
-//            @Override
-//            public void onMoreAsked(int numberOfItems, int numberBeforeMore, int currentItemPos) {
-//
-//
-//
-//
-//            }
-//
-//        }, 3);
-
 
     }
 
@@ -166,17 +140,9 @@ public class ListFeed extends Activity {
 
         adapter.setMoreDataList(rssItems);
         if (listView.getAdapter() == null) listView.setAdapter(adapter);
-
-//        listView.hideMoreProgress();
-
     }
 
 
-    public void listViewItemClicked(Feed clickedItem) {
-        Intent i = new Intent(getApplicationContext(), FeedViewActivity_.class);
-        i.putExtra("selectedId", clickedItem);
-        startActivity(i);
-    }
 
     @UiThread
     void run() {

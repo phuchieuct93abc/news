@@ -27,11 +27,11 @@ public class FeedListAdapter extends BaseAdapter {
     }
 
     public void setMoreDataList(List<Feed> feeds) {
-        this.feeds.addAll( feeds);
+        this.feeds.addAll(feeds);
         this.notifyDataSetChanged();
     }
 
-   @Override
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         FeedItemView FeedItemView;

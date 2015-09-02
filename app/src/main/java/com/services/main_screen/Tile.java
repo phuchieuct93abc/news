@@ -16,7 +16,7 @@ public class Tile {
     OnClickListener onClick;
     private String type;
 
-    public Tile(String name, String title, String imgUrl, Category caterogi, String icon,String type) {
+    public Tile(String name, String title, String imgUrl, Category caterogi, String icon, String type) {
         super();
         this.name = name;
         this.title = title;
