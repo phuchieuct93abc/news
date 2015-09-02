@@ -6,25 +6,18 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.MotionEvent;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.activity.FeedView.FeedViewActivity_;
 import com.feed.Feed;
-import com.feed.FeedListAdapter;
-import com.marshalchen.ultimaterecyclerview.CustomUltimateRecyclerview;
 import com.marshalchen.ultimaterecyclerview.ObservableScrollState;
 import com.marshalchen.ultimaterecyclerview.ObservableScrollViewCallbacks;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
-import com.marshalchen.ultimaterecyclerview.animators.SlideInLeftAnimator;
 import com.phuchieu.news.R;
-import com.quentindommerc.superlistview.OnMoreListener;
-import com.quentindommerc.superlistview.SuperListview;
 import com.services.CategoryService;
 import com.services.FeedService;
 
@@ -33,7 +26,6 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
-import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
@@ -55,7 +47,7 @@ public class ListFeed extends Activity {
     @ViewById
     Toolbar tool_bar;
     @Extra
-String categoryName;
+    String categoryName;
     Context context = this;
 
     @Override
@@ -98,6 +90,8 @@ String categoryName;
         });
 
 
+
+
         listView.setDefaultOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -133,8 +127,8 @@ String categoryName;
         });
 
         //    listView.setItemAnimator(Type.values()[position].getAnimator());
-       // listView.getItemAnimator().setAddDuration(300);
-       // listView.getItemAnimator().setRemoveDuration(300);
+        // listView.getItemAnimator().setAddDuration(300);
+        // listView.getItemAnimator().setRemoveDuration(300);
 //        listView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //            @Override
 //            public void onRefresh() {
@@ -171,7 +165,7 @@ String categoryName;
     void setMoreDataList(List<Feed> rssItems) {
 
         adapter.setMoreDataList(rssItems);
-        if(listView.getAdapter()==null)listView.setAdapter(adapter);
+        if (listView.getAdapter() == null) listView.setAdapter(adapter);
 
 //        listView.hideMoreProgress();
 
