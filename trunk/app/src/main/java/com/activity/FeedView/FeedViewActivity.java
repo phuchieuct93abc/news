@@ -32,7 +32,6 @@ import java.util.List;
 @WindowFeature(Window.FEATURE_NO_TITLE)
 public class FeedViewActivity extends AppCompatActivity {
 
-    private static SharePreference sharePreference;
     @Bean
     FeedService feedService;
     @Bean
