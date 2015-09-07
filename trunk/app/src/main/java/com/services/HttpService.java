@@ -8,6 +8,7 @@ import com.feed.Feed;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.builder.Builders;
 import com.koushikdutta.ion.builder.LoadBuilder;
+import com.phuchieu.news.R;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
@@ -45,7 +46,8 @@ public class HttpService {
 
     public void loadImage(Feed feed, ImageView imageView) {
         initIonLoadImage();
-        Ion.getDefault(context).build(imageView).load(feed.getImage());
+        Ion.getDefault(context).build(imageView).error(R.drawable.news).load(feed.getImage());
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
     }
 

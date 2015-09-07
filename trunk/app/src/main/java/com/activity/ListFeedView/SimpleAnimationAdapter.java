@@ -69,8 +69,7 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
             description.setText(item.getContent());
             holder.onClickListener = this.getOnClickListener();
             httpService.loadImage(item, imageView);
-            //((ViewHolder) holder).textViewSample.setText(feeds.get(customHeaderView != null ? position - 1 : position));
-            // ((ViewHolder) holder).itemView.setActivated(selectedItems.get(position, false));
+
         }
         if (!isFirstOnly || position > mLastPosition) {
             for (Animator anim : getAdapterAnimations(holder.itemView, AdapterAnimationType.SlideInBottom)) {
@@ -104,7 +103,7 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
     }
 
     public void setDataList(List<Feed> feeds) {
-        clear(feeds);
+        clear(this.feeds);
         setMoreDataList(feeds);
     }
 
@@ -124,6 +123,7 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
 
     public void clear() {
         clear(feeds);
+        mLastPosition = 0;
     }
 
     @Override
