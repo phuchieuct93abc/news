@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -24,6 +26,7 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
@@ -55,13 +58,19 @@ public class ListFeed extends Activity {
     @Extra
     String categoryName;
     Context context = this;
+    private final int REQUEST_CODE = 11;
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        List<Feed> refreshData = categoryService.getListFeed();
-//        adapter.setDataList(refreshData);
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        int previousPositionY = listView.getScrollY();
+        Log.i("hieu", previousPositionY + "");
+        List<Feed> refreshData = categoryService.getListFeed();
+        adapter.setDataList(refreshData);
+        adapter.notifyDataSetChanged();
+//        listView.setScrollY(previousPositionY);
+
+    }
 
     @AfterViews
     void afterView() {
@@ -72,7 +81,10 @@ public class ListFeed extends Activity {
         adapter.setOnClickListener(new SimpleAnimationAdapter.ViewHolder.OnClickListener() {
             @Override
             public void onClick(Feed clickedItem) {
-                FeedViewActivity_.intent(getApplicationContext()).flags(Intent.FLAG_ACTIVITY_NEW_TASK).selectedId(clickedItem).start();
+                //FeedViewActivity_.intent(getApplicationContext()).flags(Intent.FLAG_ACTIVITY_NEW_TASK).selectedId(clickedItem).startForResult(REQUEST_CODE);
+                Intent i = new Intent(context, FeedViewActivity_.class);
+                i.putExtra("selectedId", clickedItem);
+                startActivityForResult(i, REQUEST_CODE);
 
             }
         });
@@ -85,6 +97,13 @@ public class ListFeed extends Activity {
         background();
         setOnScrollListener();
     }
+    @OnActivityResult(REQUEST_CODE)
+    void onResult(int resultCode, Intent data) {
+        int position = data.getIntExtra("previousItem",0);
+        listView.scrollVerticallyToPosition(position);
+
+    }
+
 
     private void setOnScrollListener() {
         LinearLayoutManager llm = new LinearLayoutManager(context);
@@ -147,14 +166,13 @@ public class ListFeed extends Activity {
         refreshingString();
 
 
-
-
     }
+
     void refreshingString() {
         StoreHouseHeader storeHouseHeader = new StoreHouseHeader(this);
         //   header.setPadding(0, 15, 0, 0);
 
-        storeHouseHeader.initWithString("Refreshing...");
+        storeHouseHeader.initWithString("Refreshing");
         //  header.initWithStringArray(R.array.akta);
 //        listView.mPtrFrameLayout.removePtrUIHandler(new MaterialHeader(this));
 
@@ -170,10 +188,17 @@ public class ListFeed extends Activity {
 
             @Override
             public void onRefreshBegin(PtrFrameLayout ptrFrameLayout) {
-                feedService.clearCache();
-                categoryService.clearCacheList();
-                adapter.clear();
-                background();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        feedService.clearCache();
+                        categoryService.clearCacheList();
+                        adapter.clear();
+                        background();
+                    }
+                }, 1000);
+
+
             }
         });
     }
@@ -211,14 +236,13 @@ public class ListFeed extends Activity {
             setMoreDataList(moreData);
 
 
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-    int getScreenHeight(){
+
+    int getScreenHeight() {
         return 10;
     }
 
