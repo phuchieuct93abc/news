@@ -54,12 +54,8 @@ public class Feed implements Serializable {
         result = result.replaceAll("data-img-", "");
         result += "<style>" +
                 "body{background-color:#EEEEEE}" +
-                "p { text-indent: 50px;}" +
+                "p { text-indent: 50px;overflow: hidden;}" +
                 "img{margin-left:-50px}</style>";
-        // result += "<a href='{LINK}'>Source</a>".replace("{LINK}", getContentUrl());
-
-        //result.replaceAll("<a class=\"video\" href=\"http://www.youtube.com/watch?v=(\\s+)\"></a>","<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/$1\" frameborder=\"0\" allowfullscreen></iframe>");
-
 
         return result;
     }
