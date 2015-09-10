@@ -102,6 +102,8 @@ public class ListFeed extends Activity {
         int position = data.getIntExtra("previousItem",0);
         listView.scrollVerticallyToPosition(position);
 
+
+
     }
 
 
@@ -155,10 +157,10 @@ public class ListFeed extends Activity {
 //            @Override
 //            public void onUpOrCancelMotionEvent(ObservableScrollState observableScrollState) {
 //                if (observableScrollState == ObservableScrollState.UP) {
-//                    listView.hideToolbar(tool_bar, listView, getScreenHeight());
+//                    listView.hideToolbar(tool_bar, listView,android.R.id.content);
 //                } else if (observableScrollState == ObservableScrollState.DOWN) {
 //
-//                    listView.showToolbar(tool_bar, listView, getScreenHeight());
+//                    listView.showToolbar(tool_bar, listView, android.R.id.content);
 //                }
 //            }
 //        });
