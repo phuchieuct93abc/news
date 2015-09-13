@@ -21,8 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="@string/openSource"
+            android:id="@+id/openSource"
             bootstrap:bb_icon_left="fa-external-link"
-            android:onClick="openSource"
             bootstrap:bb_type="success" />
     </LinearLayout>
 </ScrollView>

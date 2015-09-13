@@ -145,13 +145,6 @@ public class FeedViewActivity extends AppCompatActivity {
         }
     }
 
-    public void openSource(View v) {
-        Feed feed = categoryService.getListFeed().get(currentIndexOfFeed);
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(feed.getContentUrl()));
-        startActivity(i);
-
-    }
 
     @Override
     public void onBackPressed() {
