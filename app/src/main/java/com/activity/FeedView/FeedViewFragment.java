@@ -2,6 +2,8 @@ package com.activity.FeedView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.config.SharePreference;
 import com.feed.Feed;
 import com.phuchieu.news.R;
@@ -31,6 +34,8 @@ public class FeedViewFragment extends Fragment {
     Boolean darkBackground;
     @Bean
     FeedService feedService;
+    @ViewById
+    BootstrapButton openSource;
 
     public Feed getFeed() {
         return feed;
@@ -39,7 +44,6 @@ public class FeedViewFragment extends Fragment {
     public void setFeed(Feed feed) {
         this.feed = feed;
     }
-
 
     @UiThread
     void initializeSetting() {
@@ -95,6 +99,15 @@ public class FeedViewFragment extends Fragment {
         darkBackground = new SharePreference(context).getBooleanValue(SharePreference.DARK_BACKGROUND);
         initializeSetting();
         runBackground();
+        openSource.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(feed.getContentUrl()));
+                startActivity(i);
+
+            }
+        });
 
     }
 
