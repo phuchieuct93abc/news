@@ -155,8 +155,8 @@ public class FeedViewActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = getIntent ();
-        intent.putExtra ("previousItem", currentIndexOfFeed);
+        Intent intent = getIntent();
+        intent.putExtra("previousItem", currentIndexOfFeed);
 
         setResult(111, intent);
         finish();

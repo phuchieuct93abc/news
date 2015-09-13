@@ -44,7 +44,6 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
     private ViewHolder.OnClickListener onClickListener;
 
 
-
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if (!(viewHolder instanceof SimpleAnimationAdapter.ViewHolder)) return;
@@ -108,9 +107,9 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
     }
 
     public void setMoreDataList(List<Feed> feedList) {
-      for(Feed feed:feedList){
-          insert(feeds,feed,feeds.size());
-      }
+        for (Feed feed : feedList) {
+            insert(feeds, feed, feeds.size());
+        }
     }
 
     public void insert(Feed feed, int position) {
@@ -187,11 +186,12 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
 
         @Override
         public void onClick(View view) {
-            onClickListener.onClick(feed);
+
+            onClickListener.onClick(feed, view);
         }
 
         public interface OnClickListener {
-            public void onClick(Feed feed);
+            void onClick(Feed feed, View view);
         }
 
 
