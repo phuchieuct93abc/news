@@ -5,15 +5,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.activity.FeedView.FeedViewActivity_;
+import com.activity.caterogy.CaterogyLivetile_;
 import com.feed.Feed;
 import com.marshalchen.ultimaterecyclerview.CustomUltimateRecyclerview;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 import com.phuchieu.news.R;
+import com.services.AnimationCreator;
 import com.services.CategoryService;
 import com.services.FeedService;
 
@@ -52,7 +56,7 @@ public class ListFeed extends Activity {
     @Extra
     String categoryName;
     Context context = this;
-    private final int REQUEST_CODE = 11;
+    public final static int REQUEST_CODE = 11;
 
     @Override
     public void onResume() {
@@ -71,8 +75,37 @@ public class ListFeed extends Activity {
         categoryService.clearCacheList();
         adapter.setOnClickListener(new SimpleAnimationAdapter.ViewHolder.OnClickListener() {
             @Override
-            public void onClick(Feed clickedItem, View v) {
-                FeedViewActivity_.intent(getApplicationContext()).flags(Intent.FLAG_ACTIVITY_NEW_TASK).selectedId(clickedItem).startForResult(REQUEST_CODE);
+            public void onClick(final Feed clickedItem, View v) {
+//                int indexOfView = categoryService.getIndexInCaterogyById(clickedItem);
+//                for (int i = (indexOfView - 2); i < indexOfView + 2; i++) {
+//                    View view = listView.get;
+//                    listView.getChildCount();
+//                    if(i == indexOfView)continue;
+//
+//
+//                    AnimationCreator.slide_left(context, view);
+//
+//                }
+//    listView.getChildAt(0).get
+                PtrFrameLayout ptrFrameLayout = (PtrFrameLayout) ((RelativeLayout) listView.getChildAt(0)).getChildAt(0);
+
+                RecyclerView recyclerView =((RecyclerView)ptrFrameLayout.getChildAt(0));
+                for (int i = 0; i <= recyclerView.getChildCount(); i++) {
+                    View visibleView =recyclerView.getChildAt(i);
+                    AnimationCreator.slide_left(context, visibleView);
+
+                }
+
+                AnimationCreator.slide_right(context, v);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent i = new Intent(context, FeedViewActivity_.class);
+                        i.putExtra("selectedId", clickedItem);
+                        startActivityForResult(i, REQUEST_CODE);
+                    }
+                }, 450);
 
             }
         });
@@ -83,10 +116,12 @@ public class ListFeed extends Activity {
 
     @OnActivityResult(REQUEST_CODE)
     void onResult(int resultCode, Intent data) {
-        if(resultCode==REQUEST_CODE){
-            int position = data.getIntExtra("previousItem", 0);
-            listView.scrollVerticallyToPosition(position);
-        }
+try {
+    int position = data.getIntExtra("previousItem", 0);
+    listView.scrollVerticallyToPosition(position);
+}catch (Exception e){
+    e.printStackTrace();
+}
 
 
     }

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 
+import com.activity.ListFeedView.ListFeed;
 import com.config.SharePreference;
 import com.feed.Feed;
 import com.phuchieu.news.R;
@@ -118,7 +119,7 @@ public class FeedViewActivity extends AppCompatActivity {
 
     @UiThread
     void setSelectedPage(int index) {
-        pager.setCurrentItem(index);
+        pager.setCurrentItem(index,false);
     }
 
     @AfterViews
@@ -131,6 +132,7 @@ public class FeedViewActivity extends AppCompatActivity {
             categoryService.getListFeed().get(index).setIsRead(context);
             setDataList(categoryService.getListFeed());
 
+
             setBackgroundColor();
         } catch (Exception e) {
             e.printStackTrace();
@@ -141,17 +143,15 @@ public class FeedViewActivity extends AppCompatActivity {
         Boolean darkBackground = new SharePreference(context).getBooleanValue(SharePreference.DARK_BACKGROUND);
         if (darkBackground) {
             viewSwipe.setBackgroundColor(Color.parseColor("#23282A"));
-
         }
     }
-
 
     @Override
     public void onBackPressed() {
         Intent intent = getIntent();
         intent.putExtra("previousItem", currentIndexOfFeed);
 
-        setResult(111, intent);
+        setResult(ListFeed.REQUEST_CODE, intent);
         finish();
     }
 }
