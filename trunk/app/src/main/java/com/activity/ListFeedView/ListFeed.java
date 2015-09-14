@@ -57,7 +57,6 @@ public class ListFeed extends Activity {
     String categoryName;
     Context context = this;
     public final static int REQUEST_CODE = 11;
-
     @Override
     public void onResume() {
         super.onResume();
@@ -76,40 +75,29 @@ public class ListFeed extends Activity {
         adapter.setOnClickListener(new SimpleAnimationAdapter.ViewHolder.OnClickListener() {
             @Override
             public void onClick(final Feed clickedItem, View v) {
-//                int indexOfView = categoryService.getIndexInCaterogyById(clickedItem);
-//                for (int i = (indexOfView - 2); i < indexOfView + 2; i++) {
-//                    View view = listView.get;
-//                    listView.getChildCount();
-//                    if(i == indexOfView)continue;
-//
-//
-//                    AnimationCreator.slide_left(context, view);
-//
-//                }
-//    listView.getChildAt(0).get
                 PtrFrameLayout ptrFrameLayout = (PtrFrameLayout) ((RelativeLayout) listView.getChildAt(0)).getChildAt(0);
-
                 RecyclerView recyclerView =((RecyclerView)ptrFrameLayout.getChildAt(0));
                 for (int i = 0; i <= recyclerView.getChildCount(); i++) {
                     View visibleView =recyclerView.getChildAt(i);
                     AnimationCreator.slide_left(context, visibleView);
-
                 }
-
-                AnimationCreator.slide_right(context, v);
-
-                new Handler().postDelayed(new Runnable() {
+                AnimationCreator.slide_right(context, v,new Runnable() {
                     @Override
                     public void run() {
                         Intent i = new Intent(context, FeedViewActivity_.class);
                         i.putExtra("selectedId", clickedItem);
                         startActivityForResult(i, REQUEST_CODE);
+
+
                     }
-                }, 450);
+                });
+
+
+
+
 
             }
         });
-
         background();
         setOnScrollListener();
     }

@@ -78,12 +78,21 @@ public class FeedViewFragment extends Fragment {
             } catch (Exception ex) {
                 Log.d("set url for webview", ex.getMessage());
             }
+        }finally {
+            setButtonVisible();
         }
+    }
+    @UiThread
+    void setButtonVisible(){
+        openSource.setVisibility(View.VISIBLE);
+
     }
 
     @UiThread
     void setOriginalURLForWebview() {
         webView.loadUrl(feed.getLink());
+
+
     }
 
     @UiThread
