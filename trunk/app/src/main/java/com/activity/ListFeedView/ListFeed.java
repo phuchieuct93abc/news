@@ -57,6 +57,7 @@ public class ListFeed extends Activity {
     String categoryName;
     Context context = this;
     public final static int REQUEST_CODE = 11;
+
     @Override
     public void onResume() {
         super.onResume();
@@ -76,12 +77,12 @@ public class ListFeed extends Activity {
             @Override
             public void onClick(final Feed clickedItem, View v) {
                 PtrFrameLayout ptrFrameLayout = (PtrFrameLayout) ((RelativeLayout) listView.getChildAt(0)).getChildAt(0);
-                RecyclerView recyclerView =((RecyclerView)ptrFrameLayout.getChildAt(0));
+                RecyclerView recyclerView = ((RecyclerView) ptrFrameLayout.getChildAt(0));
                 for (int i = 0; i <= recyclerView.getChildCount(); i++) {
-                    View visibleView =recyclerView.getChildAt(i);
+                    View visibleView = recyclerView.getChildAt(i);
                     AnimationCreator.slide_left(context, visibleView);
                 }
-                AnimationCreator.slide_right(context, v,new Runnable() {
+                AnimationCreator.slide_right(context, v, new Runnable() {
                     @Override
                     public void run() {
                         Intent i = new Intent(context, FeedViewActivity_.class);
@@ -93,9 +94,6 @@ public class ListFeed extends Activity {
                 });
 
 
-
-
-
             }
         });
         background();
@@ -104,12 +102,13 @@ public class ListFeed extends Activity {
 
     @OnActivityResult(REQUEST_CODE)
     void onResult(int resultCode, Intent data) {
-try {
-    int position = data.getIntExtra("previousItem", 0);
-    listView.scrollVerticallyToPosition(position);
-}catch (Exception e){
-    e.printStackTrace();
-}
+        try {
+            int position = data.getIntExtra("previousItem", 0);
+
+            listView.scrollVerticallyToPosition(position);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }

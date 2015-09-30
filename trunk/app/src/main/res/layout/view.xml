@@ -16,14 +16,33 @@
             android:layout_height="wrap_content" />
 
 
-        <com.beardedhen.androidbootstrap.BootstrapButton
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/openSource"
+                android:text="@string/openSource"
             android:id="@+id/openSource"
             bootstrap:bb_icon_left="fa-external-link"
             bootstrap:bb_type="success"
-            android:visibility="invisible"/>
+                android:layout_width="0px"
+                android:layout_weight="1"
+                />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:layout_height="wrap_content"
+                android:text="@string/share"
+                android:id="@+id/share"
+                bootstrap:bb_icon_left="fa-external-link"
+                bootstrap:bb_type="danger"
+               android:layout_width="0px"
+                 android:layout_weight="1"
+
+                />
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

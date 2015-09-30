@@ -32,10 +32,14 @@ public class FeedViewFragment extends Fragment {
     WebView webView;
     Feed feed;
     Boolean darkBackground;
+
+
     @Bean
     FeedService feedService;
     @ViewById
     BootstrapButton openSource;
+    @ViewById
+    BootstrapButton share;
 
     public Feed getFeed() {
         return feed;
@@ -115,6 +119,20 @@ public class FeedViewFragment extends Fragment {
                 i.setData(Uri.parse(feed.getContentUrl()));
                 startActivity(i);
 
+            }
+        });
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+
+                intent.setType("text/plain");
+
+
+                intent.putExtra(Intent.EXTRA_TEXT, feed.getContentUrl());
+
+
+                startActivity(intent);
             }
         });
 
