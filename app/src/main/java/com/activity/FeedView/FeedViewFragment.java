@@ -41,6 +41,7 @@ public class FeedViewFragment extends Fragment {
     @ViewById
     BootstrapButton share;
 
+
     public Feed getFeed() {
         return feed;
     }
@@ -65,6 +66,8 @@ public class FeedViewFragment extends Fragment {
         });
         webView.setLongClickable(false);
         webView.setHapticFeedbackEnabled(false);
+        webView.getSettings().setUserAgentString("Android");
+
 
         webView.setWebViewClient(new WebViewClient());
     }
@@ -94,7 +97,17 @@ public class FeedViewFragment extends Fragment {
 
     @UiThread
     void setOriginalURLForWebview() {
-        webView.loadUrl(feed.getLink());
+        String link = feed.getLink();
+        int start =0,stop=0;
+        int postion=0;
+        for (int index = link.indexOf("/");  index >= 0; index = link.indexOf("/", index + 1))
+        { postion++;
+            if(postion ==4){start=index;}
+            if(postion==5){stop=index;}
+        }
+        String stringNeedTobeReplace = link.substring(start,stop+1);
+
+        webView.loadUrl(feed.getLink().replace(stringNeedTobeReplace,"/c/").replace("www","m"));
 
 
     }
@@ -125,13 +138,8 @@ public class FeedViewFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-
                 intent.setType("text/plain");
-
-
                 intent.putExtra(Intent.EXTRA_TEXT, feed.getContentUrl());
-
-
                 startActivity(intent);
             }
         });
