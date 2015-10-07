@@ -105,9 +105,14 @@ public class FeedViewFragment extends Fragment {
             if(postion ==4){start=index;}
             if(postion==5){stop=index;}
         }
-        String stringNeedTobeReplace = link.substring(start,stop+1);
 
-        webView.loadUrl(feed.getLink().replace(stringNeedTobeReplace,"/c/").replace("www","m"));
+        if(link.indexOf("cnet.com")==-1){
+            String stringNeedTobeReplace = link.substring(start,stop+1);
+
+          link = link.replace(stringNeedTobeReplace,"/c/").replace("www","m");
+        }
+
+        webView.loadUrl(link);
 
 
     }
@@ -115,7 +120,6 @@ public class FeedViewFragment extends Fragment {
     @UiThread
     void setContentToWebview(String contentHTML) {
         if (darkBackground) contentHTML += CssStyles.DARK_BACKGROUND;
-
         webView.loadDataWithBaseURL(null, contentHTML, "text/html", "UTF-8", null);
     }
 
@@ -124,6 +128,7 @@ public class FeedViewFragment extends Fragment {
         Context context = getActivity().getApplicationContext();
         darkBackground = new SharePreference(context).getBooleanValue(SharePreference.DARK_BACKGROUND);
         initializeSetting();
+        
         runBackground();
         openSource.setOnClickListener(new View.OnClickListener() {
             @Override

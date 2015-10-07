@@ -20,13 +20,27 @@ public class FeedService {
     static String sharedPreferencesCaterogy = "CATEROGY_CACHE";
     static String sharedPreferencesReadFeed = "READ_FEED_CACHE";
 
-    public Feed getFeedContentFromFeed(Feed feed) throws Exception {
+        public Feed getFeedContentFromFeed(Feed feed) throws Exception {
+
         String id = feed.getId();
-        String link_request = LINK_FEED_CONTENT.replace("{ID}", id);
+        String link_request;
+        if(!feed.isCNET()){
+             link_request = LINK_FEED_CONTENT.replace("{ID}", id);
+
+        }else{
+            link_request=feed.getContentUrl();
+        }
         String responseCategory;
         responseCategory = getContentFromCache(id, link_request, context);
-        JSONObject jObject = new JSONObject(responseCategory);
-        String contentHTML = jObject.getJSONObject("article").getString("Body");
+        String contentHTML;
+        if(feed.isCNET()){
+            contentHTML = responseCategory;
+        }else{
+            JSONObject jObject = new JSONObject(responseCategory);
+
+            contentHTML = jObject.getJSONObject("article").getString("Body");
+
+        }
         feed.setContentHTML(contentHTML);
 
 

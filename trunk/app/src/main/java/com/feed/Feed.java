@@ -19,11 +19,14 @@ public class Feed implements Serializable {
     String contentHTML;
     String contentUrl;
     String sourceName;
-    private int width;
-    private int height;
+     int width;
+     int height;
+    private boolean isCNET = false;
+    static String contentCNETURL = "http://feed.cnet.com/feed/article/body/{SLUG}/?edition=us&platform=android&release=3.1.5&setDevice=mobile&style=androidnormal&version=3_0";
 
     public Feed(JSONObject jsonObject) {
         try {
+
             this.id = jsonObject.getString("ContentID");
             this.title = jsonObject.getString("Title");
             this.content = jsonObject.getString("Description");
@@ -35,7 +38,21 @@ public class Feed implements Serializable {
             this.setHeight(jsonObject.getInt("LandscapeAvatarHeight"));
             this.setWidth(jsonObject.getInt("LandscapeAvatarWidth"));
         } catch (JSONException e) {
-            e.printStackTrace();
+            try {
+                this.setIsCNET(true);
+                this.id = jsonObject.getString("uuid");
+                this.title = jsonObject.getString("headline");
+                this.content = jsonObject.getString("description");
+                this.link = jsonObject.getString("permalink");
+                this.image = jsonObject.getString("padHeroRiverImageUrl");
+              //  this.listId = jsonObject.getString("ListId");
+                this.sourceName = "CNET";
+
+                this.contentUrl = contentCNETURL.replace("{SLUG}", jsonObject.getString("slug"));
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -50,6 +67,7 @@ public class Feed implements Serializable {
     public String getContentHTML() {
         String result = this.contentHTML;
         result = "<h3>{HEADER}</h3>".replace("{HEADER}", getTitle()) + result;
+        if(isCNET())return result;
         result = result.replaceAll("src=\"_\"", "style=\"width: 100%;height:auto\"");
         result = result.replaceAll("data-img-", "");
         result += "<style>" +
@@ -128,5 +146,13 @@ public class Feed implements Serializable {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public boolean isCNET() {
+        return isCNET;
+    }
+
+    public void setIsCNET(boolean isCNET) {
+        this.isCNET = isCNET;
     }
 }

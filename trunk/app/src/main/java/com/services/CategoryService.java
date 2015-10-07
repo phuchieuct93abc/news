@@ -38,14 +38,22 @@ public class CategoryService {
     public static String ZINI_LIST_TYPE = "zini";
     public static Category ANHDEP = new Category(ZINI_LIST_TYPE, 4);
     public static Category ANHVUI = new Category(ZINI_LIST_TYPE, 3);
+    public static Category CNET = new Category("CNET", 1);
+
     public static String LINK_CATEGORY = "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType={LIST_TYPE}&listId={LIST_ID}&imageMinSize=300&mode=quickview";
+    public static String CNET_CATEROGY = "http://feed.cnet.com/feed/river?limit=10&start={START_PAGE}&edition=us&locale=us&version=3_0&platform=android&release=3.1.5";
     public static List<Feed> listFeed = new ArrayList<>();
     private static String currentLink;
     private int duplicateCount = 0;
 
     public void setListId(Category category) {
-        currentLink = LINK_CATEGORY.replace("{LIST_ID}", category.getId() + "");
-        currentLink = currentLink.replace("{LIST_TYPE}", category.getType());
+        if(!category.getType().equals("CNET")){
+            currentLink = LINK_CATEGORY.replace("{LIST_ID}", category.getId() + "");
+            currentLink = currentLink.replace("{LIST_TYPE}", category.getType());
+        }else{
+    currentLink = CNET_CATEROGY;
+        }
+
         clearCacheList();
     }
 
@@ -61,18 +69,31 @@ public class CategoryService {
         duplicateCount = 0;
         setListFeed(new ArrayList<Feed>());
     }
+    private String getCategoryURLWithIndex(){
 
+        return currentLink.replace("{START_PAGE}", "" + (listFeed.size() + duplicateCount));
+
+
+    }
 
     public List<Feed> getMoreFeed() {
         List<Feed> result = new ArrayList<>();
         try {
             int beforeUpdateLength = listFeed.size();
             if (beforeUpdateLength >= 190) return listFeed;
-            String link = currentLink.replace("{START_PAGE}", "" + (listFeed.size() + duplicateCount));
+            String link = getCategoryURLWithIndex();
             String responseCategory = httpService.readUrl(link);
             if (responseCategory != null) {
                 JSONObject jObject = new JSONObject(responseCategory);
-                JSONArray jArray = jObject.getJSONArray("articlelist");
+                JSONArray jArray;
+                try{
+                    jArray = jObject.getJSONArray("articlelist");
+
+                }catch(Exception e){
+                    jArray = jObject.getJSONObject("river").getJSONObject("items").getJSONArray("item");
+
+
+                }
                 for (int i = 0; i < jArray.length(); i++) {
                     try {
                         JSONObject oneObject = jArray.getJSONObject(i);
