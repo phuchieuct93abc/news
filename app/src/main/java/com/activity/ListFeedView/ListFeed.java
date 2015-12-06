@@ -76,7 +76,7 @@ public class ListFeed extends Activity {
         adapter.setOnClickListener(new SimpleAnimationAdapter.ViewHolder.OnClickListener() {
             @Override
             public void onClick(final Feed clickedItem, View v) {
-                PtrFrameLayout ptrFrameLayout = (PtrFrameLayout) ((RelativeLayout) listView.getChildAt(0)).getChildAt(0);
+                /*PtrFrameLayout ptrFrameLayout = (PtrFrameLayout) ((RelativeLayout) listView.getChildAt(0)).getChildAt(0);
                 RecyclerView recyclerView = ((RecyclerView) ptrFrameLayout.getChildAt(0));
                 for (int i = 0; i <= recyclerView.getChildCount(); i++) {
                     View visibleView = recyclerView.getChildAt(i);
@@ -85,14 +85,14 @@ public class ListFeed extends Activity {
                 AnimationCreator.slide_right(context, v, new Runnable() {
                     @Override
                     public void run() {
-                        Intent i = new Intent(context, FeedViewActivity_.class);
-                        i.putExtra("selectedId", clickedItem);
-                        startActivityForResult(i, REQUEST_CODE);
+
 
 
                     }
-                });
-
+                });*/
+                Intent i = new Intent(context, FeedViewActivity_.class);
+                i.putExtra("selectedId", clickedItem);
+                startActivityForResult(i, REQUEST_CODE);
 
             }
         });

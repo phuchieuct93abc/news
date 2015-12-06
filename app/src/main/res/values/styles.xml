@@ -28,4 +28,8 @@
         <item name="android:textColorPrimary">@color/darkblue</item>
     </style>
 
+    <style name="LightCustom" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:textColorPrimary">@color/primary_text_material_light</item>
+    </style>
+
 </resources>
