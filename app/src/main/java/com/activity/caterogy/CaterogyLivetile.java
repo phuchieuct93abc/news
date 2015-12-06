@@ -63,7 +63,6 @@ public class CaterogyLivetile extends AppCompatActivity {
 
     @AfterViews
     void afterView() {
-        randomImage();
         setClickListenerForButton();
 
         sharePreference = new SharePreference(context);
@@ -75,6 +74,8 @@ public class CaterogyLivetile extends AppCompatActivity {
         //Setting the actionbarToggle to drawer layout
         drawer.setDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+        randomImage();
+
 
 
     }

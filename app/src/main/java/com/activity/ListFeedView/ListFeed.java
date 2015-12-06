@@ -4,20 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.activity.FeedView.FeedViewActivity_;
-import com.activity.caterogy.CaterogyLivetile_;
 import com.feed.Feed;
 import com.marshalchen.ultimaterecyclerview.CustomUltimateRecyclerview;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 import com.phuchieu.news.R;
-import com.services.AnimationCreator;
 import com.services.CategoryService;
 import com.services.FeedService;
 
@@ -76,24 +74,9 @@ public class ListFeed extends Activity {
         adapter.setOnClickListener(new SimpleAnimationAdapter.ViewHolder.OnClickListener() {
             @Override
             public void onClick(final Feed clickedItem, View v) {
-                /*PtrFrameLayout ptrFrameLayout = (PtrFrameLayout) ((RelativeLayout) listView.getChildAt(0)).getChildAt(0);
-                RecyclerView recyclerView = ((RecyclerView) ptrFrameLayout.getChildAt(0));
-                for (int i = 0; i <= recyclerView.getChildCount(); i++) {
-                    View visibleView = recyclerView.getChildAt(i);
-                    AnimationCreator.slide_left(context, visibleView);
-                }
-                AnimationCreator.slide_right(context, v, new Runnable() {
-                    @Override
-                    public void run() {
-
-
-
-                    }
-                });*/
                 Intent i = new Intent(context, FeedViewActivity_.class);
                 i.putExtra("selectedId", clickedItem);
                 startActivityForResult(i, REQUEST_CODE);
-
             }
         });
         background();
@@ -120,14 +103,14 @@ public class ListFeed extends Activity {
 
         listView.setLayoutManager(llm);
         listView.enableLoadmore();
-
-        listView.setOnLoadMoreListener(new UltimateRecyclerView.OnLoadMoreListener() {
+        UltimateRecyclerView.OnLoadMoreListener loadMoreListener = new UltimateRecyclerView.OnLoadMoreListener() {
             @Override
             public void loadMore(int itemsCount, final int maxLastVisiblePosition) {
                 loadNextPage();
 
             }
-        });
+        };
+        listView.setOnLoadMoreListener(loadMoreListener);
         listView.setParallaxHeader(getLayoutInflater().inflate(R.layout.parallax_recyclerview_header, listView.mRecyclerView, false));
         listView.setCustomSwipeToRefresh();
         refreshingString();
@@ -193,16 +176,19 @@ public class ListFeed extends Activity {
     @Background
     void background() {
         try {
-
             List<Feed> moreData = categoryService.getMoreFeed();
-            setMoreDataList(moreData);
+            if (moreData.isEmpty()) {
+                Snackbar.make(findViewById(android.R.id.content), "Loading more", Snackbar.LENGTH_LONG).show();
 
+            } else {
+                setMoreDataList(moreData);
 
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            Snackbar.make(findViewById(android.R.id.content), "Can not connect to network", Snackbar.LENGTH_LONG).show();
+
         }
 
     }
-
 }
 

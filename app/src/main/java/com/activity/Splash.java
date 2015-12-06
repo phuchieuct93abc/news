@@ -14,16 +14,17 @@ import org.androidannotations.annotations.EActivity;
 @EActivity(R.layout.splash)
 public class Splash extends Activity {
     private final static int SPLASH_DISPLAY_LENGTH = 1000;
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            CaterogyLivetile_.intent(getApplicationContext()).flags(Intent.FLAG_ACTIVITY_NEW_TASK).start();
+            Splash.this.finish();
+        }
+    };
 
     @AfterViews
     void afterView() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                CaterogyLivetile_.intent(getApplicationContext()).flags(Intent.FLAG_ACTIVITY_NEW_TASK).start();
-                Splash.this.finish();
-            }
-        }, SPLASH_DISPLAY_LENGTH);
+        new Handler().postDelayed(runnable, SPLASH_DISPLAY_LENGTH);
 
     }
 }

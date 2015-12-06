@@ -14,7 +14,6 @@ public class TileView extends LinearLayout {
 
     public TileView(Context context) {
         this(context, null);
-        // TODO Auto-generated constructor stub
     }
 
     public TileView(Context context, AttributeSet attrs) {
@@ -28,14 +27,8 @@ public class TileView extends LinearLayout {
 
     }
 
-    public void setOnClick(OnClickListener listener) {
 
-        button.setOnClickListener(listener);
-    }
 
-    public Tile getTile() {
-        return tile;
-    }
 
     public void setTile(Tile tile) {
         this.tile = tile;
