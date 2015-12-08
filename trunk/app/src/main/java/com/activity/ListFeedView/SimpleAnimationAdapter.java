@@ -176,7 +176,7 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
     }
 
 
-    static class ViewHolder extends UltimateRecyclerviewViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends UltimateRecyclerviewViewHolder implements View.OnClickListener {
         TextView title;
         TextView description;
         ImageView imageView;
