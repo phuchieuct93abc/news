@@ -15,5 +15,6 @@
     <string name="share">Share</string>
     <string name="background">background</string>
     <string name="dark_background">Dark background</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>

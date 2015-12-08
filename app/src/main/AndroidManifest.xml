@@ -3,8 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.phuchieu.news">
 
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-sdk android:minSdkVersion="21" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="true"
@@ -14,7 +20,7 @@
         android:theme="@style/LightCustom"
         tools:replace="android:icon">
         <activity
-            android:name="com.activity.Splash_"
+            android:name="com.activity.MainActivity_"
             android:hardwareAccelerated="true"
             android:label="@string/app_name">
             <intent-filter>
@@ -23,19 +29,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.activity.caterogy.CaterogyLivetile_"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name="com.activity.FeedView.FeedViewActivity_"
             android:screenOrientation="portrait" />
-
-
         <activity
-            android:name="com.activity.ListFeedView.ListFeed_"
-            android:screenOrientation="portrait"
+            android:name="com.activity.Splash_"
+            android:screenOrientation="portrait" />
 
-            />
+
     </application>
 
 </manifest>
