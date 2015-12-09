@@ -110,7 +110,7 @@ public class FeedViewActivity extends AppCompatActivity {
 
             }
         };
-        pager.setOnPageChangeListener(onPageChangeListener);
+        pager.addOnPageChangeListener(onPageChangeListener);
         setSelectedPage(categoryService.getIndexInCaterogyById(selectedId));
         feedService.setRead(selectedId.getId());
     }

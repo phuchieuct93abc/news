@@ -23,13 +23,14 @@ public class HttpService {
     Context context;
     LoadBuilder<Builders.Any.B> ionLoadUrl;
     Ion ionLoadImage;
+    int timeout = 1000;
     private static String RANDOM_IMAGE = "http://www.bing.com/HPImageArchive.aspx?format=js&idx=random&n=1&mkt=en-US";
 
     public String readUrl(String path) {
 
         try {
             initIonLoadUrl(context);
-            return ionLoadUrl.load(path).asString().get();
+            return ionLoadUrl.load(path).setTimeout(timeout).asString().get();
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(context, "Get fail", Toast.LENGTH_SHORT).show();
