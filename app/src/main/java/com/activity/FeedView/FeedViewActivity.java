@@ -1,15 +1,14 @@
 package com.activity.FeedView;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Window;
 import android.widget.RelativeLayout;
 
-import com.activity.fragment_activity.ListFeedFragment;
+import com.activity.MainActivityInterface;
 import com.config.SharePreference;
 import com.feed.Feed;
 import com.phuchieu.news.R;
@@ -19,23 +18,20 @@ import com.services.FeedService;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.WindowFeature;
 
 import java.util.List;
 
-@EActivity(R.layout.view_swipe)
-@WindowFeature(Window.FEATURE_NO_TITLE)
-public class FeedViewActivity extends AppCompatActivity {
-
+@EFragment(R.layout.view_swipe)
+public class FeedViewActivity extends Fragment {
+    MainActivityInterface mainActivityInterface;
     @Bean
     FeedService feedService;
     @Bean
     CategoryService categoryService;
-    @Extra("selectedId")
+
     Feed selectedId;
     PagerAdapter pagerAdapter;
     @ViewById
@@ -44,8 +40,15 @@ public class FeedViewActivity extends AppCompatActivity {
     RelativeLayout viewSwipe;
     int currentIndexOfFeed;
     int indexOfFragment;
-    final Context context = this;
+    Context context;
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        context = activity;
+        mainActivityInterface = (MainActivityInterface)activity;
+
+    }
 
     @Background
     public void loadMoreData() {
@@ -75,7 +78,7 @@ public class FeedViewActivity extends AppCompatActivity {
     @UiThread
     void runUI() {
 
-        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        pagerAdapter = new PagerAdapter(getFragmentManager());
 
         pagerAdapter.setData(categoryService.getListFeed());
         pagerAdapter.setItem(selectedId);
@@ -86,6 +89,8 @@ public class FeedViewActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int arg0) {
                 currentIndexOfFeed = arg0;
+                mainActivityInterface.onBackFeedList(arg0);
+
                 try {
                     categoryService.getListFeed().get(arg0).setIsRead(context);
                     indexOfFragment = arg0;
@@ -111,7 +116,7 @@ public class FeedViewActivity extends AppCompatActivity {
             }
         };
         pager.addOnPageChangeListener(onPageChangeListener);
-        setSelectedPage(categoryService.getIndexInCaterogyById(selectedId));
+        setSelectedPage(categoryService.getIndexInCaterogyById(selectedId.getId()));
         feedService.setRead(selectedId.getId());
     }
 
@@ -124,8 +129,10 @@ public class FeedViewActivity extends AppCompatActivity {
     void run() {
 
         try {
+            String feedID = getArguments().getString("feedId");
+            selectedId  = categoryService.getFeedById(feedID);
             runUI();
-            int index = categoryService.getIndexInCaterogyById(selectedId);
+            int index = categoryService.getIndexInCaterogyById(selectedId.getId());
             currentIndexOfFeed = index;
             categoryService.getListFeed().get(index).setIsRead(context);
             setDataList(categoryService.getListFeed());
@@ -144,12 +151,5 @@ public class FeedViewActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent intent = getIntent();
-        intent.putExtra("previousItem", currentIndexOfFeed);
 
-        setResult(ListFeedFragment.REQUEST_CODE, intent);
-        finish();
-    }
 }

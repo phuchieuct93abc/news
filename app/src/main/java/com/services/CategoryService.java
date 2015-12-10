@@ -99,7 +99,7 @@ public class CategoryService {
                         JSONObject oneObject = jArray.getJSONObject(i);
                         // Pulling items from the array
                         Feed feed = new Feed(oneObject);
-                        if (getIndexInCaterogyById(feed) == -1) {
+                        if (getIndexInCaterogyById(feed.getId()) == -1) {
                             result.add(feed);
                         } else {
                             duplicateCount++;
@@ -127,14 +127,23 @@ public class CategoryService {
         Log.e("hieu", "size" + listFeed.size() + "");
     }
 
-    public int getIndexInCaterogyById(Feed item) {
+    public int getIndexInCaterogyById(String id) {
         for (Feed d : listFeed) {
-            if (d.getId().equals(item.getId())) {
+            if (d.getId().equals(id)) {
                 int index = listFeed.indexOf(d);
                 return index;
             }
         }
         return -1;
+    }
+    public Feed getFeedById(String id){
+        for (Feed d : listFeed) {
+            if (d.getId().equals(id)) {
+                int index = listFeed.indexOf(d);
+                return d;
+            }
+        }
+        return null;
     }
 }
 
