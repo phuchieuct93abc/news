@@ -21,8 +21,7 @@ public class FeedItemView extends RelativeLayout {
     TextView title;
     @ViewById
     TextView description;
-    @ViewById
-    TextView isRead;
+
     @ViewById
     ImageView imageView;
     @Bean
