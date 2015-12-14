@@ -92,7 +92,9 @@ public class FeedViewActivity extends Fragment {
                 mainActivityInterface.onBackFeedList(arg0);
 
                 try {
-                    categoryService.getListFeed().get(arg0).setIsRead(context);
+                    Feed currentFeed =  categoryService.getListFeed().get(arg0);
+                    currentFeed.setIsRead(context);
+                    mainActivityInterface.feedOnView(categoryService.getListFeed().get(arg0));
                     indexOfFragment = arg0;
                     if (arg0 == pagerAdapter.getCount() - 1) {
                         loadMoreData();
@@ -122,7 +124,10 @@ public class FeedViewActivity extends Fragment {
 
     @UiThread
     void setSelectedPage(int index) {
+
         pager.setCurrentItem(index,false);
+        mainActivityInterface.feedOnView(categoryService.getListFeed().get(index));
+
     }
 
     @AfterViews

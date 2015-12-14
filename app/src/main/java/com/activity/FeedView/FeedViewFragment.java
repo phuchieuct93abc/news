@@ -2,8 +2,6 @@ package com.activity.FeedView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +9,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.config.SharePreference;
 import com.feed.Feed;
 import com.phuchieu.news.R;
@@ -36,10 +33,7 @@ public class FeedViewFragment extends Fragment {
 
     @Bean
     FeedService feedService;
-    @ViewById
-    BootstrapButton openSource;
-    @ViewById
-    BootstrapButton share;
+
 
 
     public Feed getFeed() {
@@ -85,15 +79,9 @@ public class FeedViewFragment extends Fragment {
             } catch (Exception ex) {
                 Log.d("set url for webview", ex.getMessage());
             }
-        }finally {
-            setButtonVisible();
         }
     }
-    @UiThread
-    void setButtonVisible(){
-        openSource.setVisibility(View.VISIBLE);
 
-    }
 
     @UiThread
     void setOriginalURLForWebview() {
@@ -130,24 +118,7 @@ public class FeedViewFragment extends Fragment {
         initializeSetting();
         
         runBackground();
-        openSource.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(feed.getContentUrl()));
-                startActivity(i);
 
-            }
-        });
-        share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, feed.getContentUrl());
-                startActivity(intent);
-            }
-        });
 
     }
 

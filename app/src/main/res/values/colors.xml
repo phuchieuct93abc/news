@@ -33,5 +33,10 @@
     <color name="primary_text_material_light">#ffffff</color>
     <color name="colorPrimaryDark">#03a9f4</color>
     <color name="primary_material_light">#03a9f4</color>
+    <color name="primary_material_dark">#000000</color>
+    <color name="primary_dark_material_dark">#0097a7</color>
+    <color name="background_material_dark">#ffffff</color>
+    <color name="accent_material_dark">#020202</color>
+    <color name="foreground_material_dark">#f70000</color>
 
 </resources> 
