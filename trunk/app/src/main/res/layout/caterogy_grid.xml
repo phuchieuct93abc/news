@@ -39,8 +39,8 @@ android:layout_marginBottom="?attr/actionBarSize"
 
             <TableRow
                 android:id="@+id/tableRow1"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:textAlignment="center">
 
                 <com.beardedhen.androidbootstrap.BootstrapButton
@@ -60,8 +60,8 @@ android:layout_marginBottom="?attr/actionBarSize"
 
             <TableRow
                 android:id="@+id/tableRow2"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <com.beardedhen.androidbootstrap.BootstrapButton
                     android:id="@+id/button3"
@@ -81,8 +81,8 @@ android:layout_marginBottom="?attr/actionBarSize"
 
             <TableRow
                 android:id="@+id/tableRow3"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <com.beardedhen.androidbootstrap.BootstrapButton
                     android:id="@+id/button5"
@@ -103,8 +103,8 @@ android:layout_marginBottom="?attr/actionBarSize"
 
             <TableRow
                 android:id="@+id/tableRow4"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <com.beardedhen.androidbootstrap.BootstrapButton
                     android:id="@+id/button7"
