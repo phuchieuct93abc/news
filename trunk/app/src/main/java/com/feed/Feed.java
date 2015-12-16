@@ -71,10 +71,7 @@ public class Feed implements Serializable {
         result = result.replaceAll("src=\"_\"", "style=\"width: 100%;height:auto\"");
         result = result.replaceAll("data-img-src", "data-src");
         result = result.replaceAll("data-img-", "");
-        result += "<style>" +
-                "body{background-color:#EEEEEE}" +
-                "p { text-indent: 50px;overflow: hidden;}" +
-                "img{margin-left:-50px}</style>";
+
 
         return result;
     }
