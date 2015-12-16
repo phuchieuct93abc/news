@@ -3,14 +3,9 @@ package com.activity.FeedView;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.activity.MainActivityInterface;
@@ -29,7 +24,7 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
-@EFragment
+@EFragment(R.layout.view_swipe)
 public class FeedViewActivity extends Fragment {
     MainActivityInterface mainActivityInterface;
     @Bean
@@ -46,11 +41,6 @@ public class FeedViewActivity extends Fragment {
     int currentIndexOfFeed;
     int indexOfFragment;
     Context context;
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.view_swipe,container,false);
-    }
 
     @Override
     public void onAttach(Activity activity) {

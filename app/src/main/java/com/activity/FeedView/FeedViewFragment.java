@@ -1,14 +1,10 @@
 package com.activity.FeedView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -26,23 +22,22 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
-@EFragment
+@SuppressLint("SetJavaScriptEnabled")
+@EFragment(R.layout.view)
 public class FeedViewFragment extends Fragment {
     @ViewById
     WebView webView;
     Feed feed;
     Boolean darkBackground;
 
+    @ViewById
+    NestedScrollView nestedScrollView;
+
 
     @Bean
     FeedService feedService;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       return inflater.inflate(R.layout.view, container, false);
 
-    }
 
     public Feed getFeed() {
         return feed;
@@ -54,7 +49,6 @@ public class FeedViewFragment extends Fragment {
 
     @UiThread
     void initializeSetting() {
-
         WebSettings settings = webView.getSettings();
         settings.setUseWideViewPort(false);
         settings.setDefaultTextEncodingName("utf-8");
@@ -70,9 +64,9 @@ public class FeedViewFragment extends Fragment {
         webView.setLongClickable(false);
         webView.setHapticFeedbackEnabled(false);
         webView.getSettings().setUserAgentString("Android");
+
+
         webView.setWebViewClient(new WebViewClient());
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebChromeClient(new WebChromeClient());
     }
 
     @Background
@@ -117,13 +111,7 @@ public class FeedViewFragment extends Fragment {
     @UiThread
     void setContentToWebview(String contentHTML) {
         if (darkBackground) contentHTML += CssStyles.DARK_BACKGROUND;
-        contentHTML="<body style='padding-top:10px'>"+contentHTML+"</body>";
-
-    /*    contentHTML = "<script src=\"file:///android_asset/bLazy.js\" type=\"text/javascript\"></script>\n"+contentHTML;
-        contentHTML = "<script src=\"file:///android_asset/jquery.js\" type=\"text/javascript\"></script>\n"+contentHTML;
-        contentHTML = "<link rel=\"stylesheet\" type=\"text/css\" href=\"main.css\">\n\n"+contentHTML;*/
-        Log.d("hieu",contentHTML);
-        webView.loadDataWithBaseURL("file:///android_asset/", contentHTML, "text/html", "UTF-8", null);
+        webView.loadDataWithBaseURL(null, contentHTML, "text/html", "UTF-8", null);
     }
 
     @AfterViews
@@ -131,7 +119,7 @@ public class FeedViewFragment extends Fragment {
         Context context = getActivity().getApplicationContext();
         darkBackground = new SharePreference(context).getBooleanValue(SharePreference.DARK_BACKGROUND);
         initializeSetting();
-        
+
         runBackground();
 
 
