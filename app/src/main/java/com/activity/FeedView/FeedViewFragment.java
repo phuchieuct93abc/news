@@ -5,9 +5,9 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.config.SharePreference;
 import com.feed.Feed;
@@ -30,8 +30,7 @@ public class FeedViewFragment extends Fragment {
     Feed feed;
     Boolean darkBackground;
 
-    @ViewById
-    NestedScrollView nestedScrollView;
+
 
 
     @Bean
@@ -49,12 +48,13 @@ public class FeedViewFragment extends Fragment {
 
     @UiThread
     void initializeSetting() {
+
+
         WebSettings settings = webView.getSettings();
         settings.setUseWideViewPort(false);
         settings.setDefaultTextEncodingName("utf-8");
         settings.setDefaultFontSize(22);
         settings.setAppCacheEnabled(true);
-        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         webView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -64,9 +64,10 @@ public class FeedViewFragment extends Fragment {
         webView.setLongClickable(false);
         webView.setHapticFeedbackEnabled(false);
         webView.getSettings().setUserAgentString("Android");
+        webView.getSettings().setJavaScriptEnabled(true);
 
-
-        webView.setWebViewClient(new WebViewClient());
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebChromeClient(new WebChromeClient());
     }
 
     @Background
@@ -111,7 +112,18 @@ public class FeedViewFragment extends Fragment {
     @UiThread
     void setContentToWebview(String contentHTML) {
         if (darkBackground) contentHTML += CssStyles.DARK_BACKGROUND;
-        webView.loadDataWithBaseURL(null, contentHTML, "text/html", "UTF-8", null);
+
+        contentHTML = "<script src=\"file:///android_asset/bLazy.js\" type=\"text/javascript\"></script>\n"+contentHTML;
+        contentHTML = "<script src=\"file:///android_asset/jquery.js\" type=\"text/javascript\"></script>\n"+contentHTML;
+        contentHTML = "<link rel=\"stylesheet\" type=\"text/css\" href=\"file:///android_asset/main.css\" />" + contentHTML;
+        contentHTML="<body>"+contentHTML+"</body>";
+
+        Log.d("hieu", contentHTML);
+        webView.loadDataWithBaseURL("file:///android_asset/", contentHTML, "text/html", "UTF-8", null);
+
+
+
+
     }
 
     @AfterViews
