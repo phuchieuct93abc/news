@@ -2,12 +2,15 @@ package com.activity.FeedView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.http.SslError;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebChromeClient;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.config.SharePreference;
 import com.feed.Feed;
@@ -27,15 +30,15 @@ import org.androidannotations.annotations.ViewById;
 public class FeedViewFragment extends Fragment {
     @ViewById
     WebView webView;
+
     Feed feed;
     Boolean darkBackground;
-
-
+    JavascriptInterface javascriptInterface;
+    Boolean isWebviewLoaded = false;
 
 
     @Bean
     FeedService feedService;
-
 
 
     public Feed getFeed() {
@@ -67,7 +70,35 @@ public class FeedViewFragment extends Fragment {
         webView.getSettings().setJavaScriptEnabled(true);
 
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebChromeClient(new WebChromeClient());
+        webView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                // TODO Auto-generated method stub
+                super.onPageStarted(view, url, favicon);
+                //Toast.makeText(TableContentsWithDisplay.this, "url "+url, Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                isWebviewLoaded = true;
+                super.onPageFinished(view, url);
+            }
+
+            @Override
+            public void onReceivedSslError(WebView view,
+                                           SslErrorHandler handler, SslError error) {
+                // TODO Auto-generated method stub
+                super.onReceivedSslError(view, handler, error);
+                //Toast.makeText(TableContentsWithDisplay.this, "error "+error, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        javascriptInterface = new JavascriptInterface(webView, getActivity().getApplicationContext(), getActivity());
+        webView.addJavascriptInterface(javascriptInterface, "JsHandler1");
+        webView.loadUrl("file:///android_asset/index.html");
+
     }
 
     @Background
@@ -75,7 +106,11 @@ public class FeedViewFragment extends Fragment {
         String contentHTML;
         try {
             contentHTML = feedService.getFeedContentFromFeed(feed).getContentHTML();
-            setContentToWebview(contentHTML);
+            Log.d("hieu", contentHTML);
+            while (!isWebviewLoaded){
+
+            }
+            javascriptInterface.addContentData(contentHTML);
         } catch (Exception e) {
             try {
                 setOriginalURLForWebview();
@@ -90,18 +125,22 @@ public class FeedViewFragment extends Fragment {
     @UiThread
     void setOriginalURLForWebview() {
         String link = feed.getLink();
-        int start =0,stop=0;
-        int postion=0;
-        for (int index = link.indexOf("/");  index >= 0; index = link.indexOf("/", index + 1))
-        { postion++;
-            if(postion ==4){start=index;}
-            if(postion==5){stop=index;}
+        int start = 0, stop = 0;
+        int postion = 0;
+        for (int index = link.indexOf("/"); index >= 0; index = link.indexOf("/", index + 1)) {
+            postion++;
+            if (postion == 4) {
+                start = index;
+            }
+            if (postion == 5) {
+                stop = index;
+            }
         }
 
-        if(link.indexOf("cnet.com")==-1){
-            String stringNeedTobeReplace = link.substring(start,stop+1);
+        if (link.indexOf("cnet.com") == -1) {
+            String stringNeedTobeReplace = link.substring(start, stop + 1);
 
-          link = link.replace(stringNeedTobeReplace,"/c/").replace("www","m");
+            link = link.replace(stringNeedTobeReplace, "/c/").replace("www", "m");
         }
 
         webView.loadUrl(link);
@@ -113,15 +152,13 @@ public class FeedViewFragment extends Fragment {
     void setContentToWebview(String contentHTML) {
         if (darkBackground) contentHTML += CssStyles.DARK_BACKGROUND;
 
-        contentHTML = "<script src=\"file:///android_asset/bLazy.js\" type=\"text/javascript\"></script>\n"+contentHTML;
-        contentHTML = "<script src=\"file:///android_asset/jquery.js\" type=\"text/javascript\"></script>\n"+contentHTML;
+        contentHTML = "<script src=\"file:///android_asset/bLazy.js\" type=\"text/javascript\"></script>\n" + contentHTML;
+        contentHTML = "<script src=\"file:///android_asset/jquery.js\" type=\"text/javascript\"></script>\n" + contentHTML;
         contentHTML = "<link rel=\"stylesheet\" type=\"text/css\" href=\"file:///android_asset/main.css\" />" + contentHTML;
-        contentHTML="<body>"+contentHTML+"</body>";
+        contentHTML = "<body>" + contentHTML + "</body>";
 
         Log.d("hieu", contentHTML);
         webView.loadDataWithBaseURL("file:///android_asset/", contentHTML, "text/html", "UTF-8", null);
-
-
 
 
     }

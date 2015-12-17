@@ -56,10 +56,3 @@
 })(window.jQuery || window.Zepto);
 
 
-    $(document).ready(function() {
-          console.log($("body").height())
-
-      $("img").unveil(0,function(){
-      console.log("lod")
-      });
-    });

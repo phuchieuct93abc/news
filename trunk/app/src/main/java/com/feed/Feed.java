@@ -68,10 +68,10 @@ public class Feed implements Serializable {
         String result = this.contentHTML;
         result = "<h3>{HEADER}</h3>".replace("{HEADER}", getTitle()) + result;
         if(isCNET())return result;
-        result = result.replaceAll("src=\"_\"", "style=\"width: 100%;height:auto\"");
-        result = result.replaceAll("data-img-src", "data-src");
-        result = result.replaceAll("data-img-", "");
-
+        result = result.replaceAll("data-img-src", "src");
+        result = result.replaceAll("<p>\u200B</p>","");
+        result = result.replaceAll("src=\"_\"","")
+;
 
         return result;
     }

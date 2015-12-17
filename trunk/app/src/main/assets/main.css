@@ -1,12 +1,33 @@
+html{
+width:100%;
+}
+h3{
+margin:10px;
+}
+
+#wrapper{
+    float: left;
+    height: auto;
+    overflow: auto;
+    height: 100%;
+    }
 body {
-    background-color: red;
-    padding-top: 10px;
-    background-color: #EEEEEE
+    padding: 10px;
+        box-sizing: border-box;
+    background-color: #EEEEEE;
+    display: block;
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    margin: 0px;
 }
 p {
     text-indent: 50px;
     overflow: hidden;
 }
 img {
-    margin-left: -50px
+    margin-left: -50px;
+    width: 100%;
+    height:auto;
 }
