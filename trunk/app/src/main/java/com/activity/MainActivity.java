@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         FeedViewActivity_ feedViewActivity = new FeedViewActivity_();
         feedViewActivity.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
+        fragmentTransaction.setCustomAnimations(R.animator.slide_in_right ,R.animator.slide_out_left);
         fragmentTransaction.replace(R.id.fragment, feedViewActivity,FEED_VIEW_FRAGMENT).addToBackStack(null).commit();
 
         getSupportActionBar().setTitle(feed.getSourceName());

@@ -34,6 +34,8 @@
         <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="android:colorForeground">@color/foreground_material_dark</item>
+        <item name="android:windowContentTransitions">true</item>
+
     </style>
 
 </resources>

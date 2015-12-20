@@ -11,11 +11,14 @@ import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.config.SharePreference;
 import com.feed.Feed;
 import com.phuchieu.news.R;
 import com.services.FeedService;
+import com.services.HttpService;
 import com.styles.CssStyles;
 
 import org.androidannotations.annotations.AfterViews;
@@ -30,6 +33,12 @@ import org.androidannotations.annotations.ViewById;
 public class FeedViewFragment extends Fragment {
     @ViewById
     WebView webView;
+    @ViewById
+    ImageView imageView;
+    @ViewById
+    TextView title;
+    @Bean
+    HttpService httpService;
 
     Feed feed;
     Boolean darkBackground;
@@ -51,7 +60,10 @@ public class FeedViewFragment extends Fragment {
 
     @UiThread
     void initializeSetting() {
+        httpService.loadImage(feed,imageView);
+        title.setText(feed.getTitle());
 
+//        title.setTextColor(android.R.color.black);
 
         WebSettings settings = webView.getSettings();
         settings.setUseWideViewPort(false);
