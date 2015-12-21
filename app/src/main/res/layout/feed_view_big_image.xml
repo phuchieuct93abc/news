@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    >
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
@@ -22,7 +23,9 @@
                 android:layout_weight="10.23"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/placeHolder_image"
-                android:minHeight="50dp" />
+                android:minHeight="50dp"
+                android:transitionName="sharedImage"
+                />
 
             <TextView
                 android:id="@+id/title"

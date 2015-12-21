@@ -49,6 +49,10 @@ public class FeedViewFragment extends Fragment {
     @Bean
     FeedService feedService;
 
+    public ImageView getShareImageView(){
+        return imageView;
+    }
+
 
     public Feed getFeed() {
         return feed;

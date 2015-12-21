@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.activity.MainActivityInterface;
@@ -31,6 +32,9 @@ public class FeedViewActivity extends Fragment {
     FeedService feedService;
     @Bean
     CategoryService categoryService;
+    @ViewById
+    ImageView imageView;
+
 
     Feed selectedId;
     PagerAdapter pagerAdapter;
@@ -41,6 +45,8 @@ public class FeedViewActivity extends Fragment {
     int currentIndexOfFeed;
     int indexOfFragment;
     Context context;
+
+
 
     @Override
     public void onAttach(Activity activity) {
