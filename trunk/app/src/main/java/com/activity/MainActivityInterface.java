@@ -1,5 +1,7 @@
 package com.activity;
 
+import android.view.View;
+
 import com.feed.Feed;
 
 /**
@@ -7,7 +9,7 @@ import com.feed.Feed;
  */
 public interface MainActivityInterface {
     public void onCategorySelected(String category);
-    public void onSelectFeed(Feed feed);
+    public void onSelectFeed(Feed feed, View view);
     public void onBackFeedList(int index);
     public void feedOnView(Feed feed);
 

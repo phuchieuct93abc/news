@@ -45,22 +45,9 @@ public class FeedItemView extends RelativeLayout {
         description.setMaxLines(2);
         description.setText(feed.getContent());
 
-//
-//        int width = feed.getWidth();
-//        int height = feed.getHeight();
-//        try{
-//       if(height/width*1020 >0) {
-//           RelativeLayout.LayoutParams parms = new RelativeLayout.LayoutParams(1020, height / width * 1020);
-//                  imageView.setLayoutParams(parms);}
-//
-//       }catch(Exception e){
-//    Log.d("hieu",height+" "+width);
-//
-//        }
         httpService.loadImage(feed, imageView);
 
 
-//        UrlImageViewHelper.setUrlDrawable(imageView, feed.getImage(), R.drawable.news, cacheTime);
     }
 
 

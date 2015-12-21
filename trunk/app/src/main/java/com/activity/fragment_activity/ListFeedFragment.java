@@ -6,7 +6,9 @@ import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.activity.ListFeedView.SimpleAnimationAdapter;
 import com.activity.MainActivityInterface;
@@ -35,9 +37,10 @@ import in.srain.cube.views.ptr.header.StoreHouseHeader;
 public class ListFeedFragment extends Fragment {
 
     MainActivityInterface mainActivityInterface;
-    public final static int REQUEST_CODE = 11;
     @ViewById
     CustomUltimateRecyclerview listView;
+    @ViewById
+    ImageView imageView;
     @Bean
     SimpleAnimationAdapter adapter;
     @Bean
@@ -58,16 +61,25 @@ public class ListFeedFragment extends Fragment {
 
     @AfterViews
     void afterView() {
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivityInterface.onSelectFeed(categoryService.getListFeed().get(0),v);
 
-        feedService.clearCache();
-        categoryService.clearCacheList();
+
+            }
+        });
         adapter.setOnClickListener(new SimpleAnimationAdapter.ViewHolder.OnClickListener() {
             @Override
             public void onClick(final Feed clickedItem, View v) {
-//                Intent i = new Intent(context, FeedViewActivity_.class);
-//                i.putExtra("selectedId", clickedItem);
-//                startActivityForResult(i, REQUEST_CODE);
-                mainActivityInterface.onSelectFeed(clickedItem);
+
+
+
+
+                mainActivityInterface.onSelectFeed(clickedItem,v);
+
+
+
             }
         });
         background();
@@ -84,7 +96,7 @@ public class ListFeedFragment extends Fragment {
 
     private void setOnScrollListener() {
         LinearLayoutManager llm = new LinearLayoutManager(context);
-        listView.setHasFixedSize(false);
+//        listView.setHasFixedSize(false);
 
         listView.setLayoutManager(llm);
         listView.enableLoadmore();
@@ -165,10 +177,7 @@ public class ListFeedFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    @UiThread
-    void error() {
-        //Snackbar.make(getView().findViewById(android.R.id.content), "Can not connect to network", Snackbar.LENGTH_LONG).show();
-    }
+
 
     @Background
     void background() {
@@ -183,7 +192,7 @@ public class ListFeedFragment extends Fragment {
             }
 
         } catch (Exception e) {
-            error();
+            Log.e("hieu",e.getMessage());
         }
 
     }

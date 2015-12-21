@@ -7,9 +7,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.ChangeBounds;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.activity.FeedView.FeedViewActivity_;
 import com.activity.fragment_activity.CaterogyFragment_;
@@ -52,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     public void onCategorySelected(String category) {
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
+        fragmentTransaction.setCustomAnimations(R.animator.slide_in_right,R.animator.slide_out_left);
         fragmentTransaction.replace(R.id.fragment, new ListFeedFragment_(),LIST_FEED_FRAGMENT).addToBackStack(null).commit();
 
         getSupportActionBar().setTitle(category);
@@ -61,19 +67,87 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     }
 
     @Override
-    public void onSelectFeed(Feed feed) {
+    public void onSelectFeed(Feed feed,View v) {
         Bundle bundle = new Bundle();
         bundle.putString("feedId", feed.getId());
-        FeedViewActivity_ feedViewActivity = new FeedViewActivity_();
-        feedViewActivity.setArguments(bundle);
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.animator.slide_in_right ,R.animator.slide_out_left);
-        fragmentTransaction.replace(R.id.fragment, feedViewActivity,FEED_VIEW_FRAGMENT).addToBackStack(null).commit();
-
         getSupportActionBar().setTitle(feed.getSourceName());
         this.menu.getItem(0).setVisible(true);
         this.menu.getItem(1).setVisible(true);
         this.menu.getItem(2).setVisible(true);
+
+
+        startFeedViewFragment(bundle,v);
+    }
+
+    private void startFeedViewFragment(Bundle bundle,View v) {
+        FeedViewActivity_ sharedElementFragment2 = new FeedViewActivity_();
+        ListFeedFragment_ firstFragment = (ListFeedFragment_) getSupportFragmentManager().findFragmentById(R.id.fragment);
+        sharedElementFragment2.setArguments(bundle);
+        firstFragment.setSharedElementReturnTransition(TransitionInflater.from(firstFragment.getActivity()).inflateTransition(R.transition.change_image_transform));
+        firstFragment.setExitTransition(TransitionInflater.from(firstFragment.getActivity()).inflateTransition(android.R.transition.fade));
+
+        sharedElementFragment2.setSharedElementEnterTransition(TransitionInflater.from(
+                firstFragment.getActivity()).inflateTransition(R.transition.change_image_transform));
+        sharedElementFragment2.setEnterTransition(TransitionInflater.from(
+                firstFragment.getActivity()).inflateTransition(android.R.transition.fade));
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment, sharedElementFragment2)
+                .addToBackStack(null)
+                .addSharedElement(v.findViewById(R.id.imageView), "sharedImage")
+                .commit();
+
+
+//        FeedViewActivity_ sharedElementFragment2 = new FeedViewActivity_();
+//
+//        Slide slideTransition = new Slide(Gravity.RIGHT);
+//        slideTransition.setDuration(2000);
+//
+//        ChangeBounds changeBoundsTransition = new ChangeBounds();
+//        changeBoundsTransition.setDuration(2000);
+//
+//        sharedElementFragment2.setEnterTransition(slideTransition);
+//        sharedElementFragment2.setAllowEnterTransitionOverlap(true);
+//        sharedElementFragment2.setAllowReturnTransitionOverlap(true);
+//        sharedElementFragment2.setSharedElementEnterTransition(changeBoundsTransition);
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.fragment, sharedElementFragment2)
+//                .addToBackStack(null)
+//                .addSharedElement(v, "sharedImage")
+//                .commit();
+
+
+////             FeedViewActivity_ feedViewActivity = new FeedViewActivity_();
+////        feedViewActivity.setArguments(bundle);
+////
+////        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+////        fragmentTransaction.setCustomAnimations(R.animator.slide_in_right ,R.animator.slide_out_left);
+////        fragmentTransaction.replace(R.id.fragment, feedViewActivity,FEED_VIEW_FRAGMENT).addToBackStack(null).commit();
+//
+//        FeedViewActivity_ fragmentTwo = new FeedViewActivity_();
+//
+//        fragmentTwo.setArguments(bundle);
+//
+//        ListFeedFragment_ fragmentOne = (ListFeedFragment_) getSupportFragmentManager().findFragmentById(R.id.fragment);
+//
+//
+//        Slide slideTransition = new Slide(Gravity.RIGHT);
+//        slideTransition.setDuration(2000);
+//
+//        ChangeBounds changeBoundsTransition = new ChangeBounds();
+//        changeBoundsTransition.setDuration(2000);
+//
+//        fragmentTwo.setEnterTransition(slideTransition);
+//        fragmentTwo.setAllowEnterTransitionOverlap(true);
+//        fragmentTwo.setAllowReturnTransitionOverlap(true);
+//        fragmentTwo.setSharedElementEnterTransition(changeBoundsTransition);
+//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.fragment, fragmentTwo)
+//                .addToBackStack("transaction")
+//                .addSharedElement(v.findViewById(R.id.imageView), "sharedImage");
+//        // Apply the transaction
+//        ft.commit();
+
+
     }
 
     @Override
