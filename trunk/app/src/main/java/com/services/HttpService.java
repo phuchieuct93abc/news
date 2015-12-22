@@ -5,11 +5,11 @@ import android.content.SharedPreferences;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.feed.Feed;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.builder.Builders;
 import com.koushikdutta.ion.builder.LoadBuilder;
 import com.phuchieu.news.R;
+import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
@@ -21,6 +21,7 @@ import java.util.Random;
 @EBean
 public class HttpService {
     private static String RANDOM_IMAGE = "http://www.bing.com/HPImageArchive.aspx?format=js&idx=random&n=1&mkt=en-US";
+    public static String SPINNER = "https://d13yacurqjgara.cloudfront.net/users/159302/screenshots/1900376/material-spinner2.gif";
     @RootContext
     Context context;
     LoadBuilder<Builders.Any.B> ionLoadUrl;
@@ -56,12 +57,19 @@ public class HttpService {
         }
     }
 
-    public void loadImage(Feed feed, ImageView imageView) {
+    public void loadImage(String url, ImageView imageView) {
         initIonLoadImage();
-        Ion.getDefault(context).build(imageView).error(R.drawable.news).load(feed.getImage());
+        if(!url.isEmpty()){
+            Picasso.with(context).load(url).placeholder(R.drawable.news).into(imageView);
+
+        }
+
+
+//        Ion.getDefault(context).build(imageView).animateIn(R.animator.fade_in).animateLoad(R.animator.fade_out).error(R.drawable.news).load(url);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
     }
+
 
     private void initIonLoadImage() {
         if (ionLoadImage == null) ionLoadImage = Ion.getDefault(context);

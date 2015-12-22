@@ -66,7 +66,7 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
             description.setMaxLines(2);
             description.setText(item.getContent());
             holder.onClickListener = this.getOnClickListener();
-            httpService.loadImage(item, imageView);
+            httpService.loadImage(item.getImage(), imageView);
 
         }
         if (!isFirstOnly || position > mLastPosition) {
