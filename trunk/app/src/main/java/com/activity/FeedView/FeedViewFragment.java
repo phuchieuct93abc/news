@@ -49,7 +49,7 @@ public class FeedViewFragment extends Fragment {
     @Bean
     FeedService feedService;
 
-    public ImageView getShareImageView(){
+    public ImageView getShareImageView() {
         return imageView;
     }
 
@@ -64,7 +64,7 @@ public class FeedViewFragment extends Fragment {
 
     @UiThread
     void initializeSetting() {
-        httpService.loadImage(feed,imageView);
+        httpService.loadImage(feed, imageView);
         title.setText(feed.getTitle());
 
 //        title.setTextColor(android.R.color.black);
@@ -123,7 +123,7 @@ public class FeedViewFragment extends Fragment {
         try {
             contentHTML = feedService.getFeedContentFromFeed(feed).getContentHTML();
             Log.d("hieu", contentHTML);
-            while (!isWebviewLoaded){
+            while (!isWebviewLoaded) {
 
             }
             javascriptInterface.addContentData(contentHTML);

@@ -16,7 +16,7 @@ public class JavascriptInterface {
     Activity activity;
 
 
-    public JavascriptInterface(WebView _webView, Context context,Activity activity) {
+    public JavascriptInterface(WebView _webView, Context context, Activity activity) {
         webView = _webView;
         this.context = context;
         this.activity = activity;
@@ -40,7 +40,8 @@ public class JavascriptInterface {
 
 
     }
-    public void addContentData(String contentData){
+
+    public void addContentData(String contentData) {
         final String webUrl = "javascript:addContent('" + contentData + "')";
         // Add this to avoid android.view.windowmanager$badtokenexception unable to add window
         if (!activity.isFinishing())

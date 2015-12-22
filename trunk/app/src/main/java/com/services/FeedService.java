@@ -13,29 +13,29 @@ import org.json.JSONObject;
 @EBean
 public class FeedService {
     public static String LINK_FEED_CONTENT = "http://dataprovider.touch.baomoi.com/json/article.aspx?articleId={ID}";
+    static String sharedPreferencesCaterogy = "CATEROGY_CACHE";
+    static String sharedPreferencesReadFeed = "READ_FEED_CACHE";
     @RootContext
     Context context;
     @Bean
     HttpService httpService;
-    static String sharedPreferencesCaterogy = "CATEROGY_CACHE";
-    static String sharedPreferencesReadFeed = "READ_FEED_CACHE";
 
-        public Feed getFeedContentFromFeed(Feed feed) throws Exception {
+    public Feed getFeedContentFromFeed(Feed feed) throws Exception {
 
         String id = feed.getId();
         String link_request;
-        if(!feed.isCNET()){
-             link_request = LINK_FEED_CONTENT.replace("{ID}", id);
+        if (!feed.isCNET()) {
+            link_request = LINK_FEED_CONTENT.replace("{ID}", id);
 
-        }else{
-            link_request=feed.getContentUrl();
+        } else {
+            link_request = feed.getContentUrl();
         }
         String responseCategory;
         responseCategory = getContentFromCache(id, link_request, context);
         String contentHTML;
-        if(feed.isCNET()){
+        if (feed.isCNET()) {
             contentHTML = responseCategory;
-        }else{
+        } else {
             JSONObject jObject = new JSONObject(responseCategory);
 
             contentHTML = jObject.getJSONObject("article").getString("Body");

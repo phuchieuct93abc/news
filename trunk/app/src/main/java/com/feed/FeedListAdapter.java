@@ -20,7 +20,6 @@ public class FeedListAdapter extends BaseAdapter {
     Context context;
 
 
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 

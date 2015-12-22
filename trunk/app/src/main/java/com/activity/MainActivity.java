@@ -7,12 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.ChangeBounds;
-import android.transition.Slide;
-import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,23 +26,20 @@ import org.androidannotations.annotations.ViewById;
 @EActivity(R.layout.activity_main2)
 public class MainActivity extends AppCompatActivity implements MainActivityInterface {
 
+    final static String CATEGORY_FRAGMENT = "CaterogyFragment";
+    final static String LIST_FEED_FRAGMENT = "ListFeedFragment_";
+    final static String FEED_VIEW_FRAGMENT = "FeedViewFragment";
     @ViewById
     Toolbar toolbar;
-
     Menu menu;
     int feedIndex;
     Feed feedOnView;
-    final static String  CATEGORY_FRAGMENT = "CaterogyFragment";
-    final static String  LIST_FEED_FRAGMENT = "ListFeedFragment_";
-    final static String  FEED_VIEW_FRAGMENT = "FeedViewFragment";
-
 
     @AfterViews
     public void init() {
 
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment, new CaterogyFragment_(),CATEGORY_FRAGMENT).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment, new CaterogyFragment_(), CATEGORY_FRAGMENT).commit();
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true); //icon back arrow
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -58,8 +51,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     public void onCategorySelected(String category) {
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.animator.slide_in_right,R.animator.slide_out_left);
-        fragmentTransaction.replace(R.id.fragment, new ListFeedFragment_(),LIST_FEED_FRAGMENT).addToBackStack(null).commit();
+        fragmentTransaction.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left);
+        fragmentTransaction.replace(R.id.fragment, new ListFeedFragment_(), LIST_FEED_FRAGMENT).addToBackStack(null).commit();
 
         getSupportActionBar().setTitle(category);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -67,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     }
 
     @Override
-    public void onSelectFeed(Feed feed,View v) {
+    public void onSelectFeed(Feed feed, View v) {
         Bundle bundle = new Bundle();
         bundle.putString("feedId", feed.getId());
         getSupportActionBar().setTitle(feed.getSourceName());
@@ -76,10 +69,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         this.menu.getItem(2).setVisible(true);
 
 
-        startFeedViewFragment(bundle,v);
+        startFeedViewFragment(bundle, v);
     }
 
-    private void startFeedViewFragment(Bundle bundle,View v) {
+    private void startFeedViewFragment(Bundle bundle, View v) {
         FeedViewActivity_ sharedElementFragment2 = new FeedViewActivity_();
         ListFeedFragment_ firstFragment = (ListFeedFragment_) getSupportFragmentManager().findFragmentById(R.id.fragment);
         sharedElementFragment2.setArguments(bundle);
@@ -95,57 +88,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                 .addToBackStack(null)
                 .addSharedElement(v.findViewById(R.id.imageView), "sharedImage")
                 .commit();
-
-
-//        FeedViewActivity_ sharedElementFragment2 = new FeedViewActivity_();
-//
-//        Slide slideTransition = new Slide(Gravity.RIGHT);
-//        slideTransition.setDuration(2000);
-//
-//        ChangeBounds changeBoundsTransition = new ChangeBounds();
-//        changeBoundsTransition.setDuration(2000);
-//
-//        sharedElementFragment2.setEnterTransition(slideTransition);
-//        sharedElementFragment2.setAllowEnterTransitionOverlap(true);
-//        sharedElementFragment2.setAllowReturnTransitionOverlap(true);
-//        sharedElementFragment2.setSharedElementEnterTransition(changeBoundsTransition);
-//        getSupportFragmentManager().beginTransaction()
-//                .replace(R.id.fragment, sharedElementFragment2)
-//                .addToBackStack(null)
-//                .addSharedElement(v, "sharedImage")
-//                .commit();
-
-
-////             FeedViewActivity_ feedViewActivity = new FeedViewActivity_();
-////        feedViewActivity.setArguments(bundle);
-////
-////        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-////        fragmentTransaction.setCustomAnimations(R.animator.slide_in_right ,R.animator.slide_out_left);
-////        fragmentTransaction.replace(R.id.fragment, feedViewActivity,FEED_VIEW_FRAGMENT).addToBackStack(null).commit();
-//
-//        FeedViewActivity_ fragmentTwo = new FeedViewActivity_();
-//
-//        fragmentTwo.setArguments(bundle);
-//
-//        ListFeedFragment_ fragmentOne = (ListFeedFragment_) getSupportFragmentManager().findFragmentById(R.id.fragment);
-//
-//
-//        Slide slideTransition = new Slide(Gravity.RIGHT);
-//        slideTransition.setDuration(2000);
-//
-//        ChangeBounds changeBoundsTransition = new ChangeBounds();
-//        changeBoundsTransition.setDuration(2000);
-//
-//        fragmentTwo.setEnterTransition(slideTransition);
-//        fragmentTwo.setAllowEnterTransitionOverlap(true);
-//        fragmentTwo.setAllowReturnTransitionOverlap(true);
-//        fragmentTwo.setSharedElementEnterTransition(changeBoundsTransition);
-//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction()
-//                .replace(R.id.fragment, fragmentTwo)
-//                .addToBackStack("transaction")
-//                .addSharedElement(v.findViewById(R.id.imageView), "sharedImage");
-//        // Apply the transaction
-//        ft.commit();
 
 
     }
@@ -164,8 +106,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     private void onBack() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FeedViewActivity_ feedViewActivity_ = (FeedViewActivity_) fragmentManager.findFragmentByTag(FEED_VIEW_FRAGMENT);
-        CaterogyFragment_ caterogyFragment_ = (CaterogyFragment_) fragmentManager.findFragmentByTag(CATEGORY_FRAGMENT);;
-        ListFeedFragment_ listFeedFragment_ = (ListFeedFragment_) fragmentManager.findFragmentByTag(LIST_FEED_FRAGMENT);;
+        CaterogyFragment_ caterogyFragment_ = (CaterogyFragment_) fragmentManager.findFragmentByTag(CATEGORY_FRAGMENT);
+        ;
+        ListFeedFragment_ listFeedFragment_ = (ListFeedFragment_) fragmentManager.findFragmentByTag(LIST_FEED_FRAGMENT);
+        ;
         if (feedViewActivity_ != null && feedViewActivity_.isVisible()) {
             //VISIBLE! =)
         } else if (caterogyFragment_ != null && caterogyFragment_.isVisible()) {

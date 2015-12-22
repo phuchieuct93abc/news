@@ -17,16 +17,15 @@ import org.androidannotations.annotations.ViewById;
 @EViewGroup(R.layout.feed_view_big_image)
 public class FeedItemView extends RelativeLayout {
 
+    private static int cacheDuration = 1000 * 60 * 3;
     @ViewById
     TextView title;
     @ViewById
     TextView description;
-
     @ViewById
     ImageView imageView;
     @Bean
     HttpService httpService;
-    private static int cacheDuration = 1000 * 60 * 3;
 
 
     public FeedItemView(Context context) {

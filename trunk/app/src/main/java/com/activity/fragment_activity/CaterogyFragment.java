@@ -43,6 +43,7 @@ public class CaterogyFragment extends Fragment {
     ImageView background;
     @Bean
     HttpService httpService;
+
     @AfterViews
     void afterView() {
         setClickListenerForButton();
