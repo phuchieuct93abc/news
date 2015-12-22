@@ -30,4 +30,9 @@ img {
     margin-left: -50px;
     width: 100%;
     height:auto;
+    pointer-events: none;
+}
+img.spinner{
+    margin-left: 0;
+
 }

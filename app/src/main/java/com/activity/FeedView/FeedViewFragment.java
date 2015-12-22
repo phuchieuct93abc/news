@@ -19,7 +19,6 @@ import com.feed.Feed;
 import com.phuchieu.news.R;
 import com.services.FeedService;
 import com.services.HttpService;
-import com.styles.CssStyles;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -39,6 +38,7 @@ public class FeedViewFragment extends Fragment {
     TextView title;
     @Bean
     HttpService httpService;
+
 
     Feed feed;
     Boolean darkBackground;
@@ -64,7 +64,8 @@ public class FeedViewFragment extends Fragment {
 
     @UiThread
     void initializeSetting() {
-        httpService.loadImage(feed, imageView);
+        httpService.loadImage(feed.getImage(), imageView);
+
         title.setText(feed.getTitle());
 
 //        title.setTextColor(android.R.color.black);
@@ -164,20 +165,7 @@ public class FeedViewFragment extends Fragment {
 
     }
 
-    @UiThread
-    void setContentToWebview(String contentHTML) {
-        if (darkBackground) contentHTML += CssStyles.DARK_BACKGROUND;
 
-        contentHTML = "<script src=\"file:///android_asset/bLazy.js\" type=\"text/javascript\"></script>\n" + contentHTML;
-        contentHTML = "<script src=\"file:///android_asset/jquery.js\" type=\"text/javascript\"></script>\n" + contentHTML;
-        contentHTML = "<link rel=\"stylesheet\" type=\"text/css\" href=\"file:///android_asset/main.css\" />" + contentHTML;
-        contentHTML = "<body>" + contentHTML + "</body>";
-
-        Log.d("hieu", contentHTML);
-        webView.loadDataWithBaseURL("file:///android_asset/", contentHTML, "text/html", "UTF-8", null);
-
-
-    }
 
     @AfterViews
     void bindLinkToView() {

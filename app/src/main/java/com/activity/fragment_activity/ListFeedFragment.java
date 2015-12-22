@@ -91,7 +91,7 @@ public class ListFeedFragment extends Fragment {
 
     private void setOnScrollListener() {
         LinearLayoutManager llm = new LinearLayoutManager(context);
-//        listView.setHasFixedSize(false);
+        listView.setHasFixedSize(false);
 
         listView.setLayoutManager(llm);
         listView.enableLoadmore();
@@ -105,7 +105,15 @@ public class ListFeedFragment extends Fragment {
             }
         };
         listView.setOnLoadMoreListener(loadMoreListener);
-        //  listView.setParallaxHeader(getView().getLayoutInflater().inflate(R.layout.parallax_recyclerview_header, listView.mRecyclerView, false));
+        listView.setParallaxHeader(LayoutInflater.from(context).inflate(R.layout.parallax_recyclerview_header, listView.mRecyclerView, false));
+        listView.setOnParallaxScroll(new UltimateRecyclerView.OnParallaxScroll() {
+            @Override
+            public void onParallaxScroll(float percentage, float offset, View parallax) {
+//                Drawable c = toolbar.getBackground();
+//                c.setAlpha(Math.round(127 + percentage * 128));
+//                toolbar.setBackgroundDrawable(c);
+            }
+        });
         listView.setCustomSwipeToRefresh();
         Runnable callbackAfterLoadmore = new Runnable() {
             @Override

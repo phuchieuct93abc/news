@@ -59,7 +59,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         description.setMaxLines(2);
         description.setText(item.getContent());
         holder.onClickListener = this.onClickListener;
-        httpService.loadImage(item, imageView);
+        httpService.loadImage(item.getImage(), imageView);
 
     }
 
