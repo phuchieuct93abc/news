@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 public class Feed implements Serializable {
     public static String isReadPreferences = "ISREAD";
+    static String contentCNETURL = "http://feed.cnet.com/feed/article/body/{SLUG}/?edition=us&platform=android&release=3.1.5&setDevice=mobile&style=androidnormal&version=3_0";
     String id;
     String title;
     String content;
@@ -19,10 +20,9 @@ public class Feed implements Serializable {
     String contentHTML;
     String contentUrl;
     String sourceName;
-     int width;
-     int height;
+    int width;
+    int height;
     private boolean isCNET = false;
-    static String contentCNETURL = "http://feed.cnet.com/feed/article/body/{SLUG}/?edition=us&platform=android&release=3.1.5&setDevice=mobile&style=androidnormal&version=3_0";
 
     public Feed(JSONObject jsonObject) {
         try {
@@ -45,7 +45,7 @@ public class Feed implements Serializable {
                 this.content = jsonObject.getString("description");
                 this.link = jsonObject.getString("permalink");
                 this.image = jsonObject.getString("padHeroRiverImageUrl");
-              //  this.listId = jsonObject.getString("ListId");
+                //  this.listId = jsonObject.getString("ListId");
                 this.sourceName = "CNET";
 
                 this.contentUrl = contentCNETURL.replace("{SLUG}", jsonObject.getString("slug"));
@@ -67,12 +67,12 @@ public class Feed implements Serializable {
     public String getContentHTML() {
         String result = this.contentHTML;
 //        result = "<h3>{HEADER}</h3>".replace("{HEADER}", getTitle()) + result;
-        result=result.replaceAll("data-img-src=\""+this.image+"\"","hidden");
-        if(isCNET())return result;
+        result = result.replaceAll("data-img-src=\"" + this.image + "\"", "hidden");
+        if (isCNET()) return result;
         result = result.replaceAll("data-img-src", "src");
-        result = result.replaceAll("<p>\u200B</p>","");
-        result = result.replaceAll("src=\"_\"","")
-;
+        result = result.replaceAll("<p>\u200B</p>", "");
+        result = result.replaceAll("src=\"_\"", "")
+        ;
 
         return result;
     }

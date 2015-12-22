@@ -30,12 +30,11 @@ import java.util.List;
 
 @EBean
 public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.ViewHolder> {
-    private List<Feed> feeds = new ArrayList<Feed>();
     @RootContext
     Context context;
     @Bean
     HttpService httpService;
-
+    private List<Feed> feeds = new ArrayList<Feed>();
     private int mDuration = 500;
     private Interpolator mInterpolator = new LinearInterpolator();
     private int mLastPosition = 10;
@@ -175,6 +174,13 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
         this.onClickListener = onClickListener;
     }
 
+    public Feed getItem(int position) {
+        if (customHeaderView != null)
+            position--;
+        if (position < feeds.size())
+            return feeds.get(position);
+        else return null;
+    }
 
     public static class ViewHolder extends UltimateRecyclerviewViewHolder implements View.OnClickListener {
         TextView title;
@@ -182,17 +188,6 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
         ImageView imageView;
         Feed feed;
         OnClickListener onClickListener;
-
-
-        @Override
-        public void onClick(View view) {
-
-            onClickListener.onClick(feed, view);
-        }
-
-        public interface OnClickListener {
-            void onClick(Feed feed, View view);
-        }
 
 
         public ViewHolder(View itemView) {
@@ -204,13 +199,16 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
 
 
         }
-    }
 
-    public Feed getItem(int position) {
-        if (customHeaderView != null)
-            position--;
-        if (position < feeds.size())
-            return feeds.get(position);
-        else return null;
+        @Override
+        public void onClick(View view) {
+
+            onClickListener.onClick(feed, view);
+        }
+
+
+        public interface OnClickListener {
+            void onClick(Feed feed, View view);
+        }
     }
 }

@@ -18,11 +18,6 @@ import java.util.List;
 
 @EBean(scope = EBean.Scope.Singleton)
 public class CategoryService {
-    @Bean
-    HttpService httpService;
-    @RootContext
-    Context context;
-
     public static String ZONE_LIST_TYPE = "zone";
     public static Category KHCN = new Category(ZONE_LIST_TYPE, 53);
     public static Category TINMOI = new Category(ZONE_LIST_TYPE, 71);
@@ -39,19 +34,22 @@ public class CategoryService {
     public static Category ANHDEP = new Category(ZINI_LIST_TYPE, 4);
     public static Category ANHVUI = new Category(ZINI_LIST_TYPE, 3);
     public static Category CNET = new Category("CNET", 1);
-
     public static String LINK_CATEGORY = "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType={LIST_TYPE}&listId={LIST_ID}&imageMinSize=300&mode=quickview";
     public static String CNET_CATEROGY = "http://feed.cnet.com/feed/river?limit=10&start={START_PAGE}&edition=us&locale=us&version=3_0&platform=android&release=3.1.5";
     public static List<Feed> listFeed = new ArrayList<>();
     private static String currentLink;
+    @Bean
+    HttpService httpService;
+    @RootContext
+    Context context;
     private int duplicateCount = 0;
 
     public void setListId(Category category) {
-        if(!category.getType().equals("CNET")){
+        if (!category.getType().equals("CNET")) {
             currentLink = LINK_CATEGORY.replace("{LIST_ID}", category.getId() + "");
             currentLink = currentLink.replace("{LIST_TYPE}", category.getType());
-        }else{
-    currentLink = CNET_CATEROGY;
+        } else {
+            currentLink = CNET_CATEROGY;
         }
 
         clearCacheList();
@@ -69,7 +67,8 @@ public class CategoryService {
         duplicateCount = 0;
         setListFeed(new ArrayList<Feed>());
     }
-    private String getCategoryURLWithIndex(){
+
+    private String getCategoryURLWithIndex() {
 
         return currentLink.replace("{START_PAGE}", "" + (listFeed.size() + duplicateCount));
 
@@ -86,10 +85,10 @@ public class CategoryService {
             if (responseCategory != null) {
                 JSONObject jObject = new JSONObject(responseCategory);
                 JSONArray jArray;
-                try{
+                try {
                     jArray = jObject.getJSONArray("articlelist");
 
-                }catch(Exception e){
+                } catch (Exception e) {
                     jArray = jObject.getJSONObject("river").getJSONObject("items").getJSONArray("item");
 
 
@@ -136,7 +135,8 @@ public class CategoryService {
         }
         return -1;
     }
-    public Feed getFeedById(String id){
+
+    public Feed getFeedById(String id) {
         for (Feed d : listFeed) {
             if (d.getId().equals(id)) {
                 int index = listFeed.indexOf(d);

@@ -28,8 +28,6 @@ public class TileView extends LinearLayout {
     }
 
 
-
-
     public void setTile(Tile tile) {
         this.tile = tile;
         button.setText(tile.getTitle());

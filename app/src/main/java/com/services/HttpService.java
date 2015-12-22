@@ -2,7 +2,6 @@ package com.services;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.design.widget.Snackbar;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -21,12 +20,12 @@ import java.util.Random;
 
 @EBean
 public class HttpService {
+    private static String RANDOM_IMAGE = "http://www.bing.com/HPImageArchive.aspx?format=js&idx=random&n=1&mkt=en-US";
     @RootContext
     Context context;
     LoadBuilder<Builders.Any.B> ionLoadUrl;
     Ion ionLoadImage;
     int timeout = 2000;
-    private static String RANDOM_IMAGE = "http://www.bing.com/HPImageArchive.aspx?format=js&idx=random&n=1&mkt=en-US";
 
     public String readUrl(String path) {
         SharedPreferences sharedPref = context.getSharedPreferences("HttpPreference", Context.MODE_PRIVATE);

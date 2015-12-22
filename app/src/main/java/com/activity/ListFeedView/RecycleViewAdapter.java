@@ -23,16 +23,15 @@ import java.util.List;
 @EBean
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.PersonViewHolder> {
 
-    private List<Feed> feeds = new ArrayList<Feed>();
     Context context;
+    @Bean
+    HttpService httpService;
+    private List<Feed> feeds = new ArrayList<Feed>();
     private PersonViewHolder.OnClickListener onClickListener;
 
     RecycleViewAdapter(Context context) {
         this.context = context;
     }
-
-    @Bean
-    HttpService httpService;
 
     @Override
     public PersonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

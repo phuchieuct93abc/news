@@ -47,12 +47,11 @@ public class FeedViewActivity extends Fragment {
     Context context;
 
 
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         context = activity;
-        mainActivityInterface = (MainActivityInterface)activity;
+        mainActivityInterface = (MainActivityInterface) activity;
 
     }
 
@@ -98,7 +97,7 @@ public class FeedViewActivity extends Fragment {
                 mainActivityInterface.onBackFeedList(arg0);
 
                 try {
-                    Feed currentFeed =  categoryService.getListFeed().get(arg0);
+                    Feed currentFeed = categoryService.getListFeed().get(arg0);
                     currentFeed.setIsRead(context);
                     mainActivityInterface.feedOnView(categoryService.getListFeed().get(arg0));
                     indexOfFragment = arg0;
@@ -131,7 +130,7 @@ public class FeedViewActivity extends Fragment {
     @UiThread
     void setSelectedPage(int index) {
 
-        pager.setCurrentItem(index,false);
+        pager.setCurrentItem(index, false);
         mainActivityInterface.feedOnView(categoryService.getListFeed().get(index));
 
     }
@@ -141,7 +140,7 @@ public class FeedViewActivity extends Fragment {
 
         try {
             String feedID = getArguments().getString("feedId");
-            selectedId  = categoryService.getFeedById(feedID);
+            selectedId = categoryService.getFeedById(feedID);
             runUI();
             int index = categoryService.getIndexInCaterogyById(selectedId.getId());
             currentIndexOfFeed = index;
