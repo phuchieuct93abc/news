@@ -5,12 +5,13 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.activity.MainActivityInterface;
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
+import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
 import com.feed.Category;
 import com.phuchieu.news.R;
 import com.services.CategoryService;
@@ -34,8 +35,7 @@ public class CaterogyFragment extends Fragment {
     Context context;
     @ViewById
     TableLayout table;
-    @ViewById
-    LinearLayout linearLayout;
+
     @Bean
     CategoryService categoryService;
     List<Tile> tiles;
@@ -74,8 +74,13 @@ public class CaterogyFragment extends Fragment {
                 int index = 2 * x + y;
                 Tile tile = tiles.get(index);
                 button.setText(tile.getTitle());
-                button.setLeftIcon(tile.getIcon());
-                button.setBootstrapType(tile.getType());
+                button.setRounded(true);
+                button.setShowOutline(true);
+                button.setBootstrapSize(DefaultBootstrapSize.XL);
+                button.setBootstrapBrand(DefaultBootstrapBrand.SUCCESS);
+
+
+//                button.setBootstrapType(tile.getType());
                 View.OnClickListener initialOnClickListener = initialOnClickListener(tile.getCaterogi());
                 button.setOnClickListener(initialOnClickListener);
 

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.activity.FeedView.FeedViewActivity_;
+import com.activity.fragment_activity.CaterogyFragmentFancyButton_;
 import com.activity.fragment_activity.CaterogyFragment_;
 import com.activity.fragment_activity.ListFeedFragment_;
 import com.feed.Feed;
@@ -104,25 +105,27 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     }
 
     private void onBack() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FeedViewActivity_ feedViewActivity_ = (FeedViewActivity_) fragmentManager.findFragmentByTag(FEED_VIEW_FRAGMENT);
-        CaterogyFragment_ caterogyFragment_ = (CaterogyFragment_) fragmentManager.findFragmentByTag(CATEGORY_FRAGMENT);
-        ;
-        ListFeedFragment_ listFeedFragment_ = (ListFeedFragment_) fragmentManager.findFragmentByTag(LIST_FEED_FRAGMENT);
-        ;
-        if (feedViewActivity_ != null && feedViewActivity_.isVisible()) {
-            //VISIBLE! =)
-        } else if (caterogyFragment_ != null && caterogyFragment_.isVisible()) {
+        try {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FeedViewActivity_ feedViewActivity_ = (FeedViewActivity_) fragmentManager.findFragmentByTag(FEED_VIEW_FRAGMENT);
+            CaterogyFragment_ caterogyFragment_ = (CaterogyFragment_) fragmentManager.findFragmentByTag(CATEGORY_FRAGMENT);
+            ;
+            ListFeedFragment_ listFeedFragment_ = (ListFeedFragment_) fragmentManager.findFragmentByTag(LIST_FEED_FRAGMENT);
+            ;
+            if (feedViewActivity_ != null && feedViewActivity_.isVisible()) {
+                //VISIBLE! =)
+            } else if (caterogyFragment_ != null && caterogyFragment_.isVisible()) {
 
-            this.menu.getItem(0).setVisible(false);
-            this.menu.getItem(1).setVisible(false);
-            this.menu.getItem(2).setVisible(false);
-            //NOT VISIBLE =(
-        } else if (listFeedFragment_ != null && listFeedFragment_.isVisible()) {
-            this.menu.getItem(0).setVisible(false);
-            this.menu.getItem(1).setVisible(false);
-            this.menu.getItem(2).setVisible(false);
-        }
+                this.menu.getItem(0).setVisible(false);
+                this.menu.getItem(1).setVisible(false);
+                this.menu.getItem(2).setVisible(false);
+                //NOT VISIBLE =(
+            } else if (listFeedFragment_ != null && listFeedFragment_.isVisible()) {
+                this.menu.getItem(0).setVisible(false);
+                this.menu.getItem(1).setVisible(false);
+                this.menu.getItem(2).setVisible(false);
+            }
+        }catch(Exception e){}
     }
 
     @Override
