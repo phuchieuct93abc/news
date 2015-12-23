@@ -9,7 +9,6 @@ import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.builder.Builders;
 import com.koushikdutta.ion.builder.LoadBuilder;
 import com.phuchieu.news.R;
-import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
@@ -59,13 +58,13 @@ public class HttpService {
 
     public void loadImage(String url, ImageView imageView) {
         initIonLoadImage();
-        if(!url.isEmpty()){
-            Picasso.with(context).load(url).placeholder(R.drawable.news).into(imageView);
+//        if(!url.isEmpty()){
+//            Picasso.with(context).load(url).placeholder(R.drawable.news).into(imageView);
+//
+//        }
 
-        }
 
-
-//        Ion.getDefault(context).build(imageView).animateIn(R.animator.fade_in).animateLoad(R.animator.fade_out).error(R.drawable.news).load(url);
+       Ion.getDefault(context).build(imageView).animateIn(R.animator.fade_in).animateLoad(R.animator.fade_out).error(R.drawable.news).load(url);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
     }
@@ -84,7 +83,9 @@ public class HttpService {
             JSONObject jObject = new JSONObject(response);
             JSONObject a = jObject.getJSONArray("images").getJSONObject(0);
             String url = "http://www.bing.com" + a.getString("url");
-            Ion.getDefault(context).build(imageView).fitXY().load(url);
+            Ion.getDefault(context).build(imageView).placeholder(R.drawable.news).load(url);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
