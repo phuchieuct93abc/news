@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
@@ -87,6 +88,12 @@ public class FeedViewFragment extends Fragment {
         webView.getSettings().setJavaScriptEnabled(true);
 
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
         webView.setWebViewClient(new WebViewClient() {
 
             @Override
@@ -123,7 +130,7 @@ public class FeedViewFragment extends Fragment {
         String contentHTML;
         try {
             contentHTML = feedService.getFeedContentFromFeed(feed).getContentHTML();
-            Log.d("hieu", contentHTML);
+            Log.d("hieu", contentHTML+"///AAA");
             while (!isWebviewLoaded) {
 
             }

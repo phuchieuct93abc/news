@@ -2,7 +2,6 @@ package com.activity.fragment_activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,7 +32,6 @@ import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.header.MaterialHeader;
-import in.srain.cube.views.ptr.header.StoreHouseHeader;
 
 @EFragment(R.layout.activity_main)
 public class ListFeedFragment extends Fragment {
@@ -52,14 +50,6 @@ public class ListFeedFragment extends Fragment {
     Context context;
     Integer scrollPosition = null;
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        List<Feed> refreshData = categoryService.getListFeed();
-        adapter.setDataList(refreshData);
-        adapter.notifyDataSetChanged();
-
-    }
 
     @AfterViews
     void afterView() {
@@ -67,14 +57,7 @@ public class ListFeedFragment extends Fragment {
         adapter.setOnClickListener(new SimpleAnimationAdapter.ViewHolder.OnClickListener() {
             @Override
             public void onClick(final Feed clickedItem, View v) {
-
-
-
-
-                mainActivityInterface.onSelectFeed(clickedItem,v);
-
-
-
+                mainActivityInterface.onSelectFeed(clickedItem, v);
             }
         });
         background(null);
@@ -105,15 +88,7 @@ public class ListFeedFragment extends Fragment {
             }
         };
         listView.setOnLoadMoreListener(loadMoreListener);
-        listView.setParallaxHeader(LayoutInflater.from(context).inflate(R.layout.parallax_recyclerview_header, listView.mRecyclerView, false));
-        listView.setOnParallaxScroll(new UltimateRecyclerView.OnParallaxScroll() {
-            @Override
-            public void onParallaxScroll(float percentage, float offset, View parallax) {
-//                Drawable c = toolbar.getBackground();
-//                c.setAlpha(Math.round(127 + percentage * 128));
-//                toolbar.setBackgroundDrawable(c);
-            }
-        });
+
         listView.setCustomSwipeToRefresh();
         Runnable callbackAfterLoadmore = new Runnable() {
             @Override
@@ -134,27 +109,7 @@ public class ListFeedFragment extends Fragment {
 
     }
 
-    void refreshingString(final Runnable runnable) {
-        StoreHouseHeader storeHouseHeader = new StoreHouseHeader(context);
-        storeHouseHeader.initWithString("Refreshing");
-        listView.mPtrFrameLayout.setHeaderView(storeHouseHeader);
-        listView.mPtrFrameLayout.addPtrUIHandler(storeHouseHeader);
-        listView.mPtrFrameLayout.autoRefresh(false);
-        listView.mPtrFrameLayout.setPtrHandler(new PtrHandler() {
-            @Override
-            public boolean checkCanDoRefresh(PtrFrameLayout ptrFrameLayout, View view, View view2) {
-                boolean canbePullDown = PtrDefaultHandler.checkContentCanBePulledDown(ptrFrameLayout, view, view2);
-                return canbePullDown;
-            }
 
-            @Override
-            public void onRefreshBegin(PtrFrameLayout ptrFrameLayout) {
-                new Handler().postDelayed(runnable, 1000);
-
-
-            }
-        });
-    }
     void refreshingMaterial(final Runnable callback) {
         MaterialHeader materialHeader = new MaterialHeader(context);
         int[] colors = getResources().getIntArray(R.array.google_colors);
@@ -169,8 +124,9 @@ public class ListFeedFragment extends Fragment {
         listView.mPtrFrameLayout.setPtrHandler(new PtrHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                boolean canbePullDown = PtrDefaultHandler.checkContentCanBePulledDown( frame,  content,  header);
-                return canbePullDown;            }
+                boolean canbePullDown = PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+                return canbePullDown;
+            }
 
             @Override
             public void onRefreshBegin(final PtrFrameLayout frame) {
@@ -182,7 +138,7 @@ public class ListFeedFragment extends Fragment {
     @Background
     void loadNextPage() {
         List<Feed> moreData = categoryService.getMoreFeed();
-        setMoreDataList(moreData,null);
+        setMoreDataList(moreData, null);
 
     }
 
@@ -196,26 +152,25 @@ public class ListFeedFragment extends Fragment {
         adapter.setMoreDataList(rssItems);
         if (listView.getAdapter() == null) listView.setAdapter(adapter);
         listView.mPtrFrameLayout.refreshComplete();
-        if(scrollPosition!=null){
+        if (scrollPosition != null) {
 
             if (scrollPosition > adapter.getAdapterItemCount()) {
                 loadNextPage();
             } else {
                 listView.scrollVerticallyToPosition(scrollPosition);
-                scrollPosition=null;
+                scrollPosition = null;
 
             }
 
         }
 
-        if(callback!=null)callback.run();
+        if (callback != null) callback.run();
     }
 
     @UiThread
     void run() {
         adapter.notifyDataSetChanged();
     }
-
 
 
     @Background
@@ -226,12 +181,12 @@ public class ListFeedFragment extends Fragment {
                 Snackbar.make(getView().findViewById(android.R.id.content), "Loading more", Snackbar.LENGTH_LONG).show();
 
             } else {
-                setMoreDataList(moreData,callback);
+                setMoreDataList(moreData, callback);
 
             }
 
         } catch (Exception e) {
-            Log.e("hieu",e.getMessage());
+            Log.e("hieu", e.getMessage());
         }
 
     }

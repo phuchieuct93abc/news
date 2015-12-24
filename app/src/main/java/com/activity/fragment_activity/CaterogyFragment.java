@@ -77,7 +77,7 @@ public class CaterogyFragment extends Fragment {
                 button.setRounded(true);
                 button.setShowOutline(true);
                 button.setBootstrapSize(DefaultBootstrapSize.XL);
-                button.setBootstrapBrand(DefaultBootstrapBrand.SUCCESS);
+                button.setBootstrapBrand(DefaultBootstrapBrand.REGULAR);
 
 
 //                button.setBootstrapType(tile.getType());

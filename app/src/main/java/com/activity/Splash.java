@@ -2,6 +2,7 @@ package com.activity;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Handler;
 
 import com.phuchieu.news.R;
@@ -15,8 +16,8 @@ public class Splash extends Activity {
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
-//            CaterogyLivetile_.intent(getApplicationContext()).flags(Intent.FLAG_ACTIVITY_NEW_TASK).start();
-//            Splash.this.finish();
+            MainActivity_.intent(getApplicationContext()).flags(Intent.FLAG_ACTIVITY_NEW_TASK).start();
+            Splash.this.finish();
         }
     };
 
