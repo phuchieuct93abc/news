@@ -2,6 +2,7 @@ package com.services;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -12,20 +13,17 @@ import com.phuchieu.news.R;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.util.Random;
+import java.util.Date;
 
 @EBean
 public class HttpService {
-    private static String RANDOM_IMAGE = "http://www.bing.com/HPImageArchive.aspx?format=js&idx=random&n=1&mkt=en-US";
-    public static String SPINNER = "https://d13yacurqjgara.cloudfront.net/users/159302/screenshots/1900376/material-spinner2.gif";
     @RootContext
     Context context;
     LoadBuilder<Builders.Any.B> ionLoadUrl;
     Ion ionLoadImage;
     int timeout = 2000;
+
 
     public String readUrl(String path) {
         SharedPreferences sharedPref = context.getSharedPreferences("HttpPreference", Context.MODE_PRIVATE);
@@ -58,13 +56,13 @@ public class HttpService {
 
     public void loadImage(String url, ImageView imageView) {
         initIonLoadImage();
-//        if(!url.isEmpty()){
-//            Picasso.with(context).load(url).placeholder(R.drawable.news).into(imageView);
-//
-//        }
+        Ion.getDefault(context)
+                .build(imageView)
+                .animateIn(R.animator.fade_in)
+                .animateLoad(R.animator.fade_out)
+                .placeholder(R.drawable.news)
+                .load(url);
 
-
-       Ion.getDefault(context).build(imageView).animateIn(R.animator.fade_in).animateLoad(R.animator.fade_out).error(R.drawable.news).load(url);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
     }
@@ -74,19 +72,16 @@ public class HttpService {
         if (ionLoadImage == null) ionLoadImage = Ion.getDefault(context);
     }
 
-    public void setRandomImage(ImageView imageView) {
+    public void setRandomImage(final ImageView imageView) {
         try {
-            Random r = new Random();
-            int i1 = r.nextInt(18 - 1) + 1;
 
-            String response = readUrl(RANDOM_IMAGE.replaceAll("random", i1 + ""));
-            JSONObject jObject = new JSONObject(response);
-            JSONObject a = jObject.getJSONArray("images").getJSONObject(0);
-            String url = "http://www.bing.com" + a.getString("url");
-            Ion.getDefault(context).build(imageView).placeholder(R.drawable.news).load(url);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            String newString = "http://lorempixel.com/300/450/?time=" + new Date().toString();
 
-        } catch (JSONException e) {
+            Log.d("hieu123", newString);
+            loadImage(newString, imageView);
+
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

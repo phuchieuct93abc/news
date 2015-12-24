@@ -4,16 +4,13 @@ import android.view.View;
 
 import com.feed.Feed;
 
-/**
- * Created by ACER on 12/8/2015.
- */
 public interface MainActivityInterface {
-    public void onCategorySelected(String category);
+    void onCategorySelected(String category);
 
-    public void onSelectFeed(Feed feed, View view);
+    void onSelectFeed(Feed feed, View view);
 
-    public void onBackFeedList(int index);
+    void onBackFeedList(int index);
 
-    public void feedOnView(Feed feed);
+    void feedOnView(Feed feed);
 
 }
