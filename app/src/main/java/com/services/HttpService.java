@@ -2,7 +2,6 @@ package com.services;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -22,7 +21,6 @@ public class HttpService {
     Context context;
     LoadBuilder<Builders.Any.B> ionLoadUrl;
     Ion ionLoadImage;
-    int timeout = 2000;
 
 
     public String readUrl(String path) {
@@ -30,7 +28,7 @@ public class HttpService {
         String result;
         try {
             initIonLoadUrl(context);
-            result = ionLoadUrl.load(path).setTimeout(timeout).asString().get();
+            result = ionLoadUrl.load(path).asString().get();
             sharedPref.edit().putString(path, result).commit();
             return result;
 
@@ -63,7 +61,7 @@ public class HttpService {
                 .placeholder(R.drawable.news)
                 .load(url);
 
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        //imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
     }
 
@@ -77,7 +75,6 @@ public class HttpService {
 
             String newString = "http://lorempixel.com/300/450/?time=" + new Date().toString();
 
-            Log.d("hieu123", newString);
             loadImage(newString, imageView);
 
 

@@ -9,7 +9,7 @@ public interface MainActivityInterface {
 
     void onSelectFeed(Feed feed, View view);
 
-    void onBackFeedList(int index);
+    void onBackFeedList(Feed index);
 
     void feedOnView(Feed feed);
 

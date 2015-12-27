@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.SslErrorHandler;
@@ -21,7 +20,7 @@ import com.phuchieu.news.R;
 import com.services.FeedService;
 import com.services.HttpService;
 
-import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
@@ -64,7 +63,7 @@ public class FeedViewFragment extends Fragment {
     }
 
     @UiThread
-    void initializeSetting() {
+    void initializeSetting(){
         httpService.loadImage(feed.getImage(), imageView);
 
         title.setText(feed.getTitle());
@@ -130,7 +129,6 @@ public class FeedViewFragment extends Fragment {
         String contentHTML;
         try {
             contentHTML = feedService.getFeedContentFromFeed(feed).getContentHTML();
-            Log.d("hieu", contentHTML+"///AAA");
             while (!isWebviewLoaded) {
 
             }
@@ -140,7 +138,6 @@ public class FeedViewFragment extends Fragment {
                 setOriginalURLForWebview();
 
             } catch (Exception ex) {
-                Log.d("set url for webview", ex.getMessage());
             }
         }
     }
@@ -174,15 +171,17 @@ public class FeedViewFragment extends Fragment {
 
 
 
-    @AfterViews
+    @AfterInject
     void bindLinkToView() {
         Context context = getActivity().getApplicationContext();
         darkBackground = new SharePreference(context).getBooleanValue(SharePreference.DARK_BACKGROUND);
+
         initializeSetting();
 
         runBackground();
 
 
     }
+
 
 }

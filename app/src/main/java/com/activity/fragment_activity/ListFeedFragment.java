@@ -65,10 +65,22 @@ public class ListFeedFragment extends Fragment {
     }
 
 
-    public void scrollToIndex(final int position) {
-        scrollPosition = position;
+    public void scrollToIndex(final String feedId) {
+        Log.d("back",feedId);
+        scrollPosition = categoryService.getIndexInCaterogyById(feedId);
+        Log.d("back position",scrollPosition+"");
+        Log.d("back position",categoryService.getListFeed().get(scrollPosition).getId());
+
+        if (scrollPosition != null) {
+            adapter.setDataList(categoryService.getListFeed());
+            adapter.notifyDataSetChanged();
+
+            listView.scrollVerticallyToPosition(scrollPosition);
+            scrollPosition = null;
 
 
+
+        }
     }
 
 
@@ -124,8 +136,7 @@ public class ListFeedFragment extends Fragment {
         listView.mPtrFrameLayout.setPtrHandler(new PtrHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                boolean canbePullDown = PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
-                return canbePullDown;
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
             }
 
             @Override
@@ -152,17 +163,7 @@ public class ListFeedFragment extends Fragment {
         adapter.setMoreDataList(rssItems);
         if (listView.getAdapter() == null) listView.setAdapter(adapter);
         listView.mPtrFrameLayout.refreshComplete();
-        if (scrollPosition != null) {
 
-            if (scrollPosition > adapter.getAdapterItemCount()) {
-                loadNextPage();
-            } else {
-                listView.scrollVerticallyToPosition(scrollPosition);
-                scrollPosition = null;
-
-            }
-
-        }
 
         if (callback != null) callback.run();
     }
@@ -186,7 +187,7 @@ public class ListFeedFragment extends Fragment {
             }
 
         } catch (Exception e) {
-            Log.e("hieu", e.getMessage());
+            e.printStackTrace();
         }
 
     }
