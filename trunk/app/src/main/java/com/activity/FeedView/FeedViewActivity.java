@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -93,12 +94,15 @@ public class FeedViewActivity extends Fragment {
 
             @Override
             public void onPageSelected(int arg0) {
-                currentIndexOfFeed = arg0;
-                mainActivityInterface.onBackFeedList(arg0);
-
                 try {
                     Feed currentFeed = categoryService.getListFeed().get(arg0);
+
+                    currentIndexOfFeed = arg0;
+                    mainActivityInterface.onBackFeedList(currentFeed);
+
+
                     currentFeed.setIsRead(context);
+                    Log.d("page selected hieu", arg0 + "");
                     mainActivityInterface.feedOnView(categoryService.getListFeed().get(arg0));
                     indexOfFragment = arg0;
                     if (arg0 == pagerAdapter.getCount() - 1) {

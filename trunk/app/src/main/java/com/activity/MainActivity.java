@@ -14,12 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.activity.FeedView.FeedViewActivity_;
-import com.activity.fragment_activity.CaterogyFragmentFancyButton_;
 import com.activity.fragment_activity.CaterogyFragment_;
 import com.activity.fragment_activity.ListFeedFragment_;
 import com.feed.Feed;
 import com.phuchieu.news.R;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     @ViewById
     Toolbar toolbar;
     Menu menu;
-    int feedIndex;
+    String feedId;
     Feed feedOnView;
 
     @AfterViews
@@ -47,6 +47,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     @Override
     public void onCategorySelected(String category) {
@@ -75,27 +79,19 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     private void startFeedViewFragment(Bundle bundle, View v) {
         FeedViewActivity_ sharedElementFragment2 = new FeedViewActivity_();
-        ListFeedFragment_ firstFragment = (ListFeedFragment_) getSupportFragmentManager().findFragmentById(R.id.fragment);
         sharedElementFragment2.setArguments(bundle);
-        firstFragment.setSharedElementReturnTransition(TransitionInflater.from(firstFragment.getActivity()).inflateTransition(R.transition.change_image_transform));
-        firstFragment.setExitTransition(TransitionInflater.from(firstFragment.getActivity()).inflateTransition(android.R.transition.fade));
-
-        sharedElementFragment2.setSharedElementEnterTransition(TransitionInflater.from(
-                firstFragment.getActivity()).inflateTransition(R.transition.change_image_transform));
-        sharedElementFragment2.setEnterTransition(TransitionInflater.from(
-                firstFragment.getActivity()).inflateTransition(android.R.transition.fade));
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment, sharedElementFragment2)
+              getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment, sharedElementFragment2)
                 .addToBackStack(null)
-                .addSharedElement(v.findViewById(R.id.imageView), "sharedImage")
                 .commit();
 
 
     }
 
     @Override
-    public void onBackFeedList(int index) {
-        feedIndex = index;
+    public void onBackFeedList(Feed feedBefore) {
+
+        feedId = feedBefore.getId();
     }
 
     @Override
@@ -135,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             onBack();
             try {
                 ListFeedFragment_ fragment = (ListFeedFragment_) getSupportFragmentManager().findFragmentById(R.id.fragment);
-                fragment.scrollToIndex(feedIndex);
+                fragment.scrollToIndex(feedId);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -161,12 +157,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d("hieu", item.getItemId() + "");
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
             case R.id.setting:
-                Log.d("hieu", "setting");
                 share();
                 break;
             case R.id.web:
