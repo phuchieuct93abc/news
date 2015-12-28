@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.config.SharePreference;
-import com.feed.Feed;
+import com.model.Feed;
 import com.phuchieu.news.R;
 import com.services.FeedService;
 import com.services.HttpService;
@@ -49,9 +49,6 @@ public class FeedViewFragment extends Fragment {
     @Bean
     FeedService feedService;
 
-    public ImageView getShareImageView() {
-        return imageView;
-    }
 
 
     public Feed getFeed() {
@@ -64,7 +61,7 @@ public class FeedViewFragment extends Fragment {
 
     @UiThread
     void initializeSetting(){
-        httpService.loadImage(feed.getImage(), imageView);
+        httpService.loadImage(feed.getLandscapeAvatar(), imageView);
 
         title.setText(feed.getTitle());
 
@@ -145,7 +142,7 @@ public class FeedViewFragment extends Fragment {
 
     @UiThread
     void setOriginalURLForWebview() {
-        String link = feed.getLink();
+        String link = feed.getContentUrl();
         int start = 0, stop = 0;
         int postion = 0;
         for (int index = link.indexOf("/"); index >= 0; index = link.indexOf("/", index + 1)) {
@@ -158,11 +155,11 @@ public class FeedViewFragment extends Fragment {
             }
         }
 
-        if (link.indexOf("cnet.com") == -1) {
-            String stringNeedTobeReplace = link.substring(start, stop + 1);
-
-            link = link.replace(stringNeedTobeReplace, "/c/").replace("www", "m");
-        }
+//        if (link.indexOf("cnet.com") == -1) {
+//            String stringNeedTobeReplace = link.substring(start, stop + 1);
+//
+//            link = link.replace(stringNeedTobeReplace, "/c/").replace("www", "m");
+//        }
 
         webView.loadUrl(link);
 

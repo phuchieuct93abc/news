@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.activity.MainActivityInterface;
 import com.config.SharePreference;
-import com.feed.Feed;
+import com.model.Feed;
 import com.phuchieu.news.R;
 import com.services.CategoryService;
 import com.services.FeedService;
@@ -127,8 +127,8 @@ public class FeedViewActivity extends Fragment {
             }
         };
         pager.addOnPageChangeListener(onPageChangeListener);
-        setSelectedPage(categoryService.getIndexInCaterogyById(selectedId.getId()));
-        feedService.setRead(selectedId.getId());
+        setSelectedPage(categoryService.getIndexInCaterogyById(selectedId.getContentID()));
+        feedService.setRead(selectedId.getContentID()+"");
     }
 
     @UiThread
@@ -143,10 +143,10 @@ public class FeedViewActivity extends Fragment {
     void run() {
 
         try {
-            String feedID = getArguments().getString("feedId");
+            String feedID = getArguments().getInt("feedId")+"";
             selectedId = categoryService.getFeedById(feedID);
             runUI();
-            int index = categoryService.getIndexInCaterogyById(selectedId.getId());
+            int index = categoryService.getIndexInCaterogyById(selectedId.getContentID());
             currentIndexOfFeed = index;
             categoryService.getListFeed().get(index).setIsRead(context);
             setDataList(categoryService.getListFeed());

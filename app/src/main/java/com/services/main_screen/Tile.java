@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.feed.Category;
+import com.model.Category;
 
 
 public class Tile {

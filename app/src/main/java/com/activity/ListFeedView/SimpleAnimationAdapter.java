@@ -13,7 +13,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.feed.Feed;
+import com.model.Feed;
 import com.marshalchen.ultimaterecyclerview.URLogs;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerviewViewHolder;
 import com.marshalchen.ultimaterecyclerview.UltimateViewAdapter;
@@ -64,9 +64,9 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
             title.setText(item.getTitle());
             description.setEllipsize(TextUtils.TruncateAt.END);
             description.setMaxLines(2);
-            description.setText(item.getContent());
+            description.setText(item.getDescription());
             holder.onClickListener = this.getOnClickListener();
-            httpService.loadImage(item.getImage(), imageView);
+            httpService.loadImage(item.getLandscapeAvatar(), imageView);
 
         }
         if (!isFirstOnly || position > mLastPosition) {
@@ -143,7 +143,7 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
     @Override
     public long generateHeaderId(int position) {
         URLogs.d("position--" + position + "   " + getItem(position));
-        return Long.parseLong(feeds.get(position).getId());
+        return Long.parseLong(feeds.get(position).getContentID()+"");
     }
 
     @Override

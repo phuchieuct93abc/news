@@ -3,14 +3,15 @@ package com.services;
 import android.content.Context;
 import android.util.Log;
 
-import com.feed.Category;
-import com.feed.Feed;
+import com.model.Category;
+import com.google.gson.Gson;
+import com.model.Articlelist;
+import com.model.Feed;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -82,6 +83,7 @@ public class CategoryService {
             if (beforeUpdateLength >= 190) return listFeed;
             String link = getCategoryURLWithIndex();
             String responseCategory = httpService.readUrl(link);
+            Articlelist articlelist = new Gson().fromJson(responseCategory, Articlelist.class);
             if (responseCategory != null) {
                 JSONObject jObject = new JSONObject(responseCategory);
                 JSONArray jArray;
@@ -93,20 +95,18 @@ public class CategoryService {
 
 
                 }
-                for (int i = 0; i < jArray.length(); i++) {
-                    try {
-                        JSONObject oneObject = jArray.getJSONObject(i);
-                        // Pulling items from the array
-                        Feed feed = new Feed(oneObject);
-                        if (getIndexInCaterogyById(feed.getId()) == -1) {
+                for(Feed feed:articlelist.getArticlelist()){
+
+                        if (getIndexInCaterogyById(feed.getContentID()) == -1) {
                             result.add(feed);
                         } else {
                             duplicateCount++;
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+
+
                 }
+
+
                 addDataToList(result);
             }
 
@@ -126,9 +126,9 @@ public class CategoryService {
         Log.e("hieu", "size" + listFeed.size() + "");
     }
 
-    public int getIndexInCaterogyById(String id) {
+    public int getIndexInCaterogyById(Integer id) {
         for (Feed d : listFeed) {
-            if (d.getId().equals(id)) {
+            if (d.getContentID().equals(id)) {
                 int index = listFeed.indexOf(d);
                 return index;
             }
@@ -138,7 +138,7 @@ public class CategoryService {
 
     public Feed getFeedById(String id) {
         for (Feed d : listFeed) {
-            if (d.getId().equals(id)) {
+            if (d.getContentID().equals(Integer.valueOf(id))) {
                 int index = listFeed.indexOf(d);
                 return d;
             }
