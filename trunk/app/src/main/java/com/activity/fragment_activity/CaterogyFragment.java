@@ -12,7 +12,7 @@ import com.activity.MainActivityInterface;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
-import com.feed.Category;
+import com.model.Category;
 import com.phuchieu.news.R;
 import com.services.CategoryService;
 import com.services.HttpService;

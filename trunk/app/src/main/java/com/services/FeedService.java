@@ -3,7 +3,7 @@ package com.services;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.feed.Feed;
+import com.model.Feed;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
@@ -22,20 +22,23 @@ public class FeedService {
 
     public Feed getFeedContentFromFeed(Feed feed) throws Exception {
 
-        String id = feed.getId();
+        Integer id = feed.getContentID();
         String link_request;
-        if (!feed.isCNET()) {
-            link_request = LINK_FEED_CONTENT.replace("{ID}", id);
-
-        } else {
-            link_request = feed.getContentUrl();
-        }
+        link_request = LINK_FEED_CONTENT.replace("{ID}", id+"");
+//
+//        if (!feed.isCNET()) {
+//
+//        } else
+//        {
+//            link_request = feed.getBaomoiUrl();
+//        }
         String responseCategory;
-        responseCategory = getContentFromCache(id, link_request, context);
+        responseCategory = getContentFromCache(id+"", link_request, context);
         String contentHTML;
-        if (feed.isCNET()) {
-            contentHTML = responseCategory;
-        } else {
+//       if (feed.isCNET()) {
+//            contentHTML = responseCategory;
+//        } else
+        {
             JSONObject jObject = new JSONObject(responseCategory);
 
             contentHTML = jObject.getJSONObject("article").getString("Body");

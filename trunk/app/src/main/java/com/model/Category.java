@@ -1,4 +1,4 @@
-package com.feed;
+package com.model;
 
 public class Category {
     String type;

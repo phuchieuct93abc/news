@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 import com.activity.ListFeedView.SimpleAnimationAdapter;
 import com.activity.MainActivityInterface;
-import com.feed.Feed;
+import com.model.Feed;
 import com.marshalchen.ultimaterecyclerview.CustomUltimateRecyclerview;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 import com.phuchieu.news.R;
@@ -65,11 +65,8 @@ public class ListFeedFragment extends Fragment {
     }
 
 
-    public void scrollToIndex(final String feedId) {
-        Log.d("back",feedId);
+    public void scrollToIndex(final Integer feedId) {
         scrollPosition = categoryService.getIndexInCaterogyById(feedId);
-        Log.d("back position",scrollPosition+"");
-        Log.d("back position",categoryService.getListFeed().get(scrollPosition).getId());
 
         if (scrollPosition != null) {
             adapter.setDataList(categoryService.getListFeed());

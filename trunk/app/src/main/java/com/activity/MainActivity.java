@@ -7,8 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.TransitionInflater;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,10 +14,9 @@ import android.view.View;
 import com.activity.FeedView.FeedViewActivity_;
 import com.activity.fragment_activity.CaterogyFragment_;
 import com.activity.fragment_activity.ListFeedFragment_;
-import com.feed.Feed;
+import com.model.Feed;
 import com.phuchieu.news.R;
 
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -33,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     @ViewById
     Toolbar toolbar;
     Menu menu;
-    String feedId;
+    Integer feedId;
     Feed feedOnView;
 
     @AfterViews
@@ -67,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     @Override
     public void onSelectFeed(Feed feed, View v) {
         Bundle bundle = new Bundle();
-        bundle.putString("feedId", feed.getId());
+        bundle.putInt("feedId", feed.getContentID());
         getSupportActionBar().setTitle(feed.getSourceName());
         this.menu.getItem(0).setVisible(true);
         this.menu.getItem(1).setVisible(true);
@@ -91,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     @Override
     public void onBackFeedList(Feed feedBefore) {
 
-        feedId = feedBefore.getId();
+        feedId = feedBefore.getContentID();
     }
 
     @Override

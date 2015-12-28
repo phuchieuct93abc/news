@@ -2,7 +2,7 @@ package com.activity;
 
 import android.view.View;
 
-import com.feed.Feed;
+import com.model.Feed;
 
 public interface MainActivityInterface {
     void onCategorySelected(String category);

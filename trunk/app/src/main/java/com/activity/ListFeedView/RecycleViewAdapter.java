@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.feed.Feed;
+import com.model.Feed;
 import com.phuchieu.news.R;
 import com.services.HttpService;
 
@@ -57,9 +57,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         title.setText(item.getTitle());
         description.setEllipsize(TextUtils.TruncateAt.END);
         description.setMaxLines(2);
-        description.setText(item.getContent());
+        description.setText(item.getDescription());
         holder.onClickListener = this.onClickListener;
-        httpService.loadImage(item.getImage(), imageView);
+        httpService.loadImage(item.getLandscapeAvatar(), imageView);
 
     }
 
