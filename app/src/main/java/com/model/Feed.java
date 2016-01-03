@@ -2,6 +2,7 @@ package com.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 public class Feed {
     private Integer ContentID;
@@ -245,11 +246,10 @@ public class Feed {
     public String getContentHTML() {
         String result = this.ContentHTML;
         result = "<h3>{HEADER}</h3>".replace("{HEADER}", getTitle()) + result;
-        result = result.replaceAll("data-img-src=\"" + this.getLandscapeAvatar() + "\"", "hidden");
         result = result.replaceAll("data-img-src", "src");
         result = result.replaceAll("<p>\u200B</p>", "");
-        result = result.replaceAll("src=\"_\"", "")
-        ;
+        result = result.replaceAll("src=\"_\"", "");
+        Log.d("hieu", "getContentHTML: "+result);
 
         return result;
     }

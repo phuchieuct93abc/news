@@ -54,7 +54,6 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
             holder.feed = item;
 
             TextView title = holder.title;
-            TextView description = holder.description;
             ImageView imageView = holder.imageView;
             if (!item.isRead(context)) {
                 holder.title.setTextColor(Color.BLACK);
@@ -62,9 +61,8 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
                 title.setTextColor(Color.WHITE);
             }
             title.setText(item.getTitle());
-            description.setEllipsize(TextUtils.TruncateAt.END);
-            description.setMaxLines(2);
-            description.setText(item.getDescription());
+            title.setEllipsize(TextUtils.TruncateAt.END);
+            title.setMaxLines(2);
             holder.onClickListener = this.getOnClickListener();
             httpService.loadImage(item.getLandscapeAvatar(), imageView);
 
@@ -193,7 +191,6 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
         public ViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
-            description = (TextView) itemView.findViewById(R.id.description);
             imageView = (ImageView) itemView.findViewById((R.id.imageView));
             itemView.setOnClickListener(this);
 
