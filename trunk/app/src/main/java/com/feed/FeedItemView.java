@@ -21,8 +21,7 @@ public class FeedItemView extends RelativeLayout {
     private static int cacheDuration = 1000 * 60 * 3;
     @ViewById
     TextView title;
-    @ViewById
-    TextView description;
+
     @ViewById
     ImageView imageView;
     @Bean
@@ -41,9 +40,9 @@ public class FeedItemView extends RelativeLayout {
             title.setTextColor(Color.WHITE);
         }
         title.setText(feed.getTitle());
-        description.setEllipsize(TextUtils.TruncateAt.END);
-        description.setMaxLines(2);
-        description.setText(feed.getDescription());
+        title.setEllipsize(TextUtils.TruncateAt.END);
+        title.setMaxLines(2);
+
 
         httpService.loadImage(feed.getLandscapeAvatar(), imageView);
 

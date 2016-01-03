@@ -18,7 +18,7 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="@dimen/image_height"
                 android:layout_alignParentTop="true"
                 android:layout_weight="10.23"
                 android:adjustViewBounds="true"
