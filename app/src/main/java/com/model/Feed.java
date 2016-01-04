@@ -245,7 +245,6 @@ public class Feed {
 
     public String getContentHTML() {
         String result = this.ContentHTML;
-        result = "<h3>{HEADER}</h3>".replace("{HEADER}", getTitle()) + result;
         result = result.replaceAll("data-img-src", "src");
         result = result.replaceAll("<p>\u200B</p>", "");
         result = result.replaceAll("src=\"_\"", "");

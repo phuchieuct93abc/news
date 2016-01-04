@@ -5,16 +5,16 @@ import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.activity.ListFeedView.SimpleAnimationAdapter;
+import com.activity.ListFeedView.ViewHolder;
 import com.activity.MainActivityInterface;
-import com.model.Feed;
 import com.marshalchen.ultimaterecyclerview.CustomUltimateRecyclerview;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
+import com.model.Feed;
 import com.phuchieu.news.R;
 import com.services.CategoryService;
 import com.services.FeedService;
@@ -54,7 +54,7 @@ public class ListFeedFragment extends Fragment {
     @AfterViews
     void afterView() {
 
-        adapter.setOnClickListener(new SimpleAnimationAdapter.ViewHolder.OnClickListener() {
+        adapter.setOnClickListener(new ViewHolder.OnClickListener() {
             @Override
             public void onClick(final Feed clickedItem, View v) {
                 mainActivityInterface.onSelectFeed(clickedItem, v);

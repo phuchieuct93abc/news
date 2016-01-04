@@ -7,12 +7,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.ChangeBounds;
+import android.transition.Slide;
+import android.transition.TransitionInflater;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.activity.FeedView.FeedViewActivity_;
 import com.activity.fragment_activity.CaterogyFragment_;
+import com.activity.fragment_activity.ListFeedFragment;
 import com.activity.fragment_activity.ListFeedFragment_;
 import com.model.Feed;
 import com.phuchieu.news.R;
@@ -54,7 +61,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left);
-        fragmentTransaction.replace(R.id.fragment, new ListFeedFragment_(), LIST_FEED_FRAGMENT).addToBackStack(null).commit();
+
+        ListFeedFragment sharedElementFragment1 = new ListFeedFragment_();
+
+        fragmentTransaction.replace(R.id.fragment,sharedElementFragment1, LIST_FEED_FRAGMENT).addToBackStack(null).commit();
 
         getSupportActionBar().setTitle(category);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -76,6 +86,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     private void startFeedViewFragment(Bundle bundle, View v) {
         FeedViewActivity_ sharedElementFragment2 = new FeedViewActivity_();
+            ImageView imageView= (ImageView) v.findViewById(R.id.imageView);
+
+
+
         sharedElementFragment2.setArguments(bundle);
               getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment, sharedElementFragment2)

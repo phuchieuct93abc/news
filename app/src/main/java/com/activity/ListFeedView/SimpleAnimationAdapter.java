@@ -45,7 +45,7 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        if (!(viewHolder instanceof SimpleAnimationAdapter.ViewHolder)) return;
+        if (!(viewHolder instanceof ViewHolder)) return;
         ViewHolder holder = (ViewHolder) viewHolder;
 
 
@@ -64,7 +64,7 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
             title.setEllipsize(TextUtils.TruncateAt.END);
             title.setMaxLines(2);
             holder.onClickListener = this.getOnClickListener();
-            httpService.loadImage(item.getLandscapeAvatar(), imageView);
+            httpService.loadImage(item.getLandscapeAvatar(), imageView,null);
 
         }
         if (!isFirstOnly || position > mLastPosition) {
@@ -154,14 +154,6 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
 
     @Override
     public void onBindHeaderViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-//
-//        TextView textView = (TextView) viewHolder.itemView.findViewById(R.id.stick_text);
-//        textView.setText(String.valueOf(getItem(position).charAt(0)));
-////        viewHolder.itemView.setBackgroundColor(Color.parseColor("#AA70DB93"));
-//        viewHolder.itemView.setBackgroundColor(Color.parseColor("#AAffffff"));
-//        ImageView imageView = (ImageView) viewHolder.itemView.findViewById(R.id.stick_img);
-
-
     }
 
     public ViewHolder.OnClickListener getOnClickListener() {
@@ -180,32 +172,5 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
         else return null;
     }
 
-    public static class ViewHolder extends UltimateRecyclerviewViewHolder implements View.OnClickListener {
-        TextView title;
-        TextView description;
-        ImageView imageView;
-        Feed feed;
-        OnClickListener onClickListener;
 
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            title = (TextView) itemView.findViewById(R.id.title);
-            imageView = (ImageView) itemView.findViewById((R.id.imageView));
-            itemView.setOnClickListener(this);
-
-
-        }
-
-        @Override
-        public void onClick(View view) {
-
-            onClickListener.onClick(feed, view);
-        }
-
-
-        public interface OnClickListener {
-            void onClick(Feed feed, View view);
-        }
-    }
 }
