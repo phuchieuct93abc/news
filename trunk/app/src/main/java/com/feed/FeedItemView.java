@@ -44,7 +44,7 @@ public class FeedItemView extends RelativeLayout {
         title.setMaxLines(2);
 
 
-        httpService.loadImage(feed.getLandscapeAvatar(), imageView);
+        httpService.loadImage(feed.getLandscapeAvatar(), imageView,null);
 
 
     }

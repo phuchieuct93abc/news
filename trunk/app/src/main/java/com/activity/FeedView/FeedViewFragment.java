@@ -12,6 +12,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.config.SharePreference;
@@ -36,6 +37,8 @@ public class FeedViewFragment extends Fragment {
     ImageView imageView;
     @ViewById
     TextView title;
+    @ViewById
+    ProgressBar progressBar;
     @Bean
     HttpService httpService;
 
@@ -59,15 +62,19 @@ public class FeedViewFragment extends Fragment {
         this.feed = feed;
     }
 
+
     @UiThread
     void initializeSetting(){
-        httpService.loadImage(feed.getLandscapeAvatar(), imageView);
-
+        httpService.loadImage(feed.getLandscapeAvatar(), imageView,progressBar);
         title.setText(feed.getTitle());
 
-//        title.setTextColor(android.R.color.black);
 
+        initSettingForWebview();
+
+    }
+    void initSettingForWebview() {
         WebSettings settings = webView.getSettings();
+
         settings.setUseWideViewPort(false);
         settings.setDefaultTextEncodingName("utf-8");
         settings.setDefaultFontSize(22);
@@ -80,10 +87,10 @@ public class FeedViewFragment extends Fragment {
         });
         webView.setLongClickable(false);
         webView.setHapticFeedbackEnabled(false);
-        webView.getSettings().setUserAgentString("Android");
-        webView.getSettings().setJavaScriptEnabled(true);
+        settings.setUserAgentString("Android");
+        settings.setJavaScriptEnabled(true);
 
-        webView.getSettings().setJavaScriptEnabled(true);
+        settings.setJavaScriptEnabled(true);
         webView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -118,8 +125,8 @@ public class FeedViewFragment extends Fragment {
         javascriptInterface = new JavascriptInterface(webView, getActivity().getApplicationContext(), getActivity());
         webView.addJavascriptInterface(javascriptInterface, "JsHandler1");
         webView.loadUrl("file:///android_asset/index.html");
-
     }
+
 
     @Background
     void runBackground() {
@@ -142,26 +149,8 @@ public class FeedViewFragment extends Fragment {
 
     @UiThread
     void setOriginalURLForWebview() {
-        String link = feed.getContentUrl();
-        int start = 0, stop = 0;
-        int postion = 0;
-        for (int index = link.indexOf("/"); index >= 0; index = link.indexOf("/", index + 1)) {
-            postion++;
-            if (postion == 4) {
-                start = index;
-            }
-            if (postion == 5) {
-                stop = index;
-            }
-        }
 
-//        if (link.indexOf("cnet.com") == -1) {
-//            String stringNeedTobeReplace = link.substring(start, stop + 1);
-//
-//            link = link.replace(stringNeedTobeReplace, "/c/").replace("www", "m");
-//        }
-
-        webView.loadUrl(link);
+        webView.loadUrl(feed.getContentUrl());
 
 
     }
