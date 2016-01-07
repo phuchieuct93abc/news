@@ -2,15 +2,13 @@ package com.activity.FeedView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.net.http.SslError;
+import android.graphics.Point;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LevelListDrawable;
 import android.support.v4.app.Fragment;
-import android.view.MotionEvent;
-import android.view.View;
-import android.webkit.SslErrorHandler;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.text.Html;
+import android.text.Spanned;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -30,9 +28,9 @@ import org.androidannotations.annotations.ViewById;
 
 @SuppressLint("SetJavaScriptEnabled")
 @EFragment(R.layout.view)
-public class FeedViewFragment extends Fragment {
+public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     @ViewById
-    WebView webView;
+    TextView textViewContent;
     @ViewById
     ImageView imageView;
     @ViewById
@@ -51,7 +49,7 @@ public class FeedViewFragment extends Fragment {
 
     @Bean
     FeedService feedService;
-
+    private String TAG = "FeedViewFragment";
 
 
     public Feed getFeed() {
@@ -69,62 +67,7 @@ public class FeedViewFragment extends Fragment {
         title.setText(feed.getTitle());
 
 
-        initSettingForWebview();
 
-    }
-    void initSettingForWebview() {
-        WebSettings settings = webView.getSettings();
-
-        settings.setUseWideViewPort(false);
-        settings.setDefaultTextEncodingName("utf-8");
-        settings.setDefaultFontSize(22);
-        settings.setAppCacheEnabled(true);
-        webView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return true;
-            }
-        });
-        webView.setLongClickable(false);
-        webView.setHapticFeedbackEnabled(false);
-        settings.setUserAgentString("Android");
-        settings.setJavaScriptEnabled(true);
-
-        settings.setJavaScriptEnabled(true);
-        webView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
-        webView.setWebViewClient(new WebViewClient() {
-
-            @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                // TODO Auto-generated method stub
-                super.onPageStarted(view, url, favicon);
-                //Toast.makeText(TableContentsWithDisplay.this, "url "+url, Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                isWebviewLoaded = true;
-                super.onPageFinished(view, url);
-            }
-
-            @Override
-            public void onReceivedSslError(WebView view,
-                                           SslErrorHandler handler, SslError error) {
-                // TODO Auto-generated method stub
-                super.onReceivedSslError(view, handler, error);
-                //Toast.makeText(TableContentsWithDisplay.this, "error "+error, Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        javascriptInterface = new JavascriptInterface(webView, getActivity().getApplicationContext(), getActivity());
-        webView.addJavascriptInterface(javascriptInterface, "JsHandler1");
-        webView.loadUrl("file:///android_asset/index.html");
     }
 
 
@@ -133,10 +76,7 @@ public class FeedViewFragment extends Fragment {
         String contentHTML;
         try {
             contentHTML = feedService.getFeedContentFromFeed(feed).getContentHTML();
-            while (!isWebviewLoaded) {
-
-            }
-            javascriptInterface.addContentData(contentHTML);
+            updateTextViewContent(contentHTML);
         } catch (Exception e) {
             try {
                 setOriginalURLForWebview();
@@ -145,12 +85,19 @@ public class FeedViewFragment extends Fragment {
             }
         }
     }
+    @UiThread
+    void updateTextViewContent(String html){
+
+        Log.d(TAG, "updateTextViewContent() called with: " + "html = [" + html + "]");
+        Spanned spanned = Html.fromHtml(html,this, null);
+        textViewContent.setText(spanned);
+    }
 
 
     @UiThread
     void setOriginalURLForWebview() {
-
-        webView.loadUrl(feed.getContentUrl());
+        textViewContent.setText("Can't connect to server");
+        //webView.loadUrl(feed.getContentUrl());
 
 
     }
@@ -170,4 +117,23 @@ public class FeedViewFragment extends Fragment {
     }
 
 
+    @Override
+    public Drawable getDrawable(String s) {
+        LevelListDrawable d = new LevelListDrawable();
+        Log.d(TAG, "getDrawable() called with: " + "s = [" + s + "]");
+        try{
+
+            Drawable empty = getResources().getDrawable(R.drawable.ic_launcher);
+            d.addLevel(0, 0, empty);
+            d.setBounds(0, 0, empty.getIntrinsicWidth(), empty.getIntrinsicHeight());
+            Point size = new Point();
+            getActivity().getWindowManager().getDefaultDisplay().getSize(size);
+            new LoadImage(textViewContent,getActivity().getApplicationContext(),size).execute(s, d);
+        }catch(Exception e){
+            Log.e(TAG, "getDrawable: faild", e);
+        }
+
+
+        return d;
+    }
 }

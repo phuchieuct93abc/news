@@ -20,7 +20,7 @@ android {
     buildToolsVersion '23.0.2'
 
     defaultConfig {
-        applicationId "com.phuchieu.newsbeta2"
+        applicationId "com.phuchieu.newsbeta3"
         minSdkVersion 21
         targetSdkVersion 21
         versionCode 1

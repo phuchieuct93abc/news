@@ -60,14 +60,19 @@ public class HttpService {
         }
     }
 
-    public void loadImage(String url, ImageView imageView, final ProgressBar progressBar) {
+    public void loadImage(String url, final ImageView imageView, final ProgressBar progressBar) {
         try{
-            initIonLoadImage();
-            if(url.isEmpty()){
-                Picasso.with(context).load(R.drawable.news).into(imageView);
-            }else{
+            Log.d("abc", "loadImage: "+url );
+            if(url.isEmpty() || url.length() == 0){
+                if(progressBar!=null){
+                    progressBar.setVisibility(GONE);
 
-            Log.d("info", "loadImage() called with: " + "url = [" + url + "], imageView = [" + imageView + "]");
+                }
+                //imageView.setImageResource(R.drawable.news);
+
+            }else{
+                initIonLoadImage();
+
             Picasso.with(context)
                     .load(url)
                     .into(imageView, new Callback() {
@@ -81,7 +86,13 @@ public class HttpService {
 
                         @Override
                         public void onError() {
+                            imageView.setImageResource(R.drawable.news);
 
+                            if(progressBar!=null){
+
+                                progressBar.setVisibility(GONE);
+
+                            }
                         }
                     });
             }
