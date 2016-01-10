@@ -32,18 +32,17 @@ public class HttpService {
 
     public String readUrl(String path) {
         SharedPreferences sharedPref = context.getSharedPreferences("HttpPreference", Context.MODE_PRIVATE);
-        String result;
+        String result = "";
         try {
-            initIonLoadUrl(context);
-            result = ionLoadUrl.load(path).setTimeout(TIMEOUT).asString().get();
-            sharedPref.edit().putString(path, result).commit();
+            result = Ion.with(context).load(path).setTimeout(TIMEOUT).asString().get();
+//            sharedPref.edit().putString(path, result).commit();
             return result;
 
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(context, "Get fail", Toast.LENGTH_SHORT).show();
 
-            result = sharedPref.getString(path, null);
+           // result = sharedPref.getString(path, null);
             if (result != null) {
                 return result;
             } else {
@@ -54,15 +53,10 @@ public class HttpService {
 
     }
 
-    private void initIonLoadUrl(Context context) {
-        if (ionLoadUrl == null) {
-            ionLoadUrl = Ion.with(context);
-        }
-    }
+
 
     public void loadImage(String url, final ImageView imageView, final ProgressBar progressBar) {
         try{
-            Log.d("abc", "loadImage: "+url );
             if(url.isEmpty() || url.length() == 0){
                 if(progressBar!=null){
                     progressBar.setVisibility(GONE);
@@ -71,10 +65,10 @@ public class HttpService {
                 //imageView.setImageResource(R.drawable.news);
 
             }else{
-                initIonLoadImage();
 
             Picasso.with(context)
                     .load(url)
+                    .error(R.drawable.news)
                     .into(imageView, new Callback() {
                         @Override
                         public void onSuccess() {
@@ -86,7 +80,7 @@ public class HttpService {
 
                         @Override
                         public void onError() {
-                            imageView.setImageResource(R.drawable.news);
+                           // imageView.setImageResource(R.drawable.news);
 
                             if(progressBar!=null){
 
@@ -104,9 +98,7 @@ public class HttpService {
     }
 
 
-    private void initIonLoadImage() {
-        if (ionLoadImage == null) ionLoadImage = Ion.getDefault(context);
-    }
+
 
     public void setRandomImage(final ImageView imageView) {
         try {

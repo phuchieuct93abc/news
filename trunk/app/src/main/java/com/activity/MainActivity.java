@@ -171,6 +171,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                break;
             case R.id.setting:
                 share();
                 break;

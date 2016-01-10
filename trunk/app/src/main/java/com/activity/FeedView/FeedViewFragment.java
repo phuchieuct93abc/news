@@ -2,14 +2,18 @@ package com.activity.FeedView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -22,6 +26,7 @@ import com.services.HttpService;
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -39,14 +44,12 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     ProgressBar progressBar;
     @Bean
     HttpService httpService;
+    @ViewById
+    LinearLayout actionButtons;
 
 
     Feed feed;
     Boolean darkBackground;
-    JavascriptInterface javascriptInterface;
-    Boolean isWebviewLoaded = false;
-
-
     @Bean
     FeedService feedService;
     private String TAG = "FeedViewFragment";
@@ -60,12 +63,24 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         this.feed = feed;
     }
 
+    @Click(R.id.retry)
+    void retry() {
+        actionButtons.setVisibility(View.GONE);
+
+        runBackground();
+    }
+
+    @Click(R.id.openSource)
+    void openSource() {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(feed.getContentUrl()));
+        startActivity(i);
+    }
 
     @UiThread
-    void initializeSetting(){
-        httpService.loadImage(feed.getLandscapeAvatar(), imageView,progressBar);
+    void initializeSetting() {
+        httpService.loadImage(feed.getLandscapeAvatar(), imageView, progressBar);
         title.setText(feed.getTitle());
-
 
 
     }
@@ -78,18 +93,16 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
             contentHTML = feedService.getFeedContentFromFeed(feed).getContentHTML();
             updateTextViewContent(contentHTML);
         } catch (Exception e) {
-            try {
-                setOriginalURLForWebview();
+            setOriginalURLForWebview();
 
-            } catch (Exception ex) {
-            }
+
         }
     }
-    @UiThread
-    void updateTextViewContent(String html){
 
-        Log.d(TAG, "updateTextViewContent() called with: " + "html = [" + html + "]");
-        Spanned spanned = Html.fromHtml(html,this, null);
+    @UiThread
+    void updateTextViewContent(String html) {
+
+        Spanned spanned = Html.fromHtml(html, this, null);
         textViewContent.setText(spanned);
     }
 
@@ -97,43 +110,36 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     @UiThread
     void setOriginalURLForWebview() {
         textViewContent.setText("Can't connect to server");
-        //webView.loadUrl(feed.getContentUrl());
-
-
+        actionButtons.setVisibility(View.VISIBLE);
     }
-
 
 
     @AfterInject
     void bindLinkToView() {
         Context context = getActivity().getApplicationContext();
         darkBackground = new SharePreference(context).getBooleanValue(SharePreference.DARK_BACKGROUND);
-
         initializeSetting();
-
         runBackground();
-
-
     }
 
 
     @Override
     public Drawable getDrawable(String s) {
         LevelListDrawable d = new LevelListDrawable();
-        Log.d(TAG, "getDrawable() called with: " + "s = [" + s + "]");
-        try{
+        try {
 
             Drawable empty = getResources().getDrawable(R.drawable.ic_launcher);
             d.addLevel(0, 0, empty);
             d.setBounds(0, 0, empty.getIntrinsicWidth(), empty.getIntrinsicHeight());
             Point size = new Point();
             getActivity().getWindowManager().getDefaultDisplay().getSize(size);
-            new LoadImage(textViewContent,getActivity().getApplicationContext(),size).execute(s, d);
-        }catch(Exception e){
+            new LoadImage(textViewContent, getActivity().getApplicationContext(), size).execute(s, d);
+        } catch (Exception e) {
             Log.e(TAG, "getDrawable: faild", e);
         }
 
 
         return d;
     }
+
 }
