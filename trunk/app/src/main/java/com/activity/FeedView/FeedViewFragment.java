@@ -129,8 +129,6 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         try {
 
             Drawable empty = getResources().getDrawable(R.drawable.ic_launcher);
-            d.addLevel(0, 0, empty);
-            d.setBounds(0, 0, empty.getIntrinsicWidth(), empty.getIntrinsicHeight());
             Point size = new Point();
             getActivity().getWindowManager().getDefaultDisplay().getSize(size);
             new LoadImage(textViewContent, getActivity().getApplicationContext(), size).execute(s, d);

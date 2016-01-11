@@ -3,16 +3,14 @@ package com.services;
 import android.content.Context;
 import android.util.Log;
 
-import com.model.Category;
 import com.google.gson.Gson;
 import com.model.Articlelist;
+import com.model.Category;
 import com.model.Feed;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,23 +83,13 @@ public class CategoryService {
             String responseCategory = httpService.readUrl(link);
             Articlelist articlelist = new Gson().fromJson(responseCategory, Articlelist.class);
             if (responseCategory != null) {
-                JSONObject jObject = new JSONObject(responseCategory);
-                JSONArray jArray;
-                try {
-                    jArray = jObject.getJSONArray("articlelist");
+                for (Feed feed : articlelist.getArticlelist()) {
 
-                } catch (Exception e) {
-                    jArray = jObject.getJSONObject("river").getJSONObject("items").getJSONArray("item");
-
-
-                }
-                for(Feed feed:articlelist.getArticlelist()){
-
-                        if (getIndexInCaterogyById(feed.getContentID()) == -1) {
-                            result.add(feed);
-                        } else {
-                            duplicateCount++;
-                        }
+                    if (getIndexInCaterogyById(feed.getContentID()) == -1) {
+                        result.add(feed);
+                    } else {
+                        duplicateCount++;
+                    }
 
 
                 }
@@ -123,7 +111,6 @@ public class CategoryService {
     private void addDataToList(List<Feed> addedData) {
 
         listFeed.addAll(addedData);
-        Log.e("hieu", "size" + listFeed.size() + "");
     }
 
     public int getIndexInCaterogyById(Integer id) {
@@ -139,7 +126,6 @@ public class CategoryService {
     public Feed getFeedById(String id) {
         for (Feed d : listFeed) {
             if (d.getContentID().equals(Integer.valueOf(id))) {
-                int index = listFeed.indexOf(d);
                 return d;
             }
         }

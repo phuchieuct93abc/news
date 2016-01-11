@@ -10,6 +10,7 @@ import android.widget.TableRow;
 
 import com.activity.MainActivityInterface;
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.TypefaceProvider;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
 import com.model.Category;
@@ -67,6 +68,8 @@ public class CaterogyFragment extends Fragment {
     }
 
     private void setClickListenerForButton() {
+        TypefaceProvider.registerDefaultIconSets();
+
         for (int x = 0; x < table.getChildCount(); x++) {
             TableRow row = (TableRow) table.getChildAt(x);
             for (int y = 0; y < row.getChildCount(); y++) {
@@ -74,10 +77,9 @@ public class CaterogyFragment extends Fragment {
                 int index = 2 * x + y;
                 Tile tile = tiles.get(index);
                 button.setText(tile.getTitle());
-                button.setRounded(true);
-                button.setShowOutline(true);
-                button.setBootstrapSize(DefaultBootstrapSize.XL);
+                           button.setBootstrapSize(DefaultBootstrapSize.MD);
                 button.setBootstrapBrand(DefaultBootstrapBrand.REGULAR);
+//                button.setFontAwesomeIcon(tile.getIcon());
 
 
 //                button.setBootstrapType(tile.getType());

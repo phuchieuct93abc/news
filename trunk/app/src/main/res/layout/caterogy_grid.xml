@@ -2,124 +2,134 @@
 
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    xmlns:bootstrap="http://schemas.android.com/apk/res-auto"
 
-    android:layout_height="match_parent"
-    android:layout_marginBottom="?attr/actionBarSize"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
-    android:orientation="vertical">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/tools"
+
+    android:orientation="vertical"
+    android:layout_marginBottom="?attr/actionBarSize">
 
 
     <ImageView
         android:id="@+id/background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="200dp"
 
+        android:contentDescription="@string/background"
         android:layout_alignParentTop="true"
-        android:contentDescription="@string/background" />
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/linearLayout" />
 
 
-    <TableLayout
-        android:id="@+id/table"
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
 
-        <TableRow
-            android:id="@+id/tableRow1"
+
+        <TableLayout
+            android:id="@+id/table"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAlignment="center">
+            android:layout_height="wrap_content">
 
-            <com.beardedhen.androidbootstrap.BootstrapButton
-                android:id="@+id/button1"
-                android:layout_height="@dimen/button_height"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:text="@string/hello_world"
-                app:bootstrapBrand="success"
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:textAlignment="center">
 
-                app:bootstrapSize="lg"
-                app:roundedCorners="true"
-                app:showOutline="true" />
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/button1"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:text="@string/hello_world"
+                    app:fontAwesomeIcon="fa_heart" />
 
-            <com.beardedhen.androidbootstrap.BootstrapButton
-                android:id="@+id/button2"
-                android:layout_height="@dimen/button_height"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/button2"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:text="@string/hello_world"
+                    app:fontAwesomeIcon="fa-heart" />
+            </TableRow>
 
-                />
-        </TableRow>
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
-        <TableRow
-            android:id="@+id/tableRow2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/button3"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
+                    android:text="@string/hello_world" />
 
-            <com.beardedhen.androidbootstrap.BootstrapButton
-                android:id="@+id/button3"
-                android:layout_height="@dimen/button_height"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
+                <com.beardedhen.androidbootstrap.BootstrapButton
 
-                />
+                    android:id="@+id/button4"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
 
-            <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:text="@string/hello_world"
+                    app:fontAwesomeIcon="fa-heart" />
+            </TableRow>
 
-                android:id="@+id/button4"
-                android:layout_height="@dimen/button_height"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:text="@string/hello_world" />
-        </TableRow>
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
-        <TableRow
-            android:id="@+id/tableRow3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/button5"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
 
-            <com.beardedhen.androidbootstrap.BootstrapButton
-                android:id="@+id/button5"
-                android:layout_height="@dimen/button_height"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:text="@string/hello_world" />
+                    android:text="@string/hello_world"
+                    app:fontAwesomeIcon="fa-heart" />
 
-            <com.beardedhen.androidbootstrap.BootstrapButton
-                android:id="@+id/button6"
-                android:layout_height="@dimen/button_height"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:text="@string/hello_world" />
-        </TableRow>
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/button6"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
 
-        <TableRow
-            android:id="@+id/tableRow4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                    android:text="@string/hello_world"/>
+            </TableRow>
 
-            <com.beardedhen.androidbootstrap.BootstrapButton
-                android:id="@+id/button7"
-                android:layout_height="@dimen/button_height"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:text="@string/hello_world"
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
-                />
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/button7"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
 
-            <com.beardedhen.androidbootstrap.BootstrapButton
-                android:id="@+id/button8"
-                android:layout_height="@dimen/button_height"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:text="@string/hello_world"
+                    android:text="@string/hello_world" />
 
-                />
-        </TableRow>
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/button8"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_weight="1"
 
-    </TableLayout>
+                    android:text="@string/hello_world"
+                     />
+            </TableRow>
+
+        </TableLayout>
+
+
+    </LinearLayout>
+
+
 
 
 </RelativeLayout>

@@ -103,7 +103,7 @@ public class HttpService {
     public void setRandomImage(final ImageView imageView) {
         try {
 
-            String newString = "http://lorempixel.com/300/450/?time=" + new Date().toString();
+            String newString = "http://lorempixel.com/400/300/?time=" + new Date().toString();
 
             loadImage(newString, imageView,null);
 
