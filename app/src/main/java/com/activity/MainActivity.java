@@ -7,11 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.ChangeBounds;
-import android.transition.Slide;
-import android.transition.TransitionInflater;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -64,11 +59,17 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
         ListFeedFragment sharedElementFragment1 = new ListFeedFragment_();
 
-        fragmentTransaction.replace(R.id.fragment,sharedElementFragment1, LIST_FEED_FRAGMENT).addToBackStack(null).commit();
+        fragmentTransaction.replace(R.id.fragment, sharedElementFragment1, LIST_FEED_FRAGMENT).addToBackStack(null).commit();
 
         getSupportActionBar().setTitle(category);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+    }
+
+    private void setVisibilityForAllItem(boolean visibility) {
+        this.menu.getItem(0).setVisible(true);
+        this.menu.getItem(1).setVisible(true);
+        this.menu.getItem(2).setVisible(true);
     }
 
     @Override
@@ -76,22 +77,18 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         Bundle bundle = new Bundle();
         bundle.putInt("feedId", feed.getContentID());
         getSupportActionBar().setTitle(feed.getSourceName());
-        this.menu.getItem(0).setVisible(true);
-        this.menu.getItem(1).setVisible(true);
-        this.menu.getItem(2).setVisible(true);
-
-
+        setVisibilityForAllItem(true);
         startFeedViewFragment(bundle, v);
     }
 
     private void startFeedViewFragment(Bundle bundle, View v) {
         FeedViewActivity_ sharedElementFragment2 = new FeedViewActivity_();
-            ImageView imageView= (ImageView) v.findViewById(R.id.imageView);
-
-
+        ImageView imageView = (ImageView) v.findViewById(R.id.imageView);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left);
 
         sharedElementFragment2.setArguments(bundle);
-              getSupportFragmentManager().beginTransaction()
+        fragmentTransaction
                 .add(R.id.fragment, sharedElementFragment2)
                 .addToBackStack(null)
                 .commit();
@@ -116,23 +113,22 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             FragmentManager fragmentManager = getSupportFragmentManager();
             FeedViewActivity_ feedViewActivity_ = (FeedViewActivity_) fragmentManager.findFragmentByTag(FEED_VIEW_FRAGMENT);
             CaterogyFragment_ caterogyFragment_ = (CaterogyFragment_) fragmentManager.findFragmentByTag(CATEGORY_FRAGMENT);
-            ;
+
             ListFeedFragment_ listFeedFragment_ = (ListFeedFragment_) fragmentManager.findFragmentByTag(LIST_FEED_FRAGMENT);
-            ;
+
             if (feedViewActivity_ != null && feedViewActivity_.isVisible()) {
-                //VISIBLE! =)
+
             } else if (caterogyFragment_ != null && caterogyFragment_.isVisible()) {
 
-                this.menu.getItem(0).setVisible(false);
-                this.menu.getItem(1).setVisible(false);
-                this.menu.getItem(2).setVisible(false);
-                //NOT VISIBLE =(
+                setVisibilityForAllItem(false);
+
             } else if (listFeedFragment_ != null && listFeedFragment_.isVisible()) {
-                this.menu.getItem(0).setVisible(false);
-                this.menu.getItem(1).setVisible(false);
-                this.menu.getItem(2).setVisible(false);
+                setVisibilityForAllItem(false);
+                listFeedFragment_.scrollToIndex(feedId);
+
             }
-        }catch(Exception e){}
+        } catch (Exception e) {
+        }
     }
 
     @Override
@@ -140,16 +136,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         if (getFragmentManager().getBackStackEntryCount() == 0) {
             super.onBackPressed();
             onBack();
-            try {
-                ListFeedFragment_ fragment = (ListFeedFragment_) getSupportFragmentManager().findFragmentById(R.id.fragment);
-                fragment.scrollToIndex(feedId);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         } else {
             getFragmentManager().popBackStack();
-
-
         }
     }
 
@@ -189,9 +177,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_feed_view, menu);
         this.menu = menu;
-        this.menu.getItem(0).setVisible(false);
-        this.menu.getItem(1).setVisible(false);
-        this.menu.getItem(2).setVisible(false);
+        setVisibilityForAllItem(false);
         return true;
     }
 }

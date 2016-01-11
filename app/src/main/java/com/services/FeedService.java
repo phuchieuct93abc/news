@@ -24,36 +24,21 @@ public class FeedService {
 
         Integer id = feed.getContentID();
         String link_request;
-        link_request = LINK_FEED_CONTENT.replace("{ID}", id+"");
-//
-//        if (!feed.isCNET()) {
-//
-//        } else
-//        {
-//            link_request = feed.getBaomoiUrl();
-//        }
+        link_request = LINK_FEED_CONTENT.replace("{ID}", id + "");
+
         String responseCategory;
-        responseCategory = getContentFromCache(id+"", link_request, context);
+        responseCategory = httpService.readUrl(link_request);
         String contentHTML;
-//       if (feed.isCNET()) {
-//            contentHTML = responseCategory;
-//        } else
-        {
-            JSONObject jObject = new JSONObject(responseCategory);
 
-            contentHTML = jObject.getJSONObject("article").getString("Body");
+        JSONObject jObject = new JSONObject(responseCategory);
 
-        }
+        contentHTML = jObject.getJSONObject("article").getString("Body");
+
+
         feed.setContentHTML(contentHTML);
 
 
         return feed;
-    }
-
-    private String getContentFromCache(String id, String link_request, Context context) {
-
-
-        return httpService.readUrl(link_request);
     }
 
 

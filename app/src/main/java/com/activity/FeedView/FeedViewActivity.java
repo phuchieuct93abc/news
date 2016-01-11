@@ -102,7 +102,6 @@ public class FeedViewActivity extends Fragment {
 
 
                     currentFeed.setIsRead(context);
-                    Log.d("page selected hieu", arg0 + "");
                     mainActivityInterface.feedOnView(categoryService.getListFeed().get(arg0));
                     indexOfFragment = arg0;
                     if (arg0 == pagerAdapter.getCount() - 1) {

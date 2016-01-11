@@ -2,12 +2,12 @@ package com.activity.fragment_activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.activity.ListFeedView.SimpleAnimationAdapter;
 import com.activity.ListFeedView.ViewHolder;
@@ -76,12 +76,11 @@ public class ListFeedFragment extends Fragment {
             scrollPosition = null;
 
 
-
         }
     }
 
 
-    private void setOnScrollListener() {
+    void setOnScrollListener() {
         LinearLayoutManager llm = new LinearLayoutManager(context);
         listView.setHasFixedSize(false);
 
@@ -117,7 +116,6 @@ public class ListFeedFragment extends Fragment {
 
 
     }
-
 
     void refreshingMaterial(final Runnable callback) {
         MaterialHeader materialHeader = new MaterialHeader(context);
@@ -157,12 +155,16 @@ public class ListFeedFragment extends Fragment {
 
     @UiThread
     void setMoreDataList(List<Feed> rssItems, Runnable callback) {
-        adapter.setMoreDataList(rssItems);
-        if (listView.getAdapter() == null) listView.setAdapter(adapter);
-        listView.mPtrFrameLayout.refreshComplete();
+        if (rssItems.isEmpty()) {
+            Toast.makeText(context, "Loading more",Toast.LENGTH_SHORT).show();
 
+        } else {
+            adapter.setMoreDataList(rssItems);
+            if (listView.getAdapter() == null) listView.setAdapter(adapter);
+            listView.mPtrFrameLayout.refreshComplete();
+            if (callback != null) callback.run();
+        }
 
-        if (callback != null) callback.run();
     }
 
     @UiThread
@@ -175,13 +177,9 @@ public class ListFeedFragment extends Fragment {
     void background(Runnable callback) {
         try {
             List<Feed> moreData = categoryService.getMoreFeed();
-            if (moreData.isEmpty()) {
-                Snackbar.make(getView().findViewById(android.R.id.content), "Loading more", Snackbar.LENGTH_LONG).show();
 
-            } else {
-                setMoreDataList(moreData, callback);
+            setMoreDataList(moreData, callback);
 
-            }
 
         } catch (Exception e) {
             e.printStackTrace();
