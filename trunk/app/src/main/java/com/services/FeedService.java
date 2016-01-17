@@ -10,7 +10,7 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.json.JSONObject;
 
-@EBean
+@EBean(scope= EBean.Scope.Singleton)
 public class FeedService {
     public static String LINK_FEED_CONTENT = "http://dataprovider.touch.baomoi.com/json/article.aspx?articleId={ID}";
     static String sharedPreferencesCaterogy = "CATEROGY_CACHE";

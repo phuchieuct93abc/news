@@ -14,6 +14,7 @@ import com.phuchieu.news.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
@@ -21,22 +22,28 @@ import java.util.Date;
 
 import static android.view.View.GONE;
 
-@EBean
+@EBean(scope = EBean.Scope.Singleton)
 public class HttpService {
     @RootContext
     Context context;
     LoadBuilder<Builders.Any.B> ionLoadUrl;
-    Ion ionLoadImage;
+    Picasso picasso;
     private final static int TIMEOUT=2000;
+
+    @AfterInject
+    public void initIon() {
+        ionLoadUrl = Ion.with(context.getApplicationContext());
+        picasso = Picasso.with(context.getApplicationContext());
+
+    }
 
 
     public String readUrl(String path) {
         SharedPreferences sharedPref = context.getSharedPreferences("HttpPreference", Context.MODE_PRIVATE);
         String result = "";
         try {
-            result = Ion.with(context).load(path).setTimeout(TIMEOUT).asString().get();
 //            sharedPref.edit().putString(path, result).commit();
-            return result;
+            return ionLoadUrl.load(path).setTimeout(TIMEOUT).asString().get();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,8 +73,7 @@ public class HttpService {
 
             }else{
 
-            Picasso.with(context)
-                    .load(url)
+                picasso.load(url)
                     .error(R.drawable.news)
                     .into(imageView, new Callback() {
                         @Override
