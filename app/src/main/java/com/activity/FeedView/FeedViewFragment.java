@@ -93,7 +93,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
             contentHTML = feedService.getFeedContentFromFeed(feed).getContentHTML();
             updateTextViewContent(contentHTML);
         } catch (Exception e) {
-            setOriginalURLForWebview();
+            getFailed();
 
 
         }
@@ -108,7 +108,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
 
 
     @UiThread
-    void setOriginalURLForWebview() {
+    void getFailed() {
         textViewContent.setText("Can't connect to server");
         actionButtons.setVisibility(View.VISIBLE);
     }
@@ -128,7 +128,6 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         LevelListDrawable d = new LevelListDrawable();
         try {
 
-            Drawable empty = getResources().getDrawable(R.drawable.ic_launcher);
             Point size = new Point();
             getActivity().getWindowManager().getDefaultDisplay().getSize(size);
             new LoadImage(textViewContent, getActivity().getApplicationContext(), size).execute(s, d);

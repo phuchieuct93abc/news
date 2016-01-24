@@ -1,8 +1,6 @@
 package com.services;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -12,6 +10,7 @@ import com.koushikdutta.ion.builder.Builders;
 import com.koushikdutta.ion.builder.LoadBuilder;
 import com.phuchieu.news.R;
 import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.AfterInject;
@@ -19,6 +18,7 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 import static android.view.View.GONE;
 
@@ -38,25 +38,12 @@ public class HttpService {
     }
 
 
-    public String readUrl(String path) {
-        SharedPreferences sharedPref = context.getSharedPreferences("HttpPreference", Context.MODE_PRIVATE);
-        String result = "";
-        try {
-//            sharedPref.edit().putString(path, result).commit();
+    public String readUrl(String path) throws ExecutionException, InterruptedException {
+
+
             return ionLoadUrl.load(path).setTimeout(TIMEOUT).asString().get();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(context, "Get fail", Toast.LENGTH_SHORT).show();
 
-           // result = sharedPref.getString(path, null);
-            if (result != null) {
-                return result;
-            } else {
-                return "";
-            }
-
-        }
 
     }
 
@@ -74,30 +61,30 @@ public class HttpService {
             }else{
 
                 picasso.load(url)
-                    .error(R.drawable.news)
-                    .into(imageView, new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            if(progressBar!=null){
-                                progressBar.setVisibility(GONE);
+                    .error(R.drawable.news).memoryPolicy(MemoryPolicy.NO_CACHE)
+                        .into(imageView, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                if (progressBar != null) {
+                                    progressBar.setVisibility(GONE);
 
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onError() {
-                           // imageView.setImageResource(R.drawable.news);
+                            @Override
+                            public void onError() {
+                                // imageView.setImageResource(R.drawable.news);
+                                Toast.makeText(context.getApplicationContext(),"Can not load image",Toast.LENGTH_SHORT).show();
+                                if (progressBar != null) {
 
-                            if(progressBar!=null){
+                                    progressBar.setVisibility(GONE);
 
-                                progressBar.setVisibility(GONE);
-
+                                }
                             }
-                        }
-                    });
+                        });
             }
         }catch(Exception e){
-            Log.e("error", "loadImage: ", e);
+            Toast.makeText(context.getApplicationContext(),"Can not load image",Toast.LENGTH_SHORT).show();
         }
 
 
