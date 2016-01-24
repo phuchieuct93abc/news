@@ -67,9 +67,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     }
 
     private void setVisibilityForAllItem(boolean visibility) {
-        this.menu.getItem(0).setVisible(true);
-        this.menu.getItem(1).setVisible(true);
-        this.menu.getItem(2).setVisible(true);
+        this.menu.getItem(0).setVisible(visibility);
+        this.menu.getItem(1).setVisible(visibility);
+        this.menu.getItem(2).setVisible(visibility);
     }
 
     @Override
@@ -83,13 +83,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     private void startFeedViewFragment(Bundle bundle, View v) {
         FeedViewActivity_ sharedElementFragment2 = new FeedViewActivity_();
-        ImageView imageView = (ImageView) v.findViewById(R.id.imageView);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left);
-
         sharedElementFragment2.setArguments(bundle);
         fragmentTransaction
-                .add(R.id.fragment, sharedElementFragment2)
+                .replace(R.id.fragment, sharedElementFragment2,FEED_VIEW_FRAGMENT)
                 .addToBackStack(null)
                 .commit();
 

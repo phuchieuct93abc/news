@@ -1,7 +1,7 @@
 package com.services;
 
 import android.content.Context;
-import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.model.Articlelist;
@@ -14,6 +14,7 @@ import org.androidannotations.annotations.RootContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @EBean(scope = EBean.Scope.Singleton)
 public class CategoryService {
@@ -74,38 +75,28 @@ public class CategoryService {
 
     }
 
-    public List<Feed> getMoreFeed() {
+    public List<Feed> getMoreFeed() throws ExecutionException, InterruptedException {
         List<Feed> result = new ArrayList<>();
-        try {
-            int beforeUpdateLength = listFeed.size();
-            if (beforeUpdateLength >= 190) return listFeed;
-            String link = getCategoryURLWithIndex();
-            String responseCategory = httpService.readUrl(link);
-            Articlelist articlelist = new Gson().fromJson(responseCategory, Articlelist.class);
-            if (responseCategory != null) {
-                for (Feed feed : articlelist.getArticlelist()) {
+        int beforeUpdateLength = listFeed.size();
 
-                    if (getIndexInCaterogyById(feed.getContentID()) == -1) {
-                        result.add(feed);
-                    } else {
-                        duplicateCount++;
-                    }
-
-
-                }
-
-
-                addDataToList(result);
-            }
-
-            return result;
-
-        } catch (Exception e) {
-            Log.e("hieu", e.toString());
-            return new ArrayList<>();
+        if (beforeUpdateLength >= 190) {
+            Toast.makeText(context, "Reached maximum number 190 feeds", Toast.LENGTH_SHORT).show();
+            return listFeed;
         }
-
-
+        String link = getCategoryURLWithIndex();
+        String responseCategory = httpService.readUrl(link);
+        Articlelist articlelist = new Gson().fromJson(responseCategory, Articlelist.class);
+        if (responseCategory != null) {
+            for (Feed feed : articlelist.getArticlelist()) {
+                if (getIndexInCaterogyById(feed.getContentID()) == -1) {
+                    result.add(feed);
+                } else {
+                    duplicateCount++;
+                }
+            }
+            addDataToList(result);
+        }
+        return result;
     }
 
     private void addDataToList(List<Feed> addedData) {

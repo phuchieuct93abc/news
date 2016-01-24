@@ -143,8 +143,12 @@ public class ListFeedFragment extends Fragment {
 
     @Background
     void loadNextPage() {
-        List<Feed> moreData = categoryService.getMoreFeed();
-        setMoreDataList(moreData, null);
+        try {
+            List<Feed> moreData = categoryService.getMoreFeed();
+            setMoreDataList(moreData, null);
+        }catch(Exception e){
+            Toast.makeText(context, "Get failed", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
