@@ -10,7 +10,6 @@ import com.koushikdutta.ion.builder.Builders;
 import com.koushikdutta.ion.builder.LoadBuilder;
 import com.phuchieu.news.R;
 import com.squareup.picasso.Callback;
-import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.AfterInject;
@@ -61,8 +60,7 @@ public class HttpService {
             }else{
 
                 picasso.load(url)
-                    .error(R.drawable.news).memoryPolicy(MemoryPolicy.NO_CACHE)
-                        .into(imageView, new Callback() {
+                    .error(R.drawable.news).into(imageView, new Callback() {
                             @Override
                             public void onSuccess() {
                                 if (progressBar != null) {
