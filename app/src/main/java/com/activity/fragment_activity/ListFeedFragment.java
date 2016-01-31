@@ -16,9 +16,11 @@ import com.marshalchen.ultimaterecyclerview.CustomUltimateRecyclerview;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 import com.model.Feed;
 import com.phuchieu.news.R;
+import com.services.CacheProvider;
 import com.services.CategoryService;
 import com.services.FeedService;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
@@ -49,7 +51,15 @@ public class ListFeedFragment extends Fragment {
     CategoryService categoryService;
     Context context;
     Integer scrollPosition = null;
+    @Bean
+    CacheProvider cacheProvider;
 
+    @AfterInject
+    void afterInject() {
+        cacheProvider.clearCache();
+        initData(null);
+
+    }
 
     @AfterViews
     void afterView() {
@@ -60,8 +70,9 @@ public class ListFeedFragment extends Fragment {
                 mainActivityInterface.onSelectFeed(clickedItem, v);
             }
         });
-        background(null);
+        updateData(null);
         setOnScrollListener();
+        setRefreshListener();
     }
 
 
@@ -98,13 +109,19 @@ public class ListFeedFragment extends Fragment {
         listView.setOnLoadMoreListener(loadMoreListener);
 
         listView.setCustomSwipeToRefresh();
+
+
+    }
+
+    void setRefreshListener() {
         Runnable callbackAfterLoadmore = new Runnable() {
             @Override
             public void run() {
-                feedService.clearCache();
+                cacheProvider.clearCache();
+
                 categoryService.clearCacheList();
                 adapter.clear();
-                background(new Runnable() {
+                initData(new Runnable() {
                     @Override
                     public void run() {
                         listView.scrollVerticallyTo(0);
@@ -113,8 +130,6 @@ public class ListFeedFragment extends Fragment {
             }
         };
         refreshingMaterial(callbackAfterLoadmore);
-
-
     }
 
     void refreshingMaterial(final Runnable callback) {
@@ -146,8 +161,8 @@ public class ListFeedFragment extends Fragment {
         try {
             List<Feed> moreData = categoryService.getMoreFeed();
             setMoreDataList(moreData, null);
-        }catch(Exception e){
-            Toast.makeText(context, "Get failed", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            //Toast.makeText(context, "Get failed", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -160,7 +175,7 @@ public class ListFeedFragment extends Fragment {
     @UiThread
     void setMoreDataList(List<Feed> rssItems, Runnable callback) {
         if (rssItems.isEmpty()) {
-            Toast.makeText(context, "Loading more",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Loading more", Toast.LENGTH_SHORT).show();
 
         } else {
             adapter.setMoreDataList(rssItems);
@@ -178,9 +193,23 @@ public class ListFeedFragment extends Fragment {
 
 
     @Background
-    void background(Runnable callback) {
+    void initData(Runnable callback) {
         try {
             List<Feed> moreData = categoryService.getMoreFeed();
+
+            setMoreDataList(moreData, callback);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Background
+    void updateData(Runnable callback) {
+        try {
+            List<Feed> moreData = categoryService.getListFeed();
 
             setMoreDataList(moreData, callback);
 

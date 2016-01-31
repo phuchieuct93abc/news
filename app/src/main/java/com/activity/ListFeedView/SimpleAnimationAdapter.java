@@ -13,11 +13,10 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.model.Feed;
-import com.marshalchen.ultimaterecyclerview.URLogs;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerviewViewHolder;
 import com.marshalchen.ultimaterecyclerview.UltimateViewAdapter;
 import com.marshalchen.ultimaterecyclerview.animators.internal.ViewHelper;
+import com.model.Feed;
 import com.phuchieu.news.R;
 import com.services.HttpService;
 
@@ -140,7 +139,6 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
 
     @Override
     public long generateHeaderId(int position) {
-        URLogs.d("position--" + position + "   " + getItem(position));
         return Long.parseLong(feeds.get(position).getContentID()+"");
     }
 
