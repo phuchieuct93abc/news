@@ -8,7 +8,6 @@ import android.widget.Toast;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.builder.Builders;
 import com.koushikdutta.ion.builder.LoadBuilder;
-import com.phuchieu.news.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -65,12 +64,11 @@ public class HttpService {
                     progressBar.setVisibility(GONE);
 
                 }
-                //imageView.setImageResource(R.drawable.news);
+//                imageView.setImageResource(R.drawable.news);
 
             } else {
 
-                picasso.load(url).placeholder(R.drawable.news)
-                        .error(R.drawable.news).into(imageView, new Callback() {
+                picasso.load(url).into(imageView, new Callback() {
                     @Override
                     public void onSuccess() {
                         if (progressBar != null) {
@@ -81,7 +79,7 @@ public class HttpService {
 
                     @Override
                     public void onError() {
-                        // imageView.setImageResource(R.drawable.news);
+//                         imageView.setImageResource(R.drawable.news);
                         Toast.makeText(context.getApplicationContext(), "Can not load image", Toast.LENGTH_SHORT).show();
                         if (progressBar != null) {
 

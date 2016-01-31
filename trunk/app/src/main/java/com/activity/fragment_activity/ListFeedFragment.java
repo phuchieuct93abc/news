@@ -56,6 +56,7 @@ public class ListFeedFragment extends Fragment {
     @AfterInject
     void afterInject() {
         cacheProvider.clearCache();
+        categoryService.clearCacheList();
         initData(null);
 
     }
@@ -169,6 +170,8 @@ public class ListFeedFragment extends Fragment {
     @UiThread
     void setDataList(List<Feed> rssItems) {
         adapter.setDataList(rssItems);
+        if (listView.getAdapter() == null) listView.setAdapter(adapter);
+        listView.mPtrFrameLayout.refreshComplete();
     }
 
     @UiThread
@@ -178,6 +181,7 @@ public class ListFeedFragment extends Fragment {
             if (listView.getAdapter() == null) listView.setAdapter(adapter);
             listView.mPtrFrameLayout.refreshComplete();
             if (callback != null) callback.run();
+
         }
 
     }
@@ -207,7 +211,7 @@ public class ListFeedFragment extends Fragment {
         try {
             List<Feed> moreData = categoryService.getListFeed();
 
-            setMoreDataList(moreData, callback);
+            setDataList(moreData);
 
 
         } catch (Exception e) {
