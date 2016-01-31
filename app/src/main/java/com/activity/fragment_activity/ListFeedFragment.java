@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.activity.ListFeedView.SimpleAnimationAdapter;
 import com.activity.ListFeedView.ViewHolder;
@@ -174,10 +173,7 @@ public class ListFeedFragment extends Fragment {
 
     @UiThread
     void setMoreDataList(List<Feed> rssItems, Runnable callback) {
-        if (rssItems.isEmpty()) {
-            Toast.makeText(context, "Loading more", Toast.LENGTH_SHORT).show();
-
-        } else {
+        if (!rssItems.isEmpty()) {
             adapter.setMoreDataList(rssItems);
             if (listView.getAdapter() == null) listView.setAdapter(adapter);
             listView.mPtrFrameLayout.refreshComplete();
