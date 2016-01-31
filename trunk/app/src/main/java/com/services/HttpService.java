@@ -1,7 +1,6 @@
 package com.services;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
