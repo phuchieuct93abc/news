@@ -3,7 +3,6 @@ package com.services;
 import android.content.Context;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.builder.Builders;
@@ -68,7 +67,7 @@ public class HttpService {
 
             } else {
 
-                picasso.load(url).into(imageView, new Callback() {
+                picasso.load(url).noPlaceholder().into(imageView, new Callback() {
                     @Override
                     public void onSuccess() {
                         if (progressBar != null) {
@@ -80,7 +79,6 @@ public class HttpService {
                     @Override
                     public void onError() {
 //                         imageView.setImageResource(R.drawable.news);
-                        Toast.makeText(context.getApplicationContext(), "Can not load image", Toast.LENGTH_SHORT).show();
                         if (progressBar != null) {
 
                             progressBar.setVisibility(GONE);
