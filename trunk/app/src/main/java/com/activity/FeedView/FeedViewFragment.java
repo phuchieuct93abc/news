@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -132,7 +131,6 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
             getActivity().getWindowManager().getDefaultDisplay().getSize(size);
             new LoadImage(textViewContent, getActivity().getApplicationContext(), size).execute(s, d);
         } catch (Exception e) {
-            Log.e(TAG, "getDrawable: faild", e);
         }
 
 

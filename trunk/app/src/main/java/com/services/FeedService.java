@@ -13,7 +13,6 @@ import org.json.JSONObject;
 @EBean(scope= EBean.Scope.Singleton)
 public class FeedService {
     public static String LINK_FEED_CONTENT = "http://dataprovider.touch.baomoi.com/json/article.aspx?articleId={ID}";
-    static String sharedPreferencesCaterogy = "CATEROGY_CACHE";
     static String sharedPreferencesReadFeed = "READ_FEED_CACHE";
     @RootContext
     Context context;
@@ -50,13 +49,5 @@ public class FeedService {
 
     }
 
-    public void clearCache() {
-        try {
-            SharedPreferences prefs = context.getSharedPreferences(
-                    FeedService.sharedPreferencesCaterogy, Context.MODE_PRIVATE);
-            prefs.edit().clear().apply();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
 }

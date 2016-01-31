@@ -77,7 +77,7 @@ public class CaterogyFragment extends Fragment {
                 int index = 2 * x + y;
                 Tile tile = tiles.get(index);
                 button.setText(tile.getTitle());
-                           button.setBootstrapSize(DefaultBootstrapSize.MD);
+                button.setBootstrapSize(DefaultBootstrapSize.MD);
                 button.setBootstrapBrand(DefaultBootstrapBrand.REGULAR);
 //                button.setFontAwesomeIcon(tile.getIcon());
 

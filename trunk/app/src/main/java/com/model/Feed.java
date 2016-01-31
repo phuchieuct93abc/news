@@ -2,7 +2,6 @@ package com.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 public class Feed {
     private Integer ContentID;
@@ -248,7 +247,6 @@ public class Feed {
         result = result.replaceAll("data-img-src", "src");
         result = result.replaceAll("<p>\u200B</p>", "");
         result = result.replaceAll("src=\"_\"", "");
-        Log.d("hieu", "getContentHTML: "+result);
 
         return result;
     }

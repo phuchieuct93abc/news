@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         fragmentTransaction.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left);
         sharedElementFragment2.setArguments(bundle);
         fragmentTransaction
-                .replace(R.id.fragment, sharedElementFragment2,FEED_VIEW_FRAGMENT)
+                .replace(R.id.fragment, sharedElementFragment2, FEED_VIEW_FRAGMENT)
                 .addToBackStack(null)
                 .commit();
 
