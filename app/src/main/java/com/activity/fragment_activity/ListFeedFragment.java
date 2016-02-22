@@ -57,7 +57,12 @@ public class ListFeedFragment extends Fragment {
     void afterInject() {
         cacheProvider.clearCache();
         categoryService.clearCacheList();
-        initData(null);
+        initData(new Runnable() {
+            @Override
+            public void run() {
+                listView.scrollVerticallyTo(0);
+            }
+        });
 
     }
 

@@ -59,15 +59,11 @@ public class HttpService {
     public void loadImage(String url, final ImageView imageView, final ProgressBar progressBar) {
         try {
             if (url.isEmpty() || url.length() == 0) {
-                if (progressBar != null) {
-                    progressBar.setVisibility(GONE);
+                url ="http://etaal.gov.in/etaal/Image/news.png";
 
-                }
-//                imageView.setImageResource(R.drawable.news);
+            }
 
-            } else {
-
-                picasso.load(url).noPlaceholder().into(imageView, new Callback() {
+                picasso.load(url).into(imageView, new Callback() {
                     @Override
                     public void onSuccess() {
                         if (progressBar != null) {
@@ -78,6 +74,7 @@ public class HttpService {
 
                     @Override
                     public void onError() {
+                        imageView.setVisibility(GONE);
 //                         imageView.setImageResource(R.drawable.news);
                         if (progressBar != null) {
 
@@ -86,7 +83,7 @@ public class HttpService {
                         }
                     }
                 });
-            }
+
         } catch (Exception e) {
         }
 
