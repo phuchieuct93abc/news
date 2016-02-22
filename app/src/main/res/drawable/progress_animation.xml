@@ -4,4 +4,4 @@
     android:drawable="@drawable/spinner"
 
     android:pivotX="50%"
-    android:pivotY="50%"/>
+    android:pivotY="50%" />

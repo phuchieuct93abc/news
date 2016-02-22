@@ -22,15 +22,13 @@ import static android.view.View.GONE;
 
 @EBean(scope = EBean.Scope.Singleton)
 public class HttpService {
+    private final static int TIMEOUT = 2000;
     @RootContext
     Context context;
     @Bean
     CacheProvider cacheProvider;
-
-
     LoadBuilder<Builders.Any.B> ionLoadUrl;
     Picasso picasso;
-    private final static int TIMEOUT = 2000;
 
     @AfterInject
     public void initIon() {
@@ -47,7 +45,7 @@ public class HttpService {
 
             return result;
 
-        }else{
+        } else {
 
             return cacheString;
         }
@@ -59,30 +57,30 @@ public class HttpService {
     public void loadImage(String url, final ImageView imageView, final ProgressBar progressBar) {
         try {
             if (url.isEmpty() || url.length() == 0) {
-                url ="http://etaal.gov.in/etaal/Image/news.png";
+                url = "http://etaal.gov.in/etaal/Image/news.png";
 
             }
 
-                picasso.load(url).into(imageView, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        if (progressBar != null) {
-                            progressBar.setVisibility(GONE);
+            picasso.load(url).into(imageView, new Callback() {
+                @Override
+                public void onSuccess() {
+                    if (progressBar != null) {
+                        progressBar.setVisibility(GONE);
 
-                        }
                     }
+                }
 
-                    @Override
-                    public void onError() {
-                        imageView.setVisibility(GONE);
+                @Override
+                public void onError() {
+                    imageView.setVisibility(GONE);
 //                         imageView.setImageResource(R.drawable.news);
-                        if (progressBar != null) {
+                    if (progressBar != null) {
 
-                            progressBar.setVisibility(GONE);
+                        progressBar.setVisibility(GONE);
 
-                        }
                     }
-                });
+                }
+            });
 
         } catch (Exception e) {
         }

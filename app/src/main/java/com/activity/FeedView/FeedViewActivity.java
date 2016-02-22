@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -127,7 +126,7 @@ public class FeedViewActivity extends Fragment {
         };
         pager.addOnPageChangeListener(onPageChangeListener);
         setSelectedPage(categoryService.getIndexInCaterogyById(selectedId.getContentID()));
-        feedService.setRead(selectedId.getContentID()+"");
+        feedService.setRead(selectedId.getContentID() + "");
     }
 
     @UiThread
@@ -142,7 +141,7 @@ public class FeedViewActivity extends Fragment {
     void run() {
 
         try {
-            String feedID = getArguments().getInt("feedId")+"";
+            String feedID = getArguments().getInt("feedId") + "";
             selectedId = categoryService.getFeedById(feedID);
             runUI();
             int index = categoryService.getIndexInCaterogyById(selectedId.getContentID());

@@ -17,9 +17,12 @@
         <item name="android:windowExitTransition">@transition/explode</item>
 
         <!-- specify shared element transitions -->
-        <item name="android:windowSharedElementEnterTransition">@transition/changebounds_with_arcmotion</item>
-        <item name="android:windowSharedElementExitTransition">@transition/changebounds_with_arcmotion</item>
-
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/changebounds_with_arcmotion
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/changebounds_with_arcmotion
+        </item>
 
 
     </style>

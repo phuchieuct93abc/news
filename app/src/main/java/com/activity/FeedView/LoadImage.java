@@ -19,14 +19,13 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap> {
     TextView textView;
     Context context;
     Point size;
+    private LevelListDrawable mDrawable;
 
-    public LoadImage(TextView textView,Context context,Point size) {
+    public LoadImage(TextView textView, Context context, Point size) {
         this.textView = textView;
         this.context = context;
         this.size = size;
     }
-
-    private LevelListDrawable mDrawable;
 
     @Override
     protected Bitmap doInBackground(Object... params) {
@@ -49,9 +48,9 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap> {
 
         if (bitmap != null) {
             double ratio = (double) bitmap.getWidth() / (double) bitmap.getHeight();
-            BitmapDrawable d = new BitmapDrawable(context.getResources(),bitmap);
+            BitmapDrawable d = new BitmapDrawable(context.getResources(), bitmap);
             mDrawable.addLevel(1, 1, d);
-            mDrawable.setBounds(0, 0, size.x , (int)(size.x/ratio));
+            mDrawable.setBounds(0, 0, size.x, (int) (size.x / ratio));
             mDrawable.setLevel(1);
 
             CharSequence t = textView.getText();

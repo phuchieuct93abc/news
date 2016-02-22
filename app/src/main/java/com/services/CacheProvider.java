@@ -9,12 +9,12 @@ import org.androidannotations.annotations.RootContext;
 
 @EBean
 public class CacheProvider {
+    private static String PREF_FEED_NAME = "CACHE_FEED";
+    private static String PREF_CATEGORY_NAME = "CACHE_CATEGORY";
     @RootContext
     Context context;
     SharedPreferences cacheFeed;
     SharedPreferences cacheCategory;
-    private static String PREF_FEED_NAME = "CACHE_FEED";
-    private static String PREF_CATEGORY_NAME = "CACHE_CATEGORY";
 
     private boolean isCategory(String url) {
         return url.indexOf("http://dataprovider.touch.baomoi.com/json/articlelist.aspx") != -1;
@@ -28,8 +28,8 @@ public class CacheProvider {
 
     public String get(String url) {
         if (isCategory(url)) {
-           // return cacheCategory.getString(url, null);
-return null;
+            // return cacheCategory.getString(url, null);
+            return null;
         } else {
             return cacheFeed.getString(url, null);
 
@@ -45,7 +45,8 @@ return null;
 
         }
     }
-    public void clearCache(){
+
+    public void clearCache() {
         cacheCategory.edit().clear().apply();
     }
 }

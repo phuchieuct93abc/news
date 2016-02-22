@@ -63,7 +63,7 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
             title.setEllipsize(TextUtils.TruncateAt.END);
             title.setMaxLines(2);
             holder.onClickListener = this.getOnClickListener();
-            httpService.loadImage(item.getLandscapeAvatar(), imageView,holder.progressBar);
+            httpService.loadImage(item.getLandscapeAvatar(), imageView, holder.progressBar);
 
         }
         if (!isFirstOnly || position > mLastPosition) {
@@ -139,7 +139,7 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
 
     @Override
     public long generateHeaderId(int position) {
-        return Long.parseLong(feeds.get(position).getContentID()+"");
+        return Long.parseLong(feeds.get(position).getContentID() + "");
     }
 
     @Override
