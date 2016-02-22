@@ -63,7 +63,7 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
             title.setEllipsize(TextUtils.TruncateAt.END);
             title.setMaxLines(2);
             holder.onClickListener = this.getOnClickListener();
-            httpService.loadImage(item.getLandscapeAvatar(), imageView,null);
+            httpService.loadImage(item.getLandscapeAvatar(), imageView,holder.progressBar);
 
         }
         if (!isFirstOnly || position > mLastPosition) {
