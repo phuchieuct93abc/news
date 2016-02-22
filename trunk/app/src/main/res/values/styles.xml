@@ -28,7 +28,7 @@
         <item name="android:textColorPrimary">@color/darkblue</item>
     </style>
 
-    <style name="LightCustom" parent="Theme.AppCompat.NoActionBar" >
+    <style name="LightCustom" parent="Theme.AppCompat.NoActionBar">
         <item name="android:textColorPrimary">@color/primary_text_material_light</item>
         <item name="android:colorBackground">@color/background_material_dark</item>
         <item name="colorPrimary">@color/colorPrimaryDark</item>

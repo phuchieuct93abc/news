@@ -1,21 +1,18 @@
-<RelativeLayout
-    android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent">
 
 
-
-    <com.marshalchen.ultimaterecyclerview.CustomUltimateRecyclerview
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.marshalchen.ultimaterecyclerview.CustomUltimateRecyclerview xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listView"
+        android:layout_below="@+id/imageView"
         app:recyclerviewClipToPadding="true"
         app:recyclerviewPadding="2dp"
-        app:recyclerviewScrollbars="vertical"
 
-        android:layout_below="@+id/imageView" />
+        app:recyclerviewScrollbars="vertical" />
 
 </RelativeLayout>
 

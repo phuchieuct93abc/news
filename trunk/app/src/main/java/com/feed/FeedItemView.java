@@ -6,8 +6,8 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.model.Feed;
 
+import com.model.Feed;
 import com.phuchieu.news.R;
 import com.services.HttpService;
 
@@ -44,7 +44,7 @@ public class FeedItemView extends RelativeLayout {
         title.setMaxLines(2);
 
 
-        httpService.loadImage(feed.getLandscapeAvatar(), imageView,null);
+        httpService.loadImage(feed.getLandscapeAvatar(), imageView, null);
 
 
     }

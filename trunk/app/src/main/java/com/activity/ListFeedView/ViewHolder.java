@@ -17,14 +17,12 @@ public class ViewHolder extends UltimateRecyclerviewViewHolder implements View.O
     ProgressBar progressBar;
 
 
-
     public ViewHolder(View itemView) {
         super(itemView);
         title = (TextView) itemView.findViewById(R.id.title);
         imageView = (ImageView) itemView.findViewById((R.id.imageView));
-        progressBar = (ProgressBar)itemView.findViewById(R.id.progress_bar);
+        progressBar = (ProgressBar) itemView.findViewById(R.id.progress_bar);
         itemView.setOnClickListener(this);
-
 
 
     }
