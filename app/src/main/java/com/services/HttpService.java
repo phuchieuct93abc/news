@@ -3,6 +3,7 @@ package com.services;
 import android.content.Context;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.builder.Builders;
@@ -16,7 +17,6 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
 
 import static android.view.View.GONE;
 
@@ -29,6 +29,7 @@ public class HttpService {
     CacheProvider cacheProvider;
     LoadBuilder<Builders.Any.B> ionLoadUrl;
     Picasso picasso;
+    private static String DEFAULT_URL = "http://etaal.gov.in/etaal/Image/news.png";
 
     @AfterInject
     public void initIon() {
@@ -37,17 +38,21 @@ public class HttpService {
     }
 
 
-    public String readUrl(String path) throws ExecutionException, InterruptedException {
-        String cacheString = cacheProvider.get(path);
-        if (cacheString == null) {
-            String result = ionLoadUrl.load(path).setTimeout(TIMEOUT).asString().get();
-            cacheProvider.put(path, result);
-
-            return result;
-
-        } else {
-
-            return cacheString;
+    public String readUrl(String path) throws Exception {
+        try {
+            String cacheString = cacheProvider.get(path);
+            if (cacheString == null) {
+                String result = null;
+                result = ionLoadUrl.load(path).setTimeout(TIMEOUT).asString().get();
+                cacheProvider.put(path, result);
+                return result;
+            } else {
+                return cacheString;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(context, "Network is not stable", Toast.LENGTH_SHORT).show();
+            throw new Exception();
         }
 
 
@@ -57,7 +62,7 @@ public class HttpService {
     public void loadImage(String url, final ImageView imageView, final ProgressBar progressBar) {
         try {
             if (url.isEmpty() || url.length() == 0) {
-                url = "http://etaal.gov.in/etaal/Image/news.png";
+                loadDefaultImage(imageView);
 
             }
 
@@ -72,8 +77,8 @@ public class HttpService {
 
                 @Override
                 public void onError() {
-                    imageView.setVisibility(GONE);
-//                         imageView.setImageResource(R.drawable.news);
+                    loadDefaultImage(imageView);
+
                     if (progressBar != null) {
 
                         progressBar.setVisibility(GONE);
@@ -86,6 +91,10 @@ public class HttpService {
         }
 
 
+    }
+
+    private void loadDefaultImage(ImageView imageView) {
+        picasso.load(DEFAULT_URL).into(imageView);
     }
 
 

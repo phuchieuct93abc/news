@@ -14,7 +14,6 @@ import org.androidannotations.annotations.RootContext;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 @EBean(scope = EBean.Scope.Singleton)
 public class CategoryService {
@@ -75,7 +74,7 @@ public class CategoryService {
 
     }
 
-    public List<Feed> getMoreFeed() throws ExecutionException, InterruptedException {
+    public List<Feed> getMoreFeed() throws Exception {
         List<Feed> result = new ArrayList<>();
         int beforeUpdateLength = listFeed.size();
 
