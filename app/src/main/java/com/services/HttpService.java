@@ -1,9 +1,9 @@
 package com.services;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.builder.Builders;
@@ -38,22 +38,32 @@ public class HttpService {
     }
 
 
-    public String readUrl(String path) throws Exception {
-        try {
-            String cacheString = cacheProvider.get(path);
-            if (cacheString == null) {
-                String result = null;
-                result = ionLoadUrl.load(path).setTimeout(TIMEOUT).asString().get();
-                cacheProvider.put(path, result);
-                return result;
-            } else {
-                return cacheString;
+    public String readUrl(String path, Boolean runInfinite) throws Exception {
+        Boolean run = true;
+        while (run) {
+            run = runInfinite;
+            Log.i("hieu run","run");
+            try {
+                String cacheString = cacheProvider.get(path);
+                if (cacheString == null) {
+                    String result = null;
+                    result = ionLoadUrl.load(path).setTimeout(TIMEOUT).asString().get();
+                    cacheProvider.put(path, result);
+                    return result;
+                } else {
+                    return cacheString;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                if(run){
+                    continue;
+                }else{
+                    throw new Exception();
+
+                }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(context, "Network is not stable", Toast.LENGTH_SHORT).show();
-            throw new Exception();
         }
+        return null;
 
 
     }
