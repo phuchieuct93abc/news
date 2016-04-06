@@ -11,15 +11,12 @@ import android.widget.TextView;
 import com.phuchieu.news.R;
 import com.squareup.picasso.Picasso;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.MalformedURLException;
-
 class LoadImage extends AsyncTask<Object, Void, Bitmap> {
     TextView textView;
     Context context;
     Point size;
     private LevelListDrawable mDrawable;
+
 
     public LoadImage(TextView textView, Context context, Point size) {
         this.textView = textView;
@@ -33,11 +30,8 @@ class LoadImage extends AsyncTask<Object, Void, Bitmap> {
         mDrawable = (LevelListDrawable) params[1];
         try {
             return Picasso.with(context.getApplicationContext()).load(source).error(R.drawable.news).get();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
+
             e.printStackTrace();
         }
         return null;

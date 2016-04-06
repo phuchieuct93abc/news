@@ -1,12 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/setting"
-        android:icon="@drawable/abc_ic_menu_share_mtrl_alpha"
-        android:title="Setting"
 
-
-        app:showAsAction="always" />
     <item
         android:id="@+id/share"
         android:icon="@drawable/abc_ic_menu_share_mtrl_alpha"

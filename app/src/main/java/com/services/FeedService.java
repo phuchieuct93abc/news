@@ -26,7 +26,7 @@ public class FeedService {
         link_request = LINK_FEED_CONTENT.replace("{ID}", id + "");
 
         String responseCategory;
-        responseCategory = httpService.readUrl(link_request,true);
+        responseCategory = httpService.readUrl(link_request);
         String contentHTML;
 
         JSONObject jObject = new JSONObject(responseCategory);

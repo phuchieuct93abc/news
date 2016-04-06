@@ -83,7 +83,7 @@ public class CategoryService {
             return listFeed;
         }
         String link = getCategoryURLWithIndex();
-        String responseCategory = httpService.readUrl(link,true);
+        String responseCategory = httpService.readUrl(link);
         Articlelist articlelist = new Gson().fromJson(responseCategory, Articlelist.class);
         if (responseCategory != null) {
             for (Feed feed : articlelist.getArticlelist()) {

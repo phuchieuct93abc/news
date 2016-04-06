@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     private void setVisibilityForAllItem(boolean visibility) {
         this.menu.getItem(0).setVisible(visibility);
         this.menu.getItem(1).setVisible(visibility);
-        this.menu.getItem(2).setVisible(visibility);
     }
 
     @Override
@@ -157,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             case android.R.id.home:
                 onBackPressed();
                 break;
-            case R.id.setting:
+            case R.id.share:
                 share();
                 break;
             case R.id.web:

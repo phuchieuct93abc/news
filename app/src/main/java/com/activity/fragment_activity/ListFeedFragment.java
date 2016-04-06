@@ -187,11 +187,14 @@ public class ListFeedFragment extends Fragment {
 
     @UiThread
     void setMoreDataList(List<Feed> rssItems, Runnable callback) {
-        if (!rssItems.isEmpty()) {
+        if (rssItems!=null && !rssItems.isEmpty()) {
             adapter.setMoreDataList(rssItems);
             if (listView.getAdapter() == null) listView.setAdapter(adapter);
             listView.mPtrFrameLayout.refreshComplete();
             if (callback != null) callback.run();
+
+        }else{
+            listView.mPtrFrameLayout.refreshComplete();
 
         }
 
@@ -212,6 +215,8 @@ public class ListFeedFragment extends Fragment {
 
 
         } catch (Exception e) {
+            setMoreDataList(null, callback);
+
             e.printStackTrace();
         }
 

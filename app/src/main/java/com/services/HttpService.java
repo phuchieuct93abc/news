@@ -38,11 +38,12 @@ public class HttpService {
     }
 
 
-    public String readUrl(String path, Boolean runInfinite) throws Exception {
-        Boolean run = true;
-        while (run) {
-            run = runInfinite;
-            Log.i("hieu run","run");
+    public String readUrl(String path) throws Exception {
+        Integer runningTime = 0;
+
+        while (runningTime <= 10) {
+            runningTime++;
+            Log.i("hieu run", "run");
             try {
                 String cacheString = cacheProvider.get(path);
                 if (cacheString == null) {
@@ -55,9 +56,9 @@ public class HttpService {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                if(run){
+                if (runningTime < 10) {
                     continue;
-                }else{
+                } else {
                     throw new Exception();
 
                 }
