@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.activity.FragmentEnum;
 import com.activity.ListFeedView.SimpleAnimationAdapter;
 import com.activity.ListFeedView.ViewHolder;
 import com.activity.MainActivityInterface;
@@ -241,6 +242,12 @@ public class ListFeedFragment extends Fragment {
         super.onAttach(activity);
         mainActivityInterface = (MainActivityInterface) activity;
         context = activity;
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        mainActivityInterface.setRunningFragment(FragmentEnum.LIST_FEED);
+
     }
 
 

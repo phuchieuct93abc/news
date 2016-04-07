@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import com.activity.FragmentEnum;
 import com.activity.MainActivityInterface;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.TypefaceProvider;
@@ -114,5 +115,10 @@ public class CaterogyFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mainActivityInterface.setRunningFragment(FragmentEnum.CATEROGY);
 
+    }
 }

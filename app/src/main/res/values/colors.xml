@@ -40,5 +40,6 @@
     <color name="background_material_dark">#ffffff</color>
     <color name="accent_material_dark">#020202</color>
     <color name="foreground_material_dark">#f70000</color>
+    <color name="secondary_text_material_dark">#ffffff</color>
 
 </resources> 

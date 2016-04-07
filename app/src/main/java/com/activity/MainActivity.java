@@ -7,9 +7,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.support.design.widget.AppBarLayout;
 
 import com.activity.FeedView.FeedViewActivity_;
 import com.activity.fragment_activity.CaterogyFragment_;
@@ -30,9 +32,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     final static String FEED_VIEW_FRAGMENT = "FeedViewFragment";
     @ViewById
     Toolbar toolbar;
+    @ViewById
+    AppBarLayout appBarLayout;
     Menu menu;
     Integer feedId;
     Feed feedOnView;
+    String category;
 
     @AfterViews
     public void init() {
@@ -52,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     @Override
     public void onCategorySelected(String category) {
-
+    this.category = category;
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left);
 
@@ -66,8 +71,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     }
 
     private void setVisibilityForAllItem(boolean visibility) {
-        this.menu.getItem(0).setVisible(visibility);
-        this.menu.getItem(1).setVisible(visibility);
+        if(this.menu==null)return;
+        for(int index=0;index<this.menu.size();index++){
+            this.menu.getItem(index).setVisible(visibility);
+
+        }
+
     }
 
     @Override
@@ -104,34 +113,46 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     }
 
-    private void onBack() {
-        try {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FeedViewActivity_ feedViewActivity_ = (FeedViewActivity_) fragmentManager.findFragmentByTag(FEED_VIEW_FRAGMENT);
-            CaterogyFragment_ caterogyFragment_ = (CaterogyFragment_) fragmentManager.findFragmentByTag(CATEGORY_FRAGMENT);
-
-            ListFeedFragment_ listFeedFragment_ = (ListFeedFragment_) fragmentManager.findFragmentByTag(LIST_FEED_FRAGMENT);
-
-            if (feedViewActivity_ != null && feedViewActivity_.isVisible()) {
-
-            } else if (caterogyFragment_ != null && caterogyFragment_.isVisible()) {
-
+    @Override
+    public void setRunningFragment(FragmentEnum fragment) {
+        switch(fragment){
+            case CATEROGY:
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 setVisibilityForAllItem(false);
 
-            } else if (listFeedFragment_ != null && listFeedFragment_.isVisible()) {
-                setVisibilityForAllItem(false);
-                listFeedFragment_.scrollToIndex(feedId);
+                getSupportActionBar().setTitle(null);
 
-            }
-        } catch (Exception e) {
+
+                break;
+            case LIST_FEED:
+                getSupportActionBar().setTitle(category);
+
+                if(feedId!=null){
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+
+                    ListFeedFragment_ listFeedFragment_ = (ListFeedFragment_) fragmentManager.findFragmentByTag(LIST_FEED_FRAGMENT);
+
+                    setVisibilityForAllItem(false);
+                    listFeedFragment_.scrollToIndex(feedId);
+                }
+                break;
+            case FEED:
+                setVisibilityForAllItem(true);
+                break;
+
+            default:
+                break;
+
+
         }
     }
+
+
 
     @Override
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() == 0) {
             super.onBackPressed();
-            onBack();
         } else {
             getFragmentManager().popBackStack();
         }
@@ -149,7 +170,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         i.setData(Uri.parse(feedOnView.getContentUrl()));
         startActivity(i);
     }
+    private void changeSize(){
 
+    }
+    private void changeColor(){
+
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -161,6 +187,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                 break;
             case R.id.web:
                 openSource();
+                break;
+            case R.id.size:
+                changeSize();
+                break;
+            case R.id.color:
+                changeColor();
                 break;
             default:
                 break;

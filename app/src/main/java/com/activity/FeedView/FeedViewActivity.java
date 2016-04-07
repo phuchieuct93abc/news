@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.activity.FragmentEnum;
 import com.activity.MainActivityInterface;
 import com.config.SharePreference;
 import com.model.Feed;
@@ -161,6 +162,12 @@ public class FeedViewActivity extends Fragment {
         if (darkBackground) {
             viewSwipe.setBackgroundColor(Color.parseColor("#23282A"));
         }
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        mainActivityInterface.setRunningFragment(FragmentEnum.FEED);
+
     }
 
 

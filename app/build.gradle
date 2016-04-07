@@ -6,6 +6,7 @@ buildscript {
         mavenCentral()
         jcenter()
 
+
     }
     dependencies {
         // replace with the current version of the Android plugin
@@ -74,4 +75,5 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.medyo:fancybuttons:1.5@aar'
     compile 'com.google.code.gson:gson:2.5'
+
 }

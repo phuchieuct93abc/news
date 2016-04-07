@@ -12,5 +12,6 @@ public interface MainActivityInterface {
     void onBackFeedList(Feed index);
 
     void feedOnView(Feed feed);
+    void setRunningFragment(FragmentEnum fragment);
 
 }
