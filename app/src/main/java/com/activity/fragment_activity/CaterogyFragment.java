@@ -3,6 +3,7 @@ package com.activity.fragment_activity;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TableLayout;
@@ -10,10 +11,6 @@ import android.widget.TableRow;
 
 import com.activity.FragmentEnum;
 import com.activity.MainActivityInterface;
-import com.beardedhen.androidbootstrap.BootstrapButton;
-import com.beardedhen.androidbootstrap.TypefaceProvider;
-import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
-import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
 import com.model.Category;
 import com.phuchieu.news.R;
 import com.services.CategoryService;
@@ -71,21 +68,14 @@ public class CaterogyFragment extends Fragment {
     }
 
     private void setClickListenerForButton() {
-        TypefaceProvider.registerDefaultIconSets();
 
         for (int x = 0; x < table.getChildCount(); x++) {
             TableRow row = (TableRow) table.getChildAt(x);
             for (int y = 0; y < row.getChildCount(); y++) {
-                BootstrapButton button = (BootstrapButton) row.getChildAt(y);
+                AppCompatButton button = (AppCompatButton) row.getChildAt(y);
                 int index = 2 * x + y;
                 Tile tile = tiles.get(index);
                 button.setText(tile.getTitle());
-                button.setBootstrapSize(DefaultBootstrapSize.MD);
-                button.setBootstrapBrand(DefaultBootstrapBrand.REGULAR);
-//                button.setFontAwesomeIcon(tile.getIcon());
-
-
-//                button.setBootstrapType(tile.getType());
                 View.OnClickListener initialOnClickListener = initialOnClickListener(tile.getCaterogi());
                 button.setOnClickListener(initialOnClickListener);
 
@@ -99,7 +89,7 @@ public class CaterogyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 categoryService.setListId(category);
-                mainActivityInterface.onCategorySelected(((BootstrapButton) v).getText().toString());
+                mainActivityInterface.onCategorySelected(((AppCompatButton) v).getText().toString());
 
             }
         };
