@@ -3,23 +3,23 @@
     <item
         android:id="@+id/color"
         android:title="Sort by newest"
-        android:icon="@android:drawable/ic_menu_share"
+        android:icon="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"
 
         app:showAsAction="always" />
     <item
         android:id="@+id/size"
-        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:icon="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"
 
         android:title="Sort by rating"
         app:showAsAction="always" />
     <item
         android:id="@+id/share"
-        android:icon="@android:drawable/ic_menu_share"
+        android:icon="@drawable/abc_ic_menu_share_mtrl_alpha"
         android:title="Share"
         app:showAsAction="always" />
     <item
         android:id="@+id/web"
-        android:icon="@android:drawable/ic_menu_search"
+        android:icon="@drawable/abc_ic_search_api_mtrl_alpha"
         android:title="Web"
         app:showAsAction="always" />
 

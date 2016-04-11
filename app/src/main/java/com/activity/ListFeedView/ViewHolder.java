@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.balysv.materialripple.MaterialRippleLayout;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerviewViewHolder;
 import com.model.Feed;
 import com.phuchieu.news.R;
@@ -15,6 +16,7 @@ public class ViewHolder extends UltimateRecyclerviewViewHolder implements View.O
     Feed feed;
     OnClickListener onClickListener;
     ProgressBar progressBar;
+    MaterialRippleLayout materialRippleLayout;
 
 
     public ViewHolder(View itemView) {
@@ -22,7 +24,9 @@ public class ViewHolder extends UltimateRecyclerviewViewHolder implements View.O
         title = (TextView) itemView.findViewById(R.id.title);
         imageView = (ImageView) itemView.findViewById((R.id.imageView));
         progressBar = (ProgressBar) itemView.findViewById(R.id.progress_bar);
-        itemView.setOnClickListener(this);
+        materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
+        materialRippleLayout.setOnClickListener(this);
+        //itemView.setOnClickListener(this);
 
 
     }

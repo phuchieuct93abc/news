@@ -34,7 +34,7 @@
 
     </style>
     <style name="MyButton">
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">15dp</item>
     </style>
 
 
