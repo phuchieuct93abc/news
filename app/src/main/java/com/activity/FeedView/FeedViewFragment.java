@@ -3,6 +3,7 @@ package com.activity.FeedView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
@@ -10,12 +11,14 @@ import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.config.Config_;
 import com.config.SharePreference;
 import com.model.Feed;
 import com.phuchieu.news.R;
@@ -23,12 +26,14 @@ import com.services.FeedService;
 import com.services.HttpService;
 
 import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 @SuppressLint("SetJavaScriptEnabled")
 @EFragment(R.layout.view)
@@ -45,10 +50,15 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     HttpService httpService;
     @ViewById
     LinearLayout actionButtons;
+    @Pref
+    Config_ myPrefs;
+
 
 
     Feed feed;
     Boolean darkBackground;
+
+
     @Bean
     FeedService feedService;
     private String TAG = "FeedViewFragment";
@@ -119,6 +129,11 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         darkBackground = new SharePreference(context).getBooleanValue(SharePreference.DARK_BACKGROUND);
         initializeSetting();
         runBackground();
+
+    }
+    @AfterViews
+    void afterView(){
+        applyColor();
     }
 
 
@@ -136,5 +151,17 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
 
         return d;
     }
+    public void applyColor(){
+        Boolean blackColor = myPrefs.darkBackground().get();
+        if(blackColor){
+            Log.i("hieu","change color");
+            textViewContent.setTextColor(Color.parseColor("#FFFFFF"));
+            textViewContent.setBackgroundColor(Color.parseColor("#000000"));
+        }else{
+            textViewContent.setTextColor(Color.parseColor("#000000"));
+            textViewContent.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        }
+    }
+
 
 }

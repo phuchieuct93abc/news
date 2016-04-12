@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.activity.FragmentEnum;
 import com.activity.MainActivityInterface;
+import com.config.Config_;
 import com.config.SharePreference;
 import com.model.Feed;
 import com.phuchieu.news.R;
@@ -23,6 +24,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.List;
 
@@ -46,6 +48,9 @@ public class FeedViewActivity extends Fragment {
     int currentIndexOfFeed;
     int indexOfFragment;
     Context context;
+    Fragment selectedPage;
+    @Pref
+    Config_ config;
 
 
     @Override
@@ -90,11 +95,13 @@ public class FeedViewActivity extends Fragment {
         pagerAdapter.setItem(selectedId);
         pager.setAdapter(pagerAdapter);
 
+
         OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
 
             @Override
             public void onPageSelected(int arg0) {
                 try {
+
                     Feed currentFeed = categoryService.getListFeed().get(arg0);
 
                     currentIndexOfFeed = arg0;
@@ -163,10 +170,32 @@ public class FeedViewActivity extends Fragment {
             viewSwipe.setBackgroundColor(Color.parseColor("#23282A"));
         }
     }
+    public void changeColor(){
+        List<Fragment> fragments = pagerAdapter.getRegisteredFragment();
+        Boolean blackColor = config.darkBackground().get();
+        config.edit().darkBackground().put(!blackColor).apply();
+        for(Fragment fragment:fragments){
+
+
+
+            ((FeedViewFragment_)fragment).applyColor();
+
+
+
+        }
+
+    }
     @Override
     public void onStart() {
         super.onStart();
         mainActivityInterface.setRunningFragment(FragmentEnum.FEED);
+        mainActivityInterface.changeColor(new Runnable() {
+            @Override
+            public void run() {
+                changeColor();
+            }
+        });
+
 
     }
 

@@ -14,6 +14,7 @@ import android.view.View;
 import android.support.design.widget.AppBarLayout;
 
 import com.activity.FeedView.FeedViewActivity_;
+import com.activity.FeedView.FeedViewFragment_;
 import com.activity.fragment_activity.CaterogyFragment_;
 import com.activity.fragment_activity.ListFeedFragment;
 import com.activity.fragment_activity.ListFeedFragment_;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     Integer feedId;
     Feed feedOnView;
     String category;
+    Runnable changeColor;
+    Runnable changeTextSize;
 
     @AfterViews
     public void init() {
@@ -147,6 +150,16 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         }
     }
 
+    @Override
+    public void changeColor(Runnable runnable) {
+        this.changeColor= runnable;
+    }
+
+    @Override
+    public void changeTextSize(Runnable runnable) {
+        this.changeTextSize = runnable;
+
+    }
 
 
     @Override
@@ -171,10 +184,19 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         startActivity(i);
     }
     private void changeSize(){
+        if(changeTextSize!=null){
+            changeTextSize.run();
+        }
+
+
+
 
     }
     private void changeColor(){
+        if(changeColor!=null){
+            changeColor.run();
 
+        }
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

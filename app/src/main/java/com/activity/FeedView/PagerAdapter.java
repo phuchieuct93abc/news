@@ -3,6 +3,7 @@ package com.activity.FeedView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.view.ViewGroup;
 
 import com.model.Feed;
 
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class PagerAdapter extends FragmentStatePagerAdapter {
+    List<Fragment> registeredFragments = new ArrayList<>();
 
     Feed item;
     List<Feed> listFeed = new ArrayList<>();
@@ -54,5 +56,22 @@ class PagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         return listFeed.get(position).getSourceName();
     }
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        Fragment fragment = (Fragment) super.instantiateItem(container, position);
+        registeredFragments.add( fragment);
+        return fragment;
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        registeredFragments.remove(object);
+        super.destroyItem(container, position, object);
+    }
+
+    public List<Fragment> getRegisteredFragment() {
+        return registeredFragments;
+    }
+
 
 }

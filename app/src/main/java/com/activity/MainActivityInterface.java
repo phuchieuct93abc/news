@@ -13,5 +13,7 @@ public interface MainActivityInterface {
 
     void feedOnView(Feed feed);
     void setRunningFragment(FragmentEnum fragment);
+    void changeColor(Runnable runnable);
+    void changeTextSize(Runnable runnable);
 
 }
