@@ -155,11 +155,11 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         Boolean blackColor = myPrefs.darkBackground().get();
         if(blackColor){
             Log.i("hieu","change color");
-            textViewContent.setTextColor(Color.parseColor("#FFFFFF"));
-            textViewContent.setBackgroundColor(Color.parseColor("#000000"));
+            textViewContent.setTextColor(Color.parseColor("#EEEEEE"));
+            textViewContent.setBackgroundColor(Color.parseColor("#2B2B2B"));
         }else{
-            textViewContent.setTextColor(Color.parseColor("#000000"));
-            textViewContent.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            textViewContent.setTextColor(Color.parseColor("#2B2B2B"));
+            textViewContent.setBackgroundColor(Color.parseColor("#EEEEEE"));
         }
     }
 
