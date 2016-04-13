@@ -29,7 +29,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import java.util.List;
 
 @EFragment(R.layout.view_swipe)
-public class FeedViewActivity extends Fragment {
+public class FeedViewActivity extends Fragment implements OnPageChangeListener {
     MainActivityInterface mainActivityInterface;
     @Bean
     FeedService feedService;
@@ -48,7 +48,6 @@ public class FeedViewActivity extends Fragment {
     int currentIndexOfFeed;
     int indexOfFragment;
     Context context;
-    Fragment selectedPage;
     @Pref
     Config_ config;
 
@@ -95,44 +94,7 @@ public class FeedViewActivity extends Fragment {
         pagerAdapter.setItem(selectedId);
         pager.setAdapter(pagerAdapter);
 
-
-        OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
-
-            @Override
-            public void onPageSelected(int arg0) {
-                try {
-
-                    Feed currentFeed = categoryService.getListFeed().get(arg0);
-
-                    currentIndexOfFeed = arg0;
-                    mainActivityInterface.onBackFeedList(currentFeed);
-
-
-                    currentFeed.setIsRead(context);
-                    mainActivityInterface.feedOnView(categoryService.getListFeed().get(arg0));
-                    indexOfFragment = arg0;
-                    if (arg0 == pagerAdapter.getCount() - 1) {
-                        loadMoreData();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
-
-            }
-        };
-        pager.addOnPageChangeListener(onPageChangeListener);
+        pager.addOnPageChangeListener(this);
         setSelectedPage(categoryService.getIndexInCaterogyById(selectedId.getContentID()));
         feedService.setRead(selectedId.getContentID() + "");
     }
@@ -200,4 +162,35 @@ public class FeedViewActivity extends Fragment {
     }
 
 
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        try {
+
+            Feed currentFeed = categoryService.getListFeed().get(position);
+
+            currentIndexOfFeed = position;
+            mainActivityInterface.onBackFeedList(currentFeed);
+
+
+            currentFeed.setIsRead(context);
+            mainActivityInterface.feedOnView(categoryService.getListFeed().get(position));
+            indexOfFragment = position;
+            if (position == pagerAdapter.getCount() - 1) {
+                loadMoreData();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
 }
