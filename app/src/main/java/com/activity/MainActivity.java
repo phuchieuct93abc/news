@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         layouut.addView(seek);
         layouut.addView(demoText);
         seek.setMax(100);
-        seek.set
 
         popDialog.setIcon(android.R.drawable.btn_star_big_on);
         popDialog.setTitle("Please Select Rank 1-100 ");
