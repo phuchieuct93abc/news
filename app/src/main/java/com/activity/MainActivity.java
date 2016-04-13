@@ -1,20 +1,24 @@
 package com.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.support.design.widget.AppBarLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.activity.FeedView.FeedViewActivity_;
-import com.activity.FeedView.FeedViewFragment_;
 import com.activity.fragment_activity.CaterogyFragment_;
 import com.activity.fragment_activity.ListFeedFragment;
 import com.activity.fragment_activity.ListFeedFragment_;
@@ -41,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     String category;
     Runnable changeColor;
     Runnable changeTextSize;
+    AlertDialog.Builder popDialog;
 
     @AfterViews
     public void init() {
@@ -49,14 +54,61 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //Prepare textSizePopup
+        ShowDialog();
+
 
 
     }
+    public void ShowDialog()
+    {
+        popDialog = new AlertDialog.Builder(this);
+        final SeekBar seek = new SeekBar(this);
+        final TextView demoText = new TextView(this);
+        demoText.setText("Demo");
+        final LinearLayout layouut = new LinearLayout(this);
+        layouut.setOrientation(LinearLayout.VERTICAL);
+        layouut.addView(seek);
+        layouut.addView(demoText);
+        seek.setMax(100);
+        seek.set
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+        popDialog.setIcon(android.R.drawable.btn_star_big_on);
+        popDialog.setTitle("Please Select Rank 1-100 ");
+        popDialog.setView(layouut);
+
+        seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+                demoText.setTextSize(progress);
+            }
+
+            public void onStartTrackingTouch(SeekBar arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
+
+        // Button OK
+        popDialog.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+
+                });
+
+
+        popDialog.create();
+
     }
+
+
 
     @Override
     public void onCategorySelected(String category) {
@@ -184,9 +236,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         startActivity(i);
     }
     private void changeSize(){
-        if(changeTextSize!=null){
-            changeTextSize.run();
-        }
+
+            popDialog.show();
+
+
 
 
 

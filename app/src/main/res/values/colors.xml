@@ -42,4 +42,7 @@
     <color name="foreground_material_dark">#f70000</color>
     <color name="secondary_text_material_dark">#ffffff</color>
 
+    <color name="dark">#2B2B2B</color>
+    <color name="light">#EEEEEE</color>
+
 </resources> 

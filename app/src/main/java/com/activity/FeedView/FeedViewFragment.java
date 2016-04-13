@@ -1,9 +1,6 @@
 package com.activity.FeedView;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
@@ -11,7 +8,6 @@ import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,7 +15,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.config.Config_;
-import com.config.SharePreference;
 import com.model.Feed;
 import com.phuchieu.news.R;
 import com.services.FeedService;
@@ -35,7 +30,6 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
-@SuppressLint("SetJavaScriptEnabled")
 @EFragment(R.layout.view)
 public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     @ViewById
@@ -56,7 +50,6 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
 
 
     Feed feed;
-    Boolean darkBackground;
 
 
     @Bean
@@ -90,8 +83,6 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     void initializeSetting() {
         httpService.loadImage(feed.getLandscapeAvatar(), imageView, progressBar);
         title.setText(feed.getTitle());
-
-
     }
 
 
@@ -125,8 +116,6 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
 
     @AfterInject
     void bindLinkToView() {
-        Context context = getActivity().getApplicationContext();
-        darkBackground = new SharePreference(context).getBooleanValue(SharePreference.DARK_BACKGROUND);
         initializeSetting();
         runBackground();
 
@@ -141,7 +130,6 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     public Drawable getDrawable(String s) {
         LevelListDrawable d = new LevelListDrawable();
         try {
-
             Point size = new Point();
             getActivity().getWindowManager().getDefaultDisplay().getSize(size);
             new LoadImage(textViewContent, getActivity().getApplicationContext(), size).execute(s, d);
@@ -153,14 +141,19 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     }
     public void applyColor(){
         Boolean blackColor = myPrefs.darkBackground().get();
+        int textColor;
+        int backgroundColor ;
         if(blackColor){
-            Log.i("hieu","change color");
-            textViewContent.setTextColor(Color.parseColor("#EEEEEE"));
-            textViewContent.setBackgroundColor(Color.parseColor("#2B2B2B"));
+             textColor = getResources().getColor(R.color.light);
+             backgroundColor = getResources().getColor(R.color.dark);
         }else{
-            textViewContent.setTextColor(Color.parseColor("#2B2B2B"));
-            textViewContent.setBackgroundColor(Color.parseColor("#EEEEEE"));
+             textColor = getResources().getColor(R.color.dark);
+             backgroundColor = getResources().getColor(R.color.light);
         }
+        textViewContent.setTextColor(textColor);
+        textViewContent.setBackgroundColor(backgroundColor);
+
+
     }
 
 
