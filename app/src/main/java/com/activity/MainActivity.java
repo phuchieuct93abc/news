@@ -5,19 +5,23 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import com.ModalBottomSheet;
 import com.activity.FeedView.FeedViewActivity_;
 import com.activity.fragment_activity.CaterogyFragment_;
 import com.activity.fragment_activity.ListFeedFragment;
@@ -25,6 +29,7 @@ import com.activity.fragment_activity.ListFeedFragment_;
 import com.model.Feed;
 import com.phuchieu.news.R;
 
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -38,7 +43,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     @ViewById
     Toolbar toolbar;
     @ViewById
+    Switch switchDarkMode;
+    @ViewById
     AppBarLayout appBarLayout;
+    @ViewById
+    DiscreteSeekBar seekTextsize;
+
     Menu menu;
     Integer feedId;
     Feed feedOnView;
@@ -46,6 +56,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     Runnable changeColor;
     Runnable changeTextSize;
     AlertDialog.Builder popDialog;
+    private BottomSheetBehavior mBottomSheetBehavior;
+    ModalBottomSheet modalBottomSheet = new ModalBottomSheet();
+
+
 
     @AfterViews
     public void init() {
@@ -59,25 +73,31 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
 
 
+
+
+
+
+
     }
-    public void ShowDialog()
-    {
+
+    public void ShowDialog() {
         popDialog = new AlertDialog.Builder(this);
         final SeekBar seek = new SeekBar(this);
+
         final TextView demoText = new TextView(this);
-        demoText.setText("Demo");
+        demoText.setText("Loremipsum");
         final LinearLayout layouut = new LinearLayout(this);
         layouut.setOrientation(LinearLayout.VERTICAL);
         layouut.addView(seek);
         layouut.addView(demoText);
-        seek.setMax(100);
+        seek.setMax(3);
 
         popDialog.setIcon(android.R.drawable.btn_star_big_on);
-        popDialog.setTitle("Please Select Rank 1-100 ");
+        popDialog.setTitle("Please Select Rank 1-3 ");
         popDialog.setView(layouut);
 
         seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 demoText.setTextSize(progress);
             }
 
@@ -108,10 +128,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     }
 
 
-
     @Override
     public void onCategorySelected(String category) {
-    this.category = category;
+        this.category = category;
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left);
 
@@ -125,8 +144,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     }
 
     private void setVisibilityForAllItem(boolean visibility) {
-        if(this.menu==null)return;
-        for(int index=0;index<this.menu.size();index++){
+        if (this.menu == null) return;
+        for (int index = 0; index < this.menu.size(); index++) {
             this.menu.getItem(index).setVisible(visibility);
 
         }
@@ -169,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     @Override
     public void setRunningFragment(FragmentEnum fragment) {
-        switch(fragment){
+        switch (fragment) {
             case CATEROGY:
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 setVisibilityForAllItem(false);
@@ -181,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             case LIST_FEED:
                 getSupportActionBar().setTitle(category);
 
-                if(feedId!=null){
+                if (feedId != null) {
                     FragmentManager fragmentManager = getSupportFragmentManager();
 
                     ListFeedFragment_ listFeedFragment_ = (ListFeedFragment_) fragmentManager.findFragmentByTag(LIST_FEED_FRAGMENT);
@@ -203,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     @Override
     public void changeColor(Runnable runnable) {
-        this.changeColor= runnable;
+        this.changeColor = runnable;
     }
 
     @Override
@@ -234,22 +253,21 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         i.setData(Uri.parse(feedOnView.getContentUrl()));
         startActivity(i);
     }
-    private void changeSize(){
 
-            popDialog.show();
+    public void changeSize() {
 
-
-
-
+        popDialog.show();
 
 
     }
-    private void changeColor(){
-        if(changeColor!=null){
+
+    public void changeColor() {
+        if (changeColor != null) {
             changeColor.run();
 
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -262,12 +280,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             case R.id.web:
                 openSource();
                 break;
-            case R.id.size:
-                changeSize();
+            case R.id.setting:
+
+                modalBottomSheet.show(getSupportFragmentManager(), "bottom sheet");
+
                 break;
-            case R.id.color:
-                changeColor();
-                break;
+
             default:
                 break;
         }
