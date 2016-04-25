@@ -1,4 +1,4 @@
-package com;
+package com.activity.Fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -14,13 +14,13 @@ import com.phuchieu.news.R;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
-public class ModalBottomSheet
+public class DisplaySettingBottomSheet
         extends BottomSheetDialogFragment implements DiscreteSeekBar.OnProgressChangeListener {
     MainActivityInterface mainActivityInterface;
     Boolean isDarkMode;
     int textSize;
 
-     public ModalBottomSheet(Boolean isDarkMode,int textSize){
+     public DisplaySettingBottomSheet(Boolean isDarkMode, int textSize){
       this.isDarkMode = isDarkMode;
          this.textSize = textSize;
          Log.i("hieu",isDarkMode+"  "+textSize);

@@ -1,28 +1,21 @@
 package com.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.SeekBar;
 import android.widget.Switch;
-import android.widget.TextView;
 
-import com.ModalBottomSheet;
 import com.activity.FeedView.FeedViewActivity_;
+import com.activity.Fragments.DisplaySettingBottomSheet;
 import com.activity.fragment_activity.CaterogyFragment_;
 import com.activity.fragment_activity.ListFeedFragment;
 import com.activity.fragment_activity.ListFeedFragment_;
@@ -61,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     String category;
     Runnable changeColor;
     Runnable changeTextSize;
-    ModalBottomSheet modalBottomSheet ;
+    DisplaySettingBottomSheet displaySettingBottomSheet;
 
 
 
@@ -89,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     public void onCategorySelected(String category) {
         this.category = category;
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left);
+        fragmentTransaction.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left,R.animator.slide_in_left, R.animator.slide_out_right);
 
         ListFeedFragment sharedElementFragment1 = new ListFeedFragment_();
 
@@ -121,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     private void startFeedViewFragment(Bundle bundle, View v) {
         FeedViewActivity_ sharedElementFragment2 = new FeedViewActivity_();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left);
+        fragmentTransaction.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left,R.animator.slide_in_left, R.animator.slide_out_right);
         sharedElementFragment2.setArguments(bundle);
         fragmentTransaction
                 .replace(R.id.fragment, sharedElementFragment2, FEED_VIEW_FRAGMENT)
@@ -189,14 +182,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
 
 
-    @Override
-    public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() == 0) {
-            super.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
-        }
-    }
 
     private void share() {
         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
@@ -247,8 +232,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             case R.id.setting:
                 Boolean isDarkmode = config.darkBackground().get();
                 int textSize = config.textSize().get();
-                modalBottomSheet = new ModalBottomSheet(isDarkmode,textSize);
-                modalBottomSheet.show(getSupportFragmentManager(), "bottom sheet");
+                displaySettingBottomSheet = new DisplaySettingBottomSheet(isDarkmode,textSize);
+                displaySettingBottomSheet.show(getSupportFragmentManager(), "bottom sheet");
 
                 break;
 

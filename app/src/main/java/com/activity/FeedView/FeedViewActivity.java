@@ -118,8 +118,6 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
             currentIndexOfFeed = index;
             categoryService.getListFeed().get(index).setIsRead(context);
             setDataList(categoryService.getListFeed());
-
-
             setBackgroundColor();
         } catch (Exception e) {
             e.printStackTrace();
@@ -134,29 +132,15 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
     }
     public void changeColor(){
         List<Fragment> fragments = pagerAdapter.getRegisteredFragment();
-
         for(Fragment fragment:fragments){
-
-
-
             ((FeedViewFragment_)fragment).applyColor();
-
-
-
         }
 
     }
     public void changeTextSize(){
         List<Fragment> fragments = pagerAdapter.getRegisteredFragment();
-
         for(Fragment fragment:fragments){
-
-
-
             ((FeedViewFragment_)fragment).applyTextsize();
-
-
-
         }
 
     }
@@ -176,8 +160,6 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
                 changeTextSize();
             }
         });
-
-
     }
 
 
