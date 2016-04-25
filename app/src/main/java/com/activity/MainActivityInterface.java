@@ -15,7 +15,7 @@ public interface MainActivityInterface {
     void setRunningFragment(FragmentEnum fragment);
     void changeColor(Runnable runnable);
     void changeTextSize(Runnable runnable);
-    void changeSize();
-    void changeColor();
+    void changeSize(int textSize);
+    void changeColor(boolean isDarkMode);
 
 }

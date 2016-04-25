@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -123,6 +124,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     @AfterViews
     void afterView(){
         applyColor();
+        applyTextsize();
     }
 
 
@@ -143,6 +145,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         Boolean blackColor = myPrefs.darkBackground().get();
         int textColor;
         int backgroundColor ;
+        Log.i("hieu",blackColor+"");
         if(blackColor){
              textColor = getResources().getColor(R.color.light);
              backgroundColor = getResources().getColor(R.color.dark);
@@ -153,6 +156,12 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         textViewContent.setTextColor(textColor);
         textViewContent.setBackgroundColor(backgroundColor);
 
+
+    }
+
+    public void applyTextsize(){
+        int textSize = myPrefs.textSize().get();
+        textViewContent.setTextSize((float)textSize*5+14);
 
     }
 

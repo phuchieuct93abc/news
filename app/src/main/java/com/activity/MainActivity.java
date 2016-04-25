@@ -26,6 +26,7 @@ import com.activity.FeedView.FeedViewActivity_;
 import com.activity.fragment_activity.CaterogyFragment_;
 import com.activity.fragment_activity.ListFeedFragment;
 import com.activity.fragment_activity.ListFeedFragment_;
+import com.config.Config_;
 import com.model.Feed;
 import com.phuchieu.news.R;
 
@@ -33,6 +34,7 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 @EActivity(R.layout.activity_main2)
 public class MainActivity extends AppCompatActivity implements MainActivityInterface {
@@ -47,7 +49,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     @ViewById
     AppBarLayout appBarLayout;
     @ViewById
+    AppBarLayout appBar;
+    @ViewById
     DiscreteSeekBar seekTextsize;
+    @Pref
+    Config_ config;
 
     Menu menu;
     Integer feedId;
@@ -55,9 +61,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     String category;
     Runnable changeColor;
     Runnable changeTextSize;
-    AlertDialog.Builder popDialog;
-    private BottomSheetBehavior mBottomSheetBehavior;
-    ModalBottomSheet modalBottomSheet = new ModalBottomSheet();
+    ModalBottomSheet modalBottomSheet ;
 
 
 
@@ -68,8 +72,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //Prepare textSizePopup
-        ShowDialog();
 
 
 
@@ -80,52 +82,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     }
 
-    public void ShowDialog() {
-        popDialog = new AlertDialog.Builder(this);
-        final SeekBar seek = new SeekBar(this);
 
-        final TextView demoText = new TextView(this);
-        demoText.setText("Loremipsum");
-        final LinearLayout layouut = new LinearLayout(this);
-        layouut.setOrientation(LinearLayout.VERTICAL);
-        layouut.addView(seek);
-        layouut.addView(demoText);
-        seek.setMax(3);
-
-        popDialog.setIcon(android.R.drawable.btn_star_big_on);
-        popDialog.setTitle("Please Select Rank 1-3 ");
-        popDialog.setView(layouut);
-
-        seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                demoText.setTextSize(progress);
-            }
-
-            public void onStartTrackingTouch(SeekBar arg0) {
-                // TODO Auto-generated method stub
-
-            }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-
-            }
-        });
-
-
-        // Button OK
-        popDialog.setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-
-                });
-
-
-        popDialog.create();
-
-    }
 
 
     @Override
@@ -192,9 +149,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             case CATEROGY:
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 setVisibilityForAllItem(false);
-
                 getSupportActionBar().setTitle(null);
-
+                appBar.setExpanded(true);
 
                 break;
             case LIST_FEED:
@@ -232,6 +188,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     }
 
 
+
     @Override
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() == 0) {
@@ -254,19 +211,26 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         startActivity(i);
     }
 
-    public void changeSize() {
 
-        popDialog.show();
+    @Override
+    public void changeSize(int textSize) {
+        config.edit().textSize().put(textSize).apply();
+        if (changeTextSize != null) {
+            changeTextSize.run();
 
-
+        }
     }
 
-    public void changeColor() {
+    @Override
+    public void changeColor(boolean isDarkMode) {
+        config.edit().darkBackground().put(isDarkMode).apply();
         if (changeColor != null) {
             changeColor.run();
 
         }
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -281,7 +245,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                 openSource();
                 break;
             case R.id.setting:
-
+                Boolean isDarkmode = config.darkBackground().get();
+                int textSize = config.textSize().get();
+                modalBottomSheet = new ModalBottomSheet(isDarkmode,textSize);
                 modalBottomSheet.show(getSupportFragmentManager(), "bottom sheet");
 
                 break;

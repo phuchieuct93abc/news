@@ -134,13 +134,26 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
     }
     public void changeColor(){
         List<Fragment> fragments = pagerAdapter.getRegisteredFragment();
-        Boolean blackColor = config.darkBackground().get();
-        config.edit().darkBackground().put(!blackColor).apply();
+
         for(Fragment fragment:fragments){
 
 
 
             ((FeedViewFragment_)fragment).applyColor();
+
+
+
+        }
+
+    }
+    public void changeTextSize(){
+        List<Fragment> fragments = pagerAdapter.getRegisteredFragment();
+
+        for(Fragment fragment:fragments){
+
+
+
+            ((FeedViewFragment_)fragment).applyTextsize();
 
 
 
@@ -155,6 +168,12 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
             @Override
             public void run() {
                 changeColor();
+            }
+        });
+        mainActivityInterface.changeTextSize(new Runnable() {
+            @Override
+            public void run() {
+                changeTextSize();
             }
         });
 
