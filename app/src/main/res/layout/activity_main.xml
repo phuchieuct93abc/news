@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffffff">
 
 
     <com.marshalchen.ultimaterecyclerview.CustomUltimateRecyclerview xmlns:android="http://schemas.android.com/apk/res/android"
@@ -9,9 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/imageView"
+        android:background="#ffffff"
         app:recyclerviewClipToPadding="true"
-        app:recyclerviewPadding="2dp"
 
+        app:recyclerviewPadding="2dp"
         app:recyclerviewScrollbars="vertical" />
 
 </RelativeLayout>

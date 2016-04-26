@@ -22,14 +22,14 @@ import static android.view.View.GONE;
 
 @EBean(scope = EBean.Scope.Singleton)
 public class HttpService {
-    private final static int TIMEOUT = 2000;
+    private final static int TIMEOUT = 3000;
+    private static String DEFAULT_URL = "http://etaal.gov.in/etaal/Image/news.png";
     @RootContext
     Context context;
     @Bean
     CacheProvider cacheProvider;
     LoadBuilder<Builders.Any.B> ionLoadUrl;
     Picasso picasso;
-    private static String DEFAULT_URL = "http://etaal.gov.in/etaal/Image/news.png";
 
     @AfterInject
     public void initIon() {

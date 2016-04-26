@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.phuchieu.news.R;
 import com.squareup.picasso.Picasso;
 
-class LoadImage extends AsyncTask<Object, Void, Bitmap> {
+public class LoadImage extends AsyncTask<Object, Void, Bitmap> {
     TextView textView;
     Context context;
     Point size;
