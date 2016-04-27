@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.activity.FragmentEnum;
 import com.activity.ListFeedView.SimpleAnimationAdapter;
@@ -53,6 +56,8 @@ public class ListFeedFragment extends Fragment {
     Integer scrollPosition = null;
     @Bean
     CacheProvider cacheProvider;
+    @ViewById
+    RelativeLayout progress_bar_loading_news;
 
     @AfterInject
     void afterInject() {
@@ -61,6 +66,10 @@ public class ListFeedFragment extends Fragment {
         initData(new Runnable() {
             @Override
             public void run() {
+                if (listView.getAdapter() == null) listView.setAdapter(adapter);
+                progress_bar_loading_news.setVisibility(View.GONE);
+                listView.setVisibility(View.VISIBLE);
+
                 listView.scrollVerticallyTo(0);
             }
         });
@@ -130,6 +139,7 @@ public class ListFeedFragment extends Fragment {
                 initData(new Runnable() {
                     @Override
                     public void run() {
+                        Log.i("hieuscroll","scroll to 0");
                         listView.scrollVerticallyTo(0);
                     }
                 });
@@ -181,9 +191,15 @@ public class ListFeedFragment extends Fragment {
 
     @UiThread
     void setDataList(List<Feed> rssItems) {
+    if(rssItems.size()>0){
+        progress_bar_loading_news.setVisibility(View.GONE);
+        listView.setVisibility(View.VISIBLE);
+    }
+
         adapter.setDataList(rssItems);
         if (listView.getAdapter() == null) listView.setAdapter(adapter);
         listView.mPtrFrameLayout.refreshComplete();
+
     }
 
     @UiThread
@@ -192,12 +208,13 @@ public class ListFeedFragment extends Fragment {
             adapter.setMoreDataList(rssItems);
             if (listView.getAdapter() == null) listView.setAdapter(adapter);
             listView.mPtrFrameLayout.refreshComplete();
-            if (callback != null) callback.run();
 
         }else{
             listView.mPtrFrameLayout.refreshComplete();
 
         }
+        if (callback != null) callback.run();
+
 
     }
 

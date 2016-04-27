@@ -84,6 +84,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     void initializeSetting() {
         httpService.loadImage(feed.getLandscapeAvatar(), imageView, progressBar);
         title.setText(feed.getTitle());
+
     }
 
 

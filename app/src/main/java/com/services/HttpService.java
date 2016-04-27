@@ -2,6 +2,7 @@ package com.services;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -16,13 +17,11 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
-import java.util.Date;
 
-import static android.view.View.GONE;
 
 @EBean(scope = EBean.Scope.Singleton)
 public class HttpService {
-    private final static int TIMEOUT = 3000;
+    private final static int TIMEOUT = 2000;
     private static String DEFAULT_URL = "http://etaal.gov.in/etaal/Image/news.png";
     @RootContext
     Context context;
@@ -43,12 +42,11 @@ public class HttpService {
 
         while (runningTime <= 10) {
             runningTime++;
-            Log.i("hieu run", "run");
             try {
                 String cacheString = cacheProvider.get(path);
                 if (cacheString == null) {
                     String result = null;
-                    result = ionLoadUrl.load(path).setTimeout(TIMEOUT).asString().get();
+                    result = ionLoadUrl.load(path).asString().get();
                     cacheProvider.put(path, result);
                     return result;
                 } else {
@@ -72,16 +70,27 @@ public class HttpService {
 
     public void loadImage(String url, final ImageView imageView, final ProgressBar progressBar) {
         try {
+
             if (url.isEmpty() || url.length() == 0) {
+
                 loadDefaultImage(imageView);
+                progressBar.setVisibility(View.GONE);
+                return;
+
 
             }
+
+            //center
+            //center inside
+            //center crop
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
 
             picasso.load(url).into(imageView, new Callback() {
                 @Override
                 public void onSuccess() {
                     if (progressBar != null) {
-                        progressBar.setVisibility(GONE);
+                        progressBar.setVisibility(View.GONE);
 
                     }
                 }
@@ -92,7 +101,7 @@ public class HttpService {
 
                     if (progressBar != null) {
 
-                        progressBar.setVisibility(GONE);
+                        progressBar.setVisibility(View.GONE);
 
                     }
                 }
@@ -106,22 +115,9 @@ public class HttpService {
 
     private void loadDefaultImage(ImageView imageView) {
         picasso.load(DEFAULT_URL).into(imageView);
+        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
     }
 
 
-    public void setRandomImage(final ImageView imageView) {
-        try {
-
-            String newString = "http://lorempixel.com/400/300/?time=" + new Date().toString();
-
-            loadImage(newString, imageView, null);
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-    }
 
 }
