@@ -6,9 +6,9 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,9 +47,10 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     LinearLayout actionButtons;
     @Pref
     Config_ myPrefs;
-
-
-
+    @ViewById
+    NestedScrollView feed_wrapper;
+    @ViewById
+            ProgressBar progress_bar;
     Feed feed;
 
 
@@ -106,6 +107,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
 
         Spanned spanned = Html.fromHtml(html, this, null);
         textViewContent.setText(spanned);
+        progress_bar.setVisibility(View.GONE);
     }
 
 
@@ -146,7 +148,6 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         Boolean blackColor = myPrefs.darkBackground().get();
         int textColor;
         int backgroundColor ;
-        Log.i("hieu",blackColor+"");
         if(blackColor){
              textColor = getResources().getColor(R.color.light);
              backgroundColor = getResources().getColor(R.color.dark);
@@ -156,6 +157,8 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         }
         textViewContent.setTextColor(textColor);
         textViewContent.setBackgroundColor(backgroundColor);
+        feed_wrapper.setBackgroundColor(backgroundColor);
+        progress_bar.setBackgroundColor(backgroundColor);
 
 
     }

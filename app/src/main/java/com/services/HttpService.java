@@ -1,7 +1,6 @@
 package com.services;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -19,7 +18,7 @@ import org.androidannotations.annotations.RootContext;
 
 
 
-@EBean(scope = EBean.Scope.Singleton)
+@EBean(scope = EBean.Scope.Default)
 public class HttpService {
     private final static int TIMEOUT = 2000;
     private static String DEFAULT_URL = "http://etaal.gov.in/etaal/Image/news.png";

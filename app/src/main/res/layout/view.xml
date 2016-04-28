@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:scrollbarAlwaysDrawVerticalTrack="true"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:id="@+id/feed_wrapper">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -47,6 +48,11 @@
 
 
         </RelativeLayout>
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             />
 
         <TextView
             android:id="@+id/textViewContent"
