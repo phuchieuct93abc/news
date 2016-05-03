@@ -17,8 +17,7 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
 
-
-@EBean(scope = EBean.Scope.Default)
+@EBean
 public class HttpService {
     private final static int TIMEOUT = 2000;
     private static String DEFAULT_URL = "http://etaal.gov.in/etaal/Image/news.png";
@@ -36,21 +35,22 @@ public class HttpService {
     }
 
 
-    public String readUrl(String path) throws Exception {
+    public String readUrl(final String path) throws Exception {
+        final String clonedPath = path;
         Integer runningTime = 0;
+        String cacheString = cacheProvider.get(clonedPath);
+        if (cacheString != null) {
 
+            return cacheString;
+        }
         while (runningTime <= 10) {
             runningTime++;
             try {
-                String cacheString = cacheProvider.get(path);
-                if (cacheString == null) {
-                    String result = null;
-                    result = ionLoadUrl.load(path).asString().get();
-                    cacheProvider.put(path, result);
-                    return result;
-                } else {
-                    return cacheString;
-                }
+
+                String result = ionLoadUrl.load(clonedPath).asString().get();
+                cacheProvider.put(clonedPath, result);
+                return result;
+
             } catch (Exception e) {
                 e.printStackTrace();
                 if (runningTime < 10) {
@@ -116,7 +116,6 @@ public class HttpService {
         picasso.load(DEFAULT_URL).into(imageView);
         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
     }
-
 
 
 }
