@@ -10,7 +10,7 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.json.JSONObject;
 
-@EBean(scope = EBean.Scope.Singleton)
+@EBean
 public class FeedService {
     public static String LINK_FEED_CONTENT = "http://dataprovider.touch.baomoi.com/json/article.aspx?articleId={ID}";
     static String sharedPreferencesReadFeed = "READ_FEED_CACHE";
@@ -19,7 +19,7 @@ public class FeedService {
     @Bean
     HttpService httpService;
 
-    public Feed getFeedContentFromFeed(Feed feed) throws Exception {
+    public Feed getFeedContentFromFeed(final Feed feed) throws Exception {
 
         Integer id = feed.getContentID();
         String link_request;
