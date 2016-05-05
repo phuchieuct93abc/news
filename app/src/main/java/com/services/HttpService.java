@@ -79,9 +79,6 @@ public class HttpService {
 
             }
 
-            //center
-            //center inside
-            //center crop
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 

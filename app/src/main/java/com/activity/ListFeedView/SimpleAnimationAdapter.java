@@ -18,6 +18,7 @@ import com.marshalchen.ultimaterecyclerview.UltimateViewAdapter;
 import com.marshalchen.ultimaterecyclerview.animators.internal.ViewHelper;
 import com.model.Feed;
 import com.phuchieu.news.R;
+import com.services.FeedService;
 import com.services.HttpService;
 
 import org.androidannotations.annotations.Bean;
@@ -33,11 +34,12 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
     Context context;
     @Bean
     HttpService httpService;
+    @Bean
+    FeedService feedService;
     private List<Feed> feeds = new ArrayList<Feed>();
     private int mDuration = 500;
     private Interpolator mInterpolator = new LinearInterpolator();
     private int mLastPosition = 10;
-
     private boolean isFirstOnly = true;
     private ViewHolder.OnClickListener onClickListener;
 
@@ -66,6 +68,11 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
 
             httpService.loadImage(item.getLandscapeAvatar(), imageView, holder.progressBar);
 
+            TextView sourceInfo = holder.sourceInfo;
+            sourceInfo.setText(feedService.getSource(item.getContentUrl()));
+            ImageView sourceImage = holder.sourceImage;
+            sourceImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+           feedService.getIconOfUrl(item.getContentUrl(),sourceImage);
         }
         if (!isFirstOnly || position > mLastPosition) {
             for (Animator anim : getAdapterAnimations(holder.itemView, AdapterAnimationType.SlideInBottom)) {

@@ -17,6 +17,8 @@ public class ViewHolder extends UltimateRecyclerviewViewHolder implements View.O
     OnClickListener onClickListener;
     ProgressBar progressBar;
     MaterialRippleLayout materialRippleLayout;
+    TextView sourceInfo;
+    ImageView sourceImage;
 
 
     public ViewHolder(View itemView) {
@@ -25,8 +27,10 @@ public class ViewHolder extends UltimateRecyclerviewViewHolder implements View.O
         imageView = (ImageView) itemView.findViewById((R.id.imageView));
         progressBar = (ProgressBar) itemView.findViewById(R.id.progress_bar);
         materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
+        sourceInfo = (TextView) itemView.findViewById(R.id.sourceInfo);
+        sourceImage = (ImageView) itemView.findViewById(R.id.sourceImage);
         materialRippleLayout.setOnClickListener(this);
-        //itemView.setOnClickListener(this);
+
 
 
     }
