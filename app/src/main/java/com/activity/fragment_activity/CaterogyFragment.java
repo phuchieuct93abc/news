@@ -63,7 +63,6 @@ public class CaterogyFragment extends Fragment {
     @UiThread
     void randonImageUIThread() {
         Picasso.with(context).load(R.drawable.logo).into(background);
-//        httpService.setRandomImage(background);
 
     }
 

@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,33 +55,19 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     Runnable changeTextSize;
     DisplaySettingBottomSheet displaySettingBottomSheet;
 
-
-
     @AfterViews
     public void init() {
-
         getSupportFragmentManager().beginTransaction().add(R.id.fragment, new CaterogyFragment_(), CATEGORY_FRAGMENT).commit();
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-
-
-
-
-
-
-
     }
-
-
-
 
     @Override
     public void onCategorySelected(String category) {
         this.category = category;
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left,R.animator.slide_in_left, R.animator.slide_out_right);
+        fragmentTransaction.setCustomAnimations (  R.anim.slide_in_right, R.anim.slide_out_left,R.anim.slide_in_left, R.anim.slide_out_right);
 
         ListFeedFragment sharedElementFragment1 = new ListFeedFragment_();
 
@@ -97,9 +82,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         if (this.menu == null) return;
         for (int index = 0; index < this.menu.size(); index++) {
             this.menu.getItem(index).setVisible(visibility);
-
         }
-
     }
 
     @Override
@@ -114,26 +97,22 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     private void startFeedViewFragment(Bundle bundle, View v) {
         FeedViewActivity_ sharedElementFragment2 = new FeedViewActivity_();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left,R.animator.slide_in_left, R.animator.slide_out_right);
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left,R.anim.slide_in_left, R.anim.slide_out_right);
         sharedElementFragment2.setArguments(bundle);
         fragmentTransaction
                 .replace(R.id.fragment, sharedElementFragment2, FEED_VIEW_FRAGMENT)
                 .addToBackStack(null)
                 .commit();
-
-
     }
 
     @Override
     public void onBackFeedList(Feed feedBefore) {
-
         feedId = feedBefore.getContentID();
     }
 
     @Override
     public void feedOnView(Feed feed) {
         feedOnView = feed;
-
     }
 
     @Override
@@ -156,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
                     setVisibilityForAllItem(false);
                     listFeedFragment_.scrollToIndex(feedId);
+                    feedId=null;
                 }
                 break;
             case FEED:
@@ -164,25 +144,16 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
             default:
                 break;
-
-
         }
     }
-
     @Override
     public void changeColor(Runnable runnable) {
         this.changeColor = runnable;
     }
-
     @Override
     public void changeTextSize(Runnable runnable) {
         this.changeTextSize = runnable;
-
     }
-
-
-
-
     private void share() {
         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
         intent.setType("text/plain");
@@ -195,28 +166,20 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         i.setData(Uri.parse(feedOnView.getContentUrl()));
         startActivity(i);
     }
-
-
     @Override
     public void changeSize(int textSize) {
         config.edit().textSize().put(textSize).apply();
         if (changeTextSize != null) {
             changeTextSize.run();
-
         }
     }
-
     @Override
     public void changeColor(boolean isDarkMode) {
         config.edit().darkBackground().put(isDarkMode).apply();
         if (changeColor != null) {
             changeColor.run();
-
         }
     }
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
