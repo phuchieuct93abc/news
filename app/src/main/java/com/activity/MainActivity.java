@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     public void onSelectFeed(Feed feed, View v) {
         Bundle bundle = new Bundle();
         bundle.putInt("feedId", feed.getContentID());
-        getSupportActionBar().setTitle(feed.getSourceName());
         setVisibilityForAllItem(true);
         startFeedViewFragment(bundle, v);
     }
