@@ -73,4 +73,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.5'
     compile 'com.balysv:material-ripple:1.0.2'
     compile 'org.adw.library:discrete-seekbar:1.0.1'
+    compile group: 'org.apache.poi', name: 'poi', version: '3.7'
 }

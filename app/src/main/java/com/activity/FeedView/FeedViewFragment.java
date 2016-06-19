@@ -30,6 +30,10 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
+import org.apache.poi.ss.usermodel.DateUtil;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @EFragment(R.layout.view)
 public class FeedViewFragment extends Fragment implements Html.ImageGetter {
@@ -50,7 +54,16 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     @ViewById
     NestedScrollView feed_wrapper;
     @ViewById
-            ProgressBar progress_bar;
+    LinearLayout content;
+    @ViewById
+    ProgressBar progress_bar;
+    @ViewById
+    TextView time;
+    @ViewById
+    TextView zoneName;
+    @ViewById
+            ImageView logo;
+
     Feed feed;
 
 
@@ -85,6 +98,17 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     void initializeSetting() {
         httpService.loadImage(feed.getLandscapeAvatar(), imageView, progressBar);
         title.setText(feed.getTitle());
+        zoneName.setText(feed.getZoneName());
+        feed.getDate();
+
+        Date itemDate =  DateUtil.getJavaDate(feed.getDate());
+
+        String itemDateStr = new SimpleDateFormat("MM-dd HH:mm").format(itemDate);
+        time.setText(itemDateStr);
+
+        feedService.getIconOfUrl(feed.getContentUrl(),logo);
+
+
 
     }
 
@@ -124,8 +148,9 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         runBackground();
 
     }
+
     @AfterViews
-    void afterView(){
+    void afterView() {
         applyColor();
         applyTextsize();
     }
@@ -144,28 +169,34 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
 
         return d;
     }
-    public void applyColor(){
+
+    public void applyColor() {
         Boolean blackColor = myPrefs.darkBackground().get();
         int textColor;
-        int backgroundColor ;
-        if(blackColor){
-             textColor = getResources().getColor(R.color.light);
-             backgroundColor = getResources().getColor(R.color.dark);
-        }else{
-             textColor = getResources().getColor(R.color.dark);
-             backgroundColor = getResources().getColor(R.color.light);
+        int backgroundColor;
+        if (blackColor) {
+            textColor = getResources().getColor(R.color.light);
+            backgroundColor = getResources().getColor(R.color.dark);
+        } else {
+            textColor = getResources().getColor(R.color.dark);
+            backgroundColor = getResources().getColor(R.color.light);
         }
         textViewContent.setTextColor(textColor);
-        textViewContent.setBackgroundColor(backgroundColor);
+        title.setTextColor(textColor);
+        zoneName.setTextColor(textColor);
+
+        content.setBackgroundColor(backgroundColor);
+
+
         feed_wrapper.setBackgroundColor(backgroundColor);
         progress_bar.setBackgroundColor(backgroundColor);
 
 
     }
 
-    public void applyTextsize(){
+    public void applyTextsize() {
         int textSize = myPrefs.textSize().get();
-        textViewContent.setTextSize((float)textSize*5+14);
+        textViewContent.setTextSize((float) textSize * 5 + 14);
 
     }
 
