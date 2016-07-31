@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.activity.FragmentEnum;
@@ -62,15 +61,19 @@ public class ListFeedFragment extends Fragment {
     @AfterInject
     void afterInject() {
         cacheProvider.clearCache();
-        categoryService.clearCacheList();
         initData(new Runnable() {
             @Override
             public void run() {
-                if (listView.getAdapter() == null) listView.setAdapter(adapter);
-                progress_bar_loading_news.setVisibility(View.GONE);
-                listView.setVisibility(View.VISIBLE);
+                try {
+                    if (listView.getAdapter() == null) listView.setAdapter(adapter);
+                    progress_bar_loading_news.setVisibility(View.GONE);
+                    listView.setVisibility(View.VISIBLE);
 
-                listView.scrollVerticallyTo(0);
+                    listView.scrollVerticallyTo(0);
+                }catch (Exception e){
+
+                }
+
             }
         });
 
@@ -204,17 +207,25 @@ public class ListFeedFragment extends Fragment {
 
     @UiThread
     void setMoreDataList(List<Feed> rssItems, Runnable callback) {
-        if (rssItems!=null && !rssItems.isEmpty()) {
-            adapter.setMoreDataList(rssItems);
-            if (listView.getAdapter() == null) listView.setAdapter(adapter);
-            listView.mPtrFrameLayout.refreshComplete();
+        try {
 
-        }else{
-            listView.mPtrFrameLayout.refreshComplete();
+
+            if (rssItems != null && !rssItems.isEmpty()) {
+                adapter.setMoreDataList(rssItems);
+                if (listView.getAdapter() == null) listView.setAdapter(adapter);
+                listView.mPtrFrameLayout.refreshComplete();
+
+            } else {
+
+                listView.mPtrFrameLayout.refreshComplete();
+
+
+            }
+            if (callback != null) callback.run();
+        }catch (Exception e){
+            Log.e("hieu","",e);
 
         }
-        if (callback != null) callback.run();
-
 
     }
 

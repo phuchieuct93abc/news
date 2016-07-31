@@ -5,6 +5,8 @@ import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.text.Html;
@@ -32,7 +34,6 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.apache.poi.ss.usermodel.DateUtil;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @EFragment(R.layout.view)
@@ -62,14 +63,13 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     @ViewById
     TextView zoneName;
     @ViewById
-            ImageView logo;
+    ImageView logo;
 
     Feed feed;
 
 
     @Bean
     FeedService feedService;
-    private String TAG = "FeedViewFragment";
 
 
     public Feed getFeed() {
@@ -79,6 +79,24 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     public void setFeed(Feed feed) {
         this.feed = feed;
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable("feed",feed);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        if(savedInstanceState !=null){
+
+            feed = (Feed)savedInstanceState.get("feed");
+        }
+        super.onCreate(savedInstanceState);
+    }
+
+
+
 
     @Click(R.id.retry)
     void retry() {
@@ -101,13 +119,11 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         zoneName.setText(feed.getZoneName());
         feed.getDate();
 
-        Date itemDate =  DateUtil.getJavaDate(feed.getDate());
+        Date itemDate = DateUtil.getJavaDate(feed.getDate());
 
-        String itemDateStr = new SimpleDateFormat("MM-dd HH:mm").format(itemDate);
-        time.setText(itemDateStr);
 
-        feedService.getIconOfUrl(feed.getContentUrl(),logo);
 
+        feedService.getIconOfUrl(feed.getContentUrl(), logo);
 
 
     }
@@ -144,6 +160,9 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
 
     @AfterInject
     void bindLinkToView() {
+
+
+
         initializeSetting();
         runBackground();
 

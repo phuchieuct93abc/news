@@ -36,7 +36,7 @@ public class CategoryService {
     public static String LINK_CATEGORY = "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType={LIST_TYPE}&listId={LIST_ID}&imageMinSize=300&mode=quickview";
     public static String CNET_CATEROGY = "http://feed.cnet.com/feed/river?limit=10&start={START_PAGE}&edition=us&locale=us&version=3_0&platform=android&release=3.1.5";
     public static List<Feed> listFeed = new ArrayList<>();
-    private static String currentLink;
+    private String currentLink;
     @Bean
     HttpService httpService;
     @RootContext
@@ -44,22 +44,22 @@ public class CategoryService {
     private int duplicateCount = 0;
 
     public void setListId(Category category) {
-        if (!category.getType().equals("CNET")) {
-            currentLink = LINK_CATEGORY.replace("{LIST_ID}", category.getId() + "");
-            currentLink = currentLink.replace("{LIST_TYPE}", category.getType());
-        } else {
-            currentLink = CNET_CATEROGY;
+        String newLink = LINK_CATEGORY.replace("{LIST_ID}", category.getId() + "");
+        newLink = newLink.replace("{LIST_TYPE}", category.getType());
+        if (!newLink.equals(currentLink)) {
+            clearCacheList();
         }
+        currentLink = newLink;
 
-        clearCacheList();
     }
 
     public List<Feed> getListFeed() {
         return listFeed;
     }
 
-    private void setListFeed(List<Feed> listFeed) {
-        CategoryService.listFeed = listFeed;
+
+    public void setListFeed(List<Feed> listFeed) {
+        this.listFeed = listFeed;
     }
 
     public void clearCacheList() {

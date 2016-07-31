@@ -3,7 +3,9 @@ package com.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class Feed {
+import java.io.Serializable;
+
+public class Feed implements Serializable {
     private Integer ContentID;
     private Integer SourceID;
     private String SourceName;
@@ -254,4 +256,5 @@ public class Feed {
     public void setContentHTML(String contentHTML) {
         ContentHTML = contentHTML;
     }
+
 }

@@ -3,9 +3,11 @@ package com.activity.FeedView;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -13,6 +15,7 @@ import com.activity.FragmentEnum;
 import com.activity.MainActivityInterface;
 import com.config.Config_;
 import com.config.SharePreference;
+import com.google.gson.Gson;
 import com.model.Feed;
 import com.phuchieu.news.R;
 import com.services.CategoryService;
@@ -50,6 +53,8 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
     Context context;
     @Pref
     Config_ config;
+    String feedID;
+    Feed currentFeed;
 
 
     @Override
@@ -104,14 +109,27 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
 
         pager.setCurrentItem(index, false);
         mainActivityInterface.feedOnView(categoryService.getListFeed().get(index));
+    }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        Gson gson = new Gson();
+        String listFeedJson = gson.toJson(categoryService.getListFeed());
+        outState.putSerializable("selectedFeed", currentFeed);
+        outState.putString("listFeed", listFeedJson);
+        super.onSaveInstanceState(outState);
     }
 
     @AfterViews
     void run() {
+        if (feedID == null) {
+            feedID = getArguments().getInt("feedId") + "";
 
+        }
         try {
-            String feedID = getArguments().getInt("feedId") + "";
+            Log.d("save","use list feed ");
+
+
             selectedId = categoryService.getFeedById(feedID);
             runUI();
             int index = categoryService.getIndexInCaterogyById(selectedId.getContentID());
@@ -130,20 +148,23 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
             viewSwipe.setBackgroundColor(Color.parseColor("#23282A"));
         }
     }
-    public void changeColor(){
+
+    public void changeColor() {
         List<Fragment> fragments = pagerAdapter.getRegisteredFragment();
-        for(Fragment fragment:fragments){
-            ((FeedViewFragment_)fragment).applyColor();
+        for (Fragment fragment : fragments) {
+            ((FeedViewFragment_) fragment).applyColor();
         }
 
     }
-    public void changeTextSize(){
+
+    public void changeTextSize() {
         List<Fragment> fragments = pagerAdapter.getRegisteredFragment();
-        for(Fragment fragment:fragments){
-            ((FeedViewFragment_)fragment).applyTextsize();
+        for (Fragment fragment : fragments) {
+            ((FeedViewFragment_) fragment).applyTextsize();
         }
 
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -163,6 +184,8 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
     }
 
 
+
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -172,7 +195,7 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
     public void onPageSelected(int position) {
         try {
 
-            Feed currentFeed = categoryService.getListFeed().get(position);
+            currentFeed = categoryService.getListFeed().get(position);
 
             currentIndexOfFeed = position;
             mainActivityInterface.onBackFeedList(currentFeed);
