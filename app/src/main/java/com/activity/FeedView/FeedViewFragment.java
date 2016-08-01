@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -115,13 +116,9 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     @UiThread
     void initializeSetting() {
         httpService.loadImage(feed.getLandscapeAvatar(), imageView, progressBar);
-        title.setText(feed.getTitle());
+        title.setText(feed.getTitle() );
         zoneName.setText(feed.getZoneName());
         feed.getDate();
-
-        Date itemDate = DateUtil.getJavaDate(feed.getDate());
-
-
 
         feedService.getIconOfUrl(feed.getContentUrl(), logo);
 
@@ -136,6 +133,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
             contentHTML = feedService.getFeedContentFromFeed(feed).getContentHTML();
             updateTextViewContent(contentHTML);
         } catch (Exception e) {
+            Log.e("ERROR","Can't get content",e);
             getFailed();
 
 
@@ -162,16 +160,14 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     void bindLinkToView() {
 
 
-
-        initializeSetting();
-        runBackground();
-
     }
 
     @AfterViews
     void afterView() {
         applyColor();
         applyTextsize();
+        initializeSetting();
+        runBackground();
     }
 
 

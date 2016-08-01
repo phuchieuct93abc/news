@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -114,10 +115,16 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         Gson gson = new Gson();
-        String listFeedJson = gson.toJson(categoryService.getListFeed());
         outState.putSerializable("selectedFeed", currentFeed);
-        outState.putString("listFeed", listFeedJson);
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        if(savedInstanceState!=null){
+            feedID = ((Feed) savedInstanceState.get("selectedFeed")).getContentID()+"";
+        }
+        super.onCreate(savedInstanceState);
     }
 
     @AfterViews
@@ -128,9 +135,9 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
         }
         try {
             Log.d("save","use list feed ");
-
-
             selectedId = categoryService.getFeedById(feedID);
+            currentFeed = selectedId;
+            mainActivityInterface.onBackFeedList(currentFeed);
             runUI();
             int index = categoryService.getIndexInCaterogyById(selectedId.getContentID());
             currentIndexOfFeed = index;

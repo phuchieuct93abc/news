@@ -99,7 +99,7 @@ public class CategoryService {
     }
 
     private void addDataToList(List<Feed> addedData) {
-
+        listFeed = new ArrayList<>(listFeed);
         listFeed.addAll(addedData);
     }
 
