@@ -144,8 +144,11 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     void updateTextViewContent(String html) {
 
         Spanned spanned = Html.fromHtml(html, this, null);
-        textViewContent.setText(spanned);
-        progress_bar.setVisibility(View.GONE);
+        if(spanned!=null && textViewContent!=null){
+            textViewContent.setText(spanned);
+            progress_bar.setVisibility(View.GONE);
+
+        }
     }
 
 
