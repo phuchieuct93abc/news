@@ -47,7 +47,7 @@ apt {
     }
 }
 dependencies {
-    compile 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+    compile 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     compile 'org.androidannotations:androidannotations-api:4.1.0'
     apt 'org.androidannotations:androidannotations:4.1.0'
     compile 'com.koushikdutta.ion:ion:2.1.4'
@@ -60,5 +60,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.5'
     compile 'com.balysv:material-ripple:1.0.2'
     compile 'org.adw.library:discrete-seekbar:1.0.1'
-    compile group: 'org.apache.poi', name: 'poi', version: '3.7'
+    compile 'org.apache.poi:poi:3.7'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
 }
