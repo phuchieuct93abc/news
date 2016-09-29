@@ -7,6 +7,7 @@ import android.graphics.drawable.LevelListDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.text.Html;
@@ -33,8 +34,8 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
-import org.apache.poi.ss.usermodel.DateUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @EFragment(R.layout.view)
@@ -56,7 +57,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     @ViewById
     NestedScrollView feed_wrapper;
     @ViewById
-    LinearLayout content;
+    ConstraintLayout constrainLayout;
     @ViewById
     ProgressBar progress_bar;
     @ViewById
@@ -65,6 +66,9 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     TextView zoneName;
     @ViewById
     ImageView logo;
+
+    @ViewById
+    TextView txtDate;
 
     Feed feed;
 
@@ -83,20 +87,18 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable("feed",feed);
+        outState.putSerializable("feed", feed);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        if(savedInstanceState !=null){
+        if (savedInstanceState != null) {
 
-            feed = (Feed)savedInstanceState.get("feed");
+            feed = (Feed) savedInstanceState.get("feed");
         }
         super.onCreate(savedInstanceState);
     }
-
-
 
 
     @Click(R.id.retry)
@@ -116,13 +118,24 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     @UiThread
     void initializeSetting() {
         httpService.loadImage(feed.getLandscapeAvatar(), imageView, progressBar);
-        title.setText(feed.getTitle() );
+        title.setText(feed.getTitle());
         zoneName.setText(feed.getZoneName());
         feed.getDate();
-
         feedService.getIconOfUrl(feed.getContentUrl(), logo);
 
 
+        String formatted = getFormattedDate();
+        Log.d("hieu", formatted);
+        txtDate.setText(formatted);
+
+    }
+
+    private String getFormattedDate() {
+        Long valueFromClient = new Double(feed.getDate()).longValue();
+
+        Date date = new Date(valueFromClient);
+
+        return new SimpleDateFormat("dd-MM HH:mm").format(date);
     }
 
 
@@ -132,8 +145,9 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         try {
             contentHTML = feedService.getFeedContentFromFeed(feed).getContentHTML();
             updateTextViewContent(contentHTML);
+
         } catch (Exception e) {
-            Log.e("ERROR","Can't get content",e);
+            Log.e("ERROR", "Can't get content", e);
             getFailed();
 
 
@@ -144,7 +158,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     void updateTextViewContent(String html) {
 
         Spanned spanned = Html.fromHtml(html, this, null);
-        if(spanned!=null && textViewContent!=null){
+        if (spanned != null && textViewContent != null) {
             textViewContent.setText(spanned);
             progress_bar.setVisibility(View.GONE);
 
@@ -203,7 +217,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         title.setTextColor(textColor);
         zoneName.setTextColor(textColor);
 
-        content.setBackgroundColor(backgroundColor);
+        constrainLayout.setBackgroundColor(backgroundColor);
 
 
         feed_wrapper.setBackgroundColor(backgroundColor);
