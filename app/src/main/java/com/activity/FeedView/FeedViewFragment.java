@@ -72,18 +72,12 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
 
     Feed feed;
 
+    private static String testIframe = "<iframe width=\"1280\" height=\"720\" src=\"https://www.youtube.com/embed/19MZTc_uQxU\" frameborder=\"0\" allowfullscreen></iframe>";
+
 
     @Bean
     FeedService feedService;
 
-
-    public Feed getFeed() {
-        return feed;
-    }
-
-    public void setFeed(Feed feed) {
-        this.feed = feed;
-    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -101,20 +95,6 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     }
 
 
-    @Click(R.id.retry)
-    void retry() {
-        actionButtons.setVisibility(View.GONE);
-
-        runBackground();
-    }
-
-    @Click(R.id.openSource)
-    void openSource() {
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(feed.getContentUrl()));
-        startActivity(i);
-    }
-
     @UiThread
     void initializeSetting() {
         httpService.loadImage(feed.getLandscapeAvatar(), imageView, progressBar);
@@ -122,12 +102,17 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         zoneName.setText(feed.getZoneName());
         feed.getDate();
         feedService.getIconOfUrl(feed.getContentUrl(), logo);
-
-
         String formatted = getFormattedDate();
-        Log.d("hieu", formatted);
         txtDate.setText(formatted);
 
+    }
+
+    public Feed getFeed() {
+        return feed;
+    }
+
+    public void setFeed(Feed feed) {
+        this.feed = feed;
     }
 
     private String getFormattedDate() {
