@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
         String listFeedJson = new Gson().toJson(categoryService.getListFeed());
         outState.putString("listFeed", listFeedJson);
-        //aa
+        //aasd
         super.onSaveInstanceState(outState);
     }
 
