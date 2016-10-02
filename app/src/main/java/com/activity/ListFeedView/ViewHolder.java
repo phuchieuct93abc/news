@@ -32,7 +32,6 @@ public class ViewHolder extends UltimateRecyclerviewViewHolder implements View.O
         materialRippleLayout.setOnClickListener(this);
 
 
-
     }
 
     @Override

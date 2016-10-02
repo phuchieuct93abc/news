@@ -25,12 +25,12 @@ public class FeedService {
     @Bean
     HttpService httpService;
     Picasso picasso;
+
     @AfterInject
-    void init(){
+    void init() {
         picasso = Picasso.with(context.getApplicationContext());
 
     }
-
 
 
     public Feed getFeedContentFromFeed(final Feed feed) throws Exception {
@@ -49,7 +49,8 @@ public class FeedService {
         feed.setContentHTML(contentHTML);
         return feed;
     }
-    public String getSource(String urlSource){
+
+    public String getSource(String urlSource) {
         URL url = null;
         try {
             url = new URL(urlSource);
@@ -60,11 +61,11 @@ public class FeedService {
         return url.getHost();
 
     }
-    public void getIconOfUrl(String urlSource, final ImageView imageView){
+
+    public void getIconOfUrl(String urlSource, final ImageView imageView) {
         try {
             URL url = new URL(urlSource);
-            String imageUrl = "http://www.google.com/s2/favicons?domain="+getSource(urlSource);
-
+            String imageUrl = "http://www.google.com/s2/favicons?domain=" + getSource(urlSource);
 
 
             picasso.load(imageUrl).into(imageView);

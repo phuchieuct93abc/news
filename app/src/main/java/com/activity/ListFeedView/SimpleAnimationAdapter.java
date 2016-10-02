@@ -72,7 +72,7 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
             sourceInfo.setText(feedService.getSource(item.getContentUrl()));
             ImageView sourceImage = holder.sourceImage;
             sourceImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-           feedService.getIconOfUrl(item.getContentUrl(),sourceImage);
+            feedService.getIconOfUrl(item.getContentUrl(), sourceImage);
         }
         if (!isFirstOnly || position > mLastPosition) {
             for (Animator anim : getAdapterAnimations(holder.itemView, AdapterAnimationType.SlideInBottom)) {

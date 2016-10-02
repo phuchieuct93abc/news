@@ -68,14 +68,15 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     Feed selectedFeed;
     String selectedCategory;
 
-
-
-
+    private static <Feed> List<com.model.Feed> stringToArray(String s, Class<com.model.Feed[]> clazz) {
+        com.model.Feed[] arr = new Gson().fromJson(s, clazz);
+        return Arrays.asList(arr); //or return Arrays.asList(new Gson().fromJson(s, clazz)); for a one-liner
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable("runningFragment",runningFragment);
-        outState.putString("selectedCategory",selectedCategory);
+        outState.putSerializable("runningFragment", runningFragment);
+        outState.putString("selectedCategory", selectedCategory);
 
         String listFeedJson = new Gson().toJson(categoryService.getListFeed());
         outState.putString("listFeed", listFeedJson);
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        if(savedInstanceState!=null){
+        if (savedInstanceState != null) {
             runningFragment = (String) savedInstanceState.get("runningFragment");
             selectedFeed = (Feed) savedInstanceState.get("selectedFeed");
             selectedCategory = (String) savedInstanceState.get("selectedCategory");
@@ -94,12 +95,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
             List<Feed> feeds = stringToArray(listFeedJson, Feed[].class);
             categoryService.setListFeed(feeds);
-            Log.d("save","get list feed from save");
+            Log.d("save", "get list feed from save");
 
         }
 
-        super.onCreate(savedInstanceState);    }
-
+        super.onCreate(savedInstanceState);
+    }
 
     @AfterViews
     public void init() {
@@ -108,16 +109,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        if(runningFragment==null){
+        if (runningFragment == null) {
             changeFragment(FragmentEnum.CATEROGY);
         }
 
     }
-    private static <Feed> List<com.model.Feed> stringToArray(String s, Class<com.model.Feed[]> clazz) {
-        com.model.Feed[] arr = new Gson().fromJson(s, clazz);
-        return Arrays.asList(arr); //or return Arrays.asList(new Gson().fromJson(s, clazz)); for a one-liner
-    }
-    private void changeFragment(FragmentEnum fragment){
+
+    private void changeFragment(FragmentEnum fragment) {
         switch (fragment) {
             case CATEROGY:
                 getSupportFragmentManager().beginTransaction().add(R.id.fragment, new CaterogyFragment_(), runningFragment).commit();
@@ -128,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
                 break;
             case FEED:
-                onSelectFeed(selectedFeed,null);
+                onSelectFeed(selectedFeed, null);
                 break;
 
             default:
@@ -141,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     public void onCategorySelected(String category) {
         this.selectedCategory = category;
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations (  R.anim.slide_in_right, R.anim.slide_out_left,R.anim.slide_in_left, R.anim.slide_out_right);
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
 
         ListFeedFragment sharedElementFragment1 = new ListFeedFragment_();
 
@@ -170,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     private void startFeedViewFragment(Bundle bundle) {
         FeedViewActivity_ sharedElementFragment2 = new FeedViewActivity_();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left,R.anim.slide_in_left, R.anim.slide_out_right);
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
         sharedElementFragment2.setArguments(bundle);
         fragmentTransaction
                 .replace(R.id.fragment, sharedElementFragment2, FragmentEnum.FEED.toString())
@@ -208,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
                     setVisibilityForAllItem(false);
                     listFeedFragment_.scrollToIndex(feedId);
-                    feedId=null;
+                    feedId = null;
                 }
                 break;
             case FEED:
@@ -220,14 +218,17 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         }
         runningFragment = fragment.toString();
     }
+
     @Override
     public void changeColor(Runnable runnable) {
         this.changeColor = runnable;
     }
+
     @Override
     public void changeTextSize(Runnable runnable) {
         this.changeTextSize = runnable;
     }
+
     private void share() {
         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
         intent.setType("text/plain");
@@ -240,6 +241,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         i.setData(Uri.parse(feedOnView.getContentUrl()));
         startActivity(i);
     }
+
     @Override
     public void changeSize(int textSize) {
         config.edit().textSize().put(textSize).apply();
@@ -247,6 +249,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             changeTextSize.run();
         }
     }
+
     @Override
     public void changeColor(boolean isDarkMode) {
         config.edit().darkBackground().put(isDarkMode).apply();
@@ -254,6 +257,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             changeColor.run();
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -269,7 +273,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             case R.id.setting:
                 Boolean isDarkmode = config.darkBackground().get();
                 int textSize = config.textSize().get();
-                displaySettingBottomSheet = new DisplaySettingBottomSheet(isDarkmode,textSize);
+                displaySettingBottomSheet = new DisplaySettingBottomSheet(isDarkmode, textSize);
                 displaySettingBottomSheet.show(getSupportFragmentManager(), "bottom sheet");
 
                 break;

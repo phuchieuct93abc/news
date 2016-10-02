@@ -70,7 +70,7 @@ public class ListFeedFragment extends Fragment {
                     listView.setVisibility(View.VISIBLE);
 
                     listView.scrollVerticallyTo(0);
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
 
@@ -142,7 +142,7 @@ public class ListFeedFragment extends Fragment {
                 initData(new Runnable() {
                     @Override
                     public void run() {
-                        Log.i("hieuscroll","scroll to 0");
+                        Log.i("hieuscroll", "scroll to 0");
                         listView.scrollVerticallyTo(0);
                     }
                 });
@@ -194,10 +194,10 @@ public class ListFeedFragment extends Fragment {
 
     @UiThread
     void setDataList(List<Feed> rssItems) {
-    if(rssItems.size()>0){
-        progress_bar_loading_news.setVisibility(View.GONE);
-        listView.setVisibility(View.VISIBLE);
-    }
+        if (rssItems.size() > 0) {
+            progress_bar_loading_news.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+        }
 
         adapter.setDataList(rssItems);
         if (listView.getAdapter() == null) listView.setAdapter(adapter);
@@ -222,8 +222,8 @@ public class ListFeedFragment extends Fragment {
 
             }
             if (callback != null) callback.run();
-        }catch (Exception e){
-            Log.e("hieu","",e);
+        } catch (Exception e) {
+            Log.e("hieu", "", e);
 
         }
 
@@ -271,6 +271,7 @@ public class ListFeedFragment extends Fragment {
         mainActivityInterface = (MainActivityInterface) activity;
         context = activity;
     }
+
     @Override
     public void onStart() {
         super.onStart();

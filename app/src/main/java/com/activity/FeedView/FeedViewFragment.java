@@ -1,10 +1,8 @@
 package com.activity.FeedView;
 
-import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -29,7 +27,6 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -40,6 +37,7 @@ import java.util.Date;
 
 @EFragment(R.layout.view)
 public class FeedViewFragment extends Fragment implements Html.ImageGetter {
+    private static String testIframe = "<iframe width=\"1280\" height=\"720\" src=\"https://www.youtube.com/embed/19MZTc_uQxU\" frameborder=\"0\" allowfullscreen></iframe>";
     @ViewById
     TextView textViewContent;
     @ViewById
@@ -66,15 +64,9 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     TextView zoneName;
     @ViewById
     ImageView logo;
-
     @ViewById
     TextView txtDate;
-
     Feed feed;
-
-    private static String testIframe = "<iframe width=\"1280\" height=\"720\" src=\"https://www.youtube.com/embed/19MZTc_uQxU\" frameborder=\"0\" allowfullscreen></iframe>";
-
-
     @Bean
     FeedService feedService;
 

@@ -121,8 +121,8 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        if(savedInstanceState!=null){
-            feedID = ((Feed) savedInstanceState.get("selectedFeed")).getContentID()+"";
+        if (savedInstanceState != null) {
+            feedID = ((Feed) savedInstanceState.get("selectedFeed")).getContentID() + "";
         }
         super.onCreate(savedInstanceState);
     }
@@ -134,7 +134,7 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
 
         }
         try {
-            Log.d("save","use list feed ");
+            Log.d("save", "use list feed ");
             selectedId = categoryService.getFeedById(feedID);
             currentFeed = selectedId;
             mainActivityInterface.onBackFeedList(currentFeed);
@@ -189,8 +189,6 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
             }
         });
     }
-
-
 
 
     @Override

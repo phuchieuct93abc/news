@@ -36,11 +36,11 @@ public class CategoryService {
     public static String LINK_CATEGORY = "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType={LIST_TYPE}&listId={LIST_ID}&imageMinSize=300&mode=quickview";
     public static String CNET_CATEROGY = "http://feed.cnet.com/feed/river?limit=10&start={START_PAGE}&edition=us&locale=us&version=3_0&platform=android&release=3.1.5";
     public static List<Feed> listFeed = new ArrayList<>();
-    private String currentLink;
     @Bean
     HttpService httpService;
     @RootContext
     Context context;
+    private String currentLink;
     private int duplicateCount = 0;
 
     public void setListId(Category category) {

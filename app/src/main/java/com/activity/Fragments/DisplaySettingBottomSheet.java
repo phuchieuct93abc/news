@@ -20,10 +20,10 @@ public class DisplaySettingBottomSheet
     Boolean isDarkMode;
     int textSize;
 
-     public DisplaySettingBottomSheet(Boolean isDarkMode, int textSize){
-      this.isDarkMode = isDarkMode;
-         this.textSize = textSize;
-         Log.i("hieu",isDarkMode+"  "+textSize);
+    public DisplaySettingBottomSheet(Boolean isDarkMode, int textSize) {
+        this.isDarkMode = isDarkMode;
+        this.textSize = textSize;
+        Log.i("hieu", isDarkMode + "  " + textSize);
     }
 
 

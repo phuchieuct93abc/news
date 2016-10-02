@@ -56,10 +56,11 @@ class PagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         return listFeed.get(position).getSourceName();
     }
+
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         Fragment fragment = (Fragment) super.instantiateItem(container, position);
-        registeredFragments.add( fragment);
+        registeredFragments.add(fragment);
         return fragment;
     }
 

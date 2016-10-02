@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import java.io.Serializable;
 
 public class Feed implements Serializable {
+    public static String isReadPreferences = "ISREAD";
     private Integer ContentID;
     private Integer SourceID;
     private String SourceName;
@@ -31,8 +32,6 @@ public class Feed implements Serializable {
     private Double Date;
     private Boolean isRead;
     private String ContentHTML;
-    public static String isReadPreferences = "ISREAD";
-
 
     public Integer getContentID() {
         return ContentID;
