@@ -1,0 +1,6 @@
+
+--This line, and those below, will be ignored--
+
+M    src/main/java/com/feed/FeedItemView.java
+A    src/main/res/drawable/layer_card_background.xml
+M    src/main/res/layout/feed_view_big_image.xml

@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <RelativeLayout
+        android:id="@+id/progress_bar_loading_news"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_alignParentStart="true">
+
+        <ProgressBar
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+
+    <com.marshalchen.ultimaterecyclerview.CustomUltimateRecyclerview xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/imageView"
+        android:background="#ffffff"
+        android:visibility="invisible"
+
+
+        app:recyclerviewClipToPadding="true"
+        app:recyclerviewPadding="2dp"
+        app:recyclerviewScrollbars="vertical" />
+
+
+</RelativeLayout>
+
+
+
+
+

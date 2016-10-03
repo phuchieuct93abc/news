@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/setting"
+        android:icon="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"
+
+        android:title="Sort by rating"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/share"
+        android:icon="@drawable/abc_ic_menu_share_mtrl_alpha"
+        android:title="Share"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/web"
+        android:icon="@drawable/abc_ic_search_api_mtrl_alpha"
+        android:title="Web"
+        app:showAsAction="always" />
+
+</menu>
