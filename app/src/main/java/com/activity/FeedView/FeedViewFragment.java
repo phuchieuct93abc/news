@@ -193,7 +193,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         textViewContent.setTextColor(textColor);
         title.setTextColor(textColor);
         zoneName.setTextColor(textColor);
-
+        txtDate.setTextColor(textColor);
         constrainLayout.setBackgroundColor(backgroundColor);
 
 
