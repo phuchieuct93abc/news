@@ -224,4 +224,6 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
     public void onPageScrollStateChanged(int state) {
 
     }
+
+
 }

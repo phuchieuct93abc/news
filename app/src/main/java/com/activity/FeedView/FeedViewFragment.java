@@ -1,5 +1,6 @@
 package com.activity.FeedView;
 
+import android.app.Activity;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
@@ -7,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.NestedScrollView;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -17,8 +17,13 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.activity.MainActivityInterface;
 import com.config.Config_;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.model.Feed;
+import com.nineoldandroids.view.ViewHelper;
 import com.phuchieu.news.R;
 import com.services.FeedService;
 import com.services.HttpService;
@@ -36,7 +41,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @EFragment(R.layout.view)
-public class FeedViewFragment extends Fragment implements Html.ImageGetter {
+public class FeedViewFragment extends Fragment implements Html.ImageGetter, ObservableScrollViewCallbacks {
     private static String testIframe = "<iframe width=\"1280\" height=\"720\" src=\"https://www.youtube.com/embed/19MZTc_uQxU\" frameborder=\"0\" allowfullscreen></iframe>";
     @ViewById
     TextView textViewContent;
@@ -53,7 +58,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     @Pref
     Config_ myPrefs;
     @ViewById
-    NestedScrollView feed_wrapper;
+    ObservableScrollView feed_wrapper;
     @ViewById
     ConstraintLayout constrainLayout;
     @ViewById
@@ -69,6 +74,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     Feed feed;
     @Bean
     FeedService feedService;
+    MainActivityInterface mainActivityInterface;
 
 
     @Override
@@ -86,6 +92,12 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mainActivityInterface = (MainActivityInterface) activity;
+
+    }
 
     @UiThread
     void initializeSetting() {
@@ -96,6 +108,8 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         feedService.getIconOfUrl(feed.getContentUrl(), logo);
         String formatted = getFormattedDate();
         txtDate.setText(formatted);
+        feed_wrapper.setScrollViewCallbacks(this);
+
 
     }
 
@@ -209,5 +223,30 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
 
     }
 
+
+    @Override
+    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+
+        int baseColor = getResources().getColor(R.color.red);
+        float alpha = Math.min(1, (float) scrollY / 150);
+        // mToolbarView.setBackgroundColor(ScrollUtils.getColorWithAlpha(alpha, baseColor));
+        ViewHelper.setTranslationY(imageView, scrollY / 2);
+    }
+
+    @Override
+    public void onDownMotionEvent() {
+    }
+
+    @Override
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+
+        if (scrollState == ScrollState.UP) {
+            mainActivityInterface.isExpandActionBar(false);
+
+        } else if (scrollState == ScrollState.DOWN) {
+            mainActivityInterface.isExpandActionBar(true);
+
+        }
+    }
 
 }

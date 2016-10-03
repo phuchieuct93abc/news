@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -52,8 +51,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     DiscreteSeekBar seekTextsize;
     @Pref
     Config_ config;
-    @ViewById
-    DrawerLayout mDrawerLayout;
+
     @Bean
     CategoryService categoryService;
 
@@ -193,11 +191,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 //setVisibilityForAllItem(false);
                 getSupportActionBar().setTitle(null);
-                appBar.setExpanded(true);
+                appBar.setExpanded(false);
 
                 break;
             case LIST_FEED:
                 getSupportActionBar().setTitle(selectedCategory);
+                appBar.setExpanded(true);
 
                 if (feedId != null) {
                     FragmentManager fragmentManager = getSupportFragmentManager();
@@ -256,6 +255,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         if (changeColor != null) {
             changeColor.run();
         }
+    }
+
+    @Override
+    public void isExpandActionBar(Boolean isExpand) {
+
+        appBar.setExpanded(isExpand);
     }
 
     @Override

@@ -23,4 +23,7 @@ public interface MainActivityInterface {
 
     void changeColor(boolean isDarkMode);
 
+    void isExpandActionBar(Boolean isExpand);
+
+
 }

@@ -13,8 +13,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
 
-        android:layout_marginBottom="50dp"
-
 
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
@@ -30,7 +28,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
 
         android:orientation="vertical"
         android:weightSum="1"
@@ -142,7 +140,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.50617284"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="334dp" />
+        tools:layout_editor_absoluteY="287dp" />
 
 
     <!-- The navigation drawer -->
