@@ -21,6 +21,7 @@ import com.model.Feed;
 import com.phuchieu.news.R;
 import com.services.CategoryService;
 import com.services.FeedService;
+import com.xgc1986.parallaxPagerTransformer.ParallaxPagerTransformer;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -95,6 +96,7 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
     void runUI() {
 
         pagerAdapter = new PagerAdapter(getFragmentManager());
+        pager.setPageTransformer(false, new ParallaxPagerTransformer(R.id.imageView));
 
         pagerAdapter.setData(categoryService.getListFeed());
         pagerAdapter.setItem(selectedId);
