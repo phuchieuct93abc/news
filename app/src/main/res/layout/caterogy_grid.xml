@@ -23,26 +23,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="20dp"
 
-        android:orientation="vertical"
-        android:weightSum="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/background"
-        app:layout_constraintVertical_bias="1.0">
 
 
         <TableLayout
             android:id="@+id/table"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.75">
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.75"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/background"
+            app:layout_constraintVertical_bias="1.0"
+            android:layout_marginTop="30dp">
 
             <TableRow
                 android:id="@+id/tableRow1"
@@ -130,7 +124,6 @@
         </TableLayout>
 
 
-    </LinearLayout>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
