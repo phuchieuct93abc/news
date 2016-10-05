@@ -28,21 +28,32 @@
         <item>@color/gray</item>
     </integer-array>
 
-    <color name="PrimaryColor">#2196F3</color>
+    <color name="PrimaryColor">#2196f3</color>
     <color name="PrimaryDarkColor">#1976D2</color>
     <color name="black_1">#ffffff</color>
     <color name="background_material_light_1">#000000</color>
-    <color name="primary_text_material_light">#ffffff</color>
+    <color name="primary_text_material_light">#deffffff</color>
     <color name="colorPrimaryDark">#03a9f4</color>
     <color name="primary_material_light">#03a9f4</color>
-    <color name="primary_material_dark">#000000</color>
-    <color name="primary_dark_material_dark">#0097a7</color>
+    <color name="primary_material_dark">#03a9f4</color>
+    <color name="primary_dark_material_dark">#03a9f4</color>
     <color name="background_material_dark">#ffffff</color>
-    <color name="accent_material_dark">#020202</color>
+    <color name="accent_material_dark">#ffffff</color>
     <color name="foreground_material_dark">#f70000</color>
     <color name="secondary_text_material_dark">#ffffff</color>
 
+    <color name="text_primary_light">#DE000000</color>
+    <color name="text_secondary_light">#8A000000</color>
+    <color name="background_light">#FFFAFAFA</color>
+
+    <color name="text_primary_dark">#FFFFFFFF</color>
+    <color name="text_secondary_dark">#B3FFFFFF</color>
+    <color name="background_dark">#FF303030</color>
+
+
     <color name="dark">#2B2B2B</color>
     <color name="light">#EEEEEE</color>
+    <color name="secondary_text_material_light">#ffffff</color>
+    <color name="primary_text_material_dark">#ff0000</color>
 
 </resources> 

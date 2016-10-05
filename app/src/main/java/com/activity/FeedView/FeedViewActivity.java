@@ -96,7 +96,6 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
     void runUI() {
 
         pagerAdapter = new PagerAdapter(getFragmentManager());
-        pager.setPageTransformer(false, new ParallaxPagerTransformer(R.id.imageView));
 
         pagerAdapter.setData(categoryService.getListFeed());
         pagerAdapter.setItem(selectedId);
@@ -105,6 +104,8 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
         pager.addOnPageChangeListener(this);
         setSelectedPage(categoryService.getIndexInCaterogyById(selectedId.getContentID()));
         feedService.setRead(selectedId.getContentID() + "");
+        pager.setPageTransformer(false, new ParallaxPagerTransformer(R.id.imageView));
+
     }
 
     @UiThread

@@ -55,11 +55,12 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
             holder.feed = item;
 
             TextView title = holder.title;
+
             ImageView imageView = holder.imageView;
             if (!item.isRead(context)) {
                 holder.title.setTextColor(Color.BLACK);
             } else {
-                title.setTextColor(Color.WHITE);
+                holder.materialRippleLayout.setAlpha((float) 0.5);
             }
             title.setText(item.getTitle());
             title.setEllipsize(TextUtils.TruncateAt.END);
@@ -116,13 +117,6 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
         }
     }
 
-    public void insert(Feed feed, int position) {
-        insert(feeds, feed, position);
-    }
-
-    public void remove(int position) {
-        remove(feeds, position);
-    }
 
     public void clear() {
         clear(feeds);

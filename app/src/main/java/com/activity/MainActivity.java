@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
         String listFeedJson = new Gson().toJson(categoryService.getListFeed());
         outState.putString("listFeed", listFeedJson);
-        //aasd
         super.onSaveInstanceState(outState);
     }
 
@@ -195,19 +194,27 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
                 break;
             case LIST_FEED:
-                getSupportActionBar().setTitle(selectedCategory);
-                appBar.setExpanded(true);
+                try {
+                    getSupportActionBar().setTitle(selectedCategory);
+                    appBar.setExpanded(true);
 
-                if (feedId != null) {
-                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    if (feedId != null) {
+                        FragmentManager fragmentManager = getSupportFragmentManager();
 
-                    ListFeedFragment_ listFeedFragment_ = (ListFeedFragment_) fragmentManager.findFragmentByTag(FragmentEnum.LIST_FEED.toString());
+                        ListFeedFragment_ listFeedFragment_ = (ListFeedFragment_) fragmentManager.findFragmentByTag(FragmentEnum.LIST_FEED.toString());
 
-                    setVisibilityForAllItem(false);
-                    listFeedFragment_.scrollToIndex(feedId);
-                    feedId = null;
+                        setVisibilityForAllItem(false);
+                        listFeedFragment_.scrollToIndex(feedId);
+                        feedId = null;
+                    }
+                } catch (Exception ex) {
+                    Log.e("hieu", "Can't scroll to selected feed", ex);
+
+                } finally {
+                    break;
+
                 }
-                break;
+
             case FEED:
                 setVisibilityForAllItem(true);
                 break;

@@ -1,6 +1,8 @@
 package com.activity.FeedView;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
@@ -8,9 +10,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,7 +46,6 @@ import java.util.Date;
 
 @EFragment(R.layout.view)
 public class FeedViewFragment extends Fragment implements Html.ImageGetter, ObservableScrollViewCallbacks {
-    private static String testIframe = "<iframe width=\"1280\" height=\"720\" src=\"https://www.youtube.com/embed/19MZTc_uQxU\" frameborder=\"0\" allowfullscreen></iframe>";
     @ViewById
     TextView textViewContent;
     @ViewById
@@ -86,7 +89,6 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter, Obse
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-
             feed = (Feed) savedInstanceState.get("feed");
         }
         super.onCreate(savedInstanceState);
@@ -195,25 +197,31 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter, Obse
 
     public void applyColor() {
         Boolean blackColor = myPrefs.darkBackground().get();
-        int textColor;
-        int backgroundColor;
-        if (blackColor) {
-            textColor = getResources().getColor(R.color.light);
-            backgroundColor = getResources().getColor(R.color.dark);
-        } else {
-            textColor = getResources().getColor(R.color.dark);
-            backgroundColor = getResources().getColor(R.color.light);
-        }
-        textViewContent.setTextColor(textColor);
-        title.setTextColor(textColor);
-        zoneName.setTextColor(textColor);
-        txtDate.setTextColor(textColor);
-        constrainLayout.setBackgroundColor(backgroundColor);
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = getActivity().getTheme();
+        Context context = getContext();
 
+        int textPrimaryColor, textSecondaryColor, backgroundColor;
+        if (blackColor) {
+            textPrimaryColor = ContextCompat.getColor(context, R.color.text_primary_dark);
+            textSecondaryColor = ContextCompat.getColor(context, R.color.text_secondary_dark);
+            backgroundColor = ContextCompat.getColor(context, R.color.background_dark);
+
+        } else {
+            textPrimaryColor = ContextCompat.getColor(context, R.color.text_primary_light);
+            textSecondaryColor = ContextCompat.getColor(context, R.color.text_secondary_light);
+            backgroundColor = ContextCompat.getColor(context, R.color.background_light);
+        }
+
+        title.setTextColor(textPrimaryColor);
+        textViewContent.setTextColor(textPrimaryColor);
+        zoneName.setTextColor(textSecondaryColor);
+        txtDate.setTextColor(textSecondaryColor);
+
+        constrainLayout.setBackgroundColor(backgroundColor);
 
         feed_wrapper.setBackgroundColor(backgroundColor);
         progress_bar.setBackgroundColor(backgroundColor);
-
 
     }
 
@@ -226,10 +234,6 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter, Obse
 
     @Override
     public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
-
-        int baseColor = getResources().getColor(R.color.red);
-        float alpha = Math.min(1, (float) scrollY / 150);
-        // mToolbarView.setBackgroundColor(ScrollUtils.getColorWithAlpha(alpha, baseColor));
         ViewHelper.setTranslationY(imageView, scrollY / 2);
     }
 
@@ -248,5 +252,6 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter, Obse
 
         }
     }
+
 
 }

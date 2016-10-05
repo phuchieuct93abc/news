@@ -13,10 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="88dp"
         android:text="@string/Splash_Screen"
-        android:textAlignment="center"
         app:layout_constraintLeft_toLeftOf="@+id/imageView3"
         app:layout_constraintRight_toRightOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        android:textAppearance="@android:style/TextAppearance.Material.Large.Inverse" />
 
     <ImageView
         android:id="@+id/imageView3"
