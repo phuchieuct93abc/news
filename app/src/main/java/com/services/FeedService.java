@@ -2,6 +2,7 @@ package com.services;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.model.Feed;
@@ -77,13 +78,7 @@ public class FeedService {
     }
 
 
-    public void setRead(String feedLink) {
-        SharedPreferences prefs = context.getSharedPreferences(
-                FeedService.sharedPreferencesReadFeed, Context.MODE_PRIVATE);
-        prefs.edit().putBoolean(feedLink, true).apply();
 
-
-    }
 
 
 }

@@ -2,6 +2,7 @@ package com.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.io.Serializable;
 
@@ -221,23 +222,21 @@ public class Feed implements Serializable {
         return isRead;
     }
 
-    public void setRead(Boolean read) {
-        isRead = read;
-    }
+
 
     public boolean isRead(Context context) {
-        try {
-            SharedPreferences sharedPreferences = context.getSharedPreferences(Feed.isReadPreferences, Context.MODE_PRIVATE);
-            return sharedPreferences.getBoolean(this.getContentID() + "", false);
-        } catch (Exception e) {
-            return false;
-        }
+        Log.d("hieu",String.format("get read %s:%s",String.valueOf(getContentID()),this.isRead));
+
+        return (isRead!=null && isRead.equals(true));
     }
 
     public void setIsRead(Context context) {
         try {
+            isRead = true;
             SharedPreferences sharedPreferences = context.getSharedPreferences(Feed.isReadPreferences, Context.MODE_PRIVATE);
-            sharedPreferences.edit().putBoolean(getContentID() + "", true).apply();
+            Log.d("hieu",String.format("set read %s:%s",String.valueOf(getContentID()),true));
+
+            sharedPreferences.edit().putBoolean(String.valueOf(getContentID()), true).commit();
         } catch (Exception e) {
             e.printStackTrace();
         }

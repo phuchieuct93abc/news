@@ -103,7 +103,7 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
 
         pager.addOnPageChangeListener(this);
         setSelectedPage(categoryService.getIndexInCaterogyById(selectedId.getContentID()));
-        feedService.setRead(selectedId.getContentID() + "");
+        selectedId.setIsRead(context);
         pager.setPageTransformer(false, new ParallaxPagerTransformer(R.id.imageView));
 
     }

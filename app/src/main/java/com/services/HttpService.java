@@ -53,7 +53,7 @@ public class HttpService {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                if (runningTime < 10) {
+                if (runningTime < 5) {
                     continue;
                 } else {
                     throw new Exception();

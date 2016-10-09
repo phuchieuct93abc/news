@@ -40,6 +40,9 @@ public class CategoryService {
     HttpService httpService;
     @RootContext
     Context context;
+    @Bean
+    FeedService feedService;
+
     private String currentLink;
     private int duplicateCount = 0;
 
