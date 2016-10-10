@@ -4,7 +4,10 @@ package com.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
+import android.util.Log;
 
+import com.activeandroid.query.Select;
+import com.model.Item;
 import com.phuchieu.news.R;
 
 import org.androidannotations.annotations.AfterViews;
@@ -23,6 +26,13 @@ public class Splash extends Activity {
 
     @AfterViews
     void afterView() {
+        Item t = new Select().from(Item.class).orderBy("RANDOM()").executeSingle();
+        if (t != null) {
+
+            Log.d("hieu", Item.getRandom().getName());
+
+        }
+
         new Handler().postDelayed(runnable, SPLASH_DISPLAY_LENGTH);
 
     }

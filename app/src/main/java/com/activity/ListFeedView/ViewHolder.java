@@ -1,5 +1,6 @@
 package com.activity.ListFeedView;
 
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -19,6 +20,7 @@ public class ViewHolder extends UltimateRecyclerviewViewHolder implements View.O
     MaterialRippleLayout materialRippleLayout;
     TextView sourceInfo;
     ImageView sourceImage;
+    CardView cardView;
 
 
     public ViewHolder(View itemView) {
@@ -29,6 +31,7 @@ public class ViewHolder extends UltimateRecyclerviewViewHolder implements View.O
         materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
         sourceInfo = (TextView) itemView.findViewById(R.id.sourceInfo);
         sourceImage = (ImageView) itemView.findViewById(R.id.sourceImage);
+        cardView = (CardView) itemView.findViewById(R.id.cardView);
         materialRippleLayout.setOnClickListener(this);
 
 

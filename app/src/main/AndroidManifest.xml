@@ -19,7 +19,17 @@
         android:largeHeap="true"
         android:screenOrientation="portrait"
         android:theme="@style/LightCustom"
-        tools:replace="android:icon">
+        tools:replace="android:icon"
+        android:name="com.activeandroid.app.Application"
+      >
+        <meta-data android:name="DATABASE" android:value="sugar_example.db" />
+        <meta-data android:name="VERSION" android:value="1" />
+        <meta-data android:name="QUERY_LOG" android:value="true" />
+        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.example" />
+
+        <meta-data android:name="AA_DB_NAME" android:value="Pickrand.db" />
+        <meta-data android:name="AA_DB_VERSION" android:value="1" />
+
         <activity
             android:name="com.activity.Splash_"
             android:hardwareAccelerated="true"
