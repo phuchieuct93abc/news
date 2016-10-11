@@ -72,12 +72,13 @@
                         android:id="@+id/title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/gray"
+                        android:background="@color/primary_text_material_light"
                         android:padding="10dp"
 
                         android:textSize="20sp"
                         app:layout_constraintLeft_toLeftOf="@+id/progress_bar"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                        app:layout_constraintTop_toBottomOf="@+id/imageView"
+                        android:textColor="@color/background_material_light_1" />
 
                     <LinearLayout
                         android:id="@+id/linearLayout2"
