@@ -66,9 +66,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     Feed selectedFeed;
     String selectedCategory;
 
-    private static <Feed> List<com.model.Feed> stringToArray(String s, Class<com.model.Feed[]> clazz) {
+    private static List<com.model.Feed> stringToArray(String s, Class<com.model.Feed[]> clazz) {
         com.model.Feed[] arr = new Gson().fromJson(s, clazz);
-        return Arrays.asList(arr); //or return Arrays.asList(new Gson().fromJson(s, clazz)); for a one-liner
+        return Arrays.asList(arr);
     }
 
     @Override
@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
             List<Feed> feeds = stringToArray(listFeedJson, Feed[].class);
             categoryService.setListFeed(feeds);
-            Log.d("save", "get list feed from save");
 
         }
 
@@ -140,8 +139,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
         ListFeedFragment sharedElementFragment1 = new ListFeedFragment_();
 
-        fragmentTransaction.replace(R.id.fragment, sharedElementFragment1, FragmentEnum.LIST_FEED.toString()).addToBackStack(null).commit();
-
+        fragmentTransaction.replace(R.id.fragment, sharedElementFragment1, FragmentEnum.LIST_FEED.toString());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
         getSupportActionBar().setTitle(category);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -266,7 +266,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     @Override
     public void isExpandActionBar(Boolean isExpand) {
-
         appBar.setExpanded(isExpand);
     }
 
@@ -287,7 +286,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                 int textSize = config.textSize().get();
                 displaySettingBottomSheet = new DisplaySettingBottomSheet(isDarkmode, textSize);
                 displaySettingBottomSheet.show(getSupportFragmentManager(), "bottom sheet");
-
                 break;
 
             default:
@@ -296,14 +294,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_feed_view, menu);
-        this.menu = menu;
-        setVisibilityForAllItem(false);
-        return true;
-    }
+
 
 
 }

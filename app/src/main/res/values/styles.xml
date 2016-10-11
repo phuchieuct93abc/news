@@ -29,6 +29,13 @@
     </style>
 
     <style name="LightCustom" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowEnterTransition">@transition/explode</item>
+        <item name="android:windowExitTransition">@transition/explode</item>
+
+        <!-- specify shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition">@transition/explode</item>
+        <item name="android:windowSharedElementExitTransition">@transition/explode</item>
 
 
         <item name="android:navigationBarColor">@color/primary_material_light</item>
