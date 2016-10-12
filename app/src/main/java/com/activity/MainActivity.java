@@ -293,6 +293,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         }
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_feed_view, menu);
+        this.menu = menu;
+        setVisibilityForAllItem(false);
+        return true;
+    }
 
 
 
