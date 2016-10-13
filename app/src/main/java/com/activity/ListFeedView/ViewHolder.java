@@ -40,7 +40,7 @@ public class ViewHolder extends UltimateRecyclerviewViewHolder implements View.O
     @Override
     public void onClick(View view) {
 
-        onClickListener.onClick(feed, view);
+        onClickListener.onClick(feed, imageView);
     }
 
 

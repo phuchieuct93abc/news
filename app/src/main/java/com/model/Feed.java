@@ -3,8 +3,6 @@ package com.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.orm.SugarRecord;
-
 import java.io.Serializable;
 
 public class Feed implements Serializable {

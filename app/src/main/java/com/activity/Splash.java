@@ -5,12 +5,8 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Handler;
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 
-import com.activeandroid.query.Select;
-import com.model.Item;
 import com.phuchieu.news.R;
 
 import org.androidannotations.annotations.AfterViews;

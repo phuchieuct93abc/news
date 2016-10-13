@@ -22,6 +22,7 @@ public interface MainActivityInterface {
     void changeSize(int textSize);
 
     void changeColor(boolean isDarkMode);
+    void setRefreshListFeed(Runnable runnable);
 
     void isExpandActionBar(Boolean isExpand);
 

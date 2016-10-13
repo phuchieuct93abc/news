@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="@string/Splash_Screen"
 
-        android:textAppearance="@android:style/TextAppearance.Material.Large.Inverse"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="8dp"

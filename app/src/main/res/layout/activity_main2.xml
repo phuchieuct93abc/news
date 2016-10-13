@@ -8,24 +8,27 @@
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:elevation="100dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|enterAlways">
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:elevation="100dp">
 
             <android.support.design.widget.AppBarLayout
                 android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:elevation="100dp">
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:theme="@style/LightCustom"
-                    app:layout_collapseMode="pin" />
+                    app:layout_collapseMode="pin"
+                    android:elevation="100dp"/>
             </android.support.design.widget.AppBarLayout>
         </android.support.design.widget.CollapsingToolbarLayout>
 
