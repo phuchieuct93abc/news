@@ -1,6 +1,5 @@
 package com.activity.fragment_activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -68,7 +67,6 @@ public class ListFeedFragment extends Fragment {
                     if (listView.getAdapter() == null) listView.setAdapter(adapter);
                     progress_bar_loading_news.setVisibility(View.GONE);
                     listView.setVisibility(View.VISIBLE);
-
                     listView.scrollVerticallyTo(0);
                 } catch (Exception e) {
 
@@ -136,18 +134,17 @@ public class ListFeedFragment extends Fragment {
             @Override
             public void run() {
                 cacheProvider.clearCache();
-
                 categoryService.clearCacheList();
                 adapter.clear();
                 initData(new Runnable() {
                     @Override
                     public void run() {
-                        Log.i("hieuscroll", "scroll to 0");
                         listView.scrollVerticallyTo(0);
                     }
                 });
             }
         };
+        mainActivityInterface.setRefreshListFeed(callbackAfterLoadmore);
         refreshingMaterial(callbackAfterLoadmore);
     }
 
@@ -266,10 +263,10 @@ public class ListFeedFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mainActivityInterface = (MainActivityInterface) activity;
-        context = activity;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mainActivityInterface = (MainActivityInterface) getActivity();
+        this.context = getActivity();
     }
 
     @Override

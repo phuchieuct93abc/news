@@ -7,6 +7,8 @@ import android.util.Log;
 import java.io.Serializable;
 
 public class Feed implements Serializable {
+
+
     public static String isReadPreferences = "ISREAD";
     private Integer ContentID;
     private Integer SourceID;

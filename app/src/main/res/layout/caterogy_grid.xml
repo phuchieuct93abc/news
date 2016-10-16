@@ -19,7 +19,8 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.56" />
 
 
     <android.support.constraint.Guideline
@@ -29,7 +30,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.50617284"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="287dp" />
+        tools:layout_editor_absoluteY="334dp" />
 
     <TableLayout
         android:id="@+id/table"
@@ -101,6 +102,17 @@
         </TableRow>
 
     </TableLayout>
+
+    <ImageView
+        android:layout_width="70dp"
+        app:srcCompat="@drawable/news_icon"
+        android:id="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:transitionName="icon"/>
 
 
     <!-- The navigation drawer -->

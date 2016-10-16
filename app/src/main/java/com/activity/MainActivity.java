@@ -55,20 +55,22 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     @Bean
     CategoryService categoryService;
 
-    Menu menu;
     Integer feedId;
     Feed feedOnView;
     Runnable changeColor;
     Runnable changeTextSize;
+    Runnable refreshListFeed;
     DisplaySettingBottomSheet displaySettingBottomSheet;
     String runningFragment;
 
     Feed selectedFeed;
     String selectedCategory;
+    private Menu menu;
 
-    private static <Feed> List<com.model.Feed> stringToArray(String s, Class<com.model.Feed[]> clazz) {
+
+    private static List<com.model.Feed> stringToArray(String s, Class<com.model.Feed[]> clazz) {
         com.model.Feed[] arr = new Gson().fromJson(s, clazz);
-        return Arrays.asList(arr); //or return Arrays.asList(new Gson().fromJson(s, clazz)); for a one-liner
+        return Arrays.asList(arr);
     }
 
     @Override
@@ -92,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
             List<Feed> feeds = stringToArray(listFeedJson, Feed[].class);
             categoryService.setListFeed(feeds);
-            Log.d("save", "get list feed from save");
 
         }
 
@@ -140,25 +141,19 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
         ListFeedFragment sharedElementFragment1 = new ListFeedFragment_();
 
-        fragmentTransaction.replace(R.id.fragment, sharedElementFragment1, FragmentEnum.LIST_FEED.toString()).addToBackStack(null).commit();
-
+        fragmentTransaction.replace(R.id.fragment, sharedElementFragment1, FragmentEnum.LIST_FEED.toString());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
         getSupportActionBar().setTitle(category);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
-    private void setVisibilityForAllItem(boolean visibility) {
-        if (this.menu == null) return;
-        for (int index = 0; index < this.menu.size(); index++) {
-            this.menu.getItem(index).setVisible(visibility);
-        }
-    }
 
     @Override
     public void onSelectFeed(Feed feed, View v) {
         Bundle bundle = new Bundle();
         bundle.putInt("feedId", feed.getContentID());
-        setVisibilityForAllItem(true);
         startFeedViewFragment(bundle);
     }
 
@@ -185,16 +180,21 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     @Override
     public void setRunningFragment(FragmentEnum fragment) {
+        runningFragment = fragment.toString();
+
+        invalidOptionMenu();
         switch (fragment) {
             case CATEROGY:
+                updateEmptyMenu();
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                //setVisibilityForAllItem(false);
                 getSupportActionBar().setTitle(null);
                 appBar.setExpanded(false);
+
 
                 break;
             case LIST_FEED:
                 try {
+                    updateListFeedMenu();
                     getSupportActionBar().setTitle(selectedCategory);
                     appBar.setExpanded(true);
 
@@ -203,7 +203,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
                         ListFeedFragment_ listFeedFragment_ = (ListFeedFragment_) fragmentManager.findFragmentByTag(FragmentEnum.LIST_FEED.toString());
 
-                        setVisibilityForAllItem(false);
                         listFeedFragment_.scrollToIndex(feedId);
                         feedId = null;
                     }
@@ -216,13 +215,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                 }
 
             case FEED:
-                setVisibilityForAllItem(true);
+                updateFeedViewMenu();
+
                 break;
 
             default:
                 break;
         }
-        runningFragment = fragment.toString();
     }
 
     @Override
@@ -265,8 +264,20 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     }
 
     @Override
-    public void isExpandActionBar(Boolean isExpand) {
+    public void setRefreshListFeed(Runnable runnable) {
+        this.refreshListFeed = runnable;
+    }
 
+    private void runRefreshListFeed() {
+        if(this.refreshListFeed!=null){
+            this.refreshListFeed.run();
+
+        }
+
+    }
+
+    @Override
+    public void isExpandActionBar(Boolean isExpand) {
         appBar.setExpanded(isExpand);
     }
 
@@ -275,6 +286,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                break;
+            case R.id.refresh:
+                runRefreshListFeed();
                 break;
             case R.id.share:
                 share();
@@ -287,7 +301,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                 int textSize = config.textSize().get();
                 displaySettingBottomSheet = new DisplaySettingBottomSheet(isDarkmode, textSize);
                 displaySettingBottomSheet.show(getSupportFragmentManager(), "bottom sheet");
-
                 break;
 
             default:
@@ -296,14 +309,56 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         return super.onOptionsItemSelected(item);
     }
 
+    private void refreshListFeed() {
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_feed_view, menu);
+        //getMenuInflater().inflate(R.menu.menu_feed_view, menu);
         this.menu = menu;
-        setVisibilityForAllItem(false);
+
+        if (runningFragment == null) {
+            getMenuInflater().inflate(R.menu.menu_empty, menu);
+        } else {
+
+
+            switch (FragmentEnum.valueOf(runningFragment)) {
+                case CATEROGY:
+                    getMenuInflater().inflate(R.menu.menu_empty, menu);
+                    break;
+                case LIST_FEED:
+                    getMenuInflater().inflate(R.menu.menu_list_feed, menu);
+                    break;
+                case FEED:
+                    getMenuInflater().inflate(R.menu.menu_feed_view, menu);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
         return true;
     }
 
+
+    public void updateListFeedMenu() {
+
+    }
+
+    public void updateFeedViewMenu() {
+
+    }
+
+    public void updateEmptyMenu() {
+    }
+
+    private void invalidOptionMenu() {
+
+        this.invalidateOptionsMenu();
+
+    }
 
 }

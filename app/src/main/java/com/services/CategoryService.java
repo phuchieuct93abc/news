@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.model.Articlelist;
 import com.model.Category;
 import com.model.Feed;
+import com.model.Item;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
@@ -91,6 +92,10 @@ public class CategoryService {
         if (responseCategory != null) {
             for (Feed feed : articlelist.getArticlelist()) {
                 if (getIndexInCaterogyById(feed.getContentID()) == -1) {
+                    Item t = new Item(feed.getTitle());
+                    t.save();
+
+
                     result.add(feed);
                 } else {
                     duplicateCount++;

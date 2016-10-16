@@ -2,7 +2,6 @@ package com.activity.ListFeedView;
 
 import android.animation.Animator;
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -57,11 +56,7 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
             TextView title = holder.title;
 
             ImageView imageView = holder.imageView;
-//            if (!item.isRead(context)) {
-//                holder.title.setTextColor(Color.BLACK);
-//            } else {
-//                holder.materialRippleLayout.setAlpha((float) 0.5);
-//            }
+
             title.setText(item.getTitle());
             title.setEllipsize(TextUtils.TruncateAt.END);
             title.setMaxLines(2);
