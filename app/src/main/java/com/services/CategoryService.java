@@ -1,6 +1,7 @@
 package com.services;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -72,7 +73,7 @@ public class CategoryService {
     }
 
     private String getCategoryURLWithIndex() {
-
+        Log.d("abc","start "+ "" + (listFeed.size() + duplicateCount));
         return currentLink.replace("{START_PAGE}", "" + (listFeed.size() + duplicateCount));
 
 
@@ -82,10 +83,10 @@ public class CategoryService {
         List<Feed> result = new ArrayList<>();
         int beforeUpdateLength = listFeed.size();
 
-        if (beforeUpdateLength >= 190) {
-            Toast.makeText(context, "Reached maximum number 190 feeds", Toast.LENGTH_SHORT).show();
-            return listFeed;
-        }
+//        if (beforeUpdateLength >= 190) {
+//            Toast.makeText(context, "Reached maximum number 190 feeds", Toast.LENGTH_SHORT).show();
+//            return listFeed;
+//        }
         String link = getCategoryURLWithIndex();
         String responseCategory = httpService.readUrl(link);
         Articlelist articlelist = new Gson().fromJson(responseCategory, Articlelist.class);
@@ -94,8 +95,6 @@ public class CategoryService {
                 if (getIndexInCaterogyById(feed.getContentID()) == -1) {
                     Item t = new Item(feed.getTitle());
                     t.save();
-
-
                     result.add(feed);
                 } else {
                     duplicateCount++;

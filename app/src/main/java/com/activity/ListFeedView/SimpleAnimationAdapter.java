@@ -2,6 +2,7 @@ package com.activity.ListFeedView;
 
 import android.animation.Animator;
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -61,7 +62,13 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
             title.setEllipsize(TextUtils.TruncateAt.END);
             title.setMaxLines(2);
             holder.onClickListener = this.getOnClickListener();
+            if(item.isRead(context)){
 
+                title.setTextColor(   ContextCompat.getColor(context,R.color.readColor));
+            }else{
+                title.setTextColor(   ContextCompat.getColor(context,R.color.unReadColor));
+
+            }
             httpService.loadImage(item.getLandscapeAvatar(), imageView, holder.progressBar);
 
             TextView sourceInfo = holder.sourceInfo;

@@ -55,5 +55,7 @@
     <color name="light">#EEEEEE</color>
     <color name="secondary_text_material_light">#ffffff</color>
     <color name="primary_text_material_dark">#ff0000</color>
+    <color name="unReadColor">#1a0dab</color>
+    <color name="readColor">#609</color>
 
 </resources> 

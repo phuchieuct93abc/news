@@ -227,16 +227,15 @@ public class Feed implements Serializable {
 
 
     public boolean isRead(Context context) {
-        Log.d("hieu",String.format("get read %s:%s",String.valueOf(getContentID()),this.isRead));
-
-        return (isRead!=null && isRead.equals(true));
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Feed.isReadPreferences, Context.MODE_PRIVATE);
+        boolean isReadBoolean = sharedPreferences.getBoolean(String.valueOf(getContentID()),false);
+        return isReadBoolean;
     }
 
     public void setIsRead(Context context) {
         try {
             isRead = true;
             SharedPreferences sharedPreferences = context.getSharedPreferences(Feed.isReadPreferences, Context.MODE_PRIVATE);
-            Log.d("hieu",String.format("set read %s:%s",String.valueOf(getContentID()),true));
 
             sharedPreferences.edit().putBoolean(String.valueOf(getContentID()), true).commit();
         } catch (Exception e) {

@@ -117,7 +117,12 @@ public class ListFeedFragment extends Fragment {
         UltimateRecyclerView.OnLoadMoreListener loadMoreListener = new UltimateRecyclerView.OnLoadMoreListener() {
             @Override
             public void loadMore(int itemsCount, final int maxLastVisiblePosition) {
-                loadNextPage();
+                Log.d("abc",itemsCount+"");
+                if(itemsCount>=10){
+
+
+                    loadNextPage();
+                }
 
 
             }
@@ -180,8 +185,6 @@ public class ListFeedFragment extends Fragment {
                 List<Feed> moreData = categoryService.getMoreFeed();
                 setMoreDataList(moreData, null);
                 return;
-
-
             } catch (Exception e) {
                 continue;
             }
