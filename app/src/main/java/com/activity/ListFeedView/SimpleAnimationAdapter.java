@@ -57,6 +57,7 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
             TextView title = holder.title;
 
             ImageView imageView = holder.imageView;
+            imageView.setTransitionName(item.getContentID()+"");
 
             title.setText(item.getTitle());
             title.setEllipsize(TextUtils.TruncateAt.END);

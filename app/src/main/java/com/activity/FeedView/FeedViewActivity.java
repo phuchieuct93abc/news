@@ -9,6 +9,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -21,6 +24,7 @@ import com.model.Feed;
 import com.phuchieu.news.R;
 import com.services.CategoryService;
 import com.services.FeedService;
+import com.services.HttpService;
 import com.xgc1986.parallaxPagerTransformer.ParallaxPagerTransformer;
 
 import org.androidannotations.annotations.AfterViews;
@@ -33,13 +37,15 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.List;
 
-@EFragment(R.layout.view_swipe)
+@EFragment
 public class FeedViewActivity extends Fragment implements OnPageChangeListener {
     MainActivityInterface mainActivityInterface;
     @Bean
     FeedService feedService;
     @Bean
     CategoryService categoryService;
+    @Bean
+    HttpService httpService;
     @ViewById
     ImageView imageView;
 
@@ -64,6 +70,21 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
         super.onAttach(activity);
         context = activity;
         mainActivityInterface = (MainActivityInterface) activity;
+
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View inflate = inflater.inflate(R.layout.view_swipe, container, false);
+        String contentId = getArguments().getInt("feedId") + "";
+        ImageView shareElement = (ImageView)inflate.findViewById(R.id.shareElement);
+        shareElement.setTransitionName(contentId);
+
+        Feed item = categoryService.getFeedById(contentId);
+        httpService.loadImage(item.getLandscapeAvatar(), shareElement, null);
+
+        return inflate;
 
     }
 

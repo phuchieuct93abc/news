@@ -73,7 +73,10 @@ public class HttpService {
             if (url.isEmpty() || url.length() == 0) {
 
                 loadDefaultImage(imageView);
-                progressBar.setVisibility(View.GONE);
+                if(progressBar!=null){
+
+                    progressBar.setVisibility(View.GONE);
+                }
                 return;
 
 
