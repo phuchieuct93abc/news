@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +78,9 @@ public class SimpleAnimationAdapter extends UltimateViewAdapter<RecyclerView.Vie
             ImageView sourceImage = holder.sourceImage;
             sourceImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
             feedService.getIconOfUrl(item.getContentUrl(), sourceImage);
+            Log.i("transitionName",item.getContentID().toString());
+
+            imageView.setTransitionName(item.getContentID().toString());
         }
         if (!isFirstOnly || position > mLastPosition) {
             for (Animator anim : getAdapterAnimations(holder.itemView, AdapterAnimationType.SlideInBottom)) {

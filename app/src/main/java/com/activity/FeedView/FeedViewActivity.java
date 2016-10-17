@@ -63,6 +63,7 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
     Config_ config;
     String feedID;
     Feed currentFeed;
+    ImageView shareElement;
 
 
     @Override
@@ -78,7 +79,7 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View inflate = inflater.inflate(R.layout.view_swipe, container, false);
         String contentId = getArguments().getInt("feedId") + "";
-        ImageView shareElement = (ImageView)inflate.findViewById(R.id.shareElement);
+        shareElement = (ImageView)inflate.findViewById(R.id.shareElement);
         shareElement.setTransitionName(contentId);
 
         Feed item = categoryService.getFeedById(contentId);
@@ -126,6 +127,7 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
         setSelectedPage(categoryService.getIndexInCaterogyById(selectedId.getContentID()));
         selectedId.setIsRead(context);
         pager.setPageTransformer(false, new ParallaxPagerTransformer(R.id.imageView));
+        shareElement.setVisibility(View.INVISIBLE);
 
     }
 

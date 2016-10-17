@@ -9,13 +9,16 @@ import android.graphics.drawable.LevelListDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -44,7 +47,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@EFragment(R.layout.view)
+@EFragment
 public class FeedViewFragment extends Fragment implements Html.ImageGetter, ObservableScrollViewCallbacks {
     @ViewById
     TextView textViewContent;
@@ -92,6 +95,24 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter, Obse
             feed = (Feed) savedInstanceState.get("feed");
         }
         super.onCreate(savedInstanceState);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.view, container, false);
+    Log.i("set feed",feed.getContentID()+"");
+        view.findViewById(R.id.imageView).setTransitionName(feed.getContentID()+"");
+        return  view;
+
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        view.findViewById(R.id.imageView).setTransitionName(feed.getContentID()+"");
+
     }
 
     @Override
@@ -178,6 +199,9 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter, Obse
         applyTextsize();
         initializeSetting();
         runBackground();
+        Log.i("finish",feed.getContentID()+"");
+        ActivityCompat.startPostponedEnterTransition(getActivity());
+
     }
 
 

@@ -165,9 +165,17 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 //        fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out,R.anim.fade_in,R.anim.fade_out);
         sharedElementFragment2.setArguments(bundle);
         sharedElementFragment1.setSharedElementReturnTransition(TransitionInflater.from(this).inflateTransition(R.transition.change_image_transform));
-        sharedElementFragment2.setSharedElementReturnTransition(TransitionInflater.from(this).inflateTransition(R.transition.change_image_transform));
         sharedElementFragment1.setSharedElementEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.change_image_transform));
+
+        sharedElementFragment2.setSharedElementReturnTransition(TransitionInflater.from(this).inflateTransition(R.transition.change_image_transform));
         sharedElementFragment2.setSharedElementEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.change_image_transform));
+
+        sharedElementFragment1.setEnterTransition(TransitionInflater.from(this).inflateTransition(android.R.transition.fade));
+        sharedElementFragment1.setExitTransition(TransitionInflater.from(this).inflateTransition(android.R.transition.fade));
+        sharedElementFragment2.setEnterTransition(TransitionInflater.from(this).inflateTransition(android.R.transition.fade));
+        sharedElementFragment2.setExitTransition(TransitionInflater.from(this).inflateTransition(android.R.transition.fade));
+
+
         fragmentTransaction
                 .replace(R.id.fragment, sharedElementFragment2, FragmentEnum.FEED.toString())
                 .addToBackStack(null)
@@ -187,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     @Override
     public void setRunningFragment(FragmentEnum fragment) {
+        String previousFragment = runningFragment;
         runningFragment = fragment.toString();
 
         invalidOptionMenu();
@@ -203,7 +212,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                 try {
                     updateListFeedMenu();
                     getSupportActionBar().setTitle(selectedCategory);
-                    appBar.setExpanded(true);
+                    if(previousFragment.equals(FragmentEnum.CATEROGY.toString())){
+                        appBar.setExpanded(true);
+                    }
 
                     if (feedId != null) {
                         FragmentManager fragmentManager = getSupportFragmentManager();
