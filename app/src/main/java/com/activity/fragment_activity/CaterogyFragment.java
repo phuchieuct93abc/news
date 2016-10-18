@@ -11,12 +11,11 @@ import android.widget.TableRow;
 
 import com.activity.FragmentEnum;
 import com.activity.MainActivityInterface;
-import com.model.Category;
+import com.model.Source.Source;
 import com.phuchieu.news.R;
 import com.services.CategoryService;
+import com.services.FeedService;
 import com.services.HttpService;
-import com.services.main_screen.Tile;
-import com.services.main_screen.TileService;
 import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.AfterInject;
@@ -27,18 +26,19 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.List;
-
 @EFragment(R.layout.caterogy_grid)
 public class CaterogyFragment extends Fragment {
     MainActivityInterface mainActivityInterface;
     Context context;
+    Source source;
+
     @ViewById
     TableLayout table;
 
     @Bean
     CategoryService categoryService;
-    List<Tile> tiles;
+    @Bean
+    FeedService feedService;
     @ViewById
     ImageView background;
     @Bean
@@ -52,7 +52,7 @@ public class CaterogyFragment extends Fragment {
 
     @AfterInject
     void afterInject() {
-        tiles = TileService.getList();
+        source = categoryService.getSourceByLanguage("vi");
     }
 
     @Background
@@ -73,9 +73,9 @@ public class CaterogyFragment extends Fragment {
             for (int y = 0; y < row.getChildCount(); y++) {
                 AppCompatButton button = (AppCompatButton) row.getChildAt(y);
                 int index = 2 * x + y;
-                Tile tile = tiles.get(index);
-                button.setText(tile.getTitle());
-                View.OnClickListener initialOnClickListener = initialOnClickListener(tile.getCaterogi());
+                com.model.Source.Category category = this.source.getCategories().get(index);
+                button.setText(category.getName());
+                View.OnClickListener initialOnClickListener = initialOnClickListener(category, this.source);
                 button.setOnClickListener(initialOnClickListener);
 
             }
@@ -83,11 +83,12 @@ public class CaterogyFragment extends Fragment {
     }
 
 
-    private View.OnClickListener initialOnClickListener(final Category category) {
+    private View.OnClickListener initialOnClickListener(final com.model.Source.Category link, final Source source) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                categoryService.setListId(category);
+                categoryService.setSelectedCategory(link);
+                feedService.setFeedContentLink(source.getDetail());
                 mainActivityInterface.onCategorySelected(((AppCompatButton) v).getText().toString());
 
             }
