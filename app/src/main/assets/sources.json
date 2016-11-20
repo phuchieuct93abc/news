@@ -1,0 +1,63 @@
+{
+  "sources": [
+    {
+      "language": "en",
+      "categories": [],
+      "detail": ""
+    },
+    {
+      "language": "vi",
+      "categories": [
+        {
+          "id": "TINMOI",
+          "link": "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType=zone&listId=71&imageMinSize=300&mode=quickview",
+          "name": "Tin mới",
+          "icon": "fa-heart"
+        },
+        {
+          "id": "KHCN",
+          "link": "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType=zone&listId=53&imageMinSize=300&mode=quickview",
+          "name": "Công nghệ",
+          "icon": "fa-heart"
+        },
+        {
+          "id": "TG",
+          "link": "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType=zone&listId=119&imageMinSize=300&mode=quickview",
+          "name": "Thế giới",
+          "icon": "fa-heart"
+        },
+        {
+          "id": "KT",
+          "link": "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType=zone&listId=45&imageMinSize=300&mode=quickview",
+          "name": "Kinh tế",
+          "icon": "fa-heart"
+        },
+        {
+          "id": "PL",
+          "link": "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType=zone&listId=58&imageMinSize=300&mode=quickview",
+          "name": "Pháp luật",
+          "icon": "fa-heart"
+        },
+        {
+          "id": "TT",
+          "link": "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType=zone&listId=55&imageMinSize=300&mode=quickview",
+          "name": "Thể thao",
+          "icon": "fa-heart"
+        },
+        {
+          "id": "XH",
+          "link": "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType=zone&listId=121&imageMinSize=300&mode=quickview",
+          "name": "Xã hội",
+          "icon": "fa-heart"
+        },
+        {
+          "id": "Giải trí",
+          "link": "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType=zone&listId=52&imageMinSize=300&mode=quickview",
+          "name": "Giải trí",
+          "icon": "fa-heart"
+        }
+      ],
+      "detail": "http://dataprovider.touch.baomoi.com/json/article.aspx?articleId={ID}"
+    }
+  ]
+}

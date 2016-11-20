@@ -1,8 +1,6 @@
 package com.services;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.model.Feed;
@@ -17,10 +15,9 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-@EBean
+@EBean(scope = EBean.Scope.Singleton)
 public class FeedService {
-    public static String LINK_FEED_CONTENT = "http://dataprovider.touch.baomoi.com/json/article.aspx?articleId={ID}";
-    static String sharedPreferencesReadFeed = "READ_FEED_CACHE";
+    private String feedContentLink;
     @RootContext
     Context context;
     @Bean
@@ -33,12 +30,11 @@ public class FeedService {
 
     }
 
-
     public Feed getFeedContentFromFeed(final Feed feed) throws Exception {
 
         Integer id = feed.getContentID();
         String link_request;
-        link_request = LINK_FEED_CONTENT.replace("{ID}", id + "");
+        link_request = this.feedContentLink.replace("{ID}", id + "");
 
         String responseCategory;
         responseCategory = httpService.readUrl(link_request);
@@ -78,7 +74,7 @@ public class FeedService {
     }
 
 
-
-
-
+    public void setFeedContentLink(String feedContentLink) {
+        this.feedContentLink = feedContentLink;
+    }
 }

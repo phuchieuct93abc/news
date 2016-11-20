@@ -1,19 +1,20 @@
 package com.services;
 
 import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.model.Articlelist;
 import com.model.Category;
 import com.model.Feed;
-import com.model.Item;
+import com.model.Source.Source;
+import com.model.Source.Sources;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,6 @@ public class CategoryService {
     public static Category ANHVUI = new Category(ZINI_LIST_TYPE, 3);
     public static Category CNET = new Category("CNET", 1);
     public static String LINK_CATEGORY = "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType={LIST_TYPE}&listId={LIST_ID}&imageMinSize=300&mode=quickview";
-    public static String CNET_CATEROGY = "http://feed.cnet.com/feed/river?limit=10&start={START_PAGE}&edition=us&locale=us&version=3_0&platform=android&release=3.1.5";
     public static List<Feed> listFeed = new ArrayList<>();
     @Bean
     HttpService httpService;
@@ -45,17 +45,51 @@ public class CategoryService {
     @Bean
     FeedService feedService;
 
-    private String currentLink;
+    private String currentCategoryLink;
     private int duplicateCount = 0;
 
-    public void setListId(Category category) {
-        String newLink = LINK_CATEGORY.replace("{LIST_ID}", category.getId() + "");
-        newLink = newLink.replace("{LIST_TYPE}", category.getType());
-        if (!newLink.equals(currentLink)) {
-            clearCacheList();
-        }
-        currentLink = newLink;
 
+    public Source getSourceByLanguage(String language) {
+        String configString = loadJSONFromAsset();
+        Sources sources = new Gson().fromJson(configString, Sources.class);
+        for (Source source : sources.getSources()) {
+            if (language.equals(source.getLanguage())) {
+
+                return source;
+            }
+        }
+        return null;
+    }
+
+    private String loadJSONFromAsset() {
+        String json = null;
+        try {
+
+            InputStream is = context.getAssets().open("sources.json");
+
+            int size = is.available();
+
+            byte[] buffer = new byte[size];
+
+            is.read(buffer);
+
+            is.close();
+
+            json = new String(buffer, "UTF-8");
+
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+
+    }
+
+
+    public void setSelectedCategory(com.model.Source.Category link) {
+        clearCacheList();
+        this.currentCategoryLink = link.getLink();
     }
 
     public List<Feed> getListFeed() {
@@ -73,8 +107,7 @@ public class CategoryService {
     }
 
     private String getCategoryURLWithIndex() {
-        Log.d("abc","start "+ "" + (listFeed.size() + duplicateCount));
-        return currentLink.replace("{START_PAGE}", "" + (listFeed.size() + duplicateCount));
+        return currentCategoryLink.replace("{START_PAGE}", "" + (listFeed.size() + duplicateCount));
 
 
     }
@@ -93,8 +126,6 @@ public class CategoryService {
         if (responseCategory != null) {
             for (Feed feed : articlelist.getArticlelist()) {
                 if (getIndexInCaterogyById(feed.getContentID()) == -1) {
-                    Item t = new Item(feed.getTitle());
-                    t.save();
                     result.add(feed);
                 } else {
                     duplicateCount++;
@@ -128,5 +159,7 @@ public class CategoryService {
         }
         return null;
     }
+
+
 }
 
