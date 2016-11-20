@@ -45,10 +45,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     Toolbar toolbar;
     @ViewById
     Switch switchDarkMode;
-    @ViewById
-    AppBarLayout appBarLayout;
-    @ViewById
-    AppBarLayout appBar;
+
     @ViewById
     DiscreteSeekBar seekTextsize;
     @Pref
@@ -67,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     Feed selectedFeed;
     String selectedCategory;
-    private Menu menu;
 
 
     private static List<com.model.Feed> stringToArray(String s, Class<com.model.Feed[]> clazz) {
@@ -99,13 +95,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
         }
 
+
         super.onCreate(savedInstanceState);
     }
 
     @AfterViews
     public void init() {
-
         setSupportActionBar(toolbar);
+
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -134,7 +131,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         }
 
     }
+
     ListFeedFragment sharedElementFragment1;
+
     @Override
     public void onCategorySelected(String category) {
         this.selectedCategory = category;
@@ -156,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     public void onSelectFeed(Feed feed, View v) {
         Bundle bundle = new Bundle();
         bundle.putInt("feedId", feed.getContentID());
-        startFeedViewFragment(bundle,(ImageView)v);
+        startFeedViewFragment(bundle, (ImageView) v);
     }
 
     private void startFeedViewFragment(Bundle bundle, ImageView shareElement) {
@@ -179,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         fragmentTransaction
                 .replace(R.id.fragment, sharedElementFragment2, FragmentEnum.FEED.toString())
                 .addToBackStack(null)
-                .addSharedElement(shareElement,shareElement.getTransitionName())
+                .addSharedElement(shareElement, shareElement.getTransitionName())
                 .commit();
     }
 
@@ -195,26 +194,20 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     @Override
     public void setRunningFragment(FragmentEnum fragment) {
-        String previousFragment = runningFragment;
         runningFragment = fragment.toString();
 
         invalidOptionMenu();
         switch (fragment) {
             case CATEROGY:
-                updateEmptyMenu();
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 getSupportActionBar().setTitle(null);
-                appBar.setExpanded(false);
 
 
                 break;
             case LIST_FEED:
                 try {
-                    updateListFeedMenu();
                     getSupportActionBar().setTitle(selectedCategory);
-                    if(previousFragment.equals(FragmentEnum.CATEROGY.toString())){
-                        appBar.setExpanded(true);
-                    }
+
 
                     if (feedId != null) {
                         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -229,12 +222,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
                 } finally {
                     break;
-
                 }
 
             case FEED:
-                updateFeedViewMenu();
-
                 break;
 
             default:
@@ -287,17 +277,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     }
 
     private void runRefreshListFeed() {
-        if(this.refreshListFeed!=null){
+        if (this.refreshListFeed != null) {
             this.refreshListFeed.run();
 
         }
 
     }
 
-    @Override
-    public void isExpandActionBar(Boolean isExpand) {
-        appBar.setExpanded(isExpand);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -327,15 +313,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         return super.onOptionsItemSelected(item);
     }
 
-    private void refreshListFeed() {
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.menu_feed_view, menu);
-        this.menu = menu;
 
         if (runningFragment == null) {
             getMenuInflater().inflate(R.menu.menu_empty, menu);
@@ -361,17 +343,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         return true;
     }
 
-
-    public void updateListFeedMenu() {
-
-    }
-
-    public void updateFeedViewMenu() {
-
-    }
-
-    public void updateEmptyMenu() {
-    }
 
     private void invalidOptionMenu() {
 

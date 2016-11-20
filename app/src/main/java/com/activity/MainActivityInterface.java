@@ -24,7 +24,6 @@ public interface MainActivityInterface {
     void changeColor(boolean isDarkMode);
     void setRefreshListFeed(Runnable runnable);
 
-    void isExpandActionBar(Boolean isExpand);
 
 
 }

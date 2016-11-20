@@ -267,13 +267,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter, Obse
 
     @Override
     public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-        if (scrollState == ScrollState.UP) {
-            mainActivityInterface.isExpandActionBar(false);
 
-        } else if (scrollState == ScrollState.DOWN) {
-            mainActivityInterface.isExpandActionBar(true);
-
-        }
     }
 
 
