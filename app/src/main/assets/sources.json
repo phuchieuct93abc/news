@@ -2,7 +2,56 @@
   "sources": [
     {
       "language": "en",
-      "categories": [],
+      "categories": [
+        {
+          "id": "TINMOI",
+          "link": "https://content.guardianapis.com/us/technology?api-key=5a882193-ec7c-4b7a-b1bd-2bf16b07dbdb?page={START_PAGE}",
+          "name": "Tin mới",
+          "icon": "fa-heart"
+        },
+        {
+          "id": "TINMOI",
+          "link": "https://content.guardianapis.com/us/technology?api-key=5a882193-ec7c-4b7a-b1bd-2bf16b07dbdb?page={START_PAGE}",
+          "name": "Tin mới",
+          "icon": "fa-heart"
+        },
+        {
+          "id": "TINMOI",
+          "link": "https://content.guardianapis.com/us/technology?api-key=5a882193-ec7c-4b7a-b1bd-2bf16b07dbdb?page={START_PAGE}",
+          "name": "Tin mới",
+          "icon": "fa-heart"
+        },
+        {
+          "id": "TINMOI",
+          "link": "https://content.guardianapis.com/us/technology?api-key=5a882193-ec7c-4b7a-b1bd-2bf16b07dbdb?page={START_PAGE}",
+          "name": "Tin mới",
+          "icon": "fa-heart"
+        },
+        {
+          "id": "TINMOI",
+          "link": "https://content.guardianapis.com/us/technology?api-key=5a882193-ec7c-4b7a-b1bd-2bf16b07dbdb?page={START_PAGE}",
+          "name": "Tin mới",
+          "icon": "fa-heart"
+        },
+        {
+          "id": "TINMOI",
+          "link": "https://content.guardianapis.com/us/technology?api-key=5a882193-ec7c-4b7a-b1bd-2bf16b07dbdb?page={START_PAGE}",
+          "name": "Tin mới",
+          "icon": "fa-heart"
+        },
+        {
+          "id": "TINMOI",
+          "link": "https://content.guardianapis.com/us/technology?api-key=5a882193-ec7c-4b7a-b1bd-2bf16b07dbdb?page={START_PAGE}",
+          "name": "Tin mới",
+          "icon": "fa-heart"
+        },
+        {
+          "id": "TINMOI",
+          "link": "https://content.guardianapis.com/us/technology?api-key=5a882193-ec7c-4b7a-b1bd-2bf16b07dbdb?page={START_PAGE}",
+          "name": "Tin mới",
+          "icon": "fa-heart"
+        }
+      ],
       "detail": ""
     },
     {

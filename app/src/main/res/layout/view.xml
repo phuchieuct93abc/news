@@ -5,14 +5,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/wrapper">
 
-    <com.github.ksoichiro.android.observablescrollview.ObservableScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_alignBottom="@+id/scrollView"
+            android:layout_height="50dp">
 
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/feed_wrapper"
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp"
+                android:id="@+id/closeIcon"
+                app:layout_constraintRight_toLeftOf="@+id/closeText"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/closeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Close Text"
+                app:layout_constraintLeft_toRightOf="@+id/closeIcon"
+
+                android:layout_marginEnd="16dp"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+        <ScrollView
+            android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -175,7 +211,9 @@
         </LinearLayout>
 
 
-    </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
+        </ScrollView>
+
+    </RelativeLayout>
 
 
 </FrameLayout>

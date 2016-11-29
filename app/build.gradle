@@ -64,11 +64,13 @@ dependencies {
     compile 'com.balysv:material-ripple:1.0.2'
     compile 'org.adw.library:discrete-seekbar:1.0.1'
     compile 'org.apache.poi:poi:3.7'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
     compile 'com.xgc1986.android:parallaxpagertransformer:1.0.4'
     compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
     compile 'com.github.satyan:sugar:1.4'
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
+    compile 'me.everything:overscroll-decor-android:1.0.3'
 
 
+
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
 }

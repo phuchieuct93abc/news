@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +19,6 @@ import com.activity.FragmentEnum;
 import com.activity.MainActivityInterface;
 import com.config.Config_;
 import com.config.SharePreference;
-import com.google.gson.Gson;
 import com.model.Feed;
 import com.phuchieu.news.R;
 import com.services.CategoryService;
@@ -79,7 +78,7 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View inflate = inflater.inflate(R.layout.view_swipe, container, false);
         String contentId = getArguments().getInt("feedId") + "";
-        shareElement = (ImageView)inflate.findViewById(R.id.shareElement);
+        shareElement = (ImageView) inflate.findViewById(R.id.shareElement);
         shareElement.setTransitionName(contentId);
 
         Feed item = categoryService.getFeedById(contentId);
@@ -140,7 +139,6 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        Gson gson = new Gson();
         outState.putSerializable("selectedFeed", currentFeed);
         super.onSaveInstanceState(outState);
     }
@@ -160,7 +158,6 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
 
         }
         try {
-            Log.d("save", "use list feed ");
             selectedId = categoryService.getFeedById(feedID);
             currentFeed = selectedId;
             mainActivityInterface.onBackFeedList(currentFeed);
@@ -170,10 +167,18 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
             categoryService.getListFeed().get(index).setIsRead(context);
             setDataList(categoryService.getListFeed());
             setBackgroundColor();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    shareElement.setVisibility(View.GONE);
+
+                }
+            }, 500);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     private void setBackgroundColor() {
         Boolean darkBackground = new SharePreference(context).getBooleanValue(SharePreference.DARK_BACKGROUND);
@@ -243,6 +248,7 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
         }
 
     }
+
 
     @Override
     public void onPageScrollStateChanged(int state) {

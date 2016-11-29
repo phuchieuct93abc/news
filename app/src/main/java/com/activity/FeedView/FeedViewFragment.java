@@ -2,11 +2,11 @@ package com.activity.FeedView;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
@@ -15,20 +15,19 @@ import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.activity.MainActivityInterface;
 import com.config.Config_;
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
-import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.model.Feed;
 import com.nineoldandroids.view.ViewHelper;
 import com.phuchieu.news.R;
@@ -47,8 +46,15 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import me.everything.android.ui.overscroll.IOverScrollDecor;
+import me.everything.android.ui.overscroll.IOverScrollUpdateListener;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+
+import static me.everything.android.ui.overscroll.IOverScrollState.STATE_BOUNCE_BACK;
+import static me.everything.android.ui.overscroll.IOverScrollState.STATE_DRAG_END_SIDE;
+
 @EFragment
-public class FeedViewFragment extends Fragment implements Html.ImageGetter, ObservableScrollViewCallbacks {
+public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     @ViewById
     TextView textViewContent;
     @ViewById
@@ -63,8 +69,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter, Obse
     LinearLayout actionButtons;
     @Pref
     Config_ myPrefs;
-    @ViewById
-    ObservableScrollView feed_wrapper;
+
     @ViewById
     ConstraintLayout constrainLayout;
     @ViewById
@@ -77,10 +82,21 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter, Obse
     ImageView logo;
     @ViewById
     TextView txtDate;
+    @ViewById
+    ScrollView scrollView;
+    @ViewById
+    ImageView closeIcon;
+    @ViewById
+    TextView closeText;
+    @ViewById
+    RelativeLayout wrapper;
+
     Feed feed;
     @Bean
     FeedService feedService;
     MainActivityInterface mainActivityInterface;
+    Boolean backToListFeed = false;
+    ViewTreeObserver viewTreeObserver;
 
 
     @Override
@@ -97,13 +113,14 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter, Obse
         super.onCreate(savedInstanceState);
     }
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view, container, false);
-    Log.i("set feed",feed.getContentID()+"");
-        view.findViewById(R.id.imageView).setTransitionName(feed.getContentID()+"");
-        return  view;
+        Log.i("set feed", feed.getContentID() + "");
+        view.findViewById(R.id.imageView).setTransitionName(feed.getContentID() + "");
+        return view;
 
     }
 
@@ -111,14 +128,20 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter, Obse
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.imageView).setTransitionName(feed.getContentID()+"");
+        view.findViewById(R.id.imageView).setTransitionName(feed.getContentID() + "");
 
     }
 
+
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mainActivityInterface = (MainActivityInterface) activity;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+
+        if (context instanceof Activity) {
+            mainActivityInterface = (MainActivityInterface) context;
+
+        }
 
     }
 
@@ -131,7 +154,6 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter, Obse
         feedService.getIconOfUrl(feed.getContentUrl(), logo);
         String formatted = getFormattedDate();
         txtDate.setText(formatted);
-        feed_wrapper.setScrollViewCallbacks(this);
 
 
     }
@@ -146,9 +168,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter, Obse
 
     private String getFormattedDate() {
         Long valueFromClient = new Double(feed.getDate()).longValue();
-
         Date date = new Date(valueFromClient);
-
         return new SimpleDateFormat("dd-MM HH:mm").format(date);
     }
 
@@ -199,9 +219,67 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter, Obse
         applyTextsize();
         initializeSetting();
         runBackground();
-        Log.i("finish",feed.getContentID()+"");
+        Log.i("finish", feed.getContentID() + "");
         ActivityCompat.startPostponedEnterTransition(getActivity());
 
+        scrollUpToClose();
+
+    }
+
+
+    private void scrollUpToClose() {
+        viewTreeObserver = scrollView.getViewTreeObserver();
+        viewTreeObserver.addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                if (scrollView != null) {
+                    int scrollY = scrollView.getScrollY(); // For ScrollView
+                    ViewHelper.setTranslationY(imageView, scrollY / 2);
+                } else {
+                    viewTreeObserver.removeOnScrollChangedListener(this);
+                }
+
+            }
+        });
+        IOverScrollDecor iOverScrollDecor = OverScrollDecoratorHelper.setUpOverScroll(scrollView);
+
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (!backToListFeed) {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                }
+                backToListFeed = true;
+            }
+        };
+        final Handler handler = new Handler();
+        iOverScrollDecor.setOverScrollUpdateListener(new IOverScrollUpdateListener() {
+            @Override
+            public void onOverScrollUpdate(IOverScrollDecor decor, int state, float offset) {
+                if (state == STATE_DRAG_END_SIDE) {
+                    updateCloseState(offset < -200);
+                }
+                if (state == STATE_BOUNCE_BACK && offset < -200) {
+                    handler.postDelayed(runnable, 0);
+                }
+
+            }
+        });
+    }
+
+    private void updateCloseState(boolean isRefresh) {
+        Boolean blackColor = myPrefs.darkBackground().get();
+
+        if (isRefresh) {
+            if (blackColor) {
+
+            } else {
+
+            }
+            closeIcon.setImageResource(R.drawable.ic_refresh_black_24dp);
+        } else {
+            closeIcon.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
+        }
     }
 
 
@@ -221,8 +299,6 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter, Obse
 
     public void applyColor() {
         Boolean blackColor = myPrefs.darkBackground().get();
-        TypedValue typedValue = new TypedValue();
-        Resources.Theme theme = getActivity().getTheme();
         Context context = getContext();
 
         int textPrimaryColor, textSecondaryColor, backgroundColor;
@@ -244,29 +320,14 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter, Obse
 
         constrainLayout.setBackgroundColor(backgroundColor);
 
-        feed_wrapper.setBackgroundColor(backgroundColor);
         progress_bar.setBackgroundColor(backgroundColor);
+        wrapper.setBackgroundColor(backgroundColor);
 
     }
 
     public void applyTextsize() {
         int textSize = myPrefs.textSize().get();
         textViewContent.setTextSize((float) textSize * 5 + 14);
-
-    }
-
-
-    @Override
-    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
-        ViewHelper.setTranslationY(imageView, scrollY / 2);
-    }
-
-    @Override
-    public void onDownMotionEvent() {
-    }
-
-    @Override
-    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
 
     }
 
