@@ -19,5 +19,7 @@
     <string name="title_activity_main22">Main22Activity</string>
     <string name="ipsum">dasda sdas dasddasda sdas dasddasda sdas dasddasda sdas dasddasda sdas dasddasda sdas dasddasda sdas dasddasda sdas dasddasda sdas dasddasda sdas dasddasda sdas dasddasda sdas dasddasda sdas dasddasda sdas dasd</string>
     <string name="sharedIconName">icon</string>
+    <string name="Pull_To_Close">Pull to close</string>
+    <string name="Scroll_To_Close">Scroll up to close</string>
 
 </resources>

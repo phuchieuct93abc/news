@@ -55,6 +55,7 @@ import static me.everything.android.ui.overscroll.IOverScrollState.STATE_DRAG_EN
 
 @EFragment
 public class FeedViewFragment extends Fragment implements Html.ImageGetter {
+    public static final int MAX_OVERSCROLL = -130;
     @ViewById
     TextView textViewContent;
     @ViewById
@@ -90,6 +91,8 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     TextView closeText;
     @ViewById
     RelativeLayout wrapper;
+    @ViewById
+            ConstraintLayout reloadWrapper;
 
     Feed feed;
     @Bean
@@ -97,6 +100,8 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     MainActivityInterface mainActivityInterface;
     Boolean backToListFeed = false;
     ViewTreeObserver viewTreeObserver;
+
+
 
 
     @Override
@@ -257,9 +262,9 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
             @Override
             public void onOverScrollUpdate(IOverScrollDecor decor, int state, float offset) {
                 if (state == STATE_DRAG_END_SIDE) {
-                    updateCloseState(offset < -200);
+                    updateCloseState(offset );
                 }
-                if (state == STATE_BOUNCE_BACK && offset < -200) {
+                if (state == STATE_BOUNCE_BACK && offset < MAX_OVERSCROLL) {
                     handler.postDelayed(runnable, 0);
                 }
 
@@ -267,18 +272,33 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         });
     }
 
-    private void updateCloseState(boolean isRefresh) {
+    private void updateCloseState(float offsetY) {
         Boolean blackColor = myPrefs.darkBackground().get();
+        ViewGroup.LayoutParams layoutParams = reloadWrapper.getLayoutParams();
+        layoutParams.height = Math.round( 0 - offsetY);
+        reloadWrapper.setLayoutParams(layoutParams);
+        boolean isRefresh = offsetY <MAX_OVERSCROLL;
+
 
         if (isRefresh) {
             if (blackColor) {
+                closeIcon.setImageResource(R.drawable.ic_close_white_24dp);
 
             } else {
+                closeIcon.setImageResource(R.drawable.ic_close_black_24dp);
 
             }
-            closeIcon.setImageResource(R.drawable.ic_refresh_black_24dp);
+            closeText.setText(R.string.Pull_To_Close);
         } else {
-            closeIcon.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
+            if (blackColor) {
+                closeIcon.setImageResource(R.drawable.ic_keyboard_arrow_up_white_24dp);
+
+            } else {
+                closeIcon.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
+
+            }
+            closeText.setText(R.string.Scroll_To_Close);
+
         }
     }
 
@@ -322,6 +342,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
 
         progress_bar.setBackgroundColor(backgroundColor);
         wrapper.setBackgroundColor(backgroundColor);
+        closeText.setTextColor(textPrimaryColor);
 
     }
 
