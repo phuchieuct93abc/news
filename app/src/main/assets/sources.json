@@ -59,7 +59,7 @@
       "categories": [
         {
           "id": "TINMOI",
-          "link": "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType=zone&listId=71&imageMinSize=300&mode=quickview",
+          "link": "http://dataprovider.touch.baomoi.com/json/articlelist.aspx?start={START_PAGE}&count=10&listType=specialzone&listId=2&imageMinSize=300&mode=quickview",
           "name": "Tin mới",
           "icon": "fa-heart"
         },
