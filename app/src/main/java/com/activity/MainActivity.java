@@ -27,6 +27,7 @@ import com.google.gson.Gson;
 import com.model.Feed;
 import com.phuchieu.news.R;
 import com.services.CategoryService;
+import com.services.ViewModeEnum;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 import org.androidannotations.annotations.AfterViews;
@@ -43,11 +44,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     @ViewById
     Toolbar toolbar;
-    @ViewById
-    Switch switchDarkMode;
-
-    @ViewById
-    DiscreteSeekBar seekTextsize;
     @Pref
     Config_ config;
 
@@ -64,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     Feed selectedFeed;
     String selectedCategory;
+    Menu menu;
 
 
     private static List<com.model.Feed> stringToArray(String s, Class<com.model.Feed[]> clazz) {
@@ -288,6 +285,16 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.unreadFeed:
+                onReadModePressed(ViewModeEnum.UNREAD_FEED);
+                break;
+            case R.id.readFeed:
+                onReadModePressed(ViewModeEnum.READ_FEED);
+                break;
+            case R.id.allFeed:
+                onReadModePressed(ViewModeEnum.ALL_FEED);
+                break;
+
             case android.R.id.home:
                 onBackPressed();
                 break;
@@ -313,12 +320,20 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         return super.onOptionsItemSelected(item);
     }
 
+    private void onReadModePressed(ViewModeEnum viewModeEnum) {
+
+        config.edit().viewMode().put(viewModeEnum.getValue()).apply();
+        updateTextForViewMode();
+        runRefreshListFeed();
+    }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_feed_view, menu);
 
+    this.menu= menu;
         if (runningFragment == null) {
             getMenuInflater().inflate(R.menu.menu_empty, menu);
         } else {
@@ -330,6 +345,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                     break;
                 case LIST_FEED:
                     getMenuInflater().inflate(R.menu.menu_list_feed, menu);
+                    updateTextForViewMode();
                     break;
                 case FEED:
                     getMenuInflater().inflate(R.menu.menu_feed_view, menu);
@@ -339,7 +355,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                     break;
             }
         }
-
         return true;
     }
 
@@ -347,6 +362,20 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     private void invalidOptionMenu() {
 
         this.invalidateOptionsMenu();
+
+    }
+    private void updateTextForViewMode(){
+        MenuItem viewModeMenu = this.menu.findItem(R.id.viewModeItem);
+        ViewModeEnum selectedViewMode = ViewModeEnum.getByCode(config.viewMode().get());
+        switch (selectedViewMode){
+            case ALL_FEED:
+                viewModeMenu.setTitle(R.string.readAll); break;
+            case UNREAD_FEED:
+                viewModeMenu.setTitle(R.string.onlyUnread);break;
+            case READ_FEED:
+                viewModeMenu.setTitle(R.string.onlyRead);break;
+        }
+
 
     }
 

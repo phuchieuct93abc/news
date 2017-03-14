@@ -22,5 +22,8 @@
     <string name="Pull_To_Close">Pull up to close</string>
     <string name="Release_To_Close">Release to close</string>
     <string name="Pull_down_to_close">Pull down to close</string>
+    <string name="readAll">Read all</string>
+    <string name="onlyUnread">Only unread</string>
+    <string name="onlyRead">Only read</string>
 
 </resources>

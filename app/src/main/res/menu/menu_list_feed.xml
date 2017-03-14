@@ -3,9 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/viewModeItem"
+        android:title="Unread"
+        app:showAsAction="always">
+
+            <menu
+                android:id="@+id/viewModeGroup"
+                android:checkableBehavior="single"
+                >
+                <item
+                    android:id="@+id/allFeed"
+                    android:title="@string/readAll"
+                    app:showAsAction="ifRoom" />
+                <item
+                    android:id="@+id/unreadFeed"
+
+                    android:title="@string/onlyUnread"
+                    app:showAsAction="ifRoom" />
+                <item
+                    android:id="@+id/readFeed"
+
+                    android:title="@string/onlyRead"
+                    app:showAsAction="ifRoom" />
+            </menu>
+
+    </item>
+    <item
         android:id="@+id/refresh"
+        android:icon="@drawable/ic_refresh_white_24dp"
         android:title="Refresh"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_refresh_white_24dp" />
+        app:showAsAction="always" />
 
 </menu>

@@ -1,7 +1,9 @@
 package com.services;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.config.Config_;
 import com.google.gson.Gson;
 import com.model.Articlelist;
 import com.model.Category;
@@ -12,11 +14,14 @@ import com.model.Source.Sources;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.services.ViewModeEnum.ALL_FEED;
 
 @EBean(scope = EBean.Scope.Singleton)
 public class CategoryService {
@@ -44,6 +49,8 @@ public class CategoryService {
     Context context;
     @Bean
     FeedService feedService;
+    @Pref
+    Config_ config;
 
     private String currentCategoryLink;
     private int duplicateCount = 0;
@@ -114,18 +121,12 @@ public class CategoryService {
 
     public List<Feed> getMoreFeed() throws Exception {
         List<Feed> result = new ArrayList<>();
-        int beforeUpdateLength = listFeed.size();
-
-//        if (beforeUpdateLength >= 190) {
-//            Toast.makeText(context, "Reached maximum number 190 feeds", Toast.LENGTH_SHORT).show();
-//            return listFeed;
-//        }
         String link = getCategoryURLWithIndex();
         String responseCategory = httpService.readUrl(link);
         Articlelist articlelist = new Gson().fromJson(responseCategory, Articlelist.class);
         if (responseCategory != null) {
             for (Feed feed : articlelist.getArticlelist()) {
-                if (getIndexInCaterogyById(feed.getContentID()) == -1) {
+                if (feedFilter(feed)) {
                     result.add(feed);
                 } else {
                     duplicateCount++;
@@ -134,6 +135,31 @@ public class CategoryService {
             addDataToList(result);
         }
         return result;
+    }
+    private boolean feedFilter(Feed feed){
+        boolean isNotDuplicate = getIndexInCaterogyById(feed.getContentID()) == -1;
+        boolean isRead = feed.isRead(context);
+        Log.d("aaa",config.viewMode().get()+"");
+        ViewModeEnum viewModeEnum = ViewModeEnum.getByCode(config.viewMode().get());
+        switch (viewModeEnum){
+            case ALL_FEED:
+                Log.d("HIEU","all");
+
+                return isNotDuplicate;
+            case READ_FEED:
+                Log.d("HIEU","read");
+
+                return isNotDuplicate && isRead;
+            case UNREAD_FEED:
+                Log.d("HIEU","unred");
+                return isNotDuplicate && !isRead;
+    default:return isNotDuplicate;
+
+
+        }
+
+
+
     }
 
     private void addDataToList(List<Feed> addedData) {

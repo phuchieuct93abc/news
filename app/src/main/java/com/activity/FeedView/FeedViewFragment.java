@@ -109,6 +109,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     MainActivityInterface mainActivityInterface;
     Boolean backToListFeed = false;
     ViewTreeObserver viewTreeObserver;
+    Boolean isLoadedContent = false;
 
 
     @Override
@@ -196,6 +197,8 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
             getFailed();
 
 
+        }finally {
+            isLoadedContent = true;
         }
     }
 
@@ -218,16 +221,12 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     }
 
 
-    @AfterInject
-    void bindLinkToView() {
 
-
-    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser){
+        if(isVisibleToUser && !isLoadedContent){
             runBackground();
         }
     }
@@ -237,11 +236,8 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         applyColor();
         applyTextsize();
         initializeSetting();
-       // runBackground();
         ActivityCompat.startPostponedEnterTransition(getActivity());
-
         scrollUpToClose();
-
     }
 
 

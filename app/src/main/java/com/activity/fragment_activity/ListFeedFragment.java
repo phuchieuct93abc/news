@@ -117,8 +117,7 @@ public class ListFeedFragment extends Fragment {
         UltimateRecyclerView.OnLoadMoreListener loadMoreListener = new UltimateRecyclerView.OnLoadMoreListener() {
             @Override
             public void loadMore(int itemsCount, final int maxLastVisiblePosition) {
-                Log.d("abc",itemsCount+"");
-                if(itemsCount>=10){
+                if(itemsCount>=1){
 
 
                     loadNextPage();

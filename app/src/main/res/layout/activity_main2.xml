@@ -2,7 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
@@ -12,7 +11,8 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             app:titleTextColor="@android:color/white"
-            android:background="?attr/colorPrimary">
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
         </android.support.v7.widget.Toolbar>
     <FrameLayout
         android:id="@+id/fragment"
