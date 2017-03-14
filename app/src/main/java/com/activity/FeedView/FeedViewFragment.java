@@ -123,7 +123,6 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view, container, false);
-        Log.i("set feed", feed.getContentID() + "");
         view.findViewById(R.id.imageView).setTransitionName(feed.getContentID() + "");
         return view;
 
@@ -218,13 +217,20 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
 
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser){
+            runBackground();
+        }
+    }
+
     @AfterViews
     void afterView() {
         applyColor();
         applyTextsize();
         initializeSetting();
-        runBackground();
-        Log.i("finish", feed.getContentID() + "");
+       // runBackground();
         ActivityCompat.startPostponedEnterTransition(getActivity());
 
         scrollUpToClose();
