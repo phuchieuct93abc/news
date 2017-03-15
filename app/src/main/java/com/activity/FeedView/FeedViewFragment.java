@@ -216,7 +216,7 @@ public class FeedViewFragment extends Fragment {
             progress_bar.setVisibility(View.GONE);
 
         }
-        setVideo(null);
+        setVideo(html);
     }
 
 
@@ -259,23 +259,33 @@ public class FeedViewFragment extends Fragment {
 
     }
 
+
     private void setVideo(String htmlString){
-        //final Uri uri = Uri.parse("http://baomoi-video.r.za.zdn.vn/af2ae754ef4e7926fda0dc65d772b326/58ca57d4/video.viettimes.vn/2017_03_15/lemai/cnngoihanoilacainoicuadisan1489479819_1.mp4");
+
+      //  final Uri uri = Uri.parse("http://baomoi-video.r.za.zdn.vn/af2ae754ef4e7926fda0dc65d772b326/58ca57d4/video.viettimes.vn/2017_03_15/lemai/cnngoihanoilacainoicuadisan1489479819_1.mp4");
       //  final Uri uri =Uri.parse(htmlString);
         String videoUrl = utilService.getVideo(htmlString);
-        final Uri uri =Uri.parse(videoUrl);
-        videoView.setVideoURI(uri);
-        videoView.setVisibility(View.VISIBLE);
-        videoView.setZOrderOnTop(true);
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.setLooping(true);
-                videoView.setZOrderOnTop(false);
-                videoView.setBackgroundColor(Color.TRANSPARENT);
-                videoView.seekTo(1000);
-            }
-        });
+        if(videoUrl!=null){
+            Log.d("bb",videoUrl);
+            final Uri uri =Uri.parse(videoUrl);
+            videoView.setVideoURI(uri);
+            videoView.setVisibility(View.VISIBLE);
+            videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+
+                    videoView.setBackgroundColor(Color.TRANSPARENT);
+                    videoView.setZOrderOnTop(false);
+
+
+                }
+            });
+            videoView.setZOrderOnTop(true);
+
+
+
+        }
+
     }
     private void scrollUpToClose() {
         viewTreeObserver = scrollView.getViewTreeObserver();

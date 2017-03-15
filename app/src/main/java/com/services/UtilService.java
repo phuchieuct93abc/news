@@ -15,9 +15,16 @@ public class UtilService {
     public String getVideo(String html){
         Document doc = Jsoup.parse(html);
         Element element = doc.select("video source").first();
-        String url = element.attr("data-src");
+        if(element !=null){
 
-        return url;
+            return element.attr("data-src");
+        }
+        else{
+            return null;
+
+        }
+
 
     }
+
 }
