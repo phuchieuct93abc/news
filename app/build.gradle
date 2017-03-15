@@ -41,6 +41,11 @@ android {
             assets.srcDirs = ['src/main/assets']
         }
     }
+    packagingOptions {
+
+        exclude 'META-INF/LICENSE'
+
+    }
 }
 apt {
     arguments {
@@ -69,8 +74,6 @@ dependencies {
     compile 'com.github.satyan:sugar:1.4'
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
     compile 'me.everything:overscroll-decor-android:1.0.3'
-
-
-
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'org.jsoup:jsoup:1.10.2'
 }

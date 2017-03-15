@@ -1,6 +1,7 @@
 package com.services;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -36,6 +37,7 @@ public class HttpService {
 
 
     public String readUrl(final String path) throws Exception {
+        Log.e("aaa",path);
         final String clonedPath = path;
         Integer runningTime = 0;
         String cacheString = cacheProvider.get(clonedPath);

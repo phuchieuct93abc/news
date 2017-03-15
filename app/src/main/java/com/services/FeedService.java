@@ -1,6 +1,7 @@
 package com.services;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.model.Feed;
@@ -37,6 +38,7 @@ public class FeedService {
         link_request = this.feedContentLink.replace("{ID}", id + "");
 
         String responseCategory;
+        Log.d("aa",link_request);
         responseCategory = httpService.readUrl(link_request);
         String contentHTML;
 
@@ -60,17 +62,14 @@ public class FeedService {
     }
 
     public void getIconOfUrl(String urlSource, final ImageView imageView) {
-        try {
-            URL url = new URL(urlSource);
+
             String imageUrl = "http://www.google.com/s2/favicons?domain=" + getSource(urlSource);
 
 
             picasso.load(imageUrl).into(imageView);
 
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+
     }
 
 

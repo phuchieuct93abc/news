@@ -2,9 +2,12 @@ package com.activity.FeedView;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -20,11 +23,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.activity.MainActivityInterface;
 import com.config.Config_;
@@ -33,8 +37,9 @@ import com.nineoldandroids.view.ViewHelper;
 import com.phuchieu.news.R;
 import com.services.FeedService;
 import com.services.HttpService;
+import com.services.ImageGetter;
+import com.services.UtilService;
 
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
@@ -55,7 +60,7 @@ import static me.everything.android.ui.overscroll.IOverScrollState.STATE_DRAG_EN
 import static me.everything.android.ui.overscroll.IOverScrollState.STATE_DRAG_START_SIDE;
 
 @EFragment
-public class FeedViewFragment extends Fragment implements Html.ImageGetter {
+public class FeedViewFragment extends Fragment {
     public static final int MAX_OVERSCROLL = -130;
     public static final int MAX_TOP_OVERSCROLL = 130;
     @ViewById
@@ -68,8 +73,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     ProgressBar progressBar;
     @Bean
     HttpService httpService;
-    @ViewById
-    LinearLayout actionButtons;
+
     @Pref
     Config_ myPrefs;
 
@@ -102,6 +106,10 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     TextView topCloseText;
     @ViewById
     ConstraintLayout topReloadWrapper;
+    @ViewById
+    VideoView videoView;
+    @Bean
+            UtilService utilService;
 
     Feed feed;
     @Bean
@@ -110,6 +118,7 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     Boolean backToListFeed = false;
     ViewTreeObserver viewTreeObserver;
     Boolean isLoadedContent = false;
+
 
 
     @Override
@@ -148,13 +157,9 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-
         if (context instanceof Activity) {
             mainActivityInterface = (MainActivityInterface) context;
-
         }
-
     }
 
     @UiThread
@@ -204,20 +209,20 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
 
     @UiThread
     void updateTextViewContent(String html) {
-
-        Spanned spanned = Html.fromHtml(html, this, null);
+        ImageGetter imageGetter = new ImageGetter(getActivity(),textViewContent);
+        Spanned spanned = Html.fromHtml(html, imageGetter, null);
         if (spanned != null && textViewContent != null) {
             textViewContent.setText(spanned);
             progress_bar.setVisibility(View.GONE);
 
         }
+        setVideo(null);
     }
 
 
     @UiThread
     void getFailed() {
         textViewContent.setText("Can't connect to server");
-        actionButtons.setVisibility(View.VISIBLE);
     }
 
 
@@ -238,9 +243,40 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
         initializeSetting();
         ActivityCompat.startPostponedEnterTransition(getActivity());
         scrollUpToClose();
+        setUpVideo();
+
+
+
+
     }
 
+    private void setUpVideo() {
+        MediaController mediaController = new MediaController(getContext());
+        mediaController.setAnchorView(videoView);
+        videoView.setVisibility(View.GONE);
+        videoView.setMediaController(mediaController);
 
+
+    }
+
+    private void setVideo(String htmlString){
+        //final Uri uri = Uri.parse("http://baomoi-video.r.za.zdn.vn/af2ae754ef4e7926fda0dc65d772b326/58ca57d4/video.viettimes.vn/2017_03_15/lemai/cnngoihanoilacainoicuadisan1489479819_1.mp4");
+      //  final Uri uri =Uri.parse(htmlString);
+        String videoUrl = utilService.getVideo(htmlString);
+        final Uri uri =Uri.parse(videoUrl);
+        videoView.setVideoURI(uri);
+        videoView.setVisibility(View.VISIBLE);
+        videoView.setZOrderOnTop(true);
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setLooping(true);
+                videoView.setZOrderOnTop(false);
+                videoView.setBackgroundColor(Color.TRANSPARENT);
+                videoView.seekTo(1000);
+            }
+        });
+    }
     private void scrollUpToClose() {
         viewTreeObserver = scrollView.getViewTreeObserver();
         viewTreeObserver.addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
@@ -367,19 +403,6 @@ public class FeedViewFragment extends Fragment implements Html.ImageGetter {
     }
 
 
-    @Override
-    public Drawable getDrawable(String s) {
-        LevelListDrawable d = new LevelListDrawable();
-        try {
-            Point size = new Point();
-            getActivity().getWindowManager().getDefaultDisplay().getSize(size);
-            new LoadImage(textViewContent, getActivity().getApplicationContext(), size).execute(s, d);
-        } catch (Exception e) {
-        }
-
-
-        return d;
-    }
 
     public void applyColor() {
         Boolean blackColor = myPrefs.darkBackground().get();

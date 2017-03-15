@@ -133,7 +133,7 @@
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/constrainLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:paddingTop="10dp">
 
 
@@ -158,7 +158,7 @@
                     android:textAlignment="textStart"
                     android:textStyle="italic"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    tools:layout_editor_absoluteY="120dp" />
+                    tools:layout_editor_absoluteY="155dp" />
 
                 <View
                     android:id="@+id/view2"
@@ -207,28 +207,7 @@
                     app:layout_constraintRight_toRightOf="@+id/textViewContent"
                     app:layout_constraintTop_toTopOf="@+id/textViewContent" />
 
-                <LinearLayout
-                    android:id="@+id/actionButtons"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:visibility="gone"
-                    tools:layout_editor_absoluteX="0dp"
-                    tools:layout_editor_absoluteY="25dp">
 
-                    <Button
-                        android:id="@+id/retry"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Retry" />
-
-                    <Button
-                        android:id="@+id/openSource"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Open source" />
-                </LinearLayout>
 
                 <TextView
                     android:id="@+id/txtDate"
@@ -239,6 +218,19 @@
                     android:textStyle="italic"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/logo" />
+
+                <VideoView
+                    android:id="@+id/videoView"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+
+                    app:layout_constraintLeft_toLeftOf="@+id/textViewContent"
+                    app:layout_constraintRight_toRightOf="@+id/textViewContent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewContent"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="20dp" />
+
 
 
             </android.support.constraint.ConstraintLayout>
