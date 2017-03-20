@@ -32,6 +32,7 @@ import android.widget.VideoView;
 
 import com.activity.MainActivityInterface;
 import com.config.Config_;
+import com.custom.CustomVideoPlayer;
 import com.model.Feed;
 import com.nineoldandroids.view.ViewHelper;
 import com.phuchieu.news.R;
@@ -107,7 +108,7 @@ public class FeedViewFragment extends Fragment {
     @ViewById
     ConstraintLayout topReloadWrapper;
     @ViewById
-    VideoView videoView;
+    CustomVideoPlayer customVideoPlayer;
     @Bean
             UtilService utilService;
 
@@ -243,48 +244,26 @@ public class FeedViewFragment extends Fragment {
         initializeSetting();
         ActivityCompat.startPostponedEnterTransition(getActivity());
         scrollUpToClose();
-        setUpVideo();
 
 
 
 
     }
 
-    private void setUpVideo() {
-        MediaController mediaController = new MediaController(getContext());
-        mediaController.setAnchorView(videoView);
-        videoView.setVisibility(View.GONE);
-        videoView.setMediaController(mediaController);
 
-
-    }
 
 
     private void setVideo(String htmlString){
 
+
+
       //  final Uri uri = Uri.parse("http://baomoi-video.r.za.zdn.vn/af2ae754ef4e7926fda0dc65d772b326/58ca57d4/video.viettimes.vn/2017_03_15/lemai/cnngoihanoilacainoicuadisan1489479819_1.mp4");
       //  final Uri uri =Uri.parse(htmlString);
         String videoUrl = utilService.getVideo(htmlString);
-        if(videoUrl!=null){
-            Log.d("bb",videoUrl);
-            final Uri uri =Uri.parse(videoUrl);
-            videoView.setVideoURI(uri);
-            videoView.setVisibility(View.VISIBLE);
-            videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
+     //   videoUrl = "http://baomoi-video.r.za.zdn.vn/af2ae754ef4e7926fda0dc65d772b326/58ca57d4/video.viettimes.vn/2017_03_15/lemai/cnngoihanoilacainoicuadisan1489479819_1.mp4";
+        customVideoPlayer.setUrl(videoUrl);
+        customVideoPlayer.ready();
 
-                    videoView.setBackgroundColor(Color.TRANSPARENT);
-                    videoView.setZOrderOnTop(false);
-
-
-                }
-            });
-            videoView.setZOrderOnTop(true);
-
-
-
-        }
 
     }
     private void scrollUpToClose() {

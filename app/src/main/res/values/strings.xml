@@ -25,5 +25,6 @@
     <string name="readAll">Read all</string>
     <string name="onlyUnread">Only unread</string>
     <string name="onlyRead">Only read</string>
+    <string name="loading_video">Loading video</string>
 
 </resources>
