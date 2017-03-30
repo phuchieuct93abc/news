@@ -2,12 +2,6 @@ package com.activity.FeedView;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Point;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LevelListDrawable;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -23,12 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import com.activity.MainActivityInterface;
 import com.config.Config_;
@@ -110,7 +102,7 @@ public class FeedViewFragment extends Fragment {
     @ViewById
     CustomVideoPlayer customVideoPlayer;
     @Bean
-            UtilService utilService;
+    UtilService utilService;
 
     Feed feed;
     @Bean
@@ -119,7 +111,6 @@ public class FeedViewFragment extends Fragment {
     Boolean backToListFeed = false;
     ViewTreeObserver viewTreeObserver;
     Boolean isLoadedContent = false;
-
 
 
     @Override
@@ -203,14 +194,14 @@ public class FeedViewFragment extends Fragment {
             getFailed();
 
 
-        }finally {
+        } finally {
             isLoadedContent = true;
         }
     }
 
     @UiThread
     void updateTextViewContent(String html) {
-        ImageGetter imageGetter = new ImageGetter(getActivity(),textViewContent);
+        ImageGetter imageGetter = new ImageGetter(getActivity(), textViewContent);
         Spanned spanned = Html.fromHtml(html, imageGetter, null);
         if (spanned != null && textViewContent != null) {
             textViewContent.setText(spanned);
@@ -227,12 +218,10 @@ public class FeedViewFragment extends Fragment {
     }
 
 
-
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser && !isLoadedContent){
+        if (isVisibleToUser && !isLoadedContent) {
             runBackground();
         }
     }
@@ -246,37 +235,39 @@ public class FeedViewFragment extends Fragment {
         scrollUpToClose();
 
 
-
-
     }
 
 
+    private void setVideo(String htmlString) {
 
 
-    private void setVideo(String htmlString){
-
-
-
-      //  final Uri uri = Uri.parse("http://baomoi-video.r.za.zdn.vn/af2ae754ef4e7926fda0dc65d772b326/58ca57d4/video.viettimes.vn/2017_03_15/lemai/cnngoihanoilacainoicuadisan1489479819_1.mp4");
-      //  final Uri uri =Uri.parse(htmlString);
+        //  final Uri uri = Uri.parse("http://baomoi-video.r.za.zdn.vn/af2ae754ef4e7926fda0dc65d772b326/58ca57d4/video.viettimes.vn/2017_03_15/lemai/cnngoihanoilacainoicuadisan1489479819_1.mp4");
+        //  final Uri uri =Uri.parse(htmlString);
         String videoUrl = utilService.getVideo(htmlString);
-     //   videoUrl = "http://baomoi-video.r.za.zdn.vn/af2ae754ef4e7926fda0dc65d772b326/58ca57d4/video.viettimes.vn/2017_03_15/lemai/cnngoihanoilacainoicuadisan1489479819_1.mp4";
         customVideoPlayer.setUrl(videoUrl);
         customVideoPlayer.ready();
 
 
     }
+
     private void scrollUpToClose() {
         viewTreeObserver = scrollView.getViewTreeObserver();
         viewTreeObserver.addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
+                if (viewTreeObserver == null || !viewTreeObserver.isAlive()) {
+                    viewTreeObserver = scrollView.getViewTreeObserver();
+                }
+
+
                 if (scrollView != null) {
                     int scrollY = scrollView.getScrollY(); // For ScrollView
                     ViewHelper.setTranslationY(imageView, scrollY / 2);
                 } else {
+
                     viewTreeObserver.removeOnScrollChangedListener(this);
                 }
+
 
             }
         });
@@ -390,7 +381,6 @@ public class FeedViewFragment extends Fragment {
 
         }
     }
-
 
 
     public void applyColor() {

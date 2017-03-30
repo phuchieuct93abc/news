@@ -4,18 +4,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Switch;
 
 import com.activity.FeedView.FeedViewActivity_;
 import com.activity.Fragments.DisplaySettingBottomSheet;
@@ -27,9 +24,9 @@ import com.google.gson.Gson;
 import com.model.Feed;
 import com.phuchieu.news.R;
 import com.services.CategoryService;
+import com.services.SharedElementHelper;
 import com.services.ViewModeEnum;
 
-import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
@@ -61,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     Feed selectedFeed;
     String selectedCategory;
     Menu menu;
+    ListFeedFragment sharedElementFragment1;
 
 
     private static List<com.model.Feed> stringToArray(String s, Class<com.model.Feed[]> clazz) {
@@ -129,7 +127,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     }
 
-    ListFeedFragment sharedElementFragment1;
 
     @Override
     public void onCategorySelected(String category) {
@@ -138,7 +135,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
 
         sharedElementFragment1 = new ListFeedFragment_();
-
         fragmentTransaction.replace(R.id.fragment, sharedElementFragment1, FragmentEnum.LIST_FEED.toString());
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -160,16 +156,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //        fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out,R.anim.fade_in,R.anim.fade_out);
         sharedElementFragment2.setArguments(bundle);
-        sharedElementFragment1.setSharedElementReturnTransition(TransitionInflater.from(this).inflateTransition(R.transition.change_image_transform));
-        sharedElementFragment1.setSharedElementEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.change_image_transform));
 
-        sharedElementFragment2.setSharedElementReturnTransition(TransitionInflater.from(this).inflateTransition(R.transition.change_image_transform));
-        sharedElementFragment2.setSharedElementEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.change_image_transform));
-
-        sharedElementFragment1.setEnterTransition(TransitionInflater.from(this).inflateTransition(android.R.transition.fade));
-        sharedElementFragment1.setExitTransition(TransitionInflater.from(this).inflateTransition(android.R.transition.fade));
-        sharedElementFragment2.setEnterTransition(TransitionInflater.from(this).inflateTransition(android.R.transition.fade));
-        sharedElementFragment2.setExitTransition(TransitionInflater.from(this).inflateTransition(android.R.transition.fade));
+        try {
+            new SharedElementHelper().setContext(this).
+                    setSharedElement(sharedElementFragment2, sharedElementFragment1);
+        } catch (Exception e) {
+            Log.e("hieu", "asd", e);
+        }
 
 
         fragmentTransaction
@@ -178,6 +171,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                 .addSharedElement(shareElement, shareElement.getTransitionName())
                 .commit();
     }
+
 
     @Override
     public void onBackFeedList(Feed feedBefore) {
@@ -209,9 +203,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                     if (feedId != null) {
                         FragmentManager fragmentManager = getSupportFragmentManager();
 
-                        ListFeedFragment_ listFeedFragment_ = (ListFeedFragment_) fragmentManager.findFragmentByTag(FragmentEnum.LIST_FEED.toString());
-
-                        listFeedFragment_.scrollToIndex(feedId);
+                        sharedElementFragment1 = (ListFeedFragment_) fragmentManager.findFragmentByTag(FragmentEnum.LIST_FEED.toString());
+                        sharedElementFragment1.scrollToIndex(feedId);
                         feedId = null;
                     }
                 } catch (Exception ex) {
@@ -328,12 +321,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     }
 
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-    this.menu= menu;
+        this.menu = menu;
         if (runningFragment == null) {
             getMenuInflater().inflate(R.menu.menu_empty, menu);
         } else {
@@ -364,16 +355,20 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         this.invalidateOptionsMenu();
 
     }
-    private void updateTextForViewMode(){
+
+    private void updateTextForViewMode() {
         MenuItem viewModeMenu = this.menu.findItem(R.id.viewModeItem);
         ViewModeEnum selectedViewMode = ViewModeEnum.getByCode(config.viewMode().get());
-        switch (selectedViewMode){
+        switch (selectedViewMode) {
             case ALL_FEED:
-                viewModeMenu.setTitle(R.string.readAll); break;
+                viewModeMenu.setTitle(R.string.readAll);
+                break;
             case UNREAD_FEED:
-                viewModeMenu.setTitle(R.string.onlyUnread);break;
+                viewModeMenu.setTitle(R.string.onlyUnread);
+                break;
             case READ_FEED:
-                viewModeMenu.setTitle(R.string.onlyRead);break;
+                viewModeMenu.setTitle(R.string.onlyRead);
+                break;
         }
 
 

@@ -29,6 +29,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
+import java.io.Serializable;
 import java.util.List;
 
 import in.srain.cube.views.ptr.PtrDefaultHandler;
@@ -37,7 +38,7 @@ import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.header.MaterialHeader;
 
 @EFragment(R.layout.activity_main)
-public class ListFeedFragment extends Fragment {
+public class ListFeedFragment extends Fragment implements Serializable {
 
     MainActivityInterface mainActivityInterface;
     @ViewById
