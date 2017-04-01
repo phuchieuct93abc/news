@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.activity.MainActivityInterface;
 import com.config.Config_;
 import com.custom.CustomVideoPlayer;
+import com.google.common.base.Predicate;
 import com.model.Feed;
 import com.nineoldandroids.view.ViewHelper;
 import com.phuchieu.news.R;
@@ -113,6 +114,8 @@ public class FeedViewFragment extends Fragment {
     Boolean isLoadedContent = false;
 
 
+
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putSerializable("feed", feed);
@@ -183,7 +186,7 @@ public class FeedViewFragment extends Fragment {
 
 
     @Background
-    void runBackground() {
+    void loadContent() {
         String contentHTML;
         try {
             contentHTML = feedService.getFeedContentFromFeed(feed).getContentHTML();
@@ -200,7 +203,7 @@ public class FeedViewFragment extends Fragment {
     }
 
     @UiThread
-    void updateTextViewContent(String html) {
+    void updateTextViewContent(String html){
         ImageGetter imageGetter = new ImageGetter(getActivity(), textViewContent);
         Spanned spanned = Html.fromHtml(html, imageGetter, null);
         if (spanned != null && textViewContent != null) {
@@ -221,8 +224,12 @@ public class FeedViewFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && !isLoadedContent) {
-            runBackground();
+        if (isVisibleToUser && !isLoadedContent ) {
+
+            loadContent();
+        }else{
+
+
         }
     }
 
@@ -235,6 +242,7 @@ public class FeedViewFragment extends Fragment {
         scrollUpToClose();
 
 
+
     }
 
 
@@ -243,9 +251,15 @@ public class FeedViewFragment extends Fragment {
 
         //  final Uri uri = Uri.parse("http://baomoi-video.r.za.zdn.vn/af2ae754ef4e7926fda0dc65d772b326/58ca57d4/video.viettimes.vn/2017_03_15/lemai/cnngoihanoilacainoicuadisan1489479819_1.mp4");
         //  final Uri uri =Uri.parse(htmlString);
-        String videoUrl = utilService.getVideo(htmlString);
-        customVideoPlayer.setUrl(videoUrl);
-        customVideoPlayer.ready();
+
+      try {
+          String videoUrl = utilService.getVideo(htmlString);
+          customVideoPlayer.setUrl(videoUrl);
+          customVideoPlayer.ready();
+      }catch(Exception e){
+Log.e("ERROR","Can load video",e);
+      }
+
 
 
     }

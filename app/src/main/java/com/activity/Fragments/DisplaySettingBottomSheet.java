@@ -23,7 +23,6 @@ public class DisplaySettingBottomSheet
     public DisplaySettingBottomSheet(Boolean isDarkMode, int textSize) {
         this.isDarkMode = isDarkMode;
         this.textSize = textSize;
-        Log.i("hieu", isDarkMode + "  " + textSize);
     }
 
 

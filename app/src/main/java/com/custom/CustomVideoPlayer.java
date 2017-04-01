@@ -15,11 +15,7 @@ import android.widget.VideoView;
 import com.model.Video;
 import com.phuchieu.news.R;
 
-/**
- * Created by ACER on 3/20/2017.
- */
-
-public class CustomVideoPlayer extends RelativeLayout {
+public class CustomVideoPlayer extends RelativeLayout implements MediaPlayer.OnPreparedListener {
     String url;
     VideoView videoView;
     View rootView;
@@ -49,18 +45,7 @@ public class CustomVideoPlayer extends RelativeLayout {
             rootView.setVisibility(View.VISIBLE);
             videoView.setVideoURI(uri);
             videoView.setZOrderOnTop(true);
-            videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-
-                    videoView.setBackgroundColor(Color.TRANSPARENT);
-                    videoView.setZOrderOnTop(false);
-                    progressBar.setVisibility(View.GONE);
-
-
-
-                }
-            });
+            videoView.setOnPreparedListener(this);
 
 
 
@@ -75,5 +60,12 @@ public class CustomVideoPlayer extends RelativeLayout {
         mediaController.setAnchorView(rootView);
         rootView.setVisibility(View.GONE);
         videoView.setMediaController(mediaController);
+    }
+
+    @Override
+    public void onPrepared(MediaPlayer mediaPlayer) {
+        videoView.setBackgroundColor(Color.TRANSPARENT);
+        videoView.setZOrderOnTop(false);
+        progressBar.setVisibility(View.GONE);
     }
 }
