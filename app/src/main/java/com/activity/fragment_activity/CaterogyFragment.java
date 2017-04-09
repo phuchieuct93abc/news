@@ -88,7 +88,7 @@ public class CaterogyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 categoryService.setSelectedCategory(link);
-                feedService.setFeedContentLink(source.getDetail());
+                feedService.setFeedContentLink(source);
                 mainActivityInterface.onCategorySelected(((AppCompatButton) v).getText().toString());
 
             }

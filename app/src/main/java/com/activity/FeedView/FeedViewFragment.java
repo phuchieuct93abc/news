@@ -25,7 +25,6 @@ import android.widget.TextView;
 import com.activity.MainActivityInterface;
 import com.config.Config_;
 import com.custom.CustomVideoPlayer;
-import com.google.common.base.Predicate;
 import com.model.Feed;
 import com.nineoldandroids.view.ViewHelper;
 import com.phuchieu.news.R;

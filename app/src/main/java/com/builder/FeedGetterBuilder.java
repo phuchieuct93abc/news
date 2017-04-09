@@ -1,13 +1,11 @@
 package com.builder;
 
-import android.util.Log;
-
 import com.FeedGetter;
 import com.config.Config_;
+import com.enums.ViewModeEnum;
 import com.feed.AllFeedGetter;
 import com.feed.ReadGetter;
 import com.feed.UnReadGetter;
-import com.services.ViewModeEnum;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;

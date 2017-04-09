@@ -1,13 +1,11 @@
 package com.services;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.FeedGetter;
 import com.builder.FeedGetterBuilder;
 import com.config.Config_;
 import com.google.gson.Gson;
-import com.model.Articlelist;
 import com.model.Category;
 import com.model.Feed;
 import com.model.Source.Source;
@@ -23,8 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.services.ViewModeEnum.ALL_FEED;
 
 @EBean(scope = EBean.Scope.Singleton)
 public class CategoryService {

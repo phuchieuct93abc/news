@@ -20,12 +20,12 @@ import com.activity.fragment_activity.CaterogyFragment_;
 import com.activity.fragment_activity.ListFeedFragment;
 import com.activity.fragment_activity.ListFeedFragment_;
 import com.config.Config_;
+import com.enums.ViewModeEnum;
 import com.google.gson.Gson;
 import com.model.Feed;
 import com.phuchieu.news.R;
 import com.services.CategoryService;
 import com.services.SharedElementHelper;
-import com.services.ViewModeEnum;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;

@@ -21,6 +21,8 @@ public class Splash extends Activity {
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
+
+
             Intent i = new Intent(activity, MainActivity_.class);
             ImageView sharedView = (ImageView) findViewById(R.id.icon);
             String transitionName = getString(R.string.sharedIconName);

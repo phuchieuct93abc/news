@@ -36,8 +36,13 @@ public abstract class FeedOnlineGetter  extends FeedGetter {
 
         }
         this.getFeed().addAll(result);
+        saveToDB(result);
 
         return result;
+    }
+
+    private void saveToDB(List<Feed> result) {
+        Feed.saveInTx(result);
     }
 
 

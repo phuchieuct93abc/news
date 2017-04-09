@@ -1,17 +1,18 @@
 package com.services;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.ImageView;
 
+import com.builder.FeedContentGetterBuilder;
+import com.interfaces.FeedContentGetterInterface;
 import com.model.Feed;
+import com.model.Source.Source;
 import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
-import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -24,29 +25,20 @@ public class FeedService {
     @Bean
     HttpService httpService;
     Picasso picasso;
+    @Bean
+    FeedContentGetterBuilder feedContentGetterBuilder;
+    FeedContentGetterInterface feedContentGetter;
 
     @AfterInject
     void init() {
         picasso = Picasso.with(context.getApplicationContext());
+        feedContentGetter = feedContentGetterBuilder.getFeedContentGetter();
 
     }
 
     public Feed getFeedContentFromFeed(final Feed feed) throws Exception {
 
-        Integer id = feed.getContentID();
-        String link_request;
-        link_request = this.feedContentLink.replace("{ID}", id + "");
-
-        String responseCategory;
-        Log.d("aa",link_request);
-        responseCategory = httpService.readUrl(link_request);
-        String contentHTML;
-
-        JSONObject jObject = new JSONObject(responseCategory);
-
-        contentHTML = jObject.getJSONObject("article").getString("Body");
-        feed.setContentHTML(contentHTML);
-        return feed;
+        return feedContentGetter.getFeedById(feed);
     }
 
     public String getSource(String urlSource) {
@@ -73,7 +65,7 @@ public class FeedService {
     }
 
 
-    public void setFeedContentLink(String feedContentLink) {
-        this.feedContentLink = feedContentLink;
+    public void setFeedContentLink(Source source) {
+        feedContentGetter.setSource(source);
     }
 }

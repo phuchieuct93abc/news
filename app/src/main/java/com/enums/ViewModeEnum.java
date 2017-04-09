@@ -1,4 +1,4 @@
-package com.services;
+package com.enums;
 
 import java.util.HashMap;
 import java.util.Map;
