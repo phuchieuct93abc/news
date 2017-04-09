@@ -14,12 +14,13 @@ public class FeedContentOnlineGetter extends FeedContentGetterAbstract {
 
     @Bean
     HttpService httpService;
-    FeedContentGetterAbstract nextSetter;
 
 
 
     @Override
     public Feed getFeedById(Feed feed) throws Exception {
+        Log.d("get feed online", feed.getContentID() + "");
+
         Integer id = feed.getContentID();
         String link_request;
         link_request = this.source.getDetail().replace("{ID}", id + "");
@@ -37,8 +38,5 @@ public class FeedContentOnlineGetter extends FeedContentGetterAbstract {
         return feed;
     }
 
-    @Override
-    public void setNextGetter(FeedContentGetterAbstract nextGetter) {
-        this.nextSetter = nextGetter;
-    }
+
 }
