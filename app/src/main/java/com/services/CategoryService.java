@@ -3,6 +3,8 @@ package com.services;
 import android.content.Context;
 import android.util.Log;
 
+import com.FeedGetter;
+import com.builder.FeedGetterBuilder;
 import com.config.Config_;
 import com.google.gson.Gson;
 import com.model.Articlelist;
@@ -11,6 +13,7 @@ import com.model.Feed;
 import com.model.Source.Source;
 import com.model.Source.Sources;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
@@ -51,9 +54,17 @@ public class CategoryService {
     FeedService feedService;
     @Pref
     Config_ config;
+    @Bean
+    FeedGetterBuilder feedGetterBuilder;
 
-    private String currentCategoryLink;
-    private int duplicateCount = 0;
+    FeedGetter feedGetter;
+    com.model.Source.Category selectedCategory;
+
+
+    @AfterInject
+    public void initialize(){
+        feedGetter = feedGetterBuilder.getFeedGetter();
+    }
 
 
     public Source getSourceByLanguage(String language) {
@@ -94,13 +105,14 @@ public class CategoryService {
     }
 
 
-    public void setSelectedCategory(com.model.Source.Category link) {
-        clearCacheList();
-        this.currentCategoryLink = link.getLink();
+    public void setSelectedCategory(com.model.Source.Category category) {
+        feedGetter.reset();
+        feedGetter.setCategory(category);
+        this.selectedCategory = category;
     }
 
     public List<Feed> getListFeed() {
-        return listFeed;
+        return feedGetter.getFeed();
     }
 
 
@@ -109,81 +121,29 @@ public class CategoryService {
     }
 
     public void clearCacheList() {
-        duplicateCount = 0;
-        setListFeed(new ArrayList<Feed>());
+        initialize();
+        feedGetter.reset();
+        feedGetter.setCategory(this.selectedCategory);
     }
 
-    private String getCategoryURLWithIndex() {
-        return currentCategoryLink.replace("{START_PAGE}", "" + (listFeed.size() + duplicateCount));
 
-
-    }
 
     public List<Feed> getMoreFeed() throws Exception {
-        List<Feed> result = new ArrayList<>();
-        String link = getCategoryURLWithIndex();
-        String responseCategory = httpService.readUrl(link);
-        Articlelist articlelist = new Gson().fromJson(responseCategory, Articlelist.class);
-        if (responseCategory != null) {
-            for (Feed feed : articlelist.getArticlelist()) {
-                if (feedFilter(feed)) {
-                    result.add(feed);
-                } else {
-                    duplicateCount++;
-                }
-            }
-            addDataToList(result);
-        }
-        return result;
-    }
-    private boolean feedFilter(Feed feed){
-        boolean isNotDuplicate = getIndexInCaterogyById(feed.getContentID()) == -1;
-        boolean isRead = feed.isRead(context);
-        Log.d("aaa",config.viewMode().get()+"");
-        ViewModeEnum viewModeEnum = ViewModeEnum.getByCode(config.viewMode().get());
-        switch (viewModeEnum){
-            case ALL_FEED:
-                Log.d("HIEU","all");
-
-                return isNotDuplicate;
-            case READ_FEED:
-                Log.d("HIEU","read");
-
-                return isNotDuplicate && isRead;
-            case UNREAD_FEED:
-                Log.d("HIEU","unred");
-                return isNotDuplicate && !isRead;
-    default:return isNotDuplicate;
-
-
-        }
-
-
-
+       return feedGetter.getMore();
     }
 
-    private void addDataToList(List<Feed> addedData) {
-        listFeed = new ArrayList<>(listFeed);
-        listFeed.addAll(addedData);
-    }
+
+
+
+
+
 
     public int getIndexInCaterogyById(Integer id) {
-        for (Feed d : listFeed) {
-            if (d.getContentID().equals(id)) {
-                int index = listFeed.indexOf(d);
-                return index;
-            }
-        }
-        return -1;
+       return feedGetter.getIndexInCaterogyById(id);
     }
 
     public Feed getFeedById(String id) {
-        for (Feed d : listFeed) {
-            if (d.getContentID().equals(Integer.valueOf(id))) {
-                return d;
-            }
-        }
-        return null;
+       return feedGetter.getFeedById(id);
     }
 
 

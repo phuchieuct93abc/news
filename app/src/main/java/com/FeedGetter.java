@@ -1,5 +1,7 @@
 package com;
 
+import android.util.Log;
+
 import com.interfaces.FeedGetterInterfacer;
 import com.model.Feed;
 import com.model.Source.Category;
@@ -11,36 +13,53 @@ import java.util.List;
 public abstract class FeedGetter implements FeedGetterInterfacer {
     private Category category;
     private List<Feed> feeds = new ArrayList<>();
-    private int duplicateCount =0;
+    protected int duplicateCount =0;
 
     protected String getCategoryURLWithIndex() {
         String categoryLink = this.category.getLink();
-
+        Log.d("Get feed process",String.format("Get from %s, duplicate :%s",feeds.size() + duplicateCount,duplicateCount));
         return categoryLink.replace("{START_PAGE}", "" + (feeds.size() + duplicateCount));
 
 
     }
     public void reset(){
-        this.feeds.clear();
-
+        this.feeds = new ArrayList<>();
+        duplicateCount = 0;
 
     }
 
-    public Category getCategory() {
-        return category;
+    public List<Feed> getFeed(){
+
+        return this.feeds;
     }
 
     public void setCategory(Category category) {
         this.category = category;
     }
 
-    protected Boolean isDuplicate(List<Feed> input){
-       /* for (Feed d : this.feeds) {
-            if (d.getContentID().equals(id)) {
-                int index = listFeed.indexOf(d);
-                return index;
+
+    protected Boolean isDuplicate(Feed input){
+       for (Feed d : this.feeds) {
+            if (d.getContentID().equals(input.getContentID())) {
+                return true;
             }
-        }*/
+        }
         return false;
+    }
+    public Feed getFeedById(String id) {
+        for (Feed d : this.feeds) {
+            if (d.getContentID().equals(Integer.valueOf(id))) {
+                return d;
+            }
+        }
+        return null;
+    }
+    public int getIndexInCaterogyById(Integer id) {
+        for (Feed d : this.feeds) {
+            if (d.getContentID().equals(id)) {
+                return this.feeds.indexOf(d);
+            }
+        }
+        return -1;
     }
 }

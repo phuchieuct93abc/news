@@ -9,24 +9,34 @@ import com.feed.ReadGetter;
 import com.feed.UnReadGetter;
 import com.services.ViewModeEnum;
 
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.sharedpreferences.Pref;
+
+
 
 @EBean
 public class FeedGetterBuilder {
     @Pref
-    private Config_ config;
+    Config_ config;
 
+    @Bean
+    AllFeedGetter allFeedGetter;
+
+    @Bean
+     UnReadGetter unReadGetter;
+    @Bean
+    ReadGetter readGetter;
     public FeedGetter getFeedGetter() {
 
         ViewModeEnum viewModeEnum = ViewModeEnum.getByCode(config.viewMode().get());
         switch (viewModeEnum) {
             case ALL_FEED:
-                return new AllFeedGetter();
+                return allFeedGetter;
             case READ_FEED:
-                return new ReadGetter();
+                return  readGetter;
             case UNREAD_FEED:
-                return new UnReadGetter();
+                return unReadGetter;
         }
         return new AllFeedGetter();
     }
