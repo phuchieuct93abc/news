@@ -94,6 +94,9 @@ public class Feed extends SugarRecord implements Serializable {
     }
 
     public String getContentHTML() {
+        if (this.ContentHTML == null) {
+            return null;
+        }
         String result = this.ContentHTML;
         result = result.replaceAll("data-img-src", "src");
         result = result.replaceAll("<p>\u200B</p>", "");

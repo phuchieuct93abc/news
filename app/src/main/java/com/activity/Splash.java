@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.widget.ImageView;
 
+import com.model.Feed;
 import com.phuchieu.news.R;
 
 import org.androidannotations.annotations.AfterViews;
@@ -21,7 +22,7 @@ public class Splash extends Activity {
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
-
+            Feed.findById(Feed.class, 1);
 
             Intent i = new Intent(activity, MainActivity_.class);
             ImageView sharedView = (ImageView) findViewById(R.id.icon);

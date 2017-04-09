@@ -2,28 +2,21 @@ package com.services;
 
 import android.util.Log;
 
-import com.interfaces.FeedContentGetterInterface;
+import com.interfaces.FeedContentGetterAbstract;
 import com.model.Feed;
-import com.model.Source.Source;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.json.JSONObject;
 
 @EBean
-public class FeedContentOnlineGetter implements FeedContentGetterInterface {
-    Source source;
+public class FeedContentOnlineGetter extends FeedContentGetterAbstract {
 
     @Bean
     HttpService httpService;
+    FeedContentGetterAbstract nextSetter;
 
-    public Source getSource() {
-        return source;
-    }
 
-    public void setSource(Source source) {
-        this.source = source;
-    }
 
     @Override
     public Feed getFeedById(Feed feed) throws Exception {
@@ -40,6 +33,12 @@ public class FeedContentOnlineGetter implements FeedContentGetterInterface {
 
         contentHTML = jObject.getJSONObject("article").getString("Body");
         feed.setContentHTML(contentHTML);
+        Feed.save(feed);
         return feed;
+    }
+
+    @Override
+    public void setNextGetter(FeedContentGetterAbstract nextGetter) {
+        this.nextSetter = nextGetter;
     }
 }

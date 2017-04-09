@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.builder.FeedContentGetterBuilder;
-import com.interfaces.FeedContentGetterInterface;
+import com.interfaces.FeedContentGetterAbstract;
 import com.model.Feed;
 import com.model.Source.Source;
 import com.squareup.picasso.Picasso;
@@ -27,7 +27,7 @@ public class FeedService {
     Picasso picasso;
     @Bean
     FeedContentGetterBuilder feedContentGetterBuilder;
-    FeedContentGetterInterface feedContentGetter;
+    FeedContentGetterAbstract feedContentGetter;
 
     @AfterInject
     void init() {
