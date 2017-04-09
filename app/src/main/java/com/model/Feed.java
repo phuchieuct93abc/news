@@ -12,6 +12,15 @@ public class Feed extends SugarRecord implements Serializable {
 
     public static String isReadPreferences = "ISREAD";
     private Integer ContentID;
+
+    public Integer getSourceID() {
+        return SourceID;
+    }
+
+    public void setSourceID(Integer sourceID) {
+        SourceID = sourceID;
+    }
+
     private Integer SourceID;
     private String SourceName;
     private Integer ZoneID;
@@ -36,6 +45,16 @@ public class Feed extends SugarRecord implements Serializable {
     private Double Date;
     private Boolean isRead;
     private String ContentHTML;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    private String category;
 
     public Integer getContentID() {
         return ContentID;

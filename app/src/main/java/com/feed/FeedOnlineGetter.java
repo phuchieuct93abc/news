@@ -29,17 +29,27 @@ public abstract class FeedOnlineGetter  extends FeedGetter {
             if (responseCategory != null) {
 
                 result = filterFeed(articlelist.getArticlelist());
-
+                if (result.isEmpty()) {
+                    return this.getMore();
+                }
             }
         } catch (Exception e) {
 
 
         }
-        this.getFeed().addAll(result);
+        setCategoryForFeed(result);
+
 
         return result;
     }
 
+    private void setCategoryForFeed(List<Feed> result) {
+
+        for (Feed feed : result) {
+            feed.setCategory(this.category.getId());
+
+        }
+    }
 
 
     public abstract  List<Feed> filterFeed(List<Feed> input);

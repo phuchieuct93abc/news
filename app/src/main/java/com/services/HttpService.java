@@ -1,7 +1,6 @@
 package com.services;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -13,19 +12,16 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.AfterInject;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
 
 @EBean
 public class HttpService {
-    private final static int TIMEOUT = 2000;
     private static String DEFAULT_URL = "http://etaal.gov.in/etaal/Image/news.png";
     @RootContext
     Context context;
-    @Bean
-    CacheProvider cacheProvider;
+
     LoadBuilder<Builders.Any.B> ionLoadUrl;
     Picasso picasso;
 
@@ -37,20 +33,14 @@ public class HttpService {
 
 
     public String readUrl(final String path) throws Exception {
-        Log.e("aaa",path);
         final String clonedPath = path;
         Integer runningTime = 0;
-        String cacheString = cacheProvider.get(clonedPath);
-        if (cacheString != null) {
 
-            return cacheString;
-        }
         while (runningTime <= 10) {
             runningTime++;
             try {
 
                 String result = ionLoadUrl.load(clonedPath).asString().get();
-                cacheProvider.put(clonedPath, result);
                 return result;
 
             } catch (Exception e) {

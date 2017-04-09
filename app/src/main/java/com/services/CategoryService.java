@@ -125,7 +125,7 @@ public class CategoryService {
 
 
     public List<Feed> getMoreFeed() throws Exception {
-       return feedGetter.getMore();
+        return feedGetter.getMoreFeed();
     }
 
 

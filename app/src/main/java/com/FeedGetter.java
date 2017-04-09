@@ -11,7 +11,7 @@ import java.util.List;
 
 
 public abstract class FeedGetter implements FeedGetterInterfacer {
-    private Category category;
+    protected Category category;
     private List<Feed> feeds = new ArrayList<>();
     protected int duplicateCount =0;
 
@@ -61,5 +61,12 @@ public abstract class FeedGetter implements FeedGetterInterfacer {
             }
         }
         return -1;
+    }
+
+    public List<Feed> getMoreFeed() {
+        List<Feed> moreFeed = this.getMore();
+        this.feeds.addAll(moreFeed);
+
+        return moreFeed;
     }
 }

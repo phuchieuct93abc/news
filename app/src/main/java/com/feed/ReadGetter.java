@@ -1,5 +1,7 @@
 package com.feed;
 
+import android.util.Log;
+
 import com.FeedGetter;
 import com.model.Feed;
 
@@ -16,9 +18,17 @@ public class ReadGetter extends FeedGetter {
 
     @Override
     public List<Feed> getMore() {
-        return new ArrayList<>();
-    }
+        Log.d("Get more", this.getFeed().size() + "");
+        if (this.getFeed().isEmpty()) {
 
+            String categoryId = this.category.getId();
+
+            return Feed.find(Feed.class, "category = ?", categoryId);
+        } else {
+            return new ArrayList<>();
+        }
+
+    }
 
 
 }

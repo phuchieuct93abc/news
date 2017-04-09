@@ -17,7 +17,6 @@ import com.marshalchen.ultimaterecyclerview.CustomUltimateRecyclerview;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 import com.model.Feed;
 import com.phuchieu.news.R;
-import com.services.CacheProvider;
 import com.services.CategoryService;
 import com.services.FeedService;
 
@@ -53,14 +52,12 @@ public class ListFeedFragment extends Fragment implements Serializable {
     CategoryService categoryService;
     Context context;
     Integer scrollPosition = null;
-    @Bean
-    CacheProvider cacheProvider;
+
     @ViewById
     RelativeLayout progress_bar_loading_news;
 
     @AfterInject
     void afterInject() {
-        cacheProvider.clearCache();
         initData(new Runnable() {
             @Override
             public void run() {
@@ -118,11 +115,9 @@ public class ListFeedFragment extends Fragment implements Serializable {
         UltimateRecyclerView.OnLoadMoreListener loadMoreListener = new UltimateRecyclerView.OnLoadMoreListener() {
             @Override
             public void loadMore(int itemsCount, final int maxLastVisiblePosition) {
-                if(itemsCount>=1){
 
 
                     loadNextPage();
-                }
 
 
             }
@@ -138,7 +133,6 @@ public class ListFeedFragment extends Fragment implements Serializable {
         Runnable callbackAfterLoadmore = new Runnable() {
             @Override
             public void run() {
-                cacheProvider.clearCache();
                 categoryService.clearCacheList();
                 adapter.clear();
                 initData(new Runnable() {
