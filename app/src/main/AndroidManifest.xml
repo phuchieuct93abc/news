@@ -6,12 +6,12 @@
     <uses-sdk android:minSdkVersion="21" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name="com.orm.SugarApp"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/news_icon"
@@ -19,20 +19,25 @@
         android:largeHeap="true"
         android:screenOrientation="portrait"
         android:theme="@style/LightCustom"
-        tools:replace="android:icon"
-        android:name="com.orm.SugarApp"
-      >
-        <meta-data android:name="DATABASE" android:value="sugar_example.db" />
+        tools:replace="android:icon">
+        <meta-data
+            android:name="DATABASE"
+            android:value="sugar_example.db" />
         <meta-data
             android:name="VERSION"
             android:value="4" />
-        <meta-data android:name="QUERY_LOG" android:value="true" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.model" />
-
-        <meta-data android:name="AA_DB_NAME" android:value="Pickrand.db" />
-        <meta-data android:name="AA_DB_VERSION" android:value="1" />
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="Pickrand.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
 
         <activity
             android:name="com.activity.Splash_"
@@ -45,10 +50,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.activity.MainActivity_"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.activity.DemoVideo"
+            android:label="@string/title_activity_demo_video"
+            android:theme="@style/LightCustom">
+
+        </activity>
     </application>
 
 </manifest>

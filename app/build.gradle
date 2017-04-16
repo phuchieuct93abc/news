@@ -2,8 +2,9 @@ apply plugin: 'com.android.application'
 
 buildscript {
     repositories {
-        mavenCentral()
         jcenter()
+
+        mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 
     }
@@ -54,9 +55,10 @@ apt {
     }
 }
 dependencies {
+    compile project(':basic_component')
+
     compile 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     compile 'org.androidannotations:androidannotations-api:4.1.0'
-    apt 'org.androidannotations:androidannotations:4.1.0'
     compile 'com.koushikdutta.ion:ion:2.1.4'
     compile 'com.marshalchen.ultimaterecyclerview:library:0.3.11'
     compile 'com.android.support:appcompat-v7:23.3.0'
@@ -71,11 +73,10 @@ dependencies {
     compile 'org.apache.poi:poi:3.7'
     compile 'com.xgc1986.android:parallaxpagertransformer:1.0.4'
     compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
-    compile 'com.github.satyan:sugar:1.4'
+    compile 'com.github.satyan:sugar:1.5'
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
     compile 'me.everything:overscroll-decor-android:1.0.3'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'org.jsoup:jsoup:1.10.2'
-
-    compile 'com.github.satyan:sugar:1.5'
+    apt 'org.androidannotations:androidannotations:4.1.0'
 }

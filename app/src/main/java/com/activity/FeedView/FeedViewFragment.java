@@ -24,7 +24,6 @@ import android.widget.TextView;
 
 import com.activity.MainActivityInterface;
 import com.config.Config_;
-import com.custom.CustomVideoPlayer;
 import com.model.Feed;
 import com.nineoldandroids.view.ViewHelper;
 import com.phuchieu.news.R;
@@ -100,7 +99,7 @@ public class FeedViewFragment extends Fragment {
     @ViewById
     ConstraintLayout topReloadWrapper;
     @ViewById
-    CustomVideoPlayer customVideoPlayer;
+    com.example.component.CustomVideoPlayer customVideoPlayer;
     @Bean
     UtilService utilService;
 
@@ -111,8 +110,6 @@ public class FeedViewFragment extends Fragment {
     Boolean backToListFeed = false;
     ViewTreeObserver viewTreeObserver;
     Boolean isLoadedContent = false;
-
-
 
 
     @Override
@@ -202,7 +199,7 @@ public class FeedViewFragment extends Fragment {
     }
 
     @UiThread
-    void updateTextViewContent(String html){
+    void updateTextViewContent(String html) {
         ImageGetter imageGetter = new ImageGetter(getActivity(), textViewContent);
         Spanned spanned = Html.fromHtml(html, imageGetter, null);
         if (spanned != null && textViewContent != null) {
@@ -223,10 +220,10 @@ public class FeedViewFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && !isLoadedContent ) {
+        if (isVisibleToUser && !isLoadedContent) {
 
             loadContent();
-        }else{
+        } else {
 
 
         }
@@ -241,24 +238,22 @@ public class FeedViewFragment extends Fragment {
         scrollUpToClose();
 
 
-
     }
 
 
     private void setVideo(String htmlString) {
 
 
-        //  final Uri uri = Uri.parse("http://baomoi-video.r.za.zdn.vn/af2ae754ef4e7926fda0dc65d772b326/58ca57d4/video.viettimes.vn/2017_03_15/lemai/cnngoihanoilacainoicuadisan1489479819_1.mp4");
-        //  final Uri uri =Uri.parse(htmlString);
+        try {
+            String videoUrl = utilService.getVideo(htmlString);
+            //   videoUrl = "http://baomoi-video.r.za.zdn.vn/af2ae754ef4e7926fda0dc65d772b326/58ca57d4/video.viettimes.vn/2017_03_15/lemai/cnngoihanoilacainoicuadisan1489479819_1.mp4";
 
-      try {
-          String videoUrl = utilService.getVideo(htmlString);
-          customVideoPlayer.setUrl(videoUrl);
-          customVideoPlayer.ready();
-      }catch(Exception e){
-Log.e("ERROR","Can load video",e);
-      }
+            customVideoPlayer.setUrl(videoUrl);
 
+            customVideoPlayer.ready();
+        } catch (Exception e) {
+            Log.e("ERROR", "Can load video", e);
+        }
 
 
     }

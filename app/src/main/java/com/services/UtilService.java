@@ -1,7 +1,5 @@
 package com.services;
 
-import com.model.Video;
-
 import org.androidannotations.annotations.EBean;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,7 +13,7 @@ public class UtilService {
     public String getVideo(String html){
         Document doc = Jsoup.parse(html);
         Element element = doc.select("video source").first();
-        if(element !=null){
+        if (element != null) {
 
             return element.attr("data-src");
         }

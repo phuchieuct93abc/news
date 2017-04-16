@@ -178,6 +178,7 @@ public class FeedViewActivity extends Fragment implements OnPageChangeListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
 

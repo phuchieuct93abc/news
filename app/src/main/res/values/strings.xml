@@ -26,5 +26,6 @@
     <string name="onlyUnread">Only unread</string>
     <string name="onlyRead">Only read</string>
     <string name="loading_video">Loading video</string>
+    <string name="title_activity_demo_video">DemoVideo</string>
 
 </resources>
