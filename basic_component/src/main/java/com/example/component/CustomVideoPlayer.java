@@ -1,7 +1,6 @@
 package com.example.component;
 
 import android.content.Context;
-import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -41,16 +40,20 @@ public class CustomVideoPlayer extends RelativeLayout {
     public void ready(){
         if(this.url!=null){
             rootView.setVisibility(View.VISIBLE);
-
             videoWebview.loadUrl(url);
-
-
         }
     }
 
-    private void play(Uri uri) {
+    public void resume() {
+        videoWebview.onResume();
 
     }
+
+    public void pause() {
+        videoWebview.onPause();
+
+    }
+
 
     private void init(Context context) {
         rootView = inflate(context, R.layout.custom_component, this);

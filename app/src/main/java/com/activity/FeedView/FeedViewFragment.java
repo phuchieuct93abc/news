@@ -221,10 +221,27 @@ public class FeedViewFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && !isLoadedContent) {
-
+            Log.d("d", "Visible");
             loadContent();
+        }
+        if (isVisibleToUser) {
+            resumeVideo();
         } else {
+            stopVideo();
+        }
+    }
 
+
+    private void stopVideo() {
+        if (customVideoPlayer != null) {
+            customVideoPlayer.pause();
+
+        }
+    }
+
+    private void resumeVideo() {
+        if (customVideoPlayer != null) {
+            customVideoPlayer.resume();
 
         }
     }
